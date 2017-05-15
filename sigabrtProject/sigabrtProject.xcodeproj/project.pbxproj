@@ -51,6 +51,30 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		9B0474381EC9E9CC0075A6A6 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		9B0474391EC9EBEA0075A6A6 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9BFBF98B1EBA232500DA7D25 /* Main.storyboard */,
+				9BFBF9901EBA232500DA7D25 /* LaunchScreen.storyboard */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		9B04743A1EC9EBEF0075A6A6 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				9BFBF9891EBA232500DA7D25 /* ViewController.swift */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
 		9BFBF97B1EBA232500DA7D25 = {
 			isa = PBXGroup;
 			children = (
@@ -73,11 +97,11 @@
 		9BFBF9861EBA232500DA7D25 /* sigabrtProject */ = {
 			isa = PBXGroup;
 			children = (
+				9B04743A1EC9EBEF0075A6A6 /* Controller */,
+				9B0474391EC9EBEA0075A6A6 /* View */,
+				9B0474381EC9E9CC0075A6A6 /* Model */,
 				9BFBF9871EBA232500DA7D25 /* AppDelegate.swift */,
-				9BFBF9891EBA232500DA7D25 /* ViewController.swift */,
-				9BFBF98B1EBA232500DA7D25 /* Main.storyboard */,
 				9BFBF98E1EBA232500DA7D25 /* Assets.xcassets */,
-				9BFBF9901EBA232500DA7D25 /* LaunchScreen.storyboard */,
 				9BFBF9931EBA232500DA7D25 /* Info.plist */,
 			);
 			path = sigabrtProject;
