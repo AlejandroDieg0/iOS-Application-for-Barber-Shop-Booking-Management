@@ -17,6 +17,10 @@
 		E33F8BE41EC9EE4B00705497 /* Barber.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E33F8BE31EC9EE4B00705497 /* Barber.storyboard */; };
 		E33F8BE61EC9EE5E00705497 /* User.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E33F8BE51EC9EE5E00705497 /* User.storyboard */; };
 		E33F8BE81EC9EEA800705497 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E33F8BE71EC9EEA800705497 /* Login.storyboard */; };
+		E33F8BEA1EC9F66800705497 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33F8BE91EC9F66800705497 /* User.swift */; };
+		E33F8BEC1EC9F70000705497 /* Shop.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33F8BEB1EC9F70000705497 /* Shop.swift */; };
+		E33F8BEE1EC9F7F000705497 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33F8BED1EC9F7F000705497 /* Service.swift */; };
+		E33F8BF01EC9F97C00705497 /* Reservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33F8BEF1EC9F97C00705497 /* Reservation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +37,10 @@
 		E33F8BE31EC9EE4B00705497 /* Barber.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Barber.storyboard; sourceTree = "<group>"; };
 		E33F8BE51EC9EE5E00705497 /* User.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = User.storyboard; sourceTree = "<group>"; };
 		E33F8BE71EC9EEA800705497 /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
+		E33F8BE91EC9F66800705497 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		E33F8BEB1EC9F70000705497 /* Shop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shop.swift; sourceTree = "<group>"; };
+		E33F8BED1EC9F7F000705497 /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
+		E33F8BEF1EC9F97C00705497 /* Reservation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reservation.swift; sourceTree = "<group>"; };
 		FE4E48101E0B8755FAE84BC9 /* Pods_sigabrtProject.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_sigabrtProject.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -60,6 +68,10 @@
 		9B0474381EC9E9CC0075A6A6 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				E33F8BE91EC9F66800705497 /* User.swift */,
+				E33F8BEB1EC9F70000705497 /* Shop.swift */,
+				E33F8BED1EC9F7F000705497 /* Service.swift */,
+				E33F8BEF1EC9F97C00705497 /* Reservation.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -252,8 +264,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E33F8BEA1EC9F66800705497 /* User.swift in Sources */,
 				9BFBF98A1EBA232500DA7D25 /* ViewController.swift in Sources */,
+				E33F8BF01EC9F97C00705497 /* Reservation.swift in Sources */,
+				E33F8BEE1EC9F7F000705497 /* Service.swift in Sources */,
 				9BFBF9881EBA232500DA7D25 /* AppDelegate.swift in Sources */,
+				E33F8BEC1EC9F70000705497 /* Shop.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
