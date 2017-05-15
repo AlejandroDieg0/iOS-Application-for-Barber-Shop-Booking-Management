@@ -12,7 +12,7 @@ import MapKit
 class Shop: NSObject {
     let barberId: Int = -1
     let name: String = ""
-    let services: [Service] = []
+    let services: [Int] = [] //dovrebbe essere un array di service ma non funziona
     let numBarbers: Int = -1
     let position: CLLocationCoordinate2D = CLLocationCoordinate2D()
     let desc: String = ""
