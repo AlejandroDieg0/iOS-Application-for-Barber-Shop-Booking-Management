@@ -346,7 +346,7 @@
 				DEVELOPMENT_TEAM = 6KEXA3HMAF;
 				INFOPLIST_FILE = sigabrtProject/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = it.nemesis.sigabrtProject;
+				PRODUCT_BUNDLE_IDENTIFIER = it.socialdev.sigabrtProject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -360,7 +360,7 @@
 				DEVELOPMENT_TEAM = 6KEXA3HMAF;
 				INFOPLIST_FILE = sigabrtProject/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = it.nemesis.sigabrtProject;
+				PRODUCT_BUNDLE_IDENTIFIER = it.socialdev.sigabrtProject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
