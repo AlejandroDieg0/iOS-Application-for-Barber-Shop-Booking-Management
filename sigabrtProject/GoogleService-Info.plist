@@ -7,21 +7,21 @@
 	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
 	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
-	<string>855152809030-f8e9j75fbl90rvk7mnap5qjnvejn7qdv.apps.googleusercontent.com</string>
+	<string>753026523394-3uoq0n0qus5m2cod39tts0kdhb1t9kl4.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.855152809030-f8e9j75fbl90rvk7mnap5qjnvejn7qdv</string>
+	<string>com.googleusercontent.apps.753026523394-3uoq0n0qus5m2cod39tts0kdhb1t9kl4</string>
 	<key>API_KEY</key>
-	<string>AIzaSyDgtRkZf32J-2Rwzo5_dQy0C4wWJm29Efo</string>
+	<string>AIzaSyCAXUJLnejsRVUb1wB4ZBPf16vR3wABnD8</string>
 	<key>GCM_SENDER_ID</key>
-	<string>855152809030</string>
+	<string>753026523394</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>it.socialdev.barber</string>
+	<string>org.iosda.cohort2.sigabrt</string>
 	<key>PROJECT_ID</key>
-	<string>barber-poject</string>
+	<string>sigabrt-iosda</string>
 	<key>STORAGE_BUCKET</key>
-	<string>barber-poject.appspot.com</string>
+	<string>sigabrt-iosda.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<true/>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -33,8 +33,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true/>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:855152809030:ios:496f995d51ba2a52</string>
+	<string>1:753026523394:ios:c6d881e116f1f8d8</string>
 	<key>DATABASE_URL</key>
-	<string>https://barber-poject.firebaseio.com</string>
+	<string>https://sigabrt-iosda.firebaseio.com</string>
 </dict>
 </plist>
