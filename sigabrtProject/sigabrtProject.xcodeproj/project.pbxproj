@@ -12,9 +12,11 @@
 		9BFBF98D1EBA232500DA7D25 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9BFBF98B1EBA232500DA7D25 /* Main.storyboard */; };
 		9BFBF98F1EBA232500DA7D25 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9BFBF98E1EBA232500DA7D25 /* Assets.xcassets */; };
 		9BFBF9921EBA232500DA7D25 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9BFBF9901EBA232500DA7D25 /* LaunchScreen.storyboard */; };
+		C9BF471E0A8B29B855AE28ED /* Pods_sigabrtProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE4E48101E0B8755FAE84BC9 /* Pods_sigabrtProject.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		52546786F64904BA596E6B85 /* Pods-sigabrtProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sigabrtProject.debug.xcconfig"; path = "Pods/Target Support Files/Pods-sigabrtProject/Pods-sigabrtProject.debug.xcconfig"; sourceTree = "<group>"; };
 		9BFBF9841EBA232500DA7D25 /* sigabrtProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = sigabrtProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BFBF9871EBA232500DA7D25 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9BFBF9891EBA232500DA7D25 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -22,6 +24,8 @@
 		9BFBF98E1EBA232500DA7D25 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9BFBF9911EBA232500DA7D25 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9BFBF9931EBA232500DA7D25 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E1AED266F19751A8C31C1AC4 /* Pods-sigabrtProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sigabrtProject.release.xcconfig"; path = "Pods/Target Support Files/Pods-sigabrtProject/Pods-sigabrtProject.release.xcconfig"; sourceTree = "<group>"; };
+		FE4E48101E0B8755FAE84BC9 /* Pods_sigabrtProject.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_sigabrtProject.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +33,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9BF471E0A8B29B855AE28ED /* Pods_sigabrtProject.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3E797D1B45B53EAEE0610CD3 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				52546786F64904BA596E6B85 /* Pods-sigabrtProject.debug.xcconfig */,
+				E1AED266F19751A8C31C1AC4 /* Pods-sigabrtProject.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		9BFBF97B1EBA232500DA7D25 = {
 			isa = PBXGroup;
 			children = (
 				9BFBF9861EBA232500DA7D25 /* sigabrtProject */,
 				9BFBF9851EBA232500DA7D25 /* Products */,
+				3E797D1B45B53EAEE0610CD3 /* Pods */,
+				F437AEF6CD0984ED8CDE57CF /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -64,6 +80,14 @@
 			path = sigabrtProject;
 			sourceTree = "<group>";
 		};
+		F437AEF6CD0984ED8CDE57CF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FE4E48101E0B8755FAE84BC9 /* Pods_sigabrtProject.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -71,9 +95,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9BFBF9961EBA232500DA7D25 /* Build configuration list for PBXNativeTarget "sigabrtProject" */;
 			buildPhases = (
+				CC64634C8F08896FD4707A43 /* [CP] Check Pods Manifest.lock */,
 				9BFBF9801EBA232500DA7D25 /* Sources */,
 				9BFBF9811EBA232500DA7D25 /* Frameworks */,
 				9BFBF9821EBA232500DA7D25 /* Resources */,
+				6BC4B2DC94C3E0C12D303D27 /* [CP] Embed Pods Frameworks */,
+				A2F4D900AE66633155F5DD65 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -96,7 +123,7 @@
 				TargetAttributes = {
 					9BFBF9831EBA232500DA7D25 = {
 						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = YB659K76HV;
+						DevelopmentTeam = 6KEXA3HMAF;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -131,6 +158,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		6BC4B2DC94C3E0C12D303D27 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-sigabrtProject/Pods-sigabrtProject-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A2F4D900AE66633155F5DD65 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-sigabrtProject/Pods-sigabrtProject-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CC64634C8F08896FD4707A43 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		9BFBF9801EBA232500DA7D25 /* Sources */ = {
@@ -261,9 +336,10 @@
 		};
 		9BFBF9971EBA232500DA7D25 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 52546786F64904BA596E6B85 /* Pods-sigabrtProject.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = YB659K76HV;
+				DEVELOPMENT_TEAM = 6KEXA3HMAF;
 				INFOPLIST_FILE = sigabrtProject/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = it.nemesis.sigabrtProject;
@@ -274,9 +350,10 @@
 		};
 		9BFBF9981EBA232500DA7D25 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E1AED266F19751A8C31C1AC4 /* Pods-sigabrtProject.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = YB659K76HV;
+				DEVELOPMENT_TEAM = 6KEXA3HMAF;
 				INFOPLIST_FILE = sigabrtProject/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = it.nemesis.sigabrtProject;
@@ -304,6 +381,7 @@
 				9BFBF9981EBA232500DA7D25 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
