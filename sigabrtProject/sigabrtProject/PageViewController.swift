@@ -23,6 +23,17 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource ,
         }
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
+        if launchedBefore  {
+            performSegue(withIdentifier: "Showmap", sender: nil)
+            print("Not first launch.")
+        } else {
+            print("First launch, setting UserDefault.")
+            UserDefaults.standard.set(true, forKey: "launchedBefore")
+        }
+    }
+    
     public func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         guard let viewControllerIndex = WIZarray.index(of: viewController) else{
             return nil

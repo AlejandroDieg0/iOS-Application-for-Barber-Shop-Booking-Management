@@ -13,7 +13,11 @@
         <!--Page View Controller-->
         <scene sceneID="r3i-C4-E7f">
             <objects>
-                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="oLY-up-1py" customClass="PageViewController" customModule="sigabrtProject" customModuleProvider="target" sceneMemberID="viewController"/>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="oLY-up-1py" customClass="PageViewController" customModule="sigabrtProject" customModuleProvider="target" sceneMemberID="viewController">
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="Showmap" id="szB-MS-AjX"/>
+                    </connections>
+                </pageViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mqI-uz-gou" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-471" y="181"/>
@@ -100,7 +104,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Entra"/>
                                 <connections>
-                                    <segue destination="BYZ-38-t0r" kind="show" id="6pE-6w-mPw"/>
+                                    <segue destination="BYZ-38-t0r" kind="show" identifier="" id="6pE-6w-mPw"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -184,4 +188,7 @@
             <point key="canvasLocation" x="-471" y="865"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="6pE-6w-mPw"/>
+    </inferredMetricsTieBreakers>
 </document>
