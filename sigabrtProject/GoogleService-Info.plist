@@ -23,7 +23,7 @@
 	<key>STORAGE_BUCKET</key>
 	<string>sigabrt-iosda.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
-	<true/>
+	<false/>
 	<key>IS_ANALYTICS_ENABLED</key>
 	<false/>
 	<key>IS_APPINVITE_ENABLED</key>
@@ -36,5 +36,7 @@
 	<string>1:753026523394:ios:c6d881e116f1f8d8</string>
 	<key>DATABASE_URL</key>
 	<string>https://sigabrt-iosda.firebaseio.com</string>
+	<key>FIREBASE_ANALYTICS_COLLECTION_DEACTIVATED</key>
+	<string>YES</string>
 </dict>
 </plist>
