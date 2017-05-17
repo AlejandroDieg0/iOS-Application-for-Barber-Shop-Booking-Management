@@ -24,13 +24,9 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource ,
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
-        if launchedBefore  {
+        let disableWizard = UserDefaults.standard.bool(forKey: "disableWizard")
+        if disableWizard {
             performSegue(withIdentifier: "Showmap", sender: nil)
-            print("Not first launch.")
-        } else {
-            print("First launch, setting UserDefault.")
-            UserDefaults.standard.set(true, forKey: "launchedBefore")
         }
     }
     
