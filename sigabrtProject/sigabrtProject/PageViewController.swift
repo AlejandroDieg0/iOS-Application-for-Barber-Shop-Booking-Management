@@ -83,4 +83,16 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource ,
         return firstViewControllerIndex
     }
     
+    //some magic to make UIPageControl transparent
+    override func viewDidLayoutSubviews() {
+        for subView in self.view.subviews {
+            if subView is UIScrollView {
+                subView.frame = self.view.bounds
+            } else if subView is UIPageControl {
+                self.view.bringSubview(toFront: subView)
+            }
+        }
+        super.viewDidLayoutSubviews()
+    }
+    
 }
