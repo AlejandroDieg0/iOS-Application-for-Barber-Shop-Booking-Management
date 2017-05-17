@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="oLY-up-1py">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -12,7 +12,7 @@
         <!--Page View Controller-->
         <scene sceneID="r3i-C4-E7f">
             <objects>
-                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="pageCurl" navigationOrientation="horizontal" spineLocation="min" id="oLY-up-1py" sceneMemberID="viewController"/>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="oLY-up-1py" customClass="PageViewController" customModule="sigabrtProject" customModuleProvider="target" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mqI-uz-gou" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-471" y="181"/>
@@ -20,7 +20,7 @@
         <!--View Controller-->
         <scene sceneID="Fx3-z1-0pi">
             <objects>
-                <viewController id="B6n-e8-dbv" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FirstViewController" id="B6n-e8-dbv" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="S1F-av-dCG"/>
                         <viewControllerLayoutGuide type="bottom" id="pOS-n4-idJ"/>
@@ -29,8 +29,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <pageControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" currentPage="1" translatesAutoresizingMaskIntoConstraints="NO" id="dII-Zz-xxj">
+                                <rect key="frame" x="168" y="622" width="39" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </pageControl>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="View 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bln-hu-lVA">
-                                <rect key="frame" x="166" y="595" width="49" height="21"/>
+                                <rect key="frame" x="163" y="323" width="49" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -47,7 +51,7 @@
         <!--View Controller-->
         <scene sceneID="5E1-w6-GfC">
             <objects>
-                <viewController id="pec-50-vfN" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SecondViewController" id="pec-50-vfN" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Qd4-aN-BEx"/>
                         <viewControllerLayoutGuide type="bottom" id="oVO-VQ-p8j"/>
@@ -57,7 +61,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="View 2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vym-Q4-Liq">
-                                <rect key="frame" x="163" y="570" width="52" height="21"/>
+                                <rect key="frame" x="161" y="323" width="52" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -74,7 +78,7 @@
         <!--View Controller-->
         <scene sceneID="tK8-aW-zrS">
             <objects>
-                <viewController id="Z2r-Jl-kjF" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ThirdViewController" id="Z2r-Jl-kjF" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="odj-pE-sFr"/>
                         <viewControllerLayoutGuide type="bottom" id="SbK-yz-AQh"/>
@@ -84,7 +88,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="View 3" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rFt-mN-yhk">
-                                <rect key="frame" x="163" y="576" width="52" height="21"/>
+                                <rect key="frame" x="161" y="323" width="52" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -123,11 +127,15 @@
                                     </searchBar>
                                     <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="HVf-rn-sfE">
                                         <rect key="frame" x="0.0" y="44" width="375" height="559"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="BYZ-38-t0r" id="Rxq-N2-iTR"/>
+                                        </connections>
                                     </mapView>
                                     <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9Hy-Rf-KL0">
                                         <rect key="frame" x="0.0" y="603" width="375" height="44"/>
                                         <items>
-                                            <barButtonItem title="Item" id="J3V-TE-rYV"/>
+                                            <barButtonItem title="Favourite" id="J3V-TE-rYV"/>
+                                            <barButtonItem title="Select" width="480" id="0pl-oz-kD9"/>
                                         </items>
                                     </toolbar>
                                 </subviews>

@@ -11,7 +11,7 @@ class MapViewController: UIViewController,MKMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let myPosition = CLLocationCoordinate2D(latitude: Double("40.8")!, longitude: Double("14.3")!)
+        let myPosition = CLLocationCoordinate2D(latitude: Double("41.8")!, longitude: Double("1.3")!)
         let pin = MKPointAnnotation()
         pin.coordinate = myPosition
         pin.title = "Barber Shop"
@@ -24,7 +24,7 @@ class MapViewController: UIViewController,MKMapViewDelegate {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        
     }
     
 
