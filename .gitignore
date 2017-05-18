@@ -4,6 +4,7 @@
 *.swp
 *.lock
 profile
+!*.xcworkspace
 
 #####
 # DotEnv files
