@@ -13,7 +13,6 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource ,
         
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.dataSource = self
@@ -21,13 +20,6 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource ,
         if let firstViewController = WIZarray.first{
             setViewControllers([firstViewController], direction: .forward, animated: true, completion: nil)
         }
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        /*let disableWizard = UserDefaults.standard.bool(forKey: "HasLaunchedOnce")
-        if disableWizard {
-            performSegue(withIdentifier: "Showmap", sender: nil)
-        }*/
     }
     
     public func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {

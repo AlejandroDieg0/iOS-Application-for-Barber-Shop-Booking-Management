@@ -22,20 +22,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FIRApp.configure()
         
         // Controllo termini accettati
-        if(UserDefaults.standard.bool(forKey: "HasLaunchedOnce"))
+        if(UserDefaults.standard.bool(forKey: "disableWizard"))
         {
-            // app already launched
-            // Controllo autenticazione già eseguita
-            
             let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "mapView")
             self.window?.rootViewController = vc
-            
-            
         }
         else
         {
-            // This is the first launch ever
-            UserDefaults.standard.set(true, forKey: "HasLaunchedOnce")
             UserDefaults.standard.synchronize()
             let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "wizardView")
             self.window?.rootViewController = vc

@@ -80,10 +80,10 @@
             </objects>
             <point key="canvasLocation" x="874" y="179"/>
         </scene>
-        <!--View Controller-->
+        <!--Third View Controller-->
         <scene sceneID="tK8-aW-zrS">
             <objects>
-                <viewController storyboardIdentifier="ThirdViewController" id="Z2r-Jl-kjF" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ThirdViewController" id="Z2r-Jl-kjF" customClass="ThirdViewController" customModule="sigabrtProject" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="odj-pE-sFr"/>
                         <viewControllerLayoutGuide type="bottom" id="SbK-yz-AQh"/>
@@ -107,6 +107,20 @@
                                     <segue destination="BYZ-38-t0r" kind="show" identifier="" id="6pE-6w-mPw"/>
                                 </connections>
                             </button>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="ehf-YU-Mz4">
+                                <rect key="frame" x="247" y="504" width="51" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="changedValueSwitch:" destination="Z2r-Jl-kjF" eventType="valueChanged" id="ADU-pU-N8v"/>
+                                </connections>
+                            </switch>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Nommostrarepiù" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VDB-rn-35V">
+                                <rect key="frame" x="79" y="509" width="129" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -188,6 +202,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="szB-MS-AjX"/>
+        <segue reference="6pE-6w-mPw"/>
     </inferredMetricsTieBreakers>
 </document>

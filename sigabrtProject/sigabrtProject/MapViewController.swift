@@ -15,9 +15,6 @@ class MapViewController: UIViewController,MKMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        UserDefaults.standard.set(true, forKey: "disableWizard")
-        
         let myPosition = CLLocationCoordinate2D(latitude: Double("41.9102399")!, longitude: Double("12.2551245")!)
         
         self.personalMap.delegate = self
