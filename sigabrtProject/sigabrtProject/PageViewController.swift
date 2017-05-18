@@ -2,6 +2,14 @@ import UIKit
 
 class PageViewController: UIPageViewController, UIPageViewControllerDataSource , UIPageViewControllerDelegate {
     
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.all //return the value as per the required orientation
+    }
+    
+    override var shouldAutorotate: Bool {
+        return false
+    }
+    
     lazy var WIZarray: [UIViewController] = {
         return [self.VCinstance(name: "FirstViewController"),
                 self.VCinstance(name: "SecondViewController"),
