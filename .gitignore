@@ -72,7 +72,7 @@ profile
 # CocoaPods
 #Pods/
 #!Podfile
-!Pods/Manifest.lock
+!Manifest.lock
 !Podfile.lock
 
 ####
