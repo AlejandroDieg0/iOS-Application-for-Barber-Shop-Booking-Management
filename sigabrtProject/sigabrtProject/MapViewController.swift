@@ -34,9 +34,9 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
     }
     
     func drawMap(){
-        var ref: FIRDatabaseReference!
+        var ref: DatabaseReference!
         
-        ref = FIRDatabase.database().reference().child("barbers")
+        ref = Database.database().reference().child("barbers")
         
         ref.observe(.childAdded, with: { snapshot in
             if let snapshotValue = snapshot.value as? [String:Any],
@@ -55,7 +55,7 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
                 tempPin.subtitle = barberDesc
                 tempPin.coordinate = CLLocationCoordinate2D(latitude: Double(barberLat), longitude: Double(barberLon))
                 
-                let imageURL = FIRStorage.storage().reference(forURL: "gs://sigabrt-iosda.appspot.com/").child("barbers/\(String(ID)).png")
+                let imageURL = Storage.storage().reference(forURL: "gs://sigabrt-iosda.appspot.com/").child("barbers/\(String(ID)).png")
                 
                 imageURL.downloadURL(completion: { (url, error) in
                     

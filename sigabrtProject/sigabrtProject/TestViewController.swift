@@ -13,8 +13,8 @@ import FBSDKLoginKit
 class TestViewController: UITableViewController {
 
     var x = ""
-    let firebaseAuth = FIRAuth.auth()
-    let user = FIRAuth.auth()?.currentUser
+    let firebaseAuth = Auth.auth()
+    let user = Auth.auth().currentUser
     
     @IBOutlet var reauthView: UIView!
     
@@ -98,7 +98,7 @@ class TestViewController: UITableViewController {
             })
 
         }else{
-            if FIRAuth.auth()?.currentUser != nil {
+            if Auth.auth().currentUser != nil {
                 
                 helloName.text = "Hello \(String(describing:  user!.displayName ))"
                 self.labelName.text = user!.displayName
@@ -121,7 +121,7 @@ class TestViewController: UITableViewController {
     
     @IBAction func logOut(_ sender: UIButton) {
         do {
-            try firebaseAuth?.signOut()
+            try firebaseAuth.signOut()
             
         } catch let signOutError as NSError {
             print ("Error signing out: %@", signOutError)
@@ -154,7 +154,7 @@ class TestViewController: UITableViewController {
             return
         }
         animateIn(sender: reauthView)
-        FIRAuth.auth()?.sendPasswordReset(withEmail: mail) { (error) in
+        Auth.auth().sendPasswordReset(withEmail: mail) { (error) in
             // ...
         }
 
@@ -248,10 +248,7 @@ class TestViewController: UITableViewController {
             return
         }
         
-        let user = FIRAuth.auth()?.currentUser
-        let credential = FIREmailPasswordAuthProvider.credential(withEmail: email, password: password)
-        
-        user?.reauthenticate(with: credential) { error in
+        firebaseAuth.signIn(withEmail: email, password: password) { user, error in
             if error != nil {
                 self.reauthError.text = "Wrong mail or password."
                 UIView.animate(withDuration: 0.3, animations: {
@@ -273,7 +270,7 @@ class TestViewController: UITableViewController {
                 case "name":
                     
                     let newName = self.changeName.text
-                    let changeRequest = FIRAuth.auth()?.currentUser?.profileChangeRequest()
+                    let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
                     changeRequest?.displayName = newName
                     changeRequest?.commitChanges() { (error) in
                         // ...
@@ -291,7 +288,7 @@ class TestViewController: UITableViewController {
                 
                 case "mailUpdate":
                     let newMail = self.changemail.text
-                    FIRAuth.auth()?.currentUser?.updateEmail(newMail!) { (error) in
+                    Auth.auth().currentUser?.updateEmail(to: newMail!) { (error) in
 
                     }
                     self.animateOut(sender: self.reauthView)
