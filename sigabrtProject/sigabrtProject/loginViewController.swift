@@ -12,7 +12,6 @@ import FacebookCore
 import FacebookLogin
 import FBSDKCoreKit
 import FBSDKLoginKit
-import TextFieldEffects
 import UITextField_Shake
 
 

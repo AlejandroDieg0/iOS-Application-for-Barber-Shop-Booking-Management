@@ -13,16 +13,9 @@ PODS:
     - FacebookCore (~> 0.2)
     - FBSDKCoreKit (~> 4.15)
     - FBSDKLoginKit (~> 4.15)
-  - FacebookShare (0.2.0):
-    - Bolts (~> 1.8)
-    - FacebookCore (~> 0.2)
-    - FBSDKCoreKit (~> 4.15)
-    - FBSDKShareKit (~> 4.15)
   - FBSDKCoreKit (4.22.1):
     - Bolts (~> 1.7)
   - FBSDKLoginKit (4.22.1):
-    - FBSDKCoreKit
-  - FBSDKShareKit (4.22.1):
     - FBSDKCoreKit
   - Firebase/Auth (4.0.0):
     - Firebase/Core
@@ -66,29 +59,24 @@ PODS:
   - GoogleToolboxForMac/NSString+URLArguments (2.1.1)
   - GTMSessionFetcher/Core (1.1.9)
   - Nuke (5.1)
-  - TextFieldEffects (1.3.2)
   - UITextField+Shake (1.1.2)
 
 DEPENDENCIES:
   - FacebookCore
   - FacebookLogin
-  - FacebookShare
   - Firebase/Auth
   - Firebase/Core
   - Firebase/Database
   - Firebase/Storage
   - Nuke (~> 5.0)
-  - TextFieldEffects
   - UITextField+Shake (~> 1.1)
 
 SPEC CHECKSUMS:
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
   FacebookCore: 2cb3f0fbff218e9d3119cec84bae983b232412de
   FacebookLogin: c9d606504735780a9e3002465a615512e0a691a5
-  FacebookShare: 8e9ee8ea06505e6a1d3d719b0cc63e840fb8aaeb
   FBSDKCoreKit: 9c2daf0162214d6d2e21cf8208a9c6c2a2e42b9c
   FBSDKLoginKit: 00cf28916b9f0169763a3d61985d745b579fe304
-  FBSDKShareKit: 1cbd0fdc2bb3277dd3522512855dcf1f4088f734
   Firebase: 284eea779b73fdff309791817da7c68bff8dd572
   FirebaseAnalytics: 6f08e746f7d66f5452931bc2e822b5df9c66b64a
   FirebaseAuth: ebb6abcbabae00fc47446d690c19ce68d8484fde
@@ -99,9 +87,8 @@ SPEC CHECKSUMS:
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
   GTMSessionFetcher: 5c046c76a1f859bc9c187e918f18e4fc7bb57b5e
   Nuke: 8ab71e77f6a54ff5fb697f93537c35f419bb01f7
-  TextFieldEffects: 9e5cce561ea39c75b86e9d3637601727a67e8b23
   UITextField+Shake: 47cc0429dafb3da580686339ad2da091249a8ea2
 
-PODFILE CHECKSUM: 935c9008bd7455090a571d42e6456d37070098c6
+PODFILE CHECKSUM: a051e0e40a48f6b6d5c428db2e125640262618cc
 
 COCOAPODS: 1.2.1
