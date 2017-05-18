@@ -3,18 +3,23 @@ import UIKit
 import MapKit
 import Firebase
 
-class MapViewController: UIViewController,MKMapViewDelegate {
+class MapViewController: UIViewController,MKMapViewDelegate,ModernSearchBarDelegate {
     
     @IBOutlet weak var personalMap: MKMapView!
     
+    @IBOutlet weak var modernSearchBar: ModernSearchBar!
     
     
     let regionRadius: CLLocationDistance = 1000000
     var pins: [MKPointAnnotation: Any] = [:]
     var TempID: Int = 0
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //self.modernSearchBar.delegateModernSearchBar = self
+       //initializeSearchBar()
         
         UserDefaults.standard.set(true, forKey: "disableWizard")
         
@@ -44,7 +49,7 @@ class MapViewController: UIViewController,MKMapViewDelegate {
                 let barberLat = currentData["latitude"] as! Double
                 let barberLon = (currentData["longitude"])! as! Double
                 self.TempID = (currentData["id"])! as! Int
-
+                
                 let tempPin : MKPointAnnotation = MKPointAnnotation()
                 tempPin.title = barberName
                 tempPin.subtitle = barberDesc
@@ -54,7 +59,7 @@ class MapViewController: UIViewController,MKMapViewDelegate {
                 
                 self.personalMap.addAnnotation(tempPin)
                 print(barberLat)
-               
+                
             }
             
             
@@ -66,7 +71,7 @@ class MapViewController: UIViewController,MKMapViewDelegate {
         let tempAnnotation = annotation as? MKPointAnnotation
         let barber = self.pins[tempAnnotation!] as? [String:Any]
         let barberID = (barber?["id"])! as! Int
-
+        
         pin.pinTintColor = UIColor.black
         pin.canShowCallout = true
         pin.animatesDrop = true
@@ -92,7 +97,18 @@ class MapViewController: UIViewController,MKMapViewDelegate {
             }).resume()
             
         })
-
+        
         return pin
     }
+    
+    /*func initializeSearchBar(){
+        var suggestionListWithUrl = Array<ModernSearchBarModel>()
+        for employee in employees {
+            suggestionListWithUrl.append(ModernSearchBarModel(title: employee.name + " " + employee.surname, url: employee.imageUrl))
+        }
+        
+        
+        self.modernSearchBar.setDatasWithUrl(datas: suggestionListWithUrl)
+    }
+ */
 }
