@@ -1,10 +1,3 @@
-//
-//  SearchBarCompletion.swift
-//  SearchBarCompletion
-//
-//  Created by Philippe on 03/03/2017.
-//  Copyright © 2017 CookMinute. All rights reserved.
-//
 
 import UIKit
 import Foundation

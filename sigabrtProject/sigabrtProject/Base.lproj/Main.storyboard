@@ -130,12 +130,9 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="M0I-ON-2fO">
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <subviews>
-                                    <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="bJY-g1-5eJ" customClass="ModernSearchBar" customModule="ModernSearchBar">
+                                    <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="bJY-g1-5eJ" customClass="ModernSearchBar" customModule="sigabrtProject">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                         <textInputTraits key="textInputTraits"/>
-                                        <connections>
-                                            <outlet property="delegate" destination="BYZ-38-t0r" id="qan-0u-bCQ"/>
-                                        </connections>
                                     </searchBar>
                                     <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="HVf-rn-sfE">
                                         <rect key="frame" x="0.0" y="44" width="375" height="559"/>
@@ -178,7 +175,6 @@
                 <searchDisplayController id="NSK-o6-UB6">
                     <connections>
                         <outlet property="delegate" destination="BYZ-38-t0r" id="tmr-F1-bZy"/>
-                        <outlet property="searchBar" destination="bJY-g1-5eJ" id="ObX-69-ShG"/>
                         <outlet property="searchContentsController" destination="BYZ-38-t0r" id="ZkO-eS-P6w"/>
                         <outlet property="searchResultsDataSource" destination="BYZ-38-t0r" id="wwQ-JE-MdO"/>
                         <outlet property="searchResultsDelegate" destination="BYZ-38-t0r" id="37z-g0-9JC"/>

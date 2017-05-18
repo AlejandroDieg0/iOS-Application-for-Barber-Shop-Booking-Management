@@ -3,7 +3,7 @@ import UIKit
 import MapKit
 import Firebase
 
-class MapViewController: UIViewController,MKMapViewDelegate,ModernSearchBarDelegate {
+class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDelegate {
     
     @IBOutlet weak var personalMap: MKMapView!
     
@@ -18,8 +18,11 @@ class MapViewController: UIViewController,MKMapViewDelegate,ModernSearchBarDeleg
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //self.modernSearchBar.delegateModernSearchBar = self
-       //initializeSearchBar()
+        
+         self.modernSearchBar.delegateModernSearchBar = self
+         initializeSearchBar()
+     
+       
         
         UserDefaults.standard.set(true, forKey: "disableWizard")
         
@@ -101,14 +104,22 @@ class MapViewController: UIViewController,MKMapViewDelegate,ModernSearchBarDeleg
         return pin
     }
     
-    /*func initializeSearchBar(){
-        var suggestionListWithUrl = Array<ModernSearchBarModel>()
+    func initializeSearchBar(){
+        
+        /*var suggestionListWithUrl = Array<ModernSearchBarModel>()
+        
         for employee in employees {
             suggestionListWithUrl.append(ModernSearchBarModel(title: employee.name + " " + employee.surname, url: employee.imageUrl))
         }
+        */
         
+        var suggestionListWithUrl = Array<ModernSearchBarModel>()
+        suggestionListWithUrl.append(ModernSearchBarModel(title: "Alpha", url: "https://github.com/PhilippeBoisney/ModernSearchBar/raw/master/Examples%20Url/exampleA.png"))
+        suggestionListWithUrl.append(ModernSearchBarModel(title: "Bravo", url: "https://github.com/PhilippeBoisney/ModernSearchBar/raw/master/Examples%20Url/exampleB.png"))
         
         self.modernSearchBar.setDatasWithUrl(datas: suggestionListWithUrl)
+        
+        //self.modernSearchBar.setDatasWithUrl(datas: suggestionList)
     }
- */
+ 
 }
