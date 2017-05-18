@@ -6,14 +6,13 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Page View Controller-->
         <scene sceneID="r3i-C4-E7f">
             <objects>
-                <pageViewController storyboardIdentifier="wizardView" autoresizesArchivedViewToFullSize="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="oLY-up-1py" customClass="PageViewController" customModule="sigabrtProject" customModuleProvider="target" sceneMemberID="viewController">
+                <pageViewController storyboardIdentifier="wizardView" autoresizesArchivedViewToFullSize="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" transitionStyle="pageCurl" navigationOrientation="horizontal" spineLocation="none" id="oLY-up-1py" customClass="PageViewController" customModule="sigabrtProject" customModuleProvider="target" sceneMemberID="viewController">
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="Showmap" id="szB-MS-AjX"/>
                     </connections>
@@ -36,15 +35,11 @@
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Prima Pagina del Wizard" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bln-hu-lVA">
                                 <rect key="frame" x="94" y="323" width="186" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <pageControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" currentPage="1" translatesAutoresizingMaskIntoConstraints="NO" id="dII-Zz-xxj">
-                                <rect key="frame" x="168" y="567" width="39" height="37"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </pageControl>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="0.19856770830000001" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
@@ -67,7 +62,7 @@
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Seconda Pagina del Wizard" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vym-Q4-Liq">
                                 <rect key="frame" x="83" y="323" width="209" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -94,14 +89,14 @@
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Terza Pagina del Wizard" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rFt-mN-yhk">
                                 <rect key="frame" x="95" y="323" width="184" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bz9-pk-qCv">
                                 <rect key="frame" x="66" y="564" width="243" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <state key="normal" title="Entra"/>
                                 <connections>
                                     <segue destination="BYZ-38-t0r" kind="show" identifier="" id="6pE-6w-mPw"/>
@@ -109,14 +104,14 @@
                             </button>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="ehf-YU-Mz4">
                                 <rect key="frame" x="247" y="504" width="51" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <autoresizingMask key="autoresizingMask"/>
                                 <connections>
                                     <action selector="changedValueSwitch:" destination="Z2r-Jl-kjF" eventType="valueChanged" id="ADU-pU-N8v"/>
                                 </connections>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Nommostrarepiù" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VDB-rn-35V">
                                 <rect key="frame" x="79" y="509" width="129" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -141,42 +136,39 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="M0I-ON-2fO">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="HVf-rn-sfE">
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
-                                <subviews>
-                                    <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="bJY-g1-5eJ" customClass="ModernSearchBar" customModule="sigabrtProject">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </searchBar>
-                                    <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="HVf-rn-sfE">
-                                        <rect key="frame" x="0.0" y="44" width="375" height="559"/>
+                                <connections>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="Rxq-N2-iTR"/>
+                                </connections>
+                            </mapView>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="bJY-g1-5eJ" customClass="ModernSearchBar" customModule="sigabrtProject">
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Hy-Rf-KL0">
+                                <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                                <items>
+                                    <barButtonItem title="Login" id="J3V-TE-rYV">
                                         <connections>
-                                            <outlet property="delegate" destination="BYZ-38-t0r" id="Rxq-N2-iTR"/>
+                                            <segue destination="ZFh-yO-Rjp" kind="show" id="Bop-b6-Q7e"/>
                                         </connections>
-                                    </mapView>
-                                    <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Hy-Rf-KL0">
-                                        <rect key="frame" x="0.0" y="603" width="375" height="44"/>
-                                        <items>
-                                            <barButtonItem title="Login" id="J3V-TE-rYV"/>
-                                        </items>
-                                    </toolbar>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstItem="HVf-rn-sfE" firstAttribute="top" secondItem="bJY-g1-5eJ" secondAttribute="bottom" id="Cn3-bl-JKq"/>
-                                    <constraint firstItem="HVf-rn-sfE" firstAttribute="leading" secondItem="M0I-ON-2fO" secondAttribute="leading" id="KYI-gX-NeA"/>
-                                    <constraint firstAttribute="trailing" secondItem="HVf-rn-sfE" secondAttribute="trailing" id="P17-gl-BQ4"/>
-                                    <constraint firstItem="9Hy-Rf-KL0" firstAttribute="top" secondItem="HVf-rn-sfE" secondAttribute="bottom" id="fel-fn-AXP"/>
-                                </constraints>
-                            </stackView>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="9Hy-Rf-KL0" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-16" id="5Xh-8S-W8U"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="9Hy-Rf-KL0" secondAttribute="trailing" constant="-16" id="Eh8-Zn-0Un"/>
-                            <constraint firstItem="bJY-g1-5eJ" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="b6F-yE-Fg1"/>
-                            <constraint firstItem="bJY-g1-5eJ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-16" id="g2w-0R-ilS"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="9Hy-Rf-KL0" secondAttribute="bottom" id="g6u-ge-TF4"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="bJY-g1-5eJ" secondAttribute="trailing" constant="-16" id="oTy-aQ-A6K"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="9Hy-Rf-KL0" secondAttribute="bottom" id="68P-fM-OaZ"/>
+                            <constraint firstAttribute="trailing" secondItem="9Hy-Rf-KL0" secondAttribute="trailing" id="CsQ-yp-2HM"/>
+                            <constraint firstItem="9Hy-Rf-KL0" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Ldr-gh-8ii"/>
+                            <constraint firstAttribute="trailing" secondItem="bJY-g1-5eJ" secondAttribute="trailing" id="PAo-4j-hZB"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="HVf-rn-sfE" secondAttribute="bottom" id="S02-DM-CDt"/>
+                            <constraint firstItem="bJY-g1-5eJ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="br6-AZ-Evs"/>
+                            <constraint firstAttribute="trailing" secondItem="HVf-rn-sfE" secondAttribute="trailing" id="ffi-ok-lCR"/>
+                            <constraint firstItem="HVf-rn-sfE" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="hoz-nD-lBV"/>
+                            <constraint firstItem="HVf-rn-sfE" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="q5a-Gi-zph"/>
+                            <constraint firstItem="bJY-g1-5eJ" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="yZ7-wJ-xSU"/>
                         </constraints>
                     </view>
                     <connections>
@@ -195,7 +187,15 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="-471" y="865"/>
+            <point key="canvasLocation" x="-471.19999999999999" y="864.91754122938539"/>
+        </scene>
+        <!--User-->
+        <scene sceneID="mYc-Ed-GGw">
+            <objects>
+                <viewControllerPlaceholder storyboardName="User" id="ZFh-yO-Rjp" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NhY-Gz-2W8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="289" y="1087"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
