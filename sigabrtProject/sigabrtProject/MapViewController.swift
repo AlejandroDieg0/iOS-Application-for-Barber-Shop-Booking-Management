@@ -7,11 +7,14 @@ class MapViewController: UIViewController,MKMapViewDelegate {
     
     @IBOutlet weak var personalMap: MKMapView!
     
+    @IBOutlet weak var shopSearchBar: UISearchBar!
+    
     let regionRadius: CLLocationDistance = 1000000
     var pins: [MKPointAnnotation: Any] = [:]
     var TempID: Int = 0
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         
         UserDefaults.standard.set(true, forKey: "disableWizard")
         

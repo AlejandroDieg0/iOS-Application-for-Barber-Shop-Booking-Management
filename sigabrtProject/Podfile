@@ -6,9 +6,13 @@ target 'sigabrtProject' do
   use_frameworks!
 
   # Pods for sigabrtProject
-    pod 'Firebase/Core'
-    pod 'Firebase/Auth'
-    pod 'Firebase/Database'
-    pod 'Firebase/Storage'
+pod 'Firebase/Core'
+pod 'Firebase/Auth'
+pod 'Firebase/Database'
+pod 'FacebookCore'
+pod 'FacebookLogin'
+pod 'FacebookShare'
+pod 'TextFieldEffects'
+pod 'UITextField+Shake', '~> 1.1'
 
 end

@@ -13,7 +13,7 @@
         <!--Page View Controller-->
         <scene sceneID="r3i-C4-E7f">
             <objects>
-                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="oLY-up-1py" customClass="PageViewController" customModule="sigabrtProject" customModuleProvider="target" sceneMemberID="viewController">
+                <pageViewController storyboardIdentifier="pageView" autoresizesArchivedViewToFullSize="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="oLY-up-1py" customClass="PageViewController" customModule="sigabrtProject" customModuleProvider="target" sceneMemberID="viewController">
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="Showmap" id="szB-MS-AjX"/>
                     </connections>
@@ -147,7 +147,6 @@
                                         <rect key="frame" x="0.0" y="603" width="375" height="44"/>
                                         <items>
                                             <barButtonItem title="Favourite" id="J3V-TE-rYV"/>
-                                            <barButtonItem title="Select" width="480" id="0pl-oz-kD9"/>
                                         </items>
                                     </toolbar>
                                 </subviews>
@@ -172,6 +171,7 @@
                     <connections>
                         <outlet property="personalMap" destination="HVf-rn-sfE" id="EjC-V7-IOm"/>
                         <outlet property="searchDisplayController" destination="NSK-o6-UB6" id="eEp-hS-OFA"/>
+                        <outlet property="shopSearchBar" destination="bJY-g1-5eJ" id="wlp-WX-Mh1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -189,6 +189,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="6pE-6w-mPw"/>
+        <segue reference="szB-MS-AjX"/>
     </inferredMetricsTieBreakers>
 </document>
