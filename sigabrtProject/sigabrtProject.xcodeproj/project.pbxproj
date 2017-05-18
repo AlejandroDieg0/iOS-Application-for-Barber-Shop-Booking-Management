@@ -18,9 +18,10 @@
 		C9BF471E0A8B29B855AE28ED /* Pods_sigabrtProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE4E48101E0B8755FAE84BC9 /* Pods_sigabrtProject.framework */; };
 		E33F8BE41EC9EE4B00705497 /* Barber.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E33F8BE31EC9EE4B00705497 /* Barber.storyboard */; };
 		E33F8BE61EC9EE5E00705497 /* User.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E33F8BE51EC9EE5E00705497 /* User.storyboard */; };
-		E33F8BE81EC9EEA800705497 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E33F8BE71EC9EEA800705497 /* Login.storyboard */; };
 		E33F8BEA1EC9F66800705497 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33F8BE91EC9F66800705497 /* User.swift */; };
 		E33F8BEC1EC9F70000705497 /* Shop.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33F8BEB1EC9F70000705497 /* Shop.swift */; };
+		E526F8D91ECD68680023846A /* loginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E526F8D81ECD68680023846A /* loginViewController.swift */; };
+		E526F8DB1ECD68700023846A /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E526F8DA1ECD68700023846A /* TestViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,21 +29,22 @@
 		9B04743B1EC9FAA30075A6A6 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		9B0CC8961ECC7A7F007550FB /* PageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 		9BFBF9841EBA232500DA7D25 /* sigabrtProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = sigabrtProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		9BFBF9871EBA232500DA7D25 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		9BFBF9871EBA232500DA7D25 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = sigabrtProject/AppDelegate.swift; sourceTree = "<group>"; };
 		9BFBF9891EBA232500DA7D25 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		9BFBF98C1EBA232500DA7D25 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9BFBF98E1EBA232500DA7D25 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9BFBF9911EBA232500DA7D25 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		9BFBF9931EBA232500DA7D25 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9BFBF9931EBA232500DA7D25 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = sigabrtProject/Info.plist; sourceTree = "<group>"; };
 		C375C7081EC9E0BC00D0CD81 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E1AED266F19751A8C31C1AC4 /* Pods-sigabrtProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sigabrtProject.release.xcconfig"; path = "Pods/Target Support Files/Pods-sigabrtProject/Pods-sigabrtProject.release.xcconfig"; sourceTree = "<group>"; };
 		E33F8BE31EC9EE4B00705497 /* Barber.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Barber.storyboard; sourceTree = "<group>"; };
 		E33F8BE51EC9EE5E00705497 /* User.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = User.storyboard; sourceTree = "<group>"; };
-		E33F8BE71EC9EEA800705497 /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		E33F8BE91EC9F66800705497 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		E33F8BEB1EC9F70000705497 /* Shop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shop.swift; sourceTree = "<group>"; };
 		E33F8BED1EC9F7F000705497 /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		E33F8BEF1EC9F97C00705497 /* Reservation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reservation.swift; sourceTree = "<group>"; };
+		E526F8D81ECD68680023846A /* loginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = loginViewController.swift; sourceTree = "<group>"; };
+		E526F8DA1ECD68700023846A /* TestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		FE4E48101E0B8755FAE84BC9 /* Pods_sigabrtProject.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_sigabrtProject.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -82,7 +84,6 @@
 			isa = PBXGroup;
 			children = (
 				9BFBF98B1EBA232500DA7D25 /* Main.storyboard */,
-				E33F8BE71EC9EEA800705497 /* Login.storyboard */,
 				E33F8BE31EC9EE4B00705497 /* Barber.storyboard */,
 				E33F8BE51EC9EE5E00705497 /* User.storyboard */,
 				9BFBF9901EBA232500DA7D25 /* LaunchScreen.storyboard */,
@@ -96,6 +97,8 @@
 				9BFBF9891EBA232500DA7D25 /* ViewController.swift */,
 				9B04743B1EC9FAA30075A6A6 /* MapViewController.swift */,
 				9B0CC8961ECC7A7F007550FB /* PageViewController.swift */,
+				E526F8D81ECD68680023846A /* loginViewController.swift */,
+				E526F8DA1ECD68700023846A /* TestViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -103,7 +106,9 @@
 		9BFBF97B1EBA232500DA7D25 = {
 			isa = PBXGroup;
 			children = (
+				9BFBF9931EBA232500DA7D25 /* Info.plist */,
 				C375C7081EC9E0BC00D0CD81 /* GoogleService-Info.plist */,
+				9BFBF9871EBA232500DA7D25 /* AppDelegate.swift */,
 				9BFBF9861EBA232500DA7D25 /* sigabrtProject */,
 				9BFBF9851EBA232500DA7D25 /* Products */,
 				3E797D1B45B53EAEE0610CD3 /* Pods */,
@@ -125,9 +130,7 @@
 				9B04743A1EC9EBEF0075A6A6 /* Controller */,
 				9B0474391EC9EBEA0075A6A6 /* View */,
 				9B0474381EC9E9CC0075A6A6 /* Model */,
-				9BFBF9871EBA232500DA7D25 /* AppDelegate.swift */,
 				9BFBF98E1EBA232500DA7D25 /* Assets.xcassets */,
-				9BFBF9931EBA232500DA7D25 /* Info.plist */,
 			);
 			path = sigabrtProject;
 			sourceTree = "<group>";
@@ -205,7 +208,6 @@
 			files = (
 				9BFBF9921EBA232500DA7D25 /* LaunchScreen.storyboard in Resources */,
 				C375C7091EC9E0BC00D0CD81 /* GoogleService-Info.plist in Resources */,
-				E33F8BE81EC9EEA800705497 /* Login.storyboard in Resources */,
 				9BFBF98F1EBA232500DA7D25 /* Assets.xcassets in Resources */,
 				9BFBF98D1EBA232500DA7D25 /* Main.storyboard in Resources */,
 				E33F8BE41EC9EE4B00705497 /* Barber.storyboard in Resources */,
@@ -268,7 +270,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E526F8D91ECD68680023846A /* loginViewController.swift in Sources */,
 				E33F8BEA1EC9F66800705497 /* User.swift in Sources */,
+				E526F8DB1ECD68700023846A /* TestViewController.swift in Sources */,
 				9BFBF98A1EBA232500DA7D25 /* ViewController.swift in Sources */,
 				9B04743C1EC9FAA30075A6A6 /* MapViewController.swift in Sources */,
 				9B0CC8971ECC7A7F007550FB /* PageViewController.swift in Sources */,

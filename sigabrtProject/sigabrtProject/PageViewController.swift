@@ -24,7 +24,7 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource ,
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        let disableWizard = UserDefaults.standard.bool(forKey: "disableWizard")
+        let disableWizard = UserDefaults.standard.bool(forKey: "HasLaunchedOnce")
         if disableWizard {
             performSegue(withIdentifier: "Showmap", sender: nil)
         }
