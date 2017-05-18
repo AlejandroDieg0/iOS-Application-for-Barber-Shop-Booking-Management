@@ -10,8 +10,8 @@ class MapViewController: UIViewController,MKMapViewDelegate {
     
     
     let regionRadius: CLLocationDistance = 1000000
-    var pins: [MKPointAnnotation] = []
-    
+    var pins: [MKPointAnnotation: Any] = [:]
+    var TempID: Int = 0
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -43,15 +43,18 @@ class MapViewController: UIViewController,MKMapViewDelegate {
                 let barberDesc = (currentData["description"])! as! String
                 let barberLat = currentData["latitude"] as! Double
                 let barberLon = (currentData["longitude"])! as! Double
-                
+                self.TempID = (currentData["id"])! as! Int
+
                 let tempPin : MKPointAnnotation = MKPointAnnotation()
                 tempPin.title = barberName
                 tempPin.subtitle = barberDesc
                 
                 tempPin.coordinate = CLLocationCoordinate2D(latitude: Double(barberLat), longitude: Double(barberLon))
-                self.pins.append(tempPin)
+                self.pins[tempPin]=currentData
+                
                 self.personalMap.addAnnotation(tempPin)
                 print(barberLat)
+               
             }
             
             
@@ -59,32 +62,37 @@ class MapViewController: UIViewController,MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        guard !(annotation is MKUserLocation) else {
-            return nil
-        }
+        let pin = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "sigabrt")
+        let tempAnnotation = annotation as? MKPointAnnotation
+        let barber = self.pins[tempAnnotation!] as? [String:Any]
+        let barberID = (barber?["id"])! as! Int
+
+        pin.pinTintColor = UIColor.black
+        pin.canShowCallout = true
+        pin.animatesDrop = true
         
-        
-        let annotationIdentifier = "AnnotationIdentifier"
-        
-        var annotationView: MKAnnotationView?
-        if let dequeuedAnnotationView = mapView.dequeueReusableAnnotationView(withIdentifier: annotationIdentifier) {
-            annotationView = dequeuedAnnotationView
-            annotationView?.annotation = annotation
-        }
-        else {
-            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: annotationIdentifier)
-            annotationView?.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
-        }
-        
-        if let annotationView = annotationView {
+        let imageURL = FIRStorage.storage().reference(forURL: "gs://sigabrt-iosda.appspot.com/").child("barbers/\(String(barberID)).png")
+        imageURL.downloadURL(completion: { (url, error) in
             
-            annotationView.canShowCallout = true
-            annotationView.image = #imageLiteral(resourceName: "pin")
-        }
-        return nil
-        //return annotationView
+            if error != nil {
+                print(error?.localizedDescription as Any)
+                pin.leftCalloutAccessoryView = UIImageView(image: #imageLiteral(resourceName: "pin"))
+                return
+            }
+            URLSession.shared.dataTask(with: url!, completionHandler: { (data, response, error) in
+                if error != nil {
+                    print(error as Any)
+                    pin.leftCalloutAccessoryView = UIImageView(image: #imageLiteral(resourceName: "pin"))
+                    return
+                }
+                
+                guard let imageData = UIImage(data: data!) else { pin.leftCalloutAccessoryView = UIImageView(image: #imageLiteral(resourceName: "pin"));  return }
+                pin.leftCalloutAccessoryView = UIImageView(image: imageData)
+                
+            }).resume()
+            
+        })
+
+        return pin
     }
-    
-    
-    
 }
