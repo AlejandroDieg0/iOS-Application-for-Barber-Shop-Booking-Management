@@ -7,11 +7,14 @@ class MapViewController: UIViewController,MKMapViewDelegate {
     
     @IBOutlet weak var personalMap: MKMapView!
     
+    @IBOutlet weak var shopSearchBar: UISearchBar!
+    
     let regionRadius: CLLocationDistance = 1000000
     var pins: [MKPointAnnotation] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         
         UserDefaults.standard.set(true, forKey: "disableWizard")
         
@@ -81,6 +84,7 @@ class MapViewController: UIViewController,MKMapViewDelegate {
         return nil
         //return annotationView
     }
+    
     
     
 }

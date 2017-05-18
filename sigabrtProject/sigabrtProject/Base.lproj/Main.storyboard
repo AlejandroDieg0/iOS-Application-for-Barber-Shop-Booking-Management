@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="oLY-up-1py">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="oLY-up-1py">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -147,7 +147,6 @@
                                         <rect key="frame" x="0.0" y="603" width="375" height="44"/>
                                         <items>
                                             <barButtonItem title="Favourite" id="J3V-TE-rYV"/>
-                                            <barButtonItem title="Select" width="480" id="0pl-oz-kD9"/>
                                         </items>
                                     </toolbar>
                                 </subviews>
@@ -172,6 +171,7 @@
                     <connections>
                         <outlet property="personalMap" destination="HVf-rn-sfE" id="EjC-V7-IOm"/>
                         <outlet property="searchDisplayController" destination="NSK-o6-UB6" id="eEp-hS-OFA"/>
+                        <outlet property="shopSearchBar" destination="bJY-g1-5eJ" id="wlp-WX-Mh1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
