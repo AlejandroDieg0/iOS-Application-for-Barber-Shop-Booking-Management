@@ -7,7 +7,7 @@ class MapViewController: UIViewController,MKMapViewDelegate {
     
     @IBOutlet weak var personalMap: MKMapView!
     
-    @IBOutlet weak var shopSearchBar: UISearchBar!
+    
     
     let regionRadius: CLLocationDistance = 1000000
     var pins: [MKPointAnnotation] = []
