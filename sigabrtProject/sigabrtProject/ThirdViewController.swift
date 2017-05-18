@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ThirdViewController: UITableViewController {
+class ThirdViewController: UIViewController {
 
     @IBAction func changedValueSwitch(_ sender: Any) {
         if let sw = sender as? UISwitch{
