@@ -24,4 +24,10 @@ public class ModernSearchBarModel: NSObject {
             self.url = URL(string: "#")
         }
     }
+    public init(title: String, image: UIImage) {
+        super.init()
+        self.title = title
+        self.imgCache = image
+    }
+
 }

@@ -23,7 +23,8 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
         self.personalMap.delegate = self
         personalMap.setRegion(MKCoordinateRegionMakeWithDistance(myPosition, regionRadius, regionRadius), animated: true)
         drawMap()
-        
+        self.modernSearchBar.delegateModernSearchBar = self
+        initializeSearchBar()
     }
     
     override func didReceiveMemoryWarning() {
@@ -108,6 +109,7 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
         var suggestionListWithUrl = Array<ModernSearchBarModel>()
         suggestionListWithUrl.append(ModernSearchBarModel(title: "Alpha", url: "https://github.com/PhilippeBoisney/ModernSearchBar/raw/master/Examples%20Url/exampleA.png"))
         suggestionListWithUrl.append(ModernSearchBarModel(title: "Bravo", url: "https://github.com/PhilippeBoisney/ModernSearchBar/raw/master/Examples%20Url/exampleB.png"))
+        suggestionListWithUrl.append(ModernSearchBarModel(title: "strunx", image: #imageLiteral(resourceName: "pin")))
         
         self.modernSearchBar.setDatasWithUrl(datas: suggestionListWithUrl)
         
