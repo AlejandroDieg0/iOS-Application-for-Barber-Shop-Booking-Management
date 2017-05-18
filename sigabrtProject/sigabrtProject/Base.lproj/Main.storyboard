@@ -13,7 +13,7 @@
         <!--Page View Controller-->
         <scene sceneID="r3i-C4-E7f">
             <objects>
-                <pageViewController storyboardIdentifier="pageView" autoresizesArchivedViewToFullSize="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="oLY-up-1py" customClass="PageViewController" customModule="sigabrtProject" customModuleProvider="target" sceneMemberID="viewController">
+                <pageViewController storyboardIdentifier="wizardView" autoresizesArchivedViewToFullSize="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="oLY-up-1py" customClass="PageViewController" customModule="sigabrtProject" customModuleProvider="target" sceneMemberID="viewController">
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="Showmap" id="szB-MS-AjX"/>
                     </connections>
@@ -118,7 +118,7 @@
         <!--Map View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="MapViewController" customModule="sigabrtProject" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="mapView" id="BYZ-38-t0r" customClass="MapViewController" customModule="sigabrtProject" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>

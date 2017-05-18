@@ -27,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // app already launched
             // Controllo autenticazione già eseguita
             
-            let vc = UIStoryboard(name: "User", bundle: nil).instantiateViewController(withIdentifier: "loginVC")
+            let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "mapView")
             self.window?.rootViewController = vc
             
             
@@ -37,7 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // This is the first launch ever
             UserDefaults.standard.set(true, forKey: "HasLaunchedOnce")
             UserDefaults.standard.synchronize()
-            let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "pageView")
+            let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "wizardView")
             self.window?.rootViewController = vc
         }
         
