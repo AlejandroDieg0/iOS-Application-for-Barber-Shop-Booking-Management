@@ -2,6 +2,8 @@
 import UIKit
 import MapKit
 import Firebase
+import Nuke
+
 
 class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDelegate {
     
@@ -11,9 +13,9 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
     
     
     let regionRadius: CLLocationDistance = 1000000
-    var pins: [MKPointAnnotation: Any] = [:]
+    var pins: [MKPointAnnotation: Shop] = [:]
     var TempID: Int = 0
-    
+    var barbers: [Shop] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,7 +26,6 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
         personalMap.setRegion(MKCoordinateRegionMakeWithDistance(myPosition, regionRadius, regionRadius), animated: true)
         drawMap()
         self.modernSearchBar.delegateModernSearchBar = self
-        initializeSearchBar()
     }
     
     override func didReceiveMemoryWarning() {
@@ -44,20 +45,30 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
                 let barberDesc = (currentData["description"])! as! String
                 let barberLat = currentData["latitude"] as! Double
                 let barberLon = (currentData["longitude"])! as! Double
-                self.TempID = (currentData["id"])! as! Int
+                let ID = (currentData["id"])! as! Int
+                let barberPhone = (currentData["phone"])! as! String
+                let barberAddress = (currentData["address"])! as! String
                 
                 let tempPin : MKPointAnnotation = MKPointAnnotation()
+                
                 tempPin.title = barberName
                 tempPin.subtitle = barberDesc
-                
                 tempPin.coordinate = CLLocationCoordinate2D(latitude: Double(barberLat), longitude: Double(barberLon))
-                self.pins[tempPin]=currentData
                 
-                self.personalMap.addAnnotation(tempPin)
+                let imageURL = FIRStorage.storage().reference(forURL: "gs://sigabrt-iosda.appspot.com/").child("barbers/\(String(ID)).png")
+                
+                imageURL.downloadURL(completion: { (url, error) in
+                    
+                    self.pins[tempPin] = Shop(ID: ID, name: barberName, desc: barberDesc, coordinate: tempPin.coordinate, phone: barberPhone, address: barberAddress, logo: url)
+                    
+                    self.personalMap.addAnnotation(tempPin)
+                    self.initializeSearchBar()
+                    
+                })
                 print(barberLat)
                 
             }
-            
+            self.initializeSearchBar()
             
         })
     }
@@ -65,55 +76,32 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         let pin = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "sigabrt")
         let tempAnnotation = annotation as? MKPointAnnotation
-        let barber = self.pins[tempAnnotation!] as? [String:Any]
-        let barberID = (barber?["id"])! as! Int
+        let shop = self.pins[tempAnnotation!]
+        let barberLogo : UIImageView = UIImageView(image: #imageLiteral(resourceName: "pin"))
+        
+        
         
         pin.pinTintColor = UIColor.black
         pin.canShowCallout = true
         pin.animatesDrop = true
         
-        let imageURL = FIRStorage.storage().reference(forURL: "gs://sigabrt-iosda.appspot.com/").child("barbers/\(String(barberID)).png")
-        imageURL.downloadURL(completion: { (url, error) in
-            
-            if error != nil {
-                print(error?.localizedDescription as Any)
-                pin.leftCalloutAccessoryView = UIImageView(image: #imageLiteral(resourceName: "pin"))
-                return
-            }
-            URLSession.shared.dataTask(with: url!, completionHandler: { (data, response, error) in
-                if error != nil {
-                    print(error as Any)
-                    pin.leftCalloutAccessoryView = UIImageView(image: #imageLiteral(resourceName: "pin"))
-                    return
-                }
-                
-                guard let imageData = UIImage(data: data!) else { pin.leftCalloutAccessoryView = UIImageView(image: #imageLiteral(resourceName: "pin"));  return }
-                pin.leftCalloutAccessoryView = UIImageView(image: imageData)
-                
-            }).resume()
-            
-        })
+        
+        Nuke.loadImage(with: (shop?.logo)!, into: barberLogo)
+        
+        pin.leftCalloutAccessoryView = barberLogo
         
         return pin
     }
     
     func initializeSearchBar(){
-        
-        /*var suggestionListWithUrl = Array<ModernSearchBarModel>()
-        
-        for employee in employees {
-            suggestionListWithUrl.append(ModernSearchBarModel(title: employee.name + " " + employee.surname, url: employee.imageUrl))
+        var barberList = Array<ModernSearchBarModel>()
+        for barber in self.pins.values {
+            barberList.append(ModernSearchBarModel(title: barber.name, url: barber.logo!))
         }
-        */
         
-        var suggestionListWithUrl = Array<ModernSearchBarModel>()
-        suggestionListWithUrl.append(ModernSearchBarModel(title: "Alpha", url: "https://github.com/PhilippeBoisney/ModernSearchBar/raw/master/Examples%20Url/exampleA.png"))
-        suggestionListWithUrl.append(ModernSearchBarModel(title: "Bravo", url: "https://github.com/PhilippeBoisney/ModernSearchBar/raw/master/Examples%20Url/exampleB.png"))
-        suggestionListWithUrl.append(ModernSearchBarModel(title: "strunx", image: #imageLiteral(resourceName: "pin")))
+        self.modernSearchBar.setDatasWithUrl(datas: barberList)
         
-        self.modernSearchBar.setDatasWithUrl(datas: suggestionListWithUrl)
         
-        //self.modernSearchBar.setDatasWithUrl(datas: suggestionList)
     }
- 
+    
 }

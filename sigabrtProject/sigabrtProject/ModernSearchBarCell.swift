@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Nuke
+
 
 public class ModernSearchBarCell: UITableViewCell {
     
@@ -111,16 +113,17 @@ public class ModernSearchBarCell: UITableViewCell {
     //----------------------------
     
     private func downloadImage(model: ModernSearchBarModel) {
-        DispatchQueue.global(qos: .background).async {
-            self.getDataFromUrl(url: model.url) { (data, response, error)  in
-                guard let data = data, error == nil else { return }
-                let image = UIImage(data: data)
-                DispatchQueue.main.async() { () -> Void in
-                    model.imgCache = image
-                    self.imgModernSearchBar.image = image
-                }
-            }
-        }
+         Nuke.loadImage(with: model.url!, into: self.imgModernSearchBar)
+//        DispatchQueue.global(qos: .background).async {
+//            self.getDataFromUrl(url: model.url) { (data, response, error)  in
+//                guard let data = data, error == nil else { return }
+//                let image = UIImage(data: data)
+//                DispatchQueue.main.async() { () -> Void in
+//                    model.imgCache = image
+//                    self.imgModernSearchBar.image = image
+//                }
+//            }
+//        }
     }
     
     private func getDataFromUrl(url: URL, completion: @escaping (_ data: Data?, _  response: URLResponse?, _ error: Error?) -> Void) {

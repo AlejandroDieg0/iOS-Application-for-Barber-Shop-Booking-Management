@@ -10,18 +10,26 @@ import UIKit
 import MapKit
 
 class Shop: NSObject , MKAnnotation {
-    let barberId: Int = -1
+   
+    var ID: Int = -1
     var name: String = ""
-    let services: [Int] = [] //dovrebbe essere un array di service ma non funziona
-    let numBarbers: Int = -1
+    var services: [Int] = [] //dovrebbe essere un array di service ma non funziona
+    var numBarbers: Int = -1
     var coordinate: CLLocationCoordinate2D = CLLocationCoordinate2D()
     var desc: String = ""
+    var phone: String = ""
+    var address: String = ""
+    var logo : URL?
     
-    init(name : String, desc : String, coordinate: CLLocationCoordinate2D){
+    init(ID: Int, name : String, desc : String, coordinate: CLLocationCoordinate2D, phone: String, address: String, logo: URL?){
         
+        self.ID = ID
         self.name = name
         self.desc = desc
         self.coordinate = coordinate
+        self.phone = phone
+        self.address = address
+        self.logo = logo
         
     }
 }
