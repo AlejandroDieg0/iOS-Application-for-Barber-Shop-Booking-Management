@@ -28,6 +28,8 @@
 		E3E1807C1ECDE31100E54186 /* ThirdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E1807B1ECDE31100E54186 /* ThirdViewController.swift */; };
 		E526F8D91ECD68680023846A /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E526F8D81ECD68680023846A /* LoginViewController.swift */; };
 		E526F8DB1ECD68700023846A /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E526F8DA1ECD68700023846A /* TestViewController.swift */; };
+		F303D5961ECF24EE009EC344 /* BarberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F303D5951ECF24EE009EC344 /* BarberViewController.swift */; };
+		F303D5981ECF29E1009EC344 /* ReservationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F303D5971ECF29E1009EC344 /* ReservationTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +59,8 @@
 		E3E1807B1ECDE31100E54186 /* ThirdViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThirdViewController.swift; sourceTree = "<group>"; };
 		E526F8D81ECD68680023846A /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		E526F8DA1ECD68700023846A /* TestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
+		F303D5951ECF24EE009EC344 /* BarberViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarberViewController.swift; sourceTree = "<group>"; };
+		F303D5971ECF29E1009EC344 /* ReservationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReservationTableViewCell.swift; sourceTree = "<group>"; };
 		FE4E48101E0B8755FAE84BC9 /* Pods_sigabrtProject.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_sigabrtProject.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -99,6 +103,7 @@
 				E33F8BE31EC9EE4B00705497 /* Barber.storyboard */,
 				E33F8BE51EC9EE5E00705497 /* User.storyboard */,
 				9BFBF9901EBA232500DA7D25 /* LaunchScreen.storyboard */,
+				F303D5971ECF29E1009EC344 /* ReservationTableViewCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -112,6 +117,7 @@
 				E526F8D81ECD68680023846A /* LoginViewController.swift */,
 				E526F8DA1ECD68700023846A /* TestViewController.swift */,
 				E3E1807B1ECDE31100E54186 /* ThirdViewController.swift */,
+				F303D5951ECF24EE009EC344 /* BarberViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -310,6 +316,8 @@
 				9BFBF9881EBA232500DA7D25 /* AppDelegate.swift in Sources */,
 				9BD9F5071ECDD2EA006768F6 /* ModernSearchBarCell.swift in Sources */,
 				E33F8BEC1EC9F70000705497 /* Shop.swift in Sources */,
+				F303D5981ECF29E1009EC344 /* ReservationTableViewCell.swift in Sources */,
+				F303D5961ECF24EE009EC344 /* BarberViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
