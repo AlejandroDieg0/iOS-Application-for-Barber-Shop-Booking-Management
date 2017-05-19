@@ -117,7 +117,22 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
         Nuke.loadImage(with: (shop?.logo)!, into: barberLogo)
         
         pin.leftCalloutAccessoryView = barberLogo
+        
+        
+        let button = UIButton(type: .detailDisclosure) as UIButton // button with info sign
+        pin.rightCalloutAccessoryView = button
+        
         return pin
+    }
+    
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        let tempAnnotation = view.annotation as? MKPointAnnotation
+        let shop = self.pins[tempAnnotation!]
+            if control == view.rightCalloutAccessoryView{
+                
+                performSegue(withIdentifier: <#T##String#>, sender: shop)
+
+    }
     }
     
     func onClickItemWithUrlSuggestionsView(item: ModernSearchBarModel) {
