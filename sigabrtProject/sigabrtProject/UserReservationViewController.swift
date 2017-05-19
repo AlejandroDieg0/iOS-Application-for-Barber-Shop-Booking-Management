@@ -17,6 +17,8 @@ class UserReservationViewController: UIViewController, UITableViewDataSource, UI
     
     @IBOutlet weak var calendarHeightConstraint: NSLayoutConstraint!
     
+    var selectedShop: Shop!
+    
     fileprivate lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "dd/MM/yy"
