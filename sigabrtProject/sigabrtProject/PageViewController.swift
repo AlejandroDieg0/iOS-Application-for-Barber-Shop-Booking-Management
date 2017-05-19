@@ -18,7 +18,6 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource ,
     
     private func VCinstance(name: String) -> UIViewController{
         return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: name)
-        
     }
     
     override func viewDidLoad() {
@@ -70,7 +69,7 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource ,
     }
     
     
-    
+//    EDIT: Sostituito con page control sulla storyboard top
     public func presentationCount(for pageViewController: UIPageViewController) -> Int {
         return WIZarray.count
     }
@@ -83,7 +82,7 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource ,
         return firstViewControllerIndex
     }
     
-    //some magic to make UIPageControl transparent
+//    some magic to make UIPageControl transparent
     override func viewDidLayoutSubviews() {
         for subView in self.view.subviews {
             if subView is UIScrollView {

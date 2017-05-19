@@ -12,7 +12,7 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
     @IBOutlet weak var modernSearchBar: ModernSearchBar!
     
     
-    let regionRadius: CLLocationDistance = 1000000
+    let regionRadius: CLLocationDistance = 1000
     var pins: [MKPointAnnotation: Shop] = [:]
     var TempID: Int = 0
     var barbers: [Shop] = []
@@ -92,6 +92,7 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
         
         return pin
     }
+    
     func onClickItemWithUrlSuggestionsView(item: ModernSearchBarModel) {
         print("User touched this item: "+item.title+" with this url: "+item.url.description)
         let selectedPin = findKeyForValue(value: item.url.description, shops: self.pins)!
