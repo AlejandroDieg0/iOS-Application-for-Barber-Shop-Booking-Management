@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="oLY-up-1py">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="oLY-up-1py">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -110,7 +110,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Non mostrare più" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VDB-rn-35V">
-                                <rect key="frame" x="16" y="579" width="133" height="23"/>
+                                <rect key="frame" x="16" y="579" width="133" height="67"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -142,7 +142,7 @@
                                 </connections>
                             </switch>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bz9-pk-qCv">
-                                <rect key="frame" x="214" y="564" width="153" height="53"/>
+                                <rect key="frame" x="214" y="564" width="153" height="67"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                 <state key="normal" title="Entra"/>
@@ -191,6 +191,11 @@
                                             <segue destination="ZFh-yO-Rjp" kind="show" id="Bop-b6-Q7e"/>
                                         </connections>
                                     </barButtonItem>
+                                    <barButtonItem title="AUTODISTRUZIONE" id="7OH-Hh-hqz">
+                                        <connections>
+                                            <segue destination="tm0-5c-il2" kind="show" id="KIB-ey-yks"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                             </toolbar>
                         </subviews>
@@ -233,6 +238,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NhY-Gz-2W8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="305" y="905"/>
+        </scene>
+        <!--Barber-->
+        <scene sceneID="pbL-GT-T8Z">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Barber" id="tm0-5c-il2" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RCa-Kv-2bF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="282" y="1028"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
