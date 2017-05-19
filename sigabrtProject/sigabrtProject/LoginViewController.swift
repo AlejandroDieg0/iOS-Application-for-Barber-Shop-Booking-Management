@@ -15,7 +15,7 @@ import FBSDKLoginKit
 import UITextField_Shake
 
 
-class loginViewController: UIViewController {
+class LoginViewController: UIViewController {
     
     let firebaseAuth = Auth.auth()
     let user = Auth.auth().currentUser
@@ -42,7 +42,7 @@ class loginViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(loginViewController.dismissKeyboard))
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(LoginViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
     
         visualEffect.alpha = 0
