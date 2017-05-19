@@ -19,7 +19,6 @@ class LoginViewController: UIViewController {
     
     let firebaseAuth = Auth.auth()
     let user = Auth.auth().currentUser
-    @IBOutlet weak var visualEffect: UIVisualEffectView!
     
     @IBOutlet weak var logIn: UIButton!
     @IBOutlet weak var signUp: UIButton!
@@ -44,8 +43,6 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(LoginViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
-    
-        visualEffect.alpha = 0
        
         logIn.backgroundColor = UIColor.clear
         logIn.layer.borderWidth = 1.3
@@ -177,74 +174,38 @@ class LoginViewController: UIViewController {
     })
         
     }
-    
-    // ANIMAZIONI
-    
-    func animateIn(sender: UIView) {
-//        let xPosition = view.center as CGFloat
-//        let yPosition = view.center.y - 20
-//        
-//        let height = 330 as CGFloat
-//        let width = 260 as CGFloat
-//        
-//        sender.frame = CGRect(x: xPosition,y: yPosition,width: width,height: height)
-        sender.center = self.view.center
-        self.view.addSubview(sender)
-
-        sender.transform = CGAffineTransform.init(scaleX: 1.2, y: 1.2)
-        sender.alpha = 0
-        UIView.animate(withDuration: 0.4) {
-            sender.alpha = 0.85
-            self.visualEffect.alpha = 0.5
-            sender.transform = CGAffineTransform.identity
-        }
-        
-    }
-    
-    
-    func animateOut (sender: UIView) {
-        UIView.animate(withDuration: 0.4, animations: {
-            sender.transform = CGAffineTransform.init(scaleX: 1.2, y: 1.2)
-            sender.alpha = 0
-            
-        }) { (success:Bool) in
-            sender.removeFromSuperview()
-        }
-    }
-
    
     @IBAction func newAccount(_ sender: UIButton) {
-        animateOut(sender: loginView)
-        animateIn(sender: signupView)
-        self.visualEffect.alpha = 0.5
-    
+        Funcs.animateOut(sender: loginView)
+        Funcs.animateIn(sender: signupView)
     }
     
     @IBAction func alreadyHaveAccount(_ sender: UIButton) {
-        animateIn(sender: loginView)
-        animateOut(sender: signupView)
-        
-       
+        Funcs.animateOut(sender: signupView)
+        Funcs.animateIn(sender: loginView)
     }
     
+    @IBAction func cancelButton(_ sender: Any) {
+        Funcs.animateOut(sender: loginView)
+    }
     @IBAction func prenota(_ sender: Any) {
         switch Auth.auth().currentUser {
             
         case nil:
             print(" \n Current User is logged out \n  show LoginViewController \n")
-            animateIn(sender: loginView)
+            Funcs.animateIn(sender: loginView)
         default:
            
-            animateIn(sender: confirmPrenotation)
+            Funcs.animateIn(sender: confirmPrenotation)
         }
     }
     
     @IBAction func buttone(_ sender: Any) {
-        animateOut(sender: confirmPrenotation)
+        Funcs.animateOut(sender: confirmPrenotation)
         
-        UIView.animate(withDuration: 0.4) { 
+        /*UIView.animate(withDuration: 0.4) {
             self.visualEffect.alpha = 0
-        }
+        }*/
     }
     
     @IBAction func fbLogin(_ sender: Any) {

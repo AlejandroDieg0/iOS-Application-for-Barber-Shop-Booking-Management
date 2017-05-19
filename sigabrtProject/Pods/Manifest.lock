@@ -60,6 +60,7 @@ PODS:
   - GoogleToolboxForMac/NSString+URLArguments (2.1.1)
   - GTMSessionFetcher/Core (1.1.9)
   - Nuke (5.1)
+  - TextFieldEffects (1.3.2)
   - UITextField+Shake (1.1.2)
 
 DEPENDENCIES:
@@ -71,6 +72,7 @@ DEPENDENCIES:
   - Firebase/Storage
   - FSCalendar
   - Nuke (~> 5.0)
+  - TextFieldEffects
   - UITextField+Shake (~> 1.1)
 
 SPEC CHECKSUMS:
@@ -90,8 +92,9 @@ SPEC CHECKSUMS:
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
   GTMSessionFetcher: 5c046c76a1f859bc9c187e918f18e4fc7bb57b5e
   Nuke: 8ab71e77f6a54ff5fb697f93537c35f419bb01f7
+  TextFieldEffects: 9e5cce561ea39c75b86e9d3637601727a67e8b23
   UITextField+Shake: 47cc0429dafb3da580686339ad2da091249a8ea2
 
-PODFILE CHECKSUM: df921eb7a83d6dc972e73c3b89c2b18771b3671e
+PODFILE CHECKSUM: 87ccd875941e1920459b4242d702b68020974dd2
 
 COCOAPODS: 1.2.1

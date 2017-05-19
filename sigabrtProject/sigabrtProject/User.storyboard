@@ -150,7 +150,7 @@
         <!--Login View Controller-->
         <scene sceneID="jZv-jA-oYR">
             <objects>
-                <viewController storyboardIdentifier="loginVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Uef-ij-fR3" customClass="LoginViewController" customModule="sigabrtProject" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="loginVC" autoresizesArchivedViewToFullSize="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Uef-ij-fR3" customClass="LoginViewController" customModule="sigabrtProject" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="10v-66-04w"/>
                         <viewControllerLayoutGuide type="bottom" id="xNM-M5-JS5"/>
@@ -165,16 +165,6 @@
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" id="gpy-wu-aFX">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eyL-mU-QoM">
-                                            <rect key="frame" x="293" y="629" width="74" height="30"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <state key="normal" title="PRENOTA"/>
-                                            <connections>
-                                                <action selector="prenota:" destination="Uef-ij-fR3" eventType="touchUpInside" id="aRZ-yI-XsO"/>
-                                            </connections>
-                                        </button>
-                                    </subviews>
                                 </view>
                                 <blurEffect style="dark"/>
                             </visualEffectView>
@@ -186,6 +176,14 @@
                                 </state>
                                 <connections>
                                     <segue destination="0e9-X5-6qz" kind="show" id="S4E-oE-85f"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eyL-mU-QoM">
+                                <rect key="frame" x="150" y="318" width="74" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="PRENOTA"/>
+                                <connections>
+                                    <action selector="prenota:" destination="Uef-ij-fR3" eventType="touchUpInside" id="aRZ-yI-XsO"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -255,7 +253,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ztq-LF-jVz">
-                            <rect key="frame" x="79" y="208" width="175" height="35"/>
+                            <rect key="frame" x="65" y="208" width="93" height="35"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <state key="normal" title="LOGIN">
                                 <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -283,11 +281,11 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VDg-sR-Kpt">
-                            <rect key="frame" x="80" y="280" width="172" height="35"/>
+                            <rect key="frame" x="80" y="280" width="170" height="35"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="0.23137254900000001" green="0.34901960780000002" blue="0.59607843140000005" alpha="1" colorSpace="calibratedRGB"/>
                             <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                            <state key="normal" title="Log in with Fcebook"/>
+                            <state key="normal" title="Log in with Facebook"/>
                             <connections>
                                 <action selector="fbLogin:" destination="Uef-ij-fR3" eventType="touchUpInside" id="JPh-iM-eks"/>
                             </connections>
@@ -301,7 +299,7 @@
                             </state>
                         </button>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="facebook (2)" translatesAutoresizingMaskIntoConstraints="NO" id="FmQ-l2-yKB">
-                            <rect key="frame" x="88" y="286" width="22" height="22"/>
+                            <rect key="frame" x="88" y="287" width="22" height="22"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="ipA-Xi-9LW">
@@ -315,6 +313,17 @@
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U5H-5V-5Cb">
+                            <rect key="frame" x="175" y="208" width="93" height="35"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" title="CANCEL">
+                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="cancelButton:" destination="Uef-ij-fR3" eventType="touchUpInside" id="9rn-St-VXs"/>
+                                <action selector="login:" destination="Uef-ij-fR3" eventType="touchUpInside" id="G1f-zh-lSv"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" red="0.40000000600000002" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
@@ -457,7 +466,7 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="0.23137254900000001" green="0.34901960780000002" blue="0.59607843140000005" alpha="1" colorSpace="calibratedRGB"/>
                             <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                            <state key="normal" title="Log in with Fcebook"/>
+                            <state key="normal" title="Log in with Facebook"/>
                             <connections>
                                 <action selector="fbLogin:" destination="Uef-ij-fR3" eventType="touchUpInside" id="mp6-rn-b9g"/>
                             </connections>
@@ -480,7 +489,7 @@
                             </connections>
                         </button>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="facebook (2)" translatesAutoresizingMaskIntoConstraints="NO" id="dmh-RJ-CTF">
-                            <rect key="frame" x="87" y="286" width="22" height="22"/>
+                            <rect key="frame" x="87" y="279" width="22" height="22"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Error" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bda-3e-jNo">

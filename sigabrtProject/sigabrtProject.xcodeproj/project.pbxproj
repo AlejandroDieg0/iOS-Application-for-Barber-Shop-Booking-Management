@@ -27,6 +27,7 @@
 		E33F8BEA1EC9F66800705497 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33F8BE91EC9F66800705497 /* User.swift */; };
 		E33F8BEC1EC9F70000705497 /* Shop.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33F8BEB1EC9F70000705497 /* Shop.swift */; };
 		E3ACD9111ECF3D74002B6399 /* UserReservationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ACD9101ECF3D74002B6399 /* UserReservationViewController.swift */; };
+		E3ACD9131ECF7429002B6399 /* Funcs.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ACD9121ECF7429002B6399 /* Funcs.swift */; };
 		E3E1807C1ECDE31100E54186 /* ThirdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E1807B1ECDE31100E54186 /* ThirdViewController.swift */; };
 		E526F8D91ECD68680023846A /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E526F8D81ECD68680023846A /* LoginViewController.swift */; };
 		E526F8DB1ECD68700023846A /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E526F8DA1ECD68700023846A /* TestViewController.swift */; };
@@ -60,6 +61,7 @@
 		E33F8BED1EC9F7F000705497 /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		E33F8BEF1EC9F97C00705497 /* Reservation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reservation.swift; sourceTree = "<group>"; };
 		E3ACD9101ECF3D74002B6399 /* UserReservationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserReservationViewController.swift; sourceTree = "<group>"; };
+		E3ACD9121ECF7429002B6399 /* Funcs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Funcs.swift; sourceTree = "<group>"; };
 		E3E1807B1ECDE31100E54186 /* ThirdViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThirdViewController.swift; sourceTree = "<group>"; };
 		E526F8D81ECD68680023846A /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		E526F8DA1ECD68700023846A /* TestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 				E526F8DA1ECD68700023846A /* TestViewController.swift */,
 				E3E1807B1ECDE31100E54186 /* ThirdViewController.swift */,
 				F303D5951ECF24EE009EC344 /* BarberViewController.swift */,
+				E3ACD9121ECF7429002B6399 /* Funcs.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -318,6 +321,7 @@
 				9BFBF98A1EBA232500DA7D25 /* ViewController.swift in Sources */,
 				9BD9F5091ECDD2EA006768F6 /* ModernSearchBarIcon.swift in Sources */,
 				9B04743C1EC9FAA30075A6A6 /* MapViewController.swift in Sources */,
+				E3ACD9131ECF7429002B6399 /* Funcs.swift in Sources */,
 				9BD9F5061ECDD2EA006768F6 /* ModernSearchBar.swift in Sources */,
 				9B0CC8971ECC7A7F007550FB /* PageViewController.swift in Sources */,
 				E3E1807C1ECDE31100E54186 /* ThirdViewController.swift in Sources */,

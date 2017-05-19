@@ -15,7 +15,7 @@
             <objects>
                 <pageViewController storyboardIdentifier="wizardView" autoresizesArchivedViewToFullSize="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="oLY-up-1py" customClass="PageViewController" customModule="sigabrtProject" customModuleProvider="target" sceneMemberID="viewController">
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="show" identifier="Showmap" id="szB-MS-AjX"/>
+                        <segue destination="AaZ-28-dix" kind="show" identifier="Showmap" id="szB-MS-AjX"/>
                     </connections>
                 </pageViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mqI-uz-gou" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -148,21 +148,21 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                 <state key="normal" title="Entra"/>
                                 <connections>
-                                    <segue destination="BYZ-38-t0r" kind="show" identifier="" id="6pE-6w-mPw"/>
+                                    <segue destination="AaZ-28-dix" kind="show" identifier="" id="6pE-6w-mPw"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="0.78534939240000001" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="show" identifier="mapSegue" id="ZRB-LP-rgE"/>
+                        <segue destination="AaZ-28-dix" kind="show" identifier="mapSegue" id="ZRB-LP-rgE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3wO-6o-zPr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1572" y="178.56071964017991"/>
         </scene>
-        <!--Map View Controller-->
+        <!--Find your barbershop!-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController storyboardIdentifier="mapView" id="BYZ-38-t0r" customClass="MapViewController" customModule="sigabrtProject" customModuleProvider="target" sceneMemberID="viewController">
@@ -175,7 +175,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsCompass="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HVf-rn-sfE">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <connections>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="Rxq-N2-iTR"/>
                                 </connections>
@@ -185,7 +185,7 @@
                                 <items>
                                     <barButtonItem title="Login" id="J3V-TE-rYV">
                                         <connections>
-                                            <segue destination="ZFh-yO-Rjp" kind="show" identifier="userReservation" id="Bop-b6-Q7e"/>
+                                            <action selector="loginButton:" destination="BYZ-38-t0r" id="YW3-MK-5mI"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem title="BarberPage" id="7OH-Hh-hqz">
@@ -196,12 +196,9 @@
                                 </items>
                             </toolbar>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wsj-6s-u2E">
-                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                                <items>
-                                    <navigationItem title="Find your barbershop!" id="U4s-S6-uKG"/>
-                                </items>
+                                <rect key="frame" x="0.0" y="64" width="375" height="44"/>
                             </navigationBar>
-                            <searchBar contentMode="redraw" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bJY-g1-5eJ" customClass="ModernSearchBar" customModule="sigabrtProject">
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="bJY-g1-5eJ" customClass="ModernSearchBar" customModule="sigabrtProject">
                                 <rect key="frame" x="0.0" y="64" width="375" height="44"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
@@ -220,9 +217,10 @@
                             <constraint firstAttribute="trailing" secondItem="HVf-rn-sfE" secondAttribute="trailing" id="ffi-ok-lCR"/>
                             <constraint firstItem="HVf-rn-sfE" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="hoz-nD-lBV"/>
                             <constraint firstItem="HVf-rn-sfE" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="q5a-Gi-zph"/>
-                            <constraint firstItem="bJY-g1-5eJ" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="45" id="yZ7-wJ-xSU"/>
+                            <constraint firstItem="bJY-g1-5eJ" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="yZ7-wJ-xSU"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Find your barbershop!" id="U4s-S6-uKG"/>
                     <connections>
                         <outlet property="modernSearchBar" destination="bJY-g1-5eJ" id="U7E-fA-vhF"/>
                         <outlet property="personalMap" destination="HVf-rn-sfE" id="EjC-V7-IOm"/>
@@ -239,15 +237,15 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="-471.19999999999999" y="864.91754122938539"/>
+            <point key="canvasLocation" x="468" y="864.91754122938539"/>
         </scene>
         <!--User-->
         <scene sceneID="mYc-Ed-GGw">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="NhY-Gz-2W8" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewControllerPlaceholder storyboardName="User" id="ZFh-yO-Rjp" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NhY-Gz-2W8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="305" y="905"/>
+            <point key="canvasLocation" x="1243.2" y="904.49775112443785"/>
         </scene>
         <!--Barber-->
         <scene sceneID="pbL-GT-T8Z">
@@ -255,10 +253,28 @@
                 <viewControllerPlaceholder storyboardName="Barber" id="tm0-5c-il2" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RCa-Kv-2bF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="282" y="1028"/>
+            <point key="canvasLocation" x="1220.8" y="1027.736131934033"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Q2x-V1-584">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="AaZ-28-dix" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="gdh-tU-r5X">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="NXU-Ro-p7u"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tVS-cN-EZ5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-471.19999999999999" y="864.91754122938539"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="6pE-6w-mPw"/>
+        <segue reference="szB-MS-AjX"/>
     </inferredMetricsTieBreakers>
 </document>
