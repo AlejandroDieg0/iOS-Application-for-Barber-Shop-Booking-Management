@@ -130,8 +130,9 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
         let shop = self.pins[tempAnnotation!]
             if control == view.rightCalloutAccessoryView{
                 
-                performSegue(withIdentifier: <#T##String#>, sender: shop)
+                performSegue(withIdentifier: "userReservation", sender: shop)
 
+            
     }
     }
     

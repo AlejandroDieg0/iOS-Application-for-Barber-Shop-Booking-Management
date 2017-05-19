@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="oLY-up-1py">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="oLY-up-1py">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -179,38 +180,47 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="Rxq-N2-iTR"/>
                                 </connections>
                             </mapView>
-                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="bJY-g1-5eJ" customClass="ModernSearchBar" customModule="sigabrtProject">
-                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </searchBar>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Hy-Rf-KL0">
                                 <rect key="frame" x="0.0" y="623" width="375" height="44"/>
                                 <items>
                                     <barButtonItem title="Login" id="J3V-TE-rYV">
                                         <connections>
-                                            <segue destination="ZFh-yO-Rjp" kind="show" id="Bop-b6-Q7e"/>
+                                            <segue destination="ZFh-yO-Rjp" kind="show" identifier="userReservation" id="Bop-b6-Q7e"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem title="AUTODISTRUZIONE" id="7OH-Hh-hqz">
+                                    <barButtonItem title="BarberPage" id="7OH-Hh-hqz">
                                         <connections>
                                             <segue destination="tm0-5c-il2" kind="show" id="KIB-ey-yks"/>
                                         </connections>
                                     </barButtonItem>
                                 </items>
                             </toolbar>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wsj-6s-u2E">
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <items>
+                                    <navigationItem title="Find your barbershop!" id="U4s-S6-uKG"/>
+                                </items>
+                            </navigationBar>
+                            <searchBar contentMode="redraw" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bJY-g1-5eJ" customClass="ModernSearchBar" customModule="sigabrtProject">
+                                <rect key="frame" x="0.0" y="64" width="375" height="44"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="9Hy-Rf-KL0" secondAttribute="bottom" id="68P-fM-OaZ"/>
                             <constraint firstAttribute="trailing" secondItem="9Hy-Rf-KL0" secondAttribute="trailing" id="CsQ-yp-2HM"/>
+                            <constraint firstItem="Wsj-6s-u2E" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-16" id="FKh-hI-3o5"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Wsj-6s-u2E" secondAttribute="trailing" constant="-16" id="JVD-lQ-fl5"/>
                             <constraint firstItem="9Hy-Rf-KL0" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Ldr-gh-8ii"/>
                             <constraint firstAttribute="trailing" secondItem="bJY-g1-5eJ" secondAttribute="trailing" id="PAo-4j-hZB"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="HVf-rn-sfE" secondAttribute="bottom" id="S02-DM-CDt"/>
+                            <constraint firstItem="Wsj-6s-u2E" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="TPB-RK-lqD"/>
                             <constraint firstItem="bJY-g1-5eJ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="br6-AZ-Evs"/>
                             <constraint firstAttribute="trailing" secondItem="HVf-rn-sfE" secondAttribute="trailing" id="ffi-ok-lCR"/>
                             <constraint firstItem="HVf-rn-sfE" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="hoz-nD-lBV"/>
                             <constraint firstItem="HVf-rn-sfE" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="q5a-Gi-zph"/>
-                            <constraint firstItem="bJY-g1-5eJ" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="yZ7-wJ-xSU"/>
+                            <constraint firstItem="bJY-g1-5eJ" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="45" id="yZ7-wJ-xSU"/>
                         </constraints>
                     </view>
                     <connections>
@@ -234,8 +244,8 @@
         <!--User-->
         <scene sceneID="mYc-Ed-GGw">
             <objects>
-                <viewControllerPlaceholder storyboardName="User" id="ZFh-yO-Rjp" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NhY-Gz-2W8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewControllerPlaceholder storyboardName="User" id="ZFh-yO-Rjp" sceneMemberID="viewController"/>
             </objects>
             <point key="canvasLocation" x="305" y="905"/>
         </scene>
