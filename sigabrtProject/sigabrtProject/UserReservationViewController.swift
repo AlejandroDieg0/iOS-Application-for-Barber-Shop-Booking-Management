@@ -19,7 +19,7 @@ class UserReservationViewController: UIViewController, UITableViewDataSource, UI
     
     fileprivate lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy/MM/dd"
+        formatter.dateFormat = "dd/MM/yy"
         return formatter
     }()
     fileprivate lazy var scopeGesture: UIPanGestureRecognizer = {
