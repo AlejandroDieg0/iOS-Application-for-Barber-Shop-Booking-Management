@@ -92,6 +92,27 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
         
         return pin
     }
+    func onClickItemWithUrlSuggestionsView(item: ModernSearchBarModel) {
+        print("User touched this item: "+item.title+" with this url: "+item.url.description)
+        let selectedPin = findKeyForValue(value: item.url.description, shops: self.pins)!
+        //  info1 = findKeyForValue(value: item.url.description, shops: self.pins)!
+        self.personalMap.selectAnnotation(selectedPin, animated: true)
+
+        
+    }
+
+    func findKeyForValue(value: String, shops: [MKPointAnnotation: Shop]) ->MKPointAnnotation?
+    {
+        for (key, shop) in shops
+        {
+            if (shop.logo?.absoluteString.contains(value))!
+            {
+                return key
+            }
+        }
+        
+        return nil
+    }
     
     func initializeSearchBar(){
         var barberList = Array<ModernSearchBarModel>()
