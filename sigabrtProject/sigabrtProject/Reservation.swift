@@ -14,4 +14,12 @@ class Reservation: NSObject {
     let shopId: Int = -1
     let serviceId: [Int] = []
     let dateTime: Date = Date()
+    
+    init(Id: Int, userId : Int, shopId : Int, serviceId: [Int], dateTime: Date){
+        self.Id=Id
+        self.userId=userId
+        self.shopId=shopId
+        self.serviceId=serviceId
+        self.dateTime=dateTime
+    }
 }
