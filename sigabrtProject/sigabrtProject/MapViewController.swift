@@ -3,16 +3,18 @@ import UIKit
 import MapKit
 import Firebase
 import Nuke
+import CoreLocation
 
-
-class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDelegate {
+class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDelegate, CLLocationManagerDelegate {
     
     @IBOutlet weak var personalMap: MKMapView!
     
     @IBOutlet weak var modernSearchBar: ModernSearchBar!
     
+    var locManager = CLLocationManager()
+
     
-    let regionRadius: CLLocationDistance = 1000
+    let regionRadius: CLLocationDistance = 20000
     var pins: [MKPointAnnotation: Shop] = [:]
     var TempID: Int = 0
     var barbers: [Shop] = []
@@ -20,17 +22,40 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let myPosition = CLLocationCoordinate2D(latitude: Double("41.9102399")!, longitude: Double("12.2551245")!)
+        //let myPosition = CLLocationCoordinate2D(latitude: Double("41.9102399")!, longitude: Double("12.2551245")!)
+        /*personalMap.setRegion(MKCoordinateRegionMakeWithDistance(myPosition, regionRadius, regionRadius), animated: true)*/
         
-        self.personalMap.delegate = self
-        personalMap.setRegion(MKCoordinateRegionMakeWithDistance(myPosition, regionRadius, regionRadius), animated: true)
+        
+        
+        locManager.delegate = self
+        locManager.desiredAccuracy = kCLLocationAccuracyBest
+        locManager.requestWhenInUseAuthorization()
+        locManager.startUpdatingLocation()
         drawMap()
         self.modernSearchBar.delegateModernSearchBar = self
-    }
+        
+  }
+    
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+        let location = locations[0]
+        
+        let span:MKCoordinateSpan = MKCoordinateSpanMake(0.5, 0.5)
+        let myLocation:CLLocationCoordinate2D = CLLocationCoordinate2DMake(location.coordinate.latitude, location.coordinate.longitude)
+        let region:MKCoordinateRegion = MKCoordinateRegionMake(myLocation, span)
+        
+        personalMap.setRegion(region, animated: true)
+        self.personalMap.showsUserLocation = true
+        
+        print(location.altitude)
+        print(location.speed)
     }
     
     func drawMap(){
@@ -74,11 +99,14 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        guard !(annotation is MKUserLocation) else {
+            return nil
+        }
         let pin = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "sigabrt")
         let tempAnnotation = annotation as? MKPointAnnotation
+        
         let shop = self.pins[tempAnnotation!]
         let barberLogo : UIImageView = UIImageView(image: #imageLiteral(resourceName: "pin"))
-        
         
         
         pin.pinTintColor = UIColor.black
@@ -89,7 +117,6 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
         Nuke.loadImage(with: (shop?.logo)!, into: barberLogo)
         
         pin.leftCalloutAccessoryView = barberLogo
-        
         return pin
     }
     
