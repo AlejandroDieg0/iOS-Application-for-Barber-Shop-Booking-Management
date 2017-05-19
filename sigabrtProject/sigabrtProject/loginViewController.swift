@@ -12,14 +12,13 @@ import FacebookCore
 import FacebookLogin
 import FBSDKCoreKit
 import FBSDKLoginKit
-import TextFieldEffects
 import UITextField_Shake
 
 
 class loginViewController: UIViewController {
     
-    let firebaseAuth = FIRAuth.auth()
-    let user = FIRAuth.auth()?.currentUser
+    let firebaseAuth = Auth.auth()
+    let user = Auth.auth().currentUser
     @IBOutlet weak var visualEffect: UIVisualEffectView!
     
     @IBOutlet weak var logIn: UIButton!
@@ -39,7 +38,7 @@ class loginViewController: UIViewController {
     
     @IBOutlet weak var fbBut: UIButton!
     
-    var handle: FIRAuthStateDidChangeListenerHandle?
+    var handle: AuthStateDidChangeListenerHandle?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,7 +59,7 @@ class loginViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        handle = FIRAuth.auth()?.addStateDidChangeListener() { (auth, user) in
+        handle = Auth.auth().addStateDidChangeListener() { (auth, user) in
             // ...
             }
       
@@ -77,7 +76,7 @@ class loginViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         // [START remove_auth_listener]
-        FIRAuth.auth()?.removeStateDidChangeListener(handle!)
+        Auth.auth().removeStateDidChangeListener(handle!)
         // [END remove_auth_listener]
         }
 
@@ -105,7 +104,7 @@ class loginViewController: UIViewController {
             return
         }
         
-        FIRAuth.auth()?.signIn(withEmail: email, password: password, completion: { (user, error) in
+        Auth.auth().signIn(withEmail: email, password: password, completion: { (user, error) in
             
             guard error == nil else {
             // print(" \n [ERROR] Can't Sign In \n   withError: \( error!.localizedDescription) \n")
@@ -151,7 +150,7 @@ class loginViewController: UIViewController {
             return
         }
 
-    FIRAuth.auth()?.createUser(withEmail: signUpMail, password: signUpPassword, completion: { (user, error) in
+    Auth.auth().createUser(withEmail: signUpMail, password: signUpPassword, completion: { (user, error) in
         
         guard error == nil else {
            // print(" \n [ERROR] Can't create an Account \n   withError: \(error!.localizedDescription) \n")
@@ -170,7 +169,7 @@ class loginViewController: UIViewController {
         }
         
         print("\n Welcome \(user!.email!)")
-        FIRAuth.auth()?.currentUser?.sendEmailVerification(completion: { (error) in
+        Auth.auth().currentUser?.sendEmailVerification(completion: { (error) in
             // handle error
         })
         self.performSegue(withIdentifier: "loginSuccess", sender: nil)
@@ -229,7 +228,7 @@ class loginViewController: UIViewController {
     }
     
     @IBAction func prenota(_ sender: Any) {
-        switch FIRAuth.auth()?.currentUser {
+        switch Auth.auth().currentUser {
             
         case nil:
             print(" \n Current User is logged out \n  show LoginViewController \n")
@@ -260,8 +259,8 @@ class loginViewController: UIViewController {
             case .success(let grantedPermissions, let declinedPermissions, let accessToken):
                 print("Logged in!")
             
-                let credential = FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
-                FIRAuth.auth()?.signIn(with: credential) { (user, error) in
+                let credential = FacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
+                Auth.auth().signIn(with: credential) { (user, error) in
                     // ...
                     if error != nil {
                         // ...

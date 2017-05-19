@@ -13,8 +13,6 @@ pod 'Firebase/Database'
 pod 'Firebase/Storage'
 pod 'FacebookCore'
 pod 'FacebookLogin'
-pod 'FacebookShare'
-pod 'TextFieldEffects'
 pod 'Nuke', '~> 5.0'
 pod 'UITextField+Shake', '~> 1.1'
 
