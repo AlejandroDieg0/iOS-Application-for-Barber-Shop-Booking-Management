@@ -9,11 +9,11 @@
 import UIKit
 
 class Reservation: NSObject {
-    let Id: Int = -1
-    let userId: Int = -1
-    let shopId: Int = -1
-    let serviceId: [Int] = []
-    let dateTime: Date = Date()
+    var Id: Int = -1
+    var userId: Int = -1
+    var shopId: Int = -1
+    var serviceId: [Int] = []
+    var dateTime: Date = Date()
     
     init(Id: Int, userId : Int, shopId : Int, serviceId: [Int], dateTime: Date){
         self.Id=Id

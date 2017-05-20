@@ -14,10 +14,9 @@ class Service {
     
     let name: String
     let duration: Int
-    let service: Dictionary
-    init(name: String, duration: Int, service: [String: Any]){
+    
+    init(name: String, duration: Int){
         self.name = name
         self.duration = duration
-        self.service = service
     }
 }

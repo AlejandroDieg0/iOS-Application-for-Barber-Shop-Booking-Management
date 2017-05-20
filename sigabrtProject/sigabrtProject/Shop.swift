@@ -13,7 +13,7 @@ class Shop: NSObject , MKAnnotation {
    
     var ID: Int = -1
     var name: String = ""
-    var services: [Int] = [] //dovrebbe essere un array di service ma non funziona
+    var services: [Service] = []
     var numBarbers: Int = -1
     var coordinate: CLLocationCoordinate2D = CLLocationCoordinate2D()
     var desc: String = ""

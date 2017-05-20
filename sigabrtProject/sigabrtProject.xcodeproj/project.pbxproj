@@ -28,6 +28,8 @@
 		E33F8BEC1EC9F70000705497 /* Shop.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33F8BEB1EC9F70000705497 /* Shop.swift */; };
 		E3ACD9111ECF3D74002B6399 /* UserReservationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ACD9101ECF3D74002B6399 /* UserReservationViewController.swift */; };
 		E3ACD9131ECF7429002B6399 /* Funcs.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ACD9121ECF7429002B6399 /* Funcs.swift */; };
+		E3ACD9141ED1017E002B6399 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33F8BED1EC9F7F000705497 /* Service.swift */; };
+		E3ACD9151ED10187002B6399 /* Reservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33F8BEF1EC9F97C00705497 /* Reservation.swift */; };
 		E3E1807C1ECDE31100E54186 /* ThirdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E1807B1ECDE31100E54186 /* ThirdViewController.swift */; };
 		E51D33DF1ED07663004C9BEF /* addModifyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51D33DE1ED07663004C9BEF /* addModifyViewController.swift */; };
 		E51D33E11ED0766D004C9BEF /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51D33E01ED0766D004C9BEF /* CollectionViewCell.swift */; };
@@ -333,7 +335,6 @@
 				E521F2E91ED0EF4A00F5AC84 /* barberLoginViewController.swift in Sources */,
 				9BD9F50A1ECDD2EA006768F6 /* ModernSearchBarModel.swift in Sources */,
 				E526F8D91ECD68680023846A /* LoginViewController.swift in Sources */,
-				E33F8BEA1EC9F66800705497 /* User.swift in Sources */,
 				E3ACD9111ECF3D74002B6399 /* UserReservationViewController.swift in Sources */,
 				E526F8DB1ECD68700023846A /* UserProfileViewController.swift in Sources */,
 				9BD9F5081ECDD2EA006768F6 /* ModernSearchBarDelegate.swift in Sources */,
@@ -350,10 +351,13 @@
 				9BFBF9881EBA232500DA7D25 /* AppDelegate.swift in Sources */,
 				E51D33E51ED07AE9004C9BEF /* addModifyCollectionViewCell.swift in Sources */,
 				9BD9F5071ECDD2EA006768F6 /* ModernSearchBarCell.swift in Sources */,
-				E33F8BEC1EC9F70000705497 /* Shop.swift in Sources */,
 				E51D33DF1ED07663004C9BEF /* addModifyViewController.swift in Sources */,
-				F303D5981ECF29E1009EC344 /* ReservationTableViewCell.swift in Sources */,
 				F303D5961ECF24EE009EC344 /* BarberViewController.swift in Sources */,
+				F303D5981ECF29E1009EC344 /* ReservationTableViewCell.swift in Sources */,
+				E33F8BEA1EC9F66800705497 /* User.swift in Sources */,
+				E3ACD9141ED1017E002B6399 /* Service.swift in Sources */,
+				E3ACD9151ED10187002B6399 /* Reservation.swift in Sources */,
+				E33F8BEC1EC9F70000705497 /* Shop.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
