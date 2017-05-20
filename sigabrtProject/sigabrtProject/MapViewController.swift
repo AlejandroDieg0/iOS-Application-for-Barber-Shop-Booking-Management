@@ -67,15 +67,14 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
         ref = Database.database().reference().child("barbers")
         
         ref.observe(.childAdded, with: { snapshot in
-            if let snapshotValue = snapshot.value as? [String:Any],
-                let currentData = snapshotValue["barber"] as? [String:Any] {
-                let barberName = (currentData["name"])! as! String
-                let barberDesc = (currentData["description"])! as! String
-                let barberLat = currentData["latitude"] as! Double
-                let barberLon = (currentData["longitude"])! as! Double
-                let ID = (currentData["id"])! as! Int
-                let barberPhone = (currentData["phone"])! as! String
-                let barberAddress = (currentData["address"])! as! String
+            if let snapshotValue = snapshot.value as? [String:Any] {
+                let barberName = (snapshotValue["name"])! as! String
+                let barberDesc = (snapshotValue["description"])! as! String
+                let barberLat = snapshotValue["latitude"] as! Double
+                let barberLon = (snapshotValue["longitude"])! as! Double
+                let ID = Int(snapshot.key)!
+                let barberPhone = (snapshotValue["phone"])! as! String
+                let barberAddress = (snapshotValue["address"])! as! String
                 
                 let tempPin : MKPointAnnotation = MKPointAnnotation()
                 
@@ -83,7 +82,7 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
                 tempPin.subtitle = barberDesc
                 tempPin.coordinate = CLLocationCoordinate2D(latitude: Double(barberLat), longitude: Double(barberLon))
                 print(barberName)
-                let imageURL = Storage.storage().reference(forURL: "gs://sigabrt-iosda.appspot.com/").child("barbers/\(String(ID)).png")
+                let imageURL = Storage.storage().reference(forURL: "gs://sigabrt-iosda.appspot.com/").child("barbers/\(ID).png")
                 
                 imageURL.downloadURL(completion: { (url, error) in
                     

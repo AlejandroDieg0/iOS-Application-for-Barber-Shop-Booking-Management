@@ -12,7 +12,7 @@
         <!--Data Source-->
         <scene sceneID="7aW-Hy-Bu1">
             <objects>
-                <viewController id="zjE-KP-W3q" customClass="BarberViewController" customModule="sigabrtProject" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Barber" useStoryboardIdentifierAsRestorationIdentifier="YES" id="zjE-KP-W3q" customClass="BarberViewController" customModule="sigabrtProject" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Fr8-Q3-kKK"/>
                         <viewControllerLayoutGuide type="bottom" id="3o5-WE-8Le"/>

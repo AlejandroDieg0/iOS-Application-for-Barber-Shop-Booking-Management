@@ -154,9 +154,6 @@
                         </subviews>
                         <color key="backgroundColor" white="0.78534939240000001" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <connections>
-                        <segue destination="AaZ-28-dix" kind="show" identifier="mapSegue" id="ZRB-LP-rgE"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3wO-6o-zPr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -165,7 +162,7 @@
         <!--Find your barbershop!-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="mapView" id="BYZ-38-t0r" customClass="MapViewController" customModule="sigabrtProject" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="MapViewController" customModule="sigabrtProject" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -190,7 +187,7 @@
                                     </barButtonItem>
                                     <barButtonItem title="BarberPage" id="7OH-Hh-hqz">
                                         <connections>
-                                            <segue destination="tm0-5c-il2" kind="show" id="KIB-ey-yks"/>
+                                            <segue destination="tm0-5c-il2" kind="show" id="Odt-FF-4GX"/>
                                         </connections>
                                     </barButtonItem>
                                 </items>
@@ -225,6 +222,7 @@
                         <outlet property="modernSearchBar" destination="bJY-g1-5eJ" id="U7E-fA-vhF"/>
                         <outlet property="personalMap" destination="HVf-rn-sfE" id="EjC-V7-IOm"/>
                         <outlet property="searchDisplayController" destination="NSK-o6-UB6" id="eEp-hS-OFA"/>
+                        <segue destination="ZFh-yO-Rjp" kind="show" identifier="userReservation" id="shD-VO-vaa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -237,7 +235,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="468" y="864.91754122938539"/>
+            <point key="canvasLocation" x="455" y="983"/>
         </scene>
         <!--User-->
         <scene sceneID="mYc-Ed-GGw">
@@ -245,7 +243,7 @@
                 <viewControllerPlaceholder storyboardName="User" id="ZFh-yO-Rjp" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NhY-Gz-2W8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1243.2" y="904.49775112443785"/>
+            <point key="canvasLocation" x="1201" y="948"/>
         </scene>
         <!--Barber-->
         <scene sceneID="pbL-GT-T8Z">
@@ -253,12 +251,12 @@
                 <viewControllerPlaceholder storyboardName="Barber" id="tm0-5c-il2" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RCa-Kv-2bF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1220.8" y="1027.736131934033"/>
+            <point key="canvasLocation" x="1210" y="1014"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Q2x-V1-584">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="AaZ-28-dix" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="mapView" automaticallyAdjustsScrollViewInsets="NO" id="AaZ-28-dix" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="gdh-tU-r5X">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -271,7 +269,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tVS-cN-EZ5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-471.19999999999999" y="864.91754122938539"/>
+            <point key="canvasLocation" x="-471" y="983"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
