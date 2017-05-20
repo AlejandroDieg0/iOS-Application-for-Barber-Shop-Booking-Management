@@ -119,6 +119,8 @@ class LoginViewController: UIViewController {
             print("\n Welcome \(user!.email! + "\n" + x + "\n" + user!.uid)")
             self.email.text = ""
             self.passw.text = ""
+            
+            Funcs.animateOut(sender: self.loginView)
             self.performSegue(withIdentifier: "loginSuccess", sender: nil)
             
         })
@@ -169,6 +171,8 @@ class LoginViewController: UIViewController {
         Auth.auth().currentUser?.sendEmailVerification(completion: { (error) in
             // handle error
         })
+        
+        Funcs.animateOut(sender: self.signupView)
         self.performSegue(withIdentifier: "loginSuccess", sender: nil)
 
     })
