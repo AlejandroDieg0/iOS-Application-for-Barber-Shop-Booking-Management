@@ -9,11 +9,11 @@
 import Foundation
 import UIKit
 
-class prenotation {
+class prenotations {
     
     var name : String
     var time : String
-    var service : [ String: String] = [:]
+    var service : [String: String] = [:]
     
     init(name: String, time: String , service: [String: String]) {
         self.name = name

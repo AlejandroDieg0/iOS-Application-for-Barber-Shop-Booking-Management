@@ -15,6 +15,7 @@ class FSCalendarScopeExampleViewController: UIViewController, FSCalendarDataSour
 
     var prenotations : [(nameCustomer: String,services:[(tipo: String, prezzo: String)], time: String)
         ] = []
+    
     @IBOutlet weak var cv: UICollectionView!
     
     @IBOutlet weak var calendar: FSCalendar!
@@ -53,19 +54,19 @@ class FSCalendarScopeExampleViewController: UIViewController, FSCalendarDataSour
         let result = formatter.string(from: date)
         print(result)
         
-        databaseHandle = ref.child("prenotations/\(result)/\(user?.uid)/").childByAutoId().observe(.childAdded, with: { (snapshot) in
-                let post = snapshot.value
-            print(post)
-            
+        databaseHandle = ref.child("prenotations/\(result)/\(String(describing: user?.uid))/").childByAutoId().observe(.childAdded, with: { (snapshot) in
+        
             let value = snapshot.value as? NSDictionary
             let name = value?["name"] as? String ?? ""
-            let service = value?["service"] as? String ?? ""
-            let price = value?["price"] as? String ?? ""
+            let service = value?["service"] as? [(tipo: String, prezzo: String)]
             let time = value?["time"] as? String ?? ""
-        
-//            prenotations.append(nameCustomer: name, services: [(tipo: service , prezzo: price)], time:  time)
+         
+           self.prenotations.append((nameCustomer: name, services: service!, time: time))
+       
+            
        })
-        
+       
+
         cv.delegate = self
         cv.dataSource = self
         self.calendar.appearance.headerMinimumDissolvedAlpha = 0.0;

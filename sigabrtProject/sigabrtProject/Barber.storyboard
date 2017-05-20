@@ -18,7 +18,7 @@
                         <viewControllerLayoutGuide type="bottom" id="yCA-uT-hkB"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Hts-3o-LF3" customClass="A">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="870"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="790"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ClE-tN-Zjd" customClass="FSCalendar">
@@ -50,7 +50,7 @@
                                 </connections>
                             </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="045-o5-iRp">
-                                <rect key="frame" x="0.0" y="364" width="375" height="506"/>
+                                <rect key="frame" x="0.0" y="364" width="375" height="426"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sEh-aM-NGn">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="523"/>
@@ -78,21 +78,28 @@
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="q43-bR-j9p">
-                                                            <size key="itemSize" width="152" height="68"/>
+                                                            <size key="itemSize" width="136" height="68"/>
                                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                         </collectionViewFlowLayout>
                                                         <cells>
                                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cella" id="dVD-mh-eBV" customClass="addModifyCollectionViewCell" customModule="sigabrtProject" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="0.0" width="152" height="68"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="136" height="68"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="152" height="68"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="136" height="68"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Servizio" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Eg-II-XLo">
-                                                                            <rect key="frame" x="55" y="27" width="61" height="21"/>
+                                                                            <rect key="frame" x="38" y="11" width="61" height="21"/>
+                                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                            <nil key="textColor"/>
+                                                                            <nil key="highlightedColor"/>
+                                                                        </label>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="price" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tes-Tb-Yzm">
+                                                                            <rect key="frame" x="47" y="35" width="39" height="21"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                             <nil key="textColor"/>
@@ -101,6 +108,7 @@
                                                                     </subviews>
                                                                 </view>
                                                                 <connections>
+                                                                    <outlet property="price" destination="tes-Tb-Yzm" id="4uV-9R-57h"/>
                                                                     <outlet property="servizio" destination="2Eg-II-XLo" id="0Cb-ay-Xaa"/>
                                                                 </connections>
                                                             </collectionViewCell>
@@ -118,13 +126,6 @@
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="TIME" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U1a-Dv-IaK">
                                                 <rect key="frame" x="8" y="268" width="68" height="21"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                <color key="textColor" red="0.40000000600000002" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="PRICE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="The-AO-q8e">
-                                                <rect key="frame" x="8" y="393" width="68" height="21"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <color key="textColor" red="0.40000000600000002" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -153,22 +154,8 @@
                                                 </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </view>
-                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wvF-fh-OuU">
-                                                <rect key="frame" x="0.0" y="422" width="375" height="40"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <subviews>
-                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Insert price" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qYp-cV-uZT">
-                                                        <rect key="frame" x="8" y="5" width="358" height="30"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                        <nil key="textColor"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <textInputTraits key="textInputTraits"/>
-                                                    </textField>
-                                                </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            </view>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LKf-F3-LzL">
-                                                <rect key="frame" x="123" y="477" width="128" height="30"/>
+                                                <rect key="frame" x="123" y="393" width="128" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <state key="normal" title="Delete Prenotation"/>
                                             </button>
@@ -207,13 +194,12 @@
                         </barButtonItem>
                     </navigationItem>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="375" height="870"/>
+                    <size key="freeformSize" width="375" height="790"/>
                     <connections>
                         <outlet property="calendar" destination="ClE-tN-Zjd" id="SGW-0J-ehZ"/>
                         <outlet property="calendarHeightConstraint" destination="kgh-jp-Dhf" id="8g9-tI-FaK"/>
                         <outlet property="cv" destination="SNI-iZ-4UZ" id="KcF-VD-LSK"/>
                         <outlet property="name" destination="s13-dg-7I4" id="1Hb-uw-ZMl"/>
-                        <outlet property="price" destination="qYp-cV-uZT" id="bNl-Xr-sIY"/>
                         <outlet property="time" destination="Hu8-Am-Vbx" id="ZfU-gQ-vAs"/>
                     </connections>
                 </viewController>

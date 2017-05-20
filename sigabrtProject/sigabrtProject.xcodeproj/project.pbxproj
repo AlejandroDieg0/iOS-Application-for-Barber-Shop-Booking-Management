@@ -106,8 +106,8 @@
 			isa = PBXGroup;
 			children = (
 				E33F8BE91EC9F66800705497 /* User.swift */,
-				E33F8BEB1EC9F70000705497 /* Shop.swift */,
 				E33F8BED1EC9F7F000705497 /* Service.swift */,
+				E33F8BEB1EC9F70000705497 /* Shop.swift */,
 				E33F8BEF1EC9F97C00705497 /* Reservation.swift */,
 			);
 			name = Model;

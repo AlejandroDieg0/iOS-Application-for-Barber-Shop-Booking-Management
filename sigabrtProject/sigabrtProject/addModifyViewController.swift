@@ -20,23 +20,23 @@ class addModifyViewController: UIViewController, FSCalendarDataSource, FSCalenda
     
     @IBOutlet weak var name: UITextField!
     @IBOutlet weak var time: UIDatePicker!
-    @IBOutlet weak var price: UITextField!
-    
-   // let selected : [service]?
     
     var selectedDate = ""
     
+    var service: [(tipo: String, prezzo: String)] = [("taglio", "10"),( "colore", "40") ,( "beard", "5")]
+    var selectedService: [(tipo: String, prezzo: String)] = []
+    var tipo: [String] = []
+    var prezzo : [String] = []
+    
     let firebaseAuth = Auth.auth()
     let user = Auth.auth().currentUser
-    
-    var service = ["taglio", "barba", "boh"]
-    var x: [String] = []
     
     fileprivate lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
         return formatter
     }()
+    
     fileprivate lazy var scopeGesture: UIPanGestureRecognizer = {
         [unowned self] in
         let panGesture = UIPanGestureRecognizer(target: self.calendar, action: #selector(self.calendar.handleScopeGesture(_:)))
@@ -46,10 +46,14 @@ class addModifyViewController: UIViewController, FSCalendarDataSource, FSCalenda
         return panGesture
         }()
     
+   
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.time.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
-      cv.allowsMultipleSelection = true
+        cv.allowsMultipleSelection = true
+        cv.delegate = self
+        cv.dataSource = self
         if UIDevice.current.model.hasPrefix("iPad") {
             self.calendarHeightConstraint.constant = 400
         }
@@ -102,8 +106,9 @@ class addModifyViewController: UIViewController, FSCalendarDataSource, FSCalenda
     @IBAction func save(_ sender: UIBarButtonItem) {
         
         let customerName = name.text
-        let price = self.price.text
      
+        
+        
         //FIRBASE REFERENCE
         let date = Date()
         let formatter = DateFormatter()
@@ -113,9 +118,12 @@ class addModifyViewController: UIViewController, FSCalendarDataSource, FSCalenda
         let ref: DatabaseReference = Database.database().reference()
         let post = [
             "name":  customerName ?? "user",
-            "services": "Taglio",
+            "services": [
+                "tipo": tipo,
+                "prezzo": prezzo
+            ] ,
             "time":   selectedDate,
-            "price": price ?? "price not avaiable"
+           
             
         ] as [String : Any]
         ref.child("prenotations/\(result)/\(String(describing: user?.uid))/").childByAutoId().setValue(post)
@@ -128,20 +136,25 @@ class addModifyViewController: UIViewController, FSCalendarDataSource, FSCalenda
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return service.count
+       return service.count
     }
     
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cella", for: indexPath) as!  addModifyCollectionViewCell
-        cell.servizio.text = service[indexPath.row]
+        cell.servizio.text = service[indexPath.row].tipo
+        cell.price.text = service[indexPath.row].prezzo
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
        
-      //  var name = self.cv[indexPath]
-      //  x.append(name)
+        self.selectedService.append((tipo: service[indexPath.row].tipo, prezzo: service[indexPath.row].prezzo))
+        
+        tipo.append(selectedService[indexPath.row].tipo)
+        prezzo.append(selectedService[indexPath.row].prezzo)
+
+    
     }
     
 
