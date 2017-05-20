@@ -15,6 +15,7 @@ class FSCalendarScopeExampleViewController: UIViewController, FSCalendarDataSour
 
     var prenotations : [(nameCustomer: String,services:[(tipo: String, prezzo: String)], time: String)
         ] = []
+    
     @IBOutlet weak var cv: UICollectionView!
     
     @IBOutlet weak var calendar: FSCalendar!
@@ -35,37 +36,45 @@ class FSCalendarScopeExampleViewController: UIViewController, FSCalendarDataSour
         return panGesture
     }()
   
+    var date = ""
     
     let firebaseAuth = Auth.auth()
     let user = Auth.auth().currentUser
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //FIRBASE REFERENCE
-        var ref:DatabaseReference
-        var databaseHandle: DatabaseHandle
-          ref = Database.database().reference()
-        
-        let date = Date()
+        //today date
+        let data = Date()
         let formatter = DateFormatter()
         formatter.dateFormat = "dd-MM-yyyy"
-        let result = formatter.string(from: date)
-        print(result)
+        date = formatter.string(from: data)
         
-        databaseHandle = ref.child("prenotations/\(result)/\(user?.uid)/").childByAutoId().observe(.childAdded, with: { (snapshot) in
-                let post = snapshot.value
-            print(post)
-            
+
+        print(user?.uid ?? "nil")
+        
+        calendar.appearance.headerDateFormat = "MMM yyyy"
+        //FIRBASE REFERENCE
+        var ref:DatabaseReference
+        //var databaseHandle: DatabaseHandle
+          ref = Database.database().reference()
+        
+    
+       // var databaseHandle =
+        
+        ref.child("prenotations/\(date)/\(String(describing: user?.uid))/").childByAutoId().observe(.childAdded, with: { (snapshot) in
+        
             let value = snapshot.value as? NSDictionary
             let name = value?["name"] as? String ?? ""
-            let service = value?["service"] as? String ?? ""
-            let price = value?["price"] as? String ?? ""
+            let service = value?["service"] as? [(tipo: String, prezzo: String)]
             let time = value?["time"] as? String ?? ""
-        
-//            prenotations.append(nameCustomer: name, services: [(tipo: service , prezzo: price)], time:  time)
+         
+           self.prenotations.append((nameCustomer: name, services: service!, time: time))
+       
+            
        })
-        
+       
+
         cv.delegate = self
         cv.dataSource = self
         self.calendar.appearance.headerMinimumDissolvedAlpha = 0.0;
@@ -96,6 +105,7 @@ class FSCalendarScopeExampleViewController: UIViewController, FSCalendarDataSour
         print("did select date \(self.dateFormatter.string(from: date))")
         let selectedDates = calendar.selectedDates.map({self.dateFormatter.string(from: $0)})
         print("selected dates is \(selectedDates)")
+        self.date = String(describing: selectedDates)
         if monthPosition == .next || monthPosition == .previous {
             calendar.setCurrentPage(date, animated: true)
         }
