@@ -172,6 +172,14 @@ class LoginViewController: UIViewController {
             // handle error
         })
         
+        let ref: DatabaseReference = Database.database().reference()
+//        let post = [
+////            "name":  "\(user!.displayName)",
+////            "number": "\(userNumber)",
+////            "Barbiere fiducia":   "\(barberFiducia)",
+//               ]
+        
+      //  ref.child("user/\(user!.uid)/").setValue(post)
         Funcs.animateOut(sender: self.signupView)
         self.performSegue(withIdentifier: "loginSuccess", sender: nil)
 

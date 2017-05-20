@@ -10,15 +10,31 @@ import UIKit
 import FSCalendar
 import Firebase
 
-class addModifyViewController: UIViewController, FSCalendarDataSource, FSCalendarDelegate, UIGestureRecognizerDelegate {
+class addModifyViewController: UIViewController, FSCalendarDataSource, FSCalendarDelegate, UIGestureRecognizerDelegate,UICollectionViewDataSource,UICollectionViewDelegate {
   
     @IBOutlet weak var calendar: FSCalendar!
     
     @IBOutlet weak var calendarHeightConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var cv: UICollectionView!
+    
+    @IBOutlet weak var name: UITextField!
+    @IBOutlet weak var time: UIDatePicker!
+    @IBOutlet weak var price: UITextField!
+    
+   // let selected : [service]?
+    
+    var selectedDate = ""
+    
+    let firebaseAuth = Auth.auth()
+    let user = Auth.auth().currentUser
+    
+    var service = ["taglio", "barba", "boh"]
+    var x: [String] = []
+    
     fileprivate lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy/MM/dd"
+        formatter.dateFormat = "yyyy-MM-dd"
         return formatter
     }()
     fileprivate lazy var scopeGesture: UIPanGestureRecognizer = {
@@ -32,8 +48,8 @@ class addModifyViewController: UIViewController, FSCalendarDataSource, FSCalenda
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-      
+        self.time.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
+      cv.allowsMultipleSelection = true
         if UIDevice.current.model.hasPrefix("iPad") {
             self.calendarHeightConstraint.constant = 400
         }
@@ -45,6 +61,16 @@ class addModifyViewController: UIViewController, FSCalendarDataSource, FSCalenda
         self.calendar.accessibilityIdentifier = "calendar"
         
        
+    }
+    
+    func dateChanged(_ sender: UIDatePicker) {
+        let dateFormatter = DateFormatter()
+        var convertedDate: String!
+        dateFormatter.dateFormat = "hh:mm"
+        convertedDate = dateFormatter.string(from: time.date)
+        print(convertedDate)
+        selectedDate = convertedDate
+
     }
     
     deinit {
@@ -74,6 +100,10 @@ class addModifyViewController: UIViewController, FSCalendarDataSource, FSCalenda
     
     
     @IBAction func save(_ sender: UIBarButtonItem) {
+        
+        let customerName = name.text
+        let price = self.price.text
+     
         //FIRBASE REFERENCE
         let date = Date()
         let formatter = DateFormatter()
@@ -82,26 +112,38 @@ class addModifyViewController: UIViewController, FSCalendarDataSource, FSCalenda
         print(result)
         let ref: DatabaseReference = Database.database().reference()
         let post = [
-            "name":  "Incompleteness Theorem",
-            "service": "Taglio",
-            "time":   "10:30",
-            "services" : [
-                "taglio" : "10",
-                "colore" : "40"
-            ]
+            "name":  customerName ?? "user",
+            "services": "Taglio",
+            "time":   selectedDate,
+            "price": price ?? "price not avaiable"
+            
         ] as [String : Any]
-        ref.child("prenotations/\(result)/7346837478/").childByAutoId().setValue(post)
+        ref.child("prenotations/\(result)/\(String(describing: user?.uid))/").childByAutoId().setValue(post)
         
+        
+    }
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return service.count
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cella", for: indexPath) as!  addModifyCollectionViewCell
+        cell.servizio.text = service[indexPath.row]
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+       
+      //  var name = self.cv[indexPath]
+      //  x.append(name)
     }
     
 
 }
-//
-//let ref: FIRDatabaseReference = FIRDatabase.database().reference()
-//let post = [
-//    "name":  "username",
-//    "number": "35334",
-//    "Barbiere fiduci":   "DCVFEV",
-//       ]
 
-//ref.child("users/\(user!.uid)/").setValue(post)

@@ -13,8 +13,7 @@ import Firebase
 
 class FSCalendarScopeExampleViewController: UIViewController, FSCalendarDataSource, FSCalendarDelegate, UIGestureRecognizerDelegate,UICollectionViewDelegate, UICollectionViewDataSource  {
 
-    var prenotations : [(date: String, barberID: String, nameCustomer: String,
-        services:[(tipo: String, prezzo: String)])
+    var prenotations : [(nameCustomer: String,services:[(tipo: String, prezzo: String)], time: String)
         ] = []
     @IBOutlet weak var cv: UICollectionView!
     
@@ -37,6 +36,9 @@ class FSCalendarScopeExampleViewController: UIViewController, FSCalendarDataSour
     }()
   
     
+    let firebaseAuth = Auth.auth()
+    let user = Auth.auth().currentUser
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -44,22 +46,25 @@ class FSCalendarScopeExampleViewController: UIViewController, FSCalendarDataSour
         var ref:DatabaseReference
         var databaseHandle: DatabaseHandle
           ref = Database.database().reference()
-        ref.child("users/test/username").setValue("hjb")
+        
         let date = Date()
         let formatter = DateFormatter()
         formatter.dateFormat = "dd-MM-yyyy"
         let result = formatter.string(from: date)
         print(result)
-        databaseHandle = ref.child("prenotations/\(result)/ECHO").observe(.childAdded, with: { (snapshot) in
-                
-                
-            let post = snapshot.value
+        
+        databaseHandle = ref.child("prenotations/\(result)/\(user?.uid)/").childByAutoId().observe(.childAdded, with: { (snapshot) in
+                let post = snapshot.value
+            print(post)
             
-                if let actualPost = post {
-            //        self.prenotation.set
-                    print(actualPost)
-                }
-            })
+            let value = snapshot.value as? NSDictionary
+            let name = value?["name"] as? String ?? ""
+            let service = value?["service"] as? String ?? ""
+            let price = value?["price"] as? String ?? ""
+            let time = value?["time"] as? String ?? ""
+        
+//            prenotations.append(nameCustomer: name, services: [(tipo: service , prezzo: price)], time:  time)
+       })
         
         cv.delegate = self
         cv.dataSource = self
@@ -116,6 +121,7 @@ class FSCalendarScopeExampleViewController: UIViewController, FSCalendarDataSour
         return timeSlot.count
     }
     
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as!  CollectionViewCell
         cell.time.text =  timeSlot[indexPath.row]
