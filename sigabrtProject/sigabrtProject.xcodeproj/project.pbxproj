@@ -34,6 +34,7 @@
 		E51D33E31ED07674004C9BEF /* FSCalendarScopeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51D33E21ED07674004C9BEF /* FSCalendarScopeViewController.swift */; };
 		E51D33E51ED07AE9004C9BEF /* addModifyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51D33E41ED07AE9004C9BEF /* addModifyCollectionViewCell.swift */; };
 		E51D33E71ED08D27004C9BEF /* prenotations.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51D33E61ED08D27004C9BEF /* prenotations.swift */; };
+		E521F2E91ED0EF4A00F5AC84 /* barberLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E521F2E81ED0EF4A00F5AC84 /* barberLoginViewController.swift */; };
 		E526F8D91ECD68680023846A /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E526F8D81ECD68680023846A /* LoginViewController.swift */; };
 		E526F8DB1ECD68700023846A /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E526F8DA1ECD68700023846A /* TestViewController.swift */; };
 		F303D5961ECF24EE009EC344 /* BarberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F303D5951ECF24EE009EC344 /* BarberViewController.swift */; };
@@ -73,6 +74,7 @@
 		E51D33E21ED07674004C9BEF /* FSCalendarScopeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSCalendarScopeViewController.swift; sourceTree = "<group>"; };
 		E51D33E41ED07AE9004C9BEF /* addModifyCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = addModifyCollectionViewCell.swift; sourceTree = "<group>"; };
 		E51D33E61ED08D27004C9BEF /* prenotations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = prenotations.swift; sourceTree = "<group>"; };
+		E521F2E81ED0EF4A00F5AC84 /* barberLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = barberLoginViewController.swift; sourceTree = "<group>"; };
 		E526F8D81ECD68680023846A /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		E526F8DA1ECD68700023846A /* TestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		F303D5951ECF24EE009EC344 /* BarberViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarberViewController.swift; sourceTree = "<group>"; };
@@ -142,6 +144,7 @@
 				E3ACD9121ECF7429002B6399 /* Funcs.swift */,
 				E51D33DE1ED07663004C9BEF /* addModifyViewController.swift */,
 				E51D33E21ED07674004C9BEF /* FSCalendarScopeViewController.swift */,
+				E521F2E81ED0EF4A00F5AC84 /* barberLoginViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -327,6 +330,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E521F2E91ED0EF4A00F5AC84 /* barberLoginViewController.swift in Sources */,
 				9BD9F50A1ECDD2EA006768F6 /* ModernSearchBarModel.swift in Sources */,
 				E526F8D91ECD68680023846A /* LoginViewController.swift in Sources */,
 				E33F8BEA1EC9F66800705497 /* User.swift in Sources */,

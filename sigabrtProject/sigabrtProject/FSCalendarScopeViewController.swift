@@ -36,25 +36,33 @@ class FSCalendarScopeExampleViewController: UIViewController, FSCalendarDataSour
         return panGesture
     }()
   
+    var date = ""
     
     let firebaseAuth = Auth.auth()
     let user = Auth.auth().currentUser
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //FIRBASE REFERENCE
-        var ref:DatabaseReference
-        var databaseHandle: DatabaseHandle
-          ref = Database.database().reference()
-        
-        let date = Date()
+        //today date
+        let data = Date()
         let formatter = DateFormatter()
         formatter.dateFormat = "dd-MM-yyyy"
-        let result = formatter.string(from: date)
-        print(result)
+        date = formatter.string(from: data)
         
-        databaseHandle = ref.child("prenotations/\(result)/\(String(describing: user?.uid))/").childByAutoId().observe(.childAdded, with: { (snapshot) in
+
+        print(user?.uid ?? "nil")
+        
+        calendar.appearance.headerDateFormat = "MMM yyyy"
+        //FIRBASE REFERENCE
+        var ref:DatabaseReference
+        //var databaseHandle: DatabaseHandle
+          ref = Database.database().reference()
+        
+    
+       // var databaseHandle =
+        
+        ref.child("prenotations/\(date)/\(String(describing: user?.uid))/").childByAutoId().observe(.childAdded, with: { (snapshot) in
         
             let value = snapshot.value as? NSDictionary
             let name = value?["name"] as? String ?? ""
@@ -97,6 +105,7 @@ class FSCalendarScopeExampleViewController: UIViewController, FSCalendarDataSour
         print("did select date \(self.dateFormatter.string(from: date))")
         let selectedDates = calendar.selectedDates.map({self.dateFormatter.string(from: $0)})
         print("selected dates is \(selectedDates)")
+        self.date = String(describing: selectedDates)
         if monthPosition == .next || monthPosition == .previous {
             calendar.setCurrentPage(date, animated: true)
         }

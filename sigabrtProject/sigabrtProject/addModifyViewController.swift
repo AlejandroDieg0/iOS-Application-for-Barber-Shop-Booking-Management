@@ -22,6 +22,8 @@ class addModifyViewController: UIViewController, FSCalendarDataSource, FSCalenda
     @IBOutlet weak var time: UIDatePicker!
     
     var selectedDate = ""
+    var selectedTime = ""
+
     
     var service: [(tipo: String, prezzo: String)] = [("taglio", "10"),( "colore", "40") ,( "beard", "5")]
     var selectedService: [(tipo: String, prezzo: String)] = []
@@ -46,9 +48,17 @@ class addModifyViewController: UIViewController, FSCalendarDataSource, FSCalenda
         return panGesture
         }()
     
-   
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //today date
+        let data = Date()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd-MM-yyyy"
+        selectedDate = formatter.string(from: data)
+        
+
         
         self.time.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
         cv.allowsMultipleSelection = true
@@ -73,7 +83,7 @@ class addModifyViewController: UIViewController, FSCalendarDataSource, FSCalenda
         dateFormatter.dateFormat = "hh:mm"
         convertedDate = dateFormatter.string(from: time.date)
         print(convertedDate)
-        selectedDate = convertedDate
+        selectedTime = convertedDate
 
     }
     
@@ -93,6 +103,8 @@ class addModifyViewController: UIViewController, FSCalendarDataSource, FSCalenda
         print("did select date \(self.dateFormatter.string(from: date))")
         let selectedDates = calendar.selectedDates.map({self.dateFormatter.string(from: $0)})
         print("selected dates is \(selectedDates)")
+         self.selectedDate = self.dateFormatter.string(from: date)
+        print(selectedDate)
         if monthPosition == .next || monthPosition == .previous {
             calendar.setCurrentPage(date, animated: true)
         }
@@ -107,8 +119,6 @@ class addModifyViewController: UIViewController, FSCalendarDataSource, FSCalenda
         
         let customerName = name.text
      
-        
-        
         //FIRBASE REFERENCE
         let date = Date()
         let formatter = DateFormatter()
@@ -122,11 +132,11 @@ class addModifyViewController: UIViewController, FSCalendarDataSource, FSCalenda
                 "tipo": tipo,
                 "prezzo": prezzo
             ] ,
-            "time":   selectedDate,
+            "time":   selectedTime,
            
             
         ] as [String : Any]
-        ref.child("prenotations/\(result)/\(String(describing: user?.uid))/").childByAutoId().setValue(post)
+        ref.child("prenotations/\(selectedDate)/\(String(describing: user!.uid))/").childByAutoId().setValue(post)
         
         
     }
