@@ -38,6 +38,11 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
     
     
     @IBAction func loginButton(_ sender: Any) {
+        if Auth.auth().currentUser != nil {
+            
+            self.performSegue(withIdentifier: "loginSuccess", sender: nil)
+            return
+        }
         let controller = UIStoryboard(name: "User", bundle: nil).instantiateViewController(withIdentifier: "loginVC") as? LoginViewController
         
         self.addChildViewController(controller!)

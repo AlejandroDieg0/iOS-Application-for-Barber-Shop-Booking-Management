@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 import FBSDKLoginKit
 
-class TestViewController: UITableViewController {
+class UserProfileViewController: UITableViewController {
 
     var x = ""
     let firebaseAuth = Auth.auth()
@@ -54,7 +54,7 @@ class TestViewController: UITableViewController {
         super.viewDidLoad()
        
     //GESTURE
-    let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(TestViewController.dismissKeyboard))
+    let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UserProfileViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
 
 
@@ -86,12 +86,10 @@ class TestViewController: UITableViewController {
                     let data:[String:AnyObject] = result as! [String : AnyObject]
                     print(data)
                     let firstName = data["first_name"]
-                    let email = data["email"]
                     
-                    
-                    self.helloName.text = "Hello \( String(describing: firstName!))"
+                    self.helloName.text = "Hello \(firstName!)"
                     self.labelName.text = firstName! as? String
-                    self.labelMail.text = email as? String
+                    self.labelMail.text = data["email"] as? String
                     self.sendMailPwReset.setTitle("Connected as \(firstName!)", for: .normal)
                     
                 }
@@ -100,9 +98,7 @@ class TestViewController: UITableViewController {
         }else{
             if Auth.auth().currentUser != nil {
                 
-                helloName.text = "Hello \(String(describing:  user!.displayName ))"
-                self.labelName.text = user!.displayName
-                self.labelMail.text = user!.email
+                loadUserData()
                 
             } else {
                 print("no logged with Firebase")
@@ -110,6 +106,41 @@ class TestViewController: UITableViewController {
             }
         }
 
+        
+    }
+    
+    func loadUserData(){
+        let user = Auth.auth().currentUser
+        let ref = Database.database().reference()
+        ref.child("user").child((user?.uid)!).observeSingleEvent(of: .value, with: { (snapshot) in
+            // Get user value
+            if let value = snapshot.value as? NSDictionary {
+                self.labelPhone.text = value["phone"] as? String ?? ""
+                self.labelName.text = value["name"] as? String ?? ""
+                self.labelMail.text = user?.email
+                self.helloName.text = "Hello \(self.labelName.text!)"
+            } else {
+                self.inizializeUserData()
+            }
+            // ...
+        }) { (error) in
+            print(error.localizedDescription)
+        }
+    }
+    
+    func inizializeUserData(){
+        let user = Auth.auth().currentUser
+        if (user != nil){
+            let ref: DatabaseReference = Database.database().reference()
+            let post = [
+                "name":  "",
+                "phone": "",
+                "favbarber":   -1,
+                ] as [String : Any]
+            
+            ref.child("user/\(user!.uid)/").setValue(post)
+            print("New User Data inizialidez")
+        }
         
     }
     
@@ -128,7 +159,7 @@ class TestViewController: UITableViewController {
         }
         let loginManager = FBSDKLoginManager()
         loginManager.logOut()
-        dismiss(animated: true, completion: nil)
+        self.navigationController?.popViewController(animated: true)
         return
     }
    

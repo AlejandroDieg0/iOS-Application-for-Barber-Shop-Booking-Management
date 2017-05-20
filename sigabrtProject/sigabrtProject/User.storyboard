@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AC9-tm-yj9">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AC9-tm-yj9">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -81,7 +81,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="cell" textLabel="cq3-zd-vJO" imageView="muT-Sw-lIX" style="IBUITableViewCellStyleDefault" id="l7T-Kc-YDh">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="cell" textLabel="cq3-zd-vJO" style="IBUITableViewCellStyleDefault" id="l7T-Kc-YDh">
                                         <rect key="frame" x="0.0" y="143.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="l7T-Kc-YDh" id="aQy-fQ-zN4">
@@ -89,16 +89,12 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Lorem ipsum dolor sit er elit lamet" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="cq3-zd-vJO">
-                                                    <rect key="frame" x="46" y="0.0" width="314" height="43.5"/>
+                                                    <rect key="frame" x="15" y="0.0" width="345" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="icon_cat" id="muT-Sw-lIX">
-                                                    <rect key="frame" x="15" y="13" width="16" height="16"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -114,11 +110,6 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="300" id="Tye-eP-1bP"/>
                                 </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="fakedSelectedDay">
-                                        <integer key="value" value="1"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <outlet property="dataSource" destination="AC9-tm-yj9" id="V93-CZ-aC0"/>
                                     <outlet property="delegate" destination="AC9-tm-yj9" id="hnY-qH-Nke"/>
@@ -372,15 +363,15 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Dby-u5-DbJ">
-                            <rect key="frame" x="1" y="214" width="291" height="106"/>
+                            <rect key="frame" x="1" y="214" width="299" height="106"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
                             <prototypes>
-                                <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Fco-od-FUL">
-                                    <rect key="frame" x="0.0" y="28" width="291" height="44"/>
+                                <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="serviceCell" id="Fco-od-FUL">
+                                    <rect key="frame" x="0.0" y="28" width="299" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Fco-od-FUL" id="JYa-aR-Yav">
-                                        <rect key="frame" x="0.0" y="0.0" width="291" height="43.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="299" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                     </tableViewCellContentView>
                                     <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -527,10 +518,10 @@
             </objects>
             <point key="canvasLocation" x="69.599999999999994" y="163.26836581709148"/>
         </scene>
-        <!--Test View Controller-->
+        <!--User Profile View Controller-->
         <scene sceneID="mug-eE-bzh">
             <objects>
-                <tableViewController id="0e9-X5-6qz" customClass="TestViewController" customModule="sigabrtProject" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="loginSuccess" id="0e9-X5-6qz" customClass="UserProfileViewController" customModule="sigabrtProject" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="1" id="w6J-L3-C5d">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -565,7 +556,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H7N-dA-05Z">
-                                                    <rect key="frame" x="321" y="23" width="46" height="29"/>
+                                                    <rect key="frame" x="213" y="23" width="46" height="29"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                                     <state key="normal" title="Edit">
@@ -576,7 +567,7 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GoY-1T-B2V">
-                                                    <rect key="frame" x="321" y="22" width="46" height="30"/>
+                                                    <rect key="frame" x="321" y="23" width="46" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
                                                     <state key="normal" title="Done">
@@ -781,7 +772,7 @@
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H4Q-pL-gay">
                                                     <rect key="frame" x="0.0" y="-1" width="375" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                                     <state key="normal" title="Esci">
@@ -903,7 +894,6 @@
         <image name="call-answer" width="64" height="64"/>
         <image name="cancel-music" width="64" height="64"/>
         <image name="facebook (2)" width="64" height="64"/>
-        <image name="icon_cat" width="16" height="16"/>
         <image name="logo" width="64" height="64"/>
         <image name="mail" width="64" height="64"/>
         <image name="map-placeholder" width="32" height="32"/>

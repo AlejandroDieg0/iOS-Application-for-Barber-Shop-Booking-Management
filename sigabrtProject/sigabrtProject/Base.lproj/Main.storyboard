@@ -223,6 +223,7 @@
                         <outlet property="personalMap" destination="HVf-rn-sfE" id="EjC-V7-IOm"/>
                         <outlet property="searchDisplayController" destination="NSK-o6-UB6" id="eEp-hS-OFA"/>
                         <segue destination="ZFh-yO-Rjp" kind="show" identifier="userReservation" id="shD-VO-vaa"/>
+                        <segue destination="9Xo-gz-L9g" kind="show" identifier="loginSuccess" id="6bx-oA-fdQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -236,6 +237,14 @@
                 </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="455" y="983"/>
+        </scene>
+        <!--loginSuccess-->
+        <scene sceneID="IYj-sH-XUE">
+            <objects>
+                <viewControllerPlaceholder storyboardName="User" referencedIdentifier="loginSuccess" id="9Xo-gz-L9g" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="e1r-vy-Sz2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1175" y="890"/>
         </scene>
         <!--User-->
         <scene sceneID="mYc-Ed-GGw">
