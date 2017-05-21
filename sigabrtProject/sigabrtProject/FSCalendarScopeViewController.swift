@@ -14,10 +14,11 @@ import Firebase
 class FSCalendarScopeExampleViewController: UIViewController, FSCalendarDataSource, FSCalendarDelegate, UIGestureRecognizerDelegate,UICollectionViewDelegate, UICollectionViewDataSource  {
 
     
-    var prenotations : [(nameCustomer: String, service: [String : String], time: String)
-        ] = []
-    
+//    var prenotations : [(customerName: String, tipoServizio: String,prezzoServizio : [String], timeSelected: String, total: Int)] = []
+    var prenotationList = [prenotation]()
+   
     var timeSlot = ["9:00","9:15","9:30","9:45","10:00"]
+
     
     @IBOutlet weak var cv: UICollectionView!
     @IBOutlet weak var calendar: FSCalendar!
@@ -68,30 +69,49 @@ class FSCalendarScopeExampleViewController: UIViewController, FSCalendarDataSour
     func readData(){
     
     //FIRBASE REFERENCE
-    var ref:DatabaseReference
-    ref = Database.database().reference()
-        
-        ref.child("prenotations/\(selectedDate)/\(user!.uid)/").observeSingleEvent(of :.value, with: { (snapshot) in
-        if ( snapshot.value is NSNull ) {
-            print("not found")
+    let ref = Database.database().reference().child("prenotations").child(selectedDate).child(user!.uid)
+      
+    ref.observe(.childAdded, with: { (snapshot) in
+            if let userDict = snapshot.value as? [String:Any] {
+                let name = userDict["name"] as? String ?? ""
+                let time = userDict["time"] as? String ?? ""
+                
+                let service = userDict["services"] as? [String: Any]
+                let serviceArray = service?["tipo"] as! String
+                let priceArray = service?["prezzo"] as! String
+            
+//                let splittedTipe = serviceArray.characters.split { [",", "[","]"].contains(String($0)) }
+//                let trimmedTipe = splittedTipe.map { String($0).trimmingCharacters(in: .whitespaces) }
+
+                let splittedPrice = priceArray.characters.split { [",", "[","]"].contains(String($0)) }
+                let trimmedPrice = splittedPrice.map { String($0).trimmingCharacters(in: .whitespaces) }
+            
+                var totalPrice = 0
+                let intArray = trimmedPrice.map { Int($0)!}
+                for i in 0..<intArray.count {
+                    totalPrice += intArray[i]
+                }
+
+              // con classe
+                let  x = prenotation(customerName: name, tipoServizio: serviceArray, prezzoServizio: trimmedPrice, timeSelected: time, total: totalPrice)
+                self.prenotationList.append(x)
+
+                 let prenotationListUpdate = self.prenotationList
+            // con array
+//                self.prenotations.append((customerName: name, tipoServizio: serviceArray,prezzoServizio: trimmedPrice, timeSelected: time, total: totalPrice))
+//                print(self.prenotations)
+                if let tempEmplo = prenotationListUpdate as? [prenotation] {
+                    print ("request complete refreshing tableview")
+                    self.prenotationList = tempEmplo
+                    DispatchQueue.main.async {
+                        self.cv.reloadData()
+                    }
+                }
+                
+            }})  { (error) in
+                            print(error.localizedDescription)
+                    }
         }
-        else{
-    let value = snapshot.value as? NSDictionary
-    let name = value?["name"] as? String ?? ""
-            let service = value?["service"] as! [String: String] ?? [:]
-    let time = value?["time"] as? String ?? ""
-    
-    self.prenotations.append((nameCustomer: name, service: service, time: time))
-    print(self.prenotations)
-    self.cv.reloadData()
-    print("cia")
-        }
-            }) { (error) in
-                    print(error.localizedDescription)
-            }
-        
-        
-    }
     
     func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
         self.calendarHeightConstraint.constant = bounds.height
@@ -101,6 +121,7 @@ class FSCalendarScopeExampleViewController: UIViewController, FSCalendarDataSour
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         print("did select date \(self.dateFormatter.string(from: date))")
         self.readData()
+        
         self.selectedDate = self.dateFormatter.string(from: date)
         if monthPosition == .next || monthPosition == .previous {
             calendar.setCurrentPage(date, animated: true)
@@ -125,13 +146,26 @@ class FSCalendarScopeExampleViewController: UIViewController, FSCalendarDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return timeSlot.count
+        return prenotationList.count
     }
     
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as!  CollectionViewCell
-        cell.time.text =  timeSlot[indexPath.row]
+        
+//        let total = String(prenotations[indexPath.row].total)
+//        cell.time.text = prenotations[indexPath.row].timeSelected
+//        cell.name.text = prenotations[indexPath.row].customerName
+//        cell.total.text = total
+//        cell.services.text = prenotations[indexPath.row].tipoServizio
+
+        let total = String(prenotationList[indexPath.row].total)
+        cell.name.text = prenotationList[indexPath.row].customerName
+        cell.time.text = prenotationList[indexPath.row].timeSelected
+        cell.total.text = total
+        cell.services.text = prenotationList[indexPath.row].tipoServizio
+        
+        
         return cell
     }
     
