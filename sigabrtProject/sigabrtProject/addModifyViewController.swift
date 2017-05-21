@@ -26,10 +26,9 @@ class addModifyViewController: UIViewController, FSCalendarDataSource, FSCalenda
 
     
     var service: [(tipo: String, prezzo: String)] = [("taglio", "10"),( "colore", "40") ,( "beard", "5")]
-    var selectedService: [(tipo: String, prezzo: String)] = []
     var tipo: [String] = []
     var prezzo : [String] = []
-     var timeSlot = ["9:00","9:15","9:30","9:45","10:00"]
+    var timeSlot = ["09:00","09:15","09:30","09:45","10:00"]
     
     let firebaseAuth = Auth.auth()
     let user = Auth.auth().currentUser
@@ -59,10 +58,7 @@ class addModifyViewController: UIViewController, FSCalendarDataSource, FSCalenda
         let formatter = DateFormatter()
         formatter.dateFormat = "dd-MM-yyyy"
         selectedDate = formatter.string(from: data)
-        
         selectedTime = timeSlot.first!
-        
-
         
         self.time.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
         cv.allowsMultipleSelection = true
@@ -112,6 +108,8 @@ class addModifyViewController: UIViewController, FSCalendarDataSource, FSCalenda
     
     @IBAction func save(_ sender: UIBarButtonItem) {
         
+        let selectedServiceTipe = tipo.joined(separator: ",")
+        let selectedServicePrice = prezzo.joined(separator: ",")
         let customerName = name.text
         
         //FIRBASE REFERENCE
@@ -119,8 +117,8 @@ class addModifyViewController: UIViewController, FSCalendarDataSource, FSCalenda
         let post = [
             "name":  customerName ?? "user",
             "services": [
-                "tipo": tipo,
-                "prezzo": prezzo
+                "prezzo": selectedServicePrice,
+                "tipo": selectedServiceTipe
             ] ,
             "time":   selectedTime,
          ] as [String : Any]
@@ -146,11 +144,8 @@ class addModifyViewController: UIViewController, FSCalendarDataSource, FSCalenda
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-       
-        self.selectedService.append((tipo: service[indexPath.row].tipo, prezzo: service[indexPath.row].prezzo))
-        
-        tipo.append(selectedService[indexPath.row].tipo)
-        prezzo.append(selectedService[indexPath.row].prezzo)
+        tipo.append(service[indexPath.row].tipo)
+        prezzo.append(service[indexPath.row].prezzo)
 
     
     }
