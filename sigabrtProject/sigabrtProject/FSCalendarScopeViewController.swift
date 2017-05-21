@@ -20,6 +20,11 @@ class FSCalendarScopeExampleViewController: UIViewController, FSCalendarDataSour
     var timeSlot = ["9:00","9:15","9:30","9:45","10:00"]
 
     
+//    var customerName = [String]()
+//    var tipoServizio: [String] = []
+//    var prezzoServizio : [String] = []
+//    var timeSelected = String()
+    
     @IBOutlet weak var cv: UICollectionView!
     @IBOutlet weak var calendar: FSCalendar!
     @IBOutlet weak var calendarHeightConstraint: NSLayoutConstraint!
