@@ -13,15 +13,15 @@ import Firebase
 
 class FSCalendarScopeExampleViewController: UIViewController, FSCalendarDataSource, FSCalendarDelegate, UIGestureRecognizerDelegate,UICollectionViewDelegate, UICollectionViewDataSource  {
 
-    var prenotations : [(nameCustomer: String,services:[(tipo: String, prezzo: String)], time: String)
+    
+    var prenotations : [(nameCustomer: String, service: [String : String], time: String)
         ] = []
     
+    var timeSlot = ["9:00","9:15","9:30","9:45","10:00"]
+    
     @IBOutlet weak var cv: UICollectionView!
-    
     @IBOutlet weak var calendar: FSCalendar!
-     var timeSlot = ["9:00","9:15","9:30","9:45","10:00"]
     @IBOutlet weak var calendarHeightConstraint: NSLayoutConstraint!
-    
     fileprivate lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "dd-MM-yyyy"
@@ -36,8 +36,8 @@ class FSCalendarScopeExampleViewController: UIViewController, FSCalendarDataSour
         return panGesture
     }()
   
-    var date = ""
     
+    var selectedDate = ""
     let firebaseAuth = Auth.auth()
     let user = Auth.auth().currentUser
 
@@ -48,53 +48,50 @@ class FSCalendarScopeExampleViewController: UIViewController, FSCalendarDataSour
         let data = Date()
         let formatter = DateFormatter()
         formatter.dateFormat = "dd-MM-yyyy"
-        date = formatter.string(from: data)
+        selectedDate = formatter.string(from: data)
         
-
-        print(user?.uid ?? "nil")
-        
+        self.calendar.scope = .week
         calendar.appearance.headerDateFormat = "MMM yyyy"
-        //FIRBASE REFERENCE
-        var ref:DatabaseReference
-        //var databaseHandle: DatabaseHandle
-          ref = Database.database().reference()
-        
-    
-       // var databaseHandle =
-        
-        ref.child("prenotations/\(date)/\(String(describing: user?.uid))/").childByAutoId().observe(.childAdded, with: { (snapshot) in
-        
-            let value = snapshot.value as? NSDictionary
-            let name = value?["name"] as? String ?? ""
-            let service = value?["service"] as? [(tipo: String, prezzo: String)]
-            let time = value?["time"] as? String ?? ""
-         
-           self.prenotations.append((nameCustomer: name, services: service!, time: time))
-       
-            
-       })
-       
-
-        cv.delegate = self
-        cv.dataSource = self
         self.calendar.appearance.headerMinimumDissolvedAlpha = 0.0;
         if UIDevice.current.model.hasPrefix("iPad") {
             self.calendarHeightConstraint.constant = 400
         }
-        
+
+        cv.delegate = self
+        cv.dataSource = self
         
         self.view.addGestureRecognizer(self.scopeGesture)
-        self.calendar.scope = .week
         
-        // For UITest
-        self.calendar.accessibilityIdentifier = "calendar"
-        
+        readData()
     }
     
-    deinit {
-        print("\(#function)")
-    }
+    func readData(){
     
+    //FIRBASE REFERENCE
+    var ref:DatabaseReference
+    ref = Database.database().reference()
+        
+        ref.child("prenotations/\(selectedDate)/\(user!.uid)/").observeSingleEvent(of :.value, with: { (snapshot) in
+        if ( snapshot.value is NSNull ) {
+            print("not found")
+        }
+        else{
+    let value = snapshot.value as? NSDictionary
+    let name = value?["name"] as? String ?? ""
+            let service = value?["service"] as! [String: String] ?? [:]
+    let time = value?["time"] as? String ?? ""
+    
+    self.prenotations.append((nameCustomer: name, service: service, time: time))
+    print(self.prenotations)
+    self.cv.reloadData()
+    print("cia")
+        }
+            }) { (error) in
+                    print(error.localizedDescription)
+            }
+        
+        
+    }
     
     func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
         self.calendarHeightConstraint.constant = bounds.height
@@ -103,12 +100,12 @@ class FSCalendarScopeExampleViewController: UIViewController, FSCalendarDataSour
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         print("did select date \(self.dateFormatter.string(from: date))")
-        let selectedDates = calendar.selectedDates.map({self.dateFormatter.string(from: $0)})
-        print("selected dates is \(selectedDates)")
-        self.date = String(describing: selectedDates)
+        self.readData()
+        self.selectedDate = self.dateFormatter.string(from: date)
         if monthPosition == .next || monthPosition == .previous {
             calendar.setCurrentPage(date, animated: true)
         }
+        
     }
 
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
@@ -137,5 +134,7 @@ class FSCalendarScopeExampleViewController: UIViewController, FSCalendarDataSour
         cell.time.text =  timeSlot[indexPath.row]
         return cell
     }
+    
+    
     
 }

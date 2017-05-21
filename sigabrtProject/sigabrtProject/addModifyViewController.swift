@@ -29,13 +29,14 @@ class addModifyViewController: UIViewController, FSCalendarDataSource, FSCalenda
     var selectedService: [(tipo: String, prezzo: String)] = []
     var tipo: [String] = []
     var prezzo : [String] = []
+     var timeSlot = ["9:00","9:15","9:30","9:45","10:00"]
     
     let firebaseAuth = Auth.auth()
     let user = Auth.auth().currentUser
     
     fileprivate lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
+        formatter.dateFormat = "dd-MM-yyyy"
         return formatter
     }()
     
@@ -52,11 +53,14 @@ class addModifyViewController: UIViewController, FSCalendarDataSource, FSCalenda
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         //today date
         let data = Date()
         let formatter = DateFormatter()
         formatter.dateFormat = "dd-MM-yyyy"
         selectedDate = formatter.string(from: data)
+        
+        selectedTime = timeSlot.first!
         
 
         
@@ -71,9 +75,6 @@ class addModifyViewController: UIViewController, FSCalendarDataSource, FSCalenda
         self.calendar.select(Date())
         self.view.addGestureRecognizer(self.scopeGesture)
         self.calendar.scope = .week
-        // For UITest
-        self.calendar.accessibilityIdentifier = "calendar"
-        
        
     }
     
@@ -87,13 +88,7 @@ class addModifyViewController: UIViewController, FSCalendarDataSource, FSCalenda
 
     }
     
-    deinit {
-        print("\(#function)")
-    }
     
-    // MARK:- UIGestureRecognizerDelegate
-    
-        
     func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
         self.calendarHeightConstraint.constant = bounds.height
         self.view.layoutIfNeeded()
@@ -118,13 +113,8 @@ class addModifyViewController: UIViewController, FSCalendarDataSource, FSCalenda
     @IBAction func save(_ sender: UIBarButtonItem) {
         
         let customerName = name.text
-     
+        
         //FIRBASE REFERENCE
-        let date = Date()
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd-MM-yyyy"
-        let result = formatter.string(from: date)
-        print(result)
         let ref: DatabaseReference = Database.database().reference()
         let post = [
             "name":  customerName ?? "user",
@@ -133,9 +123,7 @@ class addModifyViewController: UIViewController, FSCalendarDataSource, FSCalenda
                 "prezzo": prezzo
             ] ,
             "time":   selectedTime,
-           
-            
-        ] as [String : Any]
+         ] as [String : Any]
         ref.child("prenotations/\(selectedDate)/\(String(describing: user!.uid))/").childByAutoId().setValue(post)
         
         
