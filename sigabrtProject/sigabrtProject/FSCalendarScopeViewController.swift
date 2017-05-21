@@ -72,7 +72,7 @@ class FSCalendarScopeExampleViewController: UIViewController, FSCalendarDataSour
     }
     
     func readData(){
-    
+    prenotationList.removeAll()
     //FIRBASE REFERENCE
     let ref = Database.database().reference().child("prenotations").child(selectedDate).child(user!.uid)
       
@@ -101,22 +101,14 @@ class FSCalendarScopeExampleViewController: UIViewController, FSCalendarDataSour
                 let  x = prenotation(customerName: name, tipoServizio: serviceArray, prezzoServizio: trimmedPrice, timeSelected: time, total: totalPrice)
                 self.prenotationList.append(x)
 
-                 let prenotationListUpdate = self.prenotationList
+                
             // con array
 //                self.prenotations.append((customerName: name, tipoServizio: serviceArray,prezzoServizio: trimmedPrice, timeSelected: time, total: totalPrice))
 //                print(self.prenotations)
-                if let tempEmplo = prenotationListUpdate as? [prenotation] {
-                    print ("request complete refreshing tableview")
-                    self.prenotationList = tempEmplo
-                    DispatchQueue.main.async {
-                        self.cv.reloadData()
-                    }
-                }
-                
-            }})  { (error) in
-                            print(error.localizedDescription)
-                    }
-        }
+               
+                self.cv.reloadData()
+            }})
+    }
     
     func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
         self.calendarHeightConstraint.constant = bounds.height
