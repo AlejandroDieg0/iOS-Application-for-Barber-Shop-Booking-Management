@@ -108,25 +108,32 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
     
     @IBAction func save(_ sender: UIBarButtonItem) {
         
-        let selectedServiceTipe = tipo.joined(separator: ",")
-        let selectedServicePrice = prezzo.joined(separator: ",")
-        let customerName = name.text
+        let actionSheet = UIAlertController(title: "", message: "Confirm prenotation", preferredStyle: .actionSheet)
+        actionSheet.addAction(UIAlertAction(title: "OK", style: .default) { action in
+            
+            let selectedServiceTipe = self.tipo.joined(separator: ",")
+            let selectedServicePrice = self.prezzo.joined(separator: ",")
+            let customerName = self.name.text
+            
+            //FIRBASE REFERENCE
+            let ref: DatabaseReference = Database.database().reference()
+            let post = [
+                "name":  customerName ?? "user",
+                "services": [
+                    "prezzo": selectedServicePrice,
+                    "tipo": selectedServiceTipe
+                ] ,
+                "time":   self.selectedTime,
+                ] as [String : Any]
+            ref.child("prenotations/\(self.selectedDate)/\(String(describing: self.user!.uid))/").childByAutoId().setValue(post)
+         
+        })
+            
+        actionSheet.addAction(UIAlertAction(title: "CANCEL", style: .cancel, handler: nil))
         
-        //FIRBASE REFERENCE
-        let ref: DatabaseReference = Database.database().reference()
-        let post = [
-            "name":  customerName ?? "user",
-            "services": [
-                "prezzo": selectedServicePrice,
-                "tipo": selectedServiceTipe
-            ] ,
-            "time":   selectedTime,
-         ] as [String : Any]
-        ref.child("prenotations/\(selectedDate)/\(String(describing: user!.uid))/").childByAutoId().setValue(post)
-        
-        
+        self.present(actionSheet, animated: true, completion: nil)
     }
-    
+   
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
