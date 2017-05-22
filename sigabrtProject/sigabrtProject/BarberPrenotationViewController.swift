@@ -113,7 +113,7 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
             
             let selectedServiceTipe = self.tipo.joined(separator: ",")
             let selectedServicePrice = self.prezzo.joined(separator: ",")
-            //let customerName = self.name.text
+            let customerName = self.name.text
             
             //FIRBASE REFERENCE
             let ref: DatabaseReference = Database.database().reference()
@@ -121,9 +121,10 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
                 "user":  self.user!.uid,
                 "services": [
                     "prezzo": selectedServicePrice,
-                    "tipo": selectedServiceTipe
+                    "tipo": selectedServiceTipe,
                 ] ,
                 "time":   self.selectedTime,
+                "note": customerName
                 ] as [String : Any]
             ref.child("prenotations/1/\(self.selectedDate)/").childByAutoId().setValue(post)
          
