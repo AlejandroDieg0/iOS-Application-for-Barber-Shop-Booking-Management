@@ -31,12 +31,11 @@
 		E3ACD9141ED1017E002B6399 /* prenotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33F8BED1EC9F7F000705497 /* prenotation.swift */; };
 		E3ACD9151ED10187002B6399 /* Reservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33F8BEF1EC9F97C00705497 /* Reservation.swift */; };
 		E3E1807C1ECDE31100E54186 /* ThirdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E1807B1ECDE31100E54186 /* ThirdViewController.swift */; };
-		E51D33DF1ED07663004C9BEF /* addModifyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51D33DE1ED07663004C9BEF /* addModifyViewController.swift */; };
+		E51D33DF1ED07663004C9BEF /* BarberPrenotationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51D33DE1ED07663004C9BEF /* BarberPrenotationViewController.swift */; };
 		E51D33E11ED0766D004C9BEF /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51D33E01ED0766D004C9BEF /* CollectionViewCell.swift */; };
-		E51D33E31ED07674004C9BEF /* FSCalendarScopeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51D33E21ED07674004C9BEF /* FSCalendarScopeViewController.swift */; };
+		E51D33E31ED07674004C9BEF /* BarberPagePrenotationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51D33E21ED07674004C9BEF /* BarberPagePrenotationViewController.swift */; };
 		E51D33E51ED07AE9004C9BEF /* addModifyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51D33E41ED07AE9004C9BEF /* addModifyCollectionViewCell.swift */; };
 		E51D33E71ED08D27004C9BEF /* prenotations.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51D33E61ED08D27004C9BEF /* prenotations.swift */; };
-		E521F2E91ED0EF4A00F5AC84 /* barberLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E521F2E81ED0EF4A00F5AC84 /* barberLoginViewController.swift */; };
 		E521F3091ED225FD00F5AC84 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = E521F3081ED225FD00F5AC84 /* Service.swift */; };
 		E526F8D91ECD68680023846A /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E526F8D81ECD68680023846A /* LoginViewController.swift */; };
 		E526F8DB1ECD68700023846A /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E526F8DA1ECD68700023846A /* UserProfileViewController.swift */; };
@@ -72,12 +71,11 @@
 		E3ACD9101ECF3D74002B6399 /* UserReservationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserReservationViewController.swift; sourceTree = "<group>"; };
 		E3ACD9121ECF7429002B6399 /* Funcs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Funcs.swift; sourceTree = "<group>"; };
 		E3E1807B1ECDE31100E54186 /* ThirdViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThirdViewController.swift; sourceTree = "<group>"; };
-		E51D33DE1ED07663004C9BEF /* addModifyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = addModifyViewController.swift; sourceTree = "<group>"; };
+		E51D33DE1ED07663004C9BEF /* BarberPrenotationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarberPrenotationViewController.swift; sourceTree = "<group>"; };
 		E51D33E01ED0766D004C9BEF /* CollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
-		E51D33E21ED07674004C9BEF /* FSCalendarScopeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSCalendarScopeViewController.swift; sourceTree = "<group>"; };
+		E51D33E21ED07674004C9BEF /* BarberPagePrenotationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarberPagePrenotationViewController.swift; sourceTree = "<group>"; };
 		E51D33E41ED07AE9004C9BEF /* addModifyCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = addModifyCollectionViewCell.swift; sourceTree = "<group>"; };
 		E51D33E61ED08D27004C9BEF /* prenotations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = prenotations.swift; sourceTree = "<group>"; };
-		E521F2E81ED0EF4A00F5AC84 /* barberLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = barberLoginViewController.swift; sourceTree = "<group>"; };
 		E521F3081ED225FD00F5AC84 /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		E526F8D81ECD68680023846A /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		E526F8DA1ECD68700023846A /* UserProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
@@ -147,9 +145,8 @@
 				E3E1807B1ECDE31100E54186 /* ThirdViewController.swift */,
 				F303D5951ECF24EE009EC344 /* BarberViewController.swift */,
 				E3ACD9121ECF7429002B6399 /* Funcs.swift */,
-				E51D33DE1ED07663004C9BEF /* addModifyViewController.swift */,
-				E51D33E21ED07674004C9BEF /* FSCalendarScopeViewController.swift */,
-				E521F2E81ED0EF4A00F5AC84 /* barberLoginViewController.swift */,
+				E51D33DE1ED07663004C9BEF /* BarberPrenotationViewController.swift */,
+				E51D33E21ED07674004C9BEF /* BarberPagePrenotationViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -335,7 +332,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E521F2E91ED0EF4A00F5AC84 /* barberLoginViewController.swift in Sources */,
 				9BD9F50A1ECDD2EA006768F6 /* ModernSearchBarModel.swift in Sources */,
 				E526F8D91ECD68680023846A /* LoginViewController.swift in Sources */,
 				E3ACD9111ECF3D74002B6399 /* UserReservationViewController.swift in Sources */,
@@ -350,12 +346,12 @@
 				E51D33E11ED0766D004C9BEF /* CollectionViewCell.swift in Sources */,
 				9BD9F5061ECDD2EA006768F6 /* ModernSearchBar.swift in Sources */,
 				9B0CC8971ECC7A7F007550FB /* PageViewController.swift in Sources */,
-				E51D33E31ED07674004C9BEF /* FSCalendarScopeViewController.swift in Sources */,
+				E51D33E31ED07674004C9BEF /* BarberPagePrenotationViewController.swift in Sources */,
 				E3E1807C1ECDE31100E54186 /* ThirdViewController.swift in Sources */,
 				9BFBF9881EBA232500DA7D25 /* AppDelegate.swift in Sources */,
 				E51D33E51ED07AE9004C9BEF /* addModifyCollectionViewCell.swift in Sources */,
 				9BD9F5071ECDD2EA006768F6 /* ModernSearchBarCell.swift in Sources */,
-				E51D33DF1ED07663004C9BEF /* addModifyViewController.swift in Sources */,
+				E51D33DF1ED07663004C9BEF /* BarberPrenotationViewController.swift in Sources */,
 				F303D5961ECF24EE009EC344 /* BarberViewController.swift in Sources */,
 				F303D5981ECF29E1009EC344 /* ReservationTableViewCell.swift in Sources */,
 				E33F8BEA1EC9F66800705497 /* User.swift in Sources */,

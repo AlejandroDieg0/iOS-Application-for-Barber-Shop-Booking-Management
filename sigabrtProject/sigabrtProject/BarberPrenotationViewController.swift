@@ -10,7 +10,7 @@ import UIKit
 import FSCalendar
 import Firebase
 
-class addModifyViewController: UIViewController, FSCalendarDataSource, FSCalendarDelegate, UIGestureRecognizerDelegate,UICollectionViewDataSource,UICollectionViewDelegate {
+class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, FSCalendarDelegate, UIGestureRecognizerDelegate,UICollectionViewDataSource,UICollectionViewDelegate {
   
     @IBOutlet weak var calendar: FSCalendar!
     

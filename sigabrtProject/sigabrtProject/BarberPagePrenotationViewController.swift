@@ -11,7 +11,7 @@ import FSCalendar
 import Firebase
 
 
-class FSCalendarScopeExampleViewController: UIViewController, FSCalendarDataSource, FSCalendarDelegate, UIGestureRecognizerDelegate,UICollectionViewDelegate, UICollectionViewDataSource  {
+class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSource, FSCalendarDelegate, UIGestureRecognizerDelegate,UICollectionViewDelegate, UICollectionViewDataSource  {
 
     
 //    var prenotations : [(customerName: String, tipoServizio: String,prezzoServizio : [String], timeSelected: String, total: Int)] = []
