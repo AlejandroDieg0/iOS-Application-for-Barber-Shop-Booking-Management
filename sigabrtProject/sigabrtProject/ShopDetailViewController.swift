@@ -9,10 +9,13 @@
 import UIKit
 
 class ShopDetailViewController: UIViewController {
-
+    
+    var barber : Shop?
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        print(barber!.desc)
         // Do any additional setup after loading the view.
     }
 
@@ -21,7 +24,12 @@ class ShopDetailViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "GotoBooking"{
+            let secondVC = segue.destination as! UserReservationViewController
+            secondVC.selectedShop = barber!
+        }
+    }
     /*
     // MARK: - Navigation
 

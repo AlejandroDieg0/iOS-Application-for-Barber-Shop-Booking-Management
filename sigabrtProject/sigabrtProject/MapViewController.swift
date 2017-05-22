@@ -18,6 +18,7 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
     var pins: [MKPointAnnotation: Shop] = [:]
     var TempID: Int = 0
     var barbers: [Shop] = []
+    var currentBarber : Shop?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -130,13 +131,21 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
         
         return pin
     }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+
+        if segue.identifier == "userReservation"{
+            // let firstVC = segue.source as! MapViewController
+            let secondVC = segue.destination as! ShopDetailViewController
+            secondVC.barber = self.currentBarber
+        }
+    }
     
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         let tempAnnotation = view.annotation as? MKPointAnnotation
         let shop = self.pins[tempAnnotation!]
         if control == view.rightCalloutAccessoryView{
-            
-            performSegue(withIdentifier: "userReservation", sender: shop)
+            self.currentBarber = shop
+            performSegue(withIdentifier: "userReservation", sender: nil)
             
         }
     }
@@ -144,7 +153,7 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
     func onClickItemWithUrlSuggestionsView(item: ModernSearchBarModel) {
         print("User touched this item: "+item.title+" with this url: "+item.url.description)
         let selectedPin = findKeyForValue(value: item.url.description, shops: self.pins)!
-        //  info1 = findKeyForValue(value: item.url.description, shops: self.pins)!
+
         self.personalMap.selectAnnotation(selectedPin, animated: true)
     }
     

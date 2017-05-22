@@ -65,11 +65,11 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bjj-u5-EEZ">
-                                <rect key="frame" x="170" y="617" width="35" height="30"/>
+                                <rect key="frame" x="170" y="583" width="35" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Book"/>
                                 <connections>
-                                    <segue destination="AC9-tm-yj9" kind="show" id="FRn-VV-1NN"/>
+                                    <segue destination="AC9-tm-yj9" kind="show" identifier="GotoBooking" id="FRn-VV-1NN"/>
                                 </connections>
                             </button>
                         </subviews>
