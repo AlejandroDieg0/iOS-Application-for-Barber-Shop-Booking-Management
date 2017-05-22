@@ -11,11 +11,14 @@ import FSCalendar
 import Firebase
 
 
-class FSCalendarScopeExampleViewController: UIViewController, FSCalendarDataSource, FSCalendarDelegate, UIGestureRecognizerDelegate,UICollectionViewDelegate, UICollectionViewDataSource  {
+class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSource, FSCalendarDelegate, UIGestureRecognizerDelegate,UICollectionViewDelegate, UICollectionViewDataSource  {
 
     
 //    var prenotations : [(customerName: String, tipoServizio: String,prezzoServizio : [String], timeSelected: String, total: Int)] = []
     var prenotationList = [prenotation]()
+    
+    
+    var ref: DatabaseReference? = nil
    
     var timeSlot = ["9:00","9:15","9:30","9:45","10:00"]
 
@@ -30,7 +33,7 @@ class FSCalendarScopeExampleViewController: UIViewController, FSCalendarDataSour
     @IBOutlet weak var calendarHeightConstraint: NSLayoutConstraint!
     fileprivate lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateFormat = "dd-MM-yyyy"
+        formatter.dateFormat = "yy-MM-dd"
         return formatter
     }()
     fileprivate lazy var scopeGesture: UIPanGestureRecognizer = {
@@ -53,7 +56,7 @@ class FSCalendarScopeExampleViewController: UIViewController, FSCalendarDataSour
         //today date
         let data = Date()
         let formatter = DateFormatter()
-        formatter.dateFormat = "dd-MM-yyyy"
+        formatter.dateFormat = "yy-MM-dd"
         selectedDate = formatter.string(from: data)
         
         self.calendar.scope = .week
@@ -73,10 +76,10 @@ class FSCalendarScopeExampleViewController: UIViewController, FSCalendarDataSour
     
     func readData(){
     prenotationList.removeAll()
+    self.cv.reloadData()
     //FIRBASE REFERENCE
-    let ref = Database.database().reference().child("prenotations").child(selectedDate).child(user!.uid)
-      
-    ref.observe(.childAdded, with: { (snapshot) in
+    ref = Database.database().reference().child("prenotations").child("1").child(selectedDate)
+    ref?.observe(.childAdded, with: { (snapshot) in
             if let userDict = snapshot.value as? [String:Any] {
                 let name = userDict["name"] as? String ?? ""
                 let time = userDict["time"] as? String ?? ""
@@ -84,9 +87,6 @@ class FSCalendarScopeExampleViewController: UIViewController, FSCalendarDataSour
                 let service = userDict["services"] as? [String: Any]
                 let serviceArray = service?["tipo"] as! String
                 let priceArray = service?["prezzo"] as! String
-            
-//                let splittedTipe = serviceArray.characters.split { [",", "[","]"].contains(String($0)) }
-//                let trimmedTipe = splittedTipe.map { String($0).trimmingCharacters(in: .whitespaces) }
 
                 let splittedPrice = priceArray.characters.split { [",", "[","]"].contains(String($0)) }
                 let trimmedPrice = splittedPrice.map { String($0).trimmingCharacters(in: .whitespaces) }
@@ -96,16 +96,11 @@ class FSCalendarScopeExampleViewController: UIViewController, FSCalendarDataSour
                 for i in 0..<intArray.count {
                     totalPrice += intArray[i]
                 }
-
+                print(time)
               // con classe
                 let  x = prenotation(customerName: name, tipoServizio: serviceArray, prezzoServizio: trimmedPrice, timeSelected: time, total: totalPrice)
                 self.prenotationList.append(x)
-
-                
-            // con array
-//                self.prenotations.append((customerName: name, tipoServizio: serviceArray,prezzoServizio: trimmedPrice, timeSelected: time, total: totalPrice))
-//                print(self.prenotations)
-               
+            
                 self.cv.reloadData()
             }})
     }
@@ -117,9 +112,9 @@ class FSCalendarScopeExampleViewController: UIViewController, FSCalendarDataSour
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         print("did select date \(self.dateFormatter.string(from: date))")
-        self.readData()
         
         self.selectedDate = self.dateFormatter.string(from: date)
+        self.readData()
         if monthPosition == .next || monthPosition == .previous {
             calendar.setCurrentPage(date, animated: true)
         }
