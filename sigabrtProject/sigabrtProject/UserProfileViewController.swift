@@ -35,10 +35,7 @@ class UserProfileViewController: UITableViewController {
     @IBOutlet weak var sendMailPwReset: UIButton!
 
     //CHANGE BUTTON
-    @IBOutlet weak var nameChangeButton: UIButton!
     @IBOutlet weak var sendMailPwbutton: UIButton!
-    @IBOutlet weak var mailUpdateButton: UIButton!
-    @IBOutlet weak var phoneUpdateButton: UIButton!
    
     
     // ICON
@@ -46,33 +43,27 @@ class UserProfileViewController: UITableViewController {
     @IBOutlet weak var mailIcon: UIImageView!
     @IBOutlet weak var phoneIcon: UIImageView!
     @IBOutlet weak var loveIcon: UIImageView!
- 
-    @IBOutlet weak var editButton: UIButton!
-    @IBOutlet weak var doneButton: UIButton!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
-    //GESTURE
+        // let editBarButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.edit, target: self, action: Selector(("setEditing")))
+        navigationItem.rightBarButtonItem = editButtonItem
+        
+        //GESTURE
     let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UserProfileViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
 
 
-    self.mailUpdateButton.alpha = 0
-    self.phoneUpdateButton.alpha = 0
-    self.nameChangeButton.alpha = 0
     self.changeName.alpha = 0
     self.changePhone.alpha = 0
     self.changemail.alpha = 0
-    self.doneButton.alpha = 0
     self.reauthError.alpha = 0
    
     
         
         if(FBSDKAccessToken.current() != nil){
             
-            self.editButton.alpha = 0
-            self.doneButton.alpha = 0
             let graphRequest:FBSDKGraphRequest = FBSDKGraphRequest(graphPath: "me", parameters: ["fields":"first_name,email, picture.type(large)"])
             
             graphRequest.start(completionHandler: { (connection, result, error) -> Void in
@@ -172,7 +163,6 @@ class UserProfileViewController: UITableViewController {
             } else {
                 // Account deleted.
             self.dismiss(animated: true, completion: nil)
-                
             }
         }
         return
@@ -196,41 +186,6 @@ class UserProfileViewController: UITableViewController {
     
     // update del nome
     
-    @IBAction func changeName(_ sender: Any) {
-        guard let newName = self.changeName.text, !newName.isEmpty else {
-            self.changeName.shake()
-            return
-        }
-        if newName.characters.count > 3{
-            x = "name"
-            animateIn(sender: reauthView)
-        }
-            
-        else{
-            self.changeName.shake()
-        }
-
-        return
-    }
-    
-    // update della mail
-    
-    @IBAction func mailUpdate(_ sender: Any) {
-        guard let newMail = self.changemail.text, !newMail.isEmpty else {
-            self.changemail.shake()
-            return
-        }
-        if newMail.characters.count > 3{
-            x = "mailUpdate"
-            animateIn(sender: reauthView)
-        }
-        else{
-            self.changemail.shake()
-        }
-        return
-    }
-
-    // ANIMAZIONI
     
     func animateIn(sender: UIView) {
         //        let xPosition = view.center as CGFloat
@@ -254,6 +209,74 @@ class UserProfileViewController: UITableViewController {
         
     }
     
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        
+        if isEditing {
+            print(editing)
+            UIView.animate(withDuration: 0.4) {
+                self.labelMail.alpha = 0
+                self.labelName.alpha = 0
+                self.labelPhone.alpha = 0
+                self.changeName.alpha = 1
+                self.changemail.alpha = 1
+                self.changePhone.alpha = 1
+            }
+            // setEditing(false, animated: true)
+
+
+        } else {
+            UIView.animate(withDuration: 0.4) {
+                self.labelMail.alpha = 1
+                self.labelName.alpha = 1
+                self.labelPhone.alpha = 1
+                self.changeName.alpha = 0
+                self.changemail.alpha = 0
+                self.changePhone.alpha = 0
+            }
+            //  print(self.changeName.text!)
+            
+            if (self.changeName.text?.isEmpty )!{
+                print(self.labelName.text!)
+                self.changeName.text = self.labelName.text!
+                
+            }else{
+                print(self.changeName.text!)
+                self.labelName.text = self.changeName.text!
+                
+            }
+            if (self.changePhone.text?.isEmpty )!{
+                print(self.labelPhone.text!)
+                self.changePhone.text = self.labelPhone.text!
+                
+                
+            }else{
+                print(self.changePhone.text!)
+                self.labelPhone.text = self.changePhone.text!
+                
+                
+            }
+            if (self.changemail.text?.isEmpty )!{
+                print(self.labelMail.text!)
+                self.changemail.text = self.labelMail.text!
+                
+                
+            }else{
+                print(self.changemail.text!)
+                self.labelMail.text = self.changemail.text!
+                
+            }
+            
+            let ref = Database.database().reference().child("user/\(Auth.auth().currentUser?.uid ?? "noLogin")")
+            
+            ref.updateChildValues([
+                "name": self.changeName.text!,
+                "phone": self.changePhone.text!,
+                ])
+            print("done pressed")
+
+        }
+    }
     
     func animateOut (sender: UIView) {
         UIView.animate(withDuration: 0.4, animations: {
@@ -311,7 +334,6 @@ class UserProfileViewController: UITableViewController {
                         self.changeName.alpha = 0
                         self.changeName.text = ""
                         self.labelName.alpha = 1
-                        self.nameChangeButton.alpha = 0
                         self.userNameIcon.alpha = 1
                         self.labelName.text = newName!
                         self.helloName.text = "Hello \(newName!)"
@@ -340,46 +362,15 @@ class UserProfileViewController: UITableViewController {
   
     }
     
-    
-    @IBAction func editInfo(_ sender: UIButton) {
-        UIView.animate(withDuration: 0.4) {
-            self.labelMail.alpha = 0
-            self.labelName.alpha = 0
-            self.labelPhone.alpha = 0
-            self.mailUpdateButton.alpha = 1
-            self.phoneUpdateButton.alpha = 1
-            self.nameChangeButton.alpha = 1
-            self.changeName.alpha = 1
-            self.changemail.alpha = 1
-            self.userNameIcon.alpha = 0
-            self.mailIcon.alpha = 0
-            self.phoneIcon.alpha = 0
-            self.editButton.alpha = 0
-            self.doneButton.alpha = 1
-            self.changePhone.alpha = 1
-        }
-    }
-
-    @IBAction func doneButton(_ sender: Any) {
-    UIView.animate(withDuration: 0.4) {
-        self.labelMail.alpha = 1
-        self.labelName.alpha = 1
-        self.labelPhone.alpha = 1
-        self.mailUpdateButton.alpha = 0
-        self.phoneUpdateButton.alpha = 0
-        self.nameChangeButton.alpha = 0
-        self.changeName.alpha = 0
-        self.changemail.alpha = 0
-        self.userNameIcon.alpha = 1
-        self.mailIcon.alpha = 1
-        self.phoneIcon.alpha = 1
-        self.editButton.alpha = 1
-        self.doneButton.alpha = 0
-        self.changePhone.alpha = 0
-       }
-    }
     @IBAction func cancelButton(_ sender: Any) {
         animateOut(sender: reauthView)
     }
 
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+        return .none
+    }
+
+    override func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
+        return false
+    }
 }
