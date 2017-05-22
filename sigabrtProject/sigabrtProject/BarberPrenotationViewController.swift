@@ -10,22 +10,23 @@ import UIKit
 import FSCalendar
 import Firebase
 
-class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, FSCalendarDelegate, UIGestureRecognizerDelegate,UICollectionViewDataSource,UICollectionViewDelegate {
+class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, FSCalendarDelegate, UIGestureRecognizerDelegate,UITableViewDelegate, UITableViewDataSource , UIPickerViewDelegate, UIPickerViewDataSource{
   
     @IBOutlet weak var calendar: FSCalendar!
     
     @IBOutlet weak var calendarHeightConstraint: NSLayoutConstraint!
     
-    @IBOutlet weak var cv: UICollectionView!
+    @IBOutlet weak var time: UIPickerView!
+    @IBOutlet weak var tb: UITableView!
     
     @IBOutlet weak var name: UITextField!
-    @IBOutlet weak var time: UIDatePicker!
+   
     
     var selectedDate = ""
     var selectedTime = ""
 
     
-    var service: [(tipo: String, prezzo: String)] = [("taglio", "10"),( "colore", "40") ,( "beard", "5")]
+    var service: [(tipo: String, prezzo: String)] = [("Taglio", "10"),( "Colore", "40") ,( "Beard", "5")]
     var tipo: [String] = []
     var prezzo : [String] = []
     var timeSlot = ["09:00","09:15","09:30","09:45","10:00"]
@@ -52,7 +53,8 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        time.delegate = self
+        time.dataSource = self
         //today date
         let data = Date()
         let formatter = DateFormatter()
@@ -60,10 +62,10 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
         selectedDate = formatter.string(from: data)
         selectedTime = timeSlot.first!
         
-        self.time.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
-        cv.allowsMultipleSelection = true
-        cv.delegate = self
-        cv.dataSource = self
+       // self.time.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
+        tb.allowsMultipleSelection = true
+        tb.delegate = self
+        tb.dataSource = self
         if UIDevice.current.model.hasPrefix("iPad") {
             self.calendarHeightConstraint.constant = 400
         }
@@ -74,16 +76,48 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
        
     }
     
-    func dateChanged(_ sender: UIDatePicker) {
-        let dateFormatter = DateFormatter()
-        var convertedDate: String!
-        dateFormatter.dateFormat = "hh:mm"
-        convertedDate = dateFormatter.string(from: time.date)
-        print(convertedDate)
-        selectedTime = convertedDate
-
+    func readData(){
+        prenotationList.removeAll()
+        self.tb.reloadData()
+        //FIRBASE REFERENCE
+//        ref = Database.database().reference().child("prenotations").child("1").child(selectedDate)
+//        ref?.observe(.childAdded, with: { (snapshot) in
+//            if let userDict = snapshot.value as? [String:Any] {
+//                let name = userDict["name"] as? String ?? ""
+//                let time = userDict["time"] as? String ?? ""
+//                
+//                let service = userDict["services"] as? [String: Any]
+//                let serviceArray = service?["tipo"] as! String
+//                let priceArray = service?["prezzo"] as! String
+//                
+//                let splittedPrice = priceArray.characters.split { [",", "[","]"].contains(String($0)) }
+//                let trimmedPrice = splittedPrice.map { String($0).trimmingCharacters(in: .whitespaces) }
+//                
+//                var totalPrice = 0
+//                let intArray = trimmedPrice.map { Int($0)!}
+//                for i in 0..<intArray.count {
+//                    totalPrice += intArray[i]
+//                }
+//                print(time)
+//                // con classe
+//                let  x = prenotation(customerName: name, tipoServizio: serviceArray, prezzoServizio: trimmedPrice, timeSelected: time, total: totalPrice)
+//                self.prenotationList.append(x)
+//                
+//                self.cv.reloadData()
+//            }})
     }
     
+    
+//    func dateChanged(_ sender: UIDatePicker) {
+//        let dateFormatter = DateFormatter()
+//        var convertedDate: String!
+//        dateFormatter.dateFormat = "hh:mm"
+//        convertedDate = dateFormatter.string(from: time.date)
+//        print(convertedDate)
+//        selectedTime = convertedDate
+//
+//    }
+//    
     
     func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
         self.calendarHeightConstraint.constant = bounds.height
@@ -124,7 +158,7 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
                     "tipo": selectedServiceTipe,
                 ] ,
                 "time":   self.selectedTime,
-                "note": customerName
+                "note": customerName ?? "Not inserted"
                 ] as [String : Any]
             ref.child("prenotations/1/\(self.selectedDate)/").childByAutoId().setValue(post)
          
@@ -136,26 +170,44 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
         //FIRBASE REFERENCE
     }
    
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
+    //TABLE VIEW
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-       return service.count
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return service.count
     }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cella", for: indexPath) as! addModifyCollectionViewCell
+ 
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tb.dequeueReusableCell(withIdentifier: "cella", for: indexPath) as! addModifyCollectionViewCell
         cell.servizio.text = service[indexPath.row].tipo
         cell.price.text = service[indexPath.row].prezzo
         return cell
     }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tipo.append(service[indexPath.row].tipo)
         prezzo.append(service[indexPath.row].prezzo)
+        
     }
     
+    // PICKER VIEW
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return timeSlot.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return timeSlot[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        selectedTime = timeSlot[row]
+        print(selectedTime)
+    }
+
 
 }
 
