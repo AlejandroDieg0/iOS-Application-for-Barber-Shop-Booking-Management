@@ -35,7 +35,7 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
     
     fileprivate lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateFormat = "dd-MM-yyyy"
+        formatter.dateFormat = "yy-MM-dd"
         return formatter
     }()
     
@@ -56,7 +56,7 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
         //today date
         let data = Date()
         let formatter = DateFormatter()
-        formatter.dateFormat = "dd-MM-yyyy"
+        formatter.dateFormat = "yy-MM-dd"
         selectedDate = formatter.string(from: data)
         selectedTime = timeSlot.first!
         
@@ -115,16 +115,14 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
         //FIRBASE REFERENCE
         let ref: DatabaseReference = Database.database().reference()
         let post = [
-            "name":  customerName ?? "user",
+            "user":  user!.uid,
             "services": [
                 "prezzo": selectedServicePrice,
                 "tipo": selectedServiceTipe
             ] ,
             "time":   selectedTime,
          ] as [String : Any]
-        ref.child("prenotations/\(selectedDate)/\(String(describing: user!.uid))/").childByAutoId().setValue(post)
-        
-        
+        ref.child("prenotations/1/\(selectedDate)/").childByAutoId().setValue(post)
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -135,9 +133,8 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
        return service.count
     }
     
-    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cella", for: indexPath) as!  addModifyCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cella", for: indexPath) as! addModifyCollectionViewCell
         cell.servizio.text = service[indexPath.row].tipo
         cell.price.text = service[indexPath.row].prezzo
         return cell
@@ -146,8 +143,6 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         tipo.append(service[indexPath.row].tipo)
         prezzo.append(service[indexPath.row].prezzo)
-
-    
     }
     
 
