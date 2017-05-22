@@ -113,25 +113,26 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
             
             let selectedServiceTipe = self.tipo.joined(separator: ",")
             let selectedServicePrice = self.prezzo.joined(separator: ",")
-            let customerName = self.name.text
+            //let customerName = self.name.text
             
             //FIRBASE REFERENCE
             let ref: DatabaseReference = Database.database().reference()
             let post = [
-                "name":  customerName ?? "user",
+                "user":  self.user!.uid,
                 "services": [
                     "prezzo": selectedServicePrice,
                     "tipo": selectedServiceTipe
                 ] ,
                 "time":   self.selectedTime,
                 ] as [String : Any]
-            ref.child("prenotations/\(self.selectedDate)/\(String(describing: self.user!.uid))/").childByAutoId().setValue(post)
+            ref.child("prenotations/1/\(self.selectedDate)/").childByAutoId().setValue(post)
          
         })
             
         actionSheet.addAction(UIAlertAction(title: "CANCEL", style: .cancel, handler: nil))
         
-        self.present(actionSheet, animated: true, completion: nil)
+        self.present(actionSheet, animated: true, completion:  nil)
+        //FIRBASE REFERENCE
     }
    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
