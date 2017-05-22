@@ -10,7 +10,7 @@ import UIKit
 import FSCalendar
 import Firebase
 
-class addModifyViewController: UIViewController, FSCalendarDataSource, FSCalendarDelegate, UIGestureRecognizerDelegate,UICollectionViewDataSource,UICollectionViewDelegate {
+class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, FSCalendarDelegate, UIGestureRecognizerDelegate,UICollectionViewDataSource,UICollectionViewDelegate {
   
     @IBOutlet weak var calendar: FSCalendar!
     
@@ -35,7 +35,7 @@ class addModifyViewController: UIViewController, FSCalendarDataSource, FSCalenda
     
     fileprivate lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateFormat = "dd-MM-yyyy"
+        formatter.dateFormat = "yy-MM-dd"
         return formatter
     }()
     
@@ -56,7 +56,7 @@ class addModifyViewController: UIViewController, FSCalendarDataSource, FSCalenda
         //today date
         let data = Date()
         let formatter = DateFormatter()
-        formatter.dateFormat = "dd-MM-yyyy"
+        formatter.dateFormat = "yy-MM-dd"
         selectedDate = formatter.string(from: data)
         selectedTime = timeSlot.first!
         
@@ -108,25 +108,33 @@ class addModifyViewController: UIViewController, FSCalendarDataSource, FSCalenda
     
     @IBAction func save(_ sender: UIBarButtonItem) {
         
-        let selectedServiceTipe = tipo.joined(separator: ",")
-        let selectedServicePrice = prezzo.joined(separator: ",")
-        let customerName = name.text
+        let actionSheet = UIAlertController(title: "", message: "Confirm prenotation", preferredStyle: .actionSheet)
+        actionSheet.addAction(UIAlertAction(title: "OK", style: .default) { action in
+            
+            let selectedServiceTipe = self.tipo.joined(separator: ",")
+            let selectedServicePrice = self.prezzo.joined(separator: ",")
+            //let customerName = self.name.text
+            
+            //FIRBASE REFERENCE
+            let ref: DatabaseReference = Database.database().reference()
+            let post = [
+                "user":  self.user!.uid,
+                "services": [
+                    "prezzo": selectedServicePrice,
+                    "tipo": selectedServiceTipe
+                ] ,
+                "time":   self.selectedTime,
+                ] as [String : Any]
+            ref.child("prenotations/1/\(self.selectedDate)/").childByAutoId().setValue(post)
+         
+        })
+            
+        actionSheet.addAction(UIAlertAction(title: "CANCEL", style: .cancel, handler: nil))
         
+        self.present(actionSheet, animated: true, completion:  nil)
         //FIRBASE REFERENCE
-        let ref: DatabaseReference = Database.database().reference()
-        let post = [
-            "name":  customerName ?? "user",
-            "services": [
-                "prezzo": selectedServicePrice,
-                "tipo": selectedServiceTipe
-            ] ,
-            "time":   selectedTime,
-         ] as [String : Any]
-        ref.child("prenotations/\(selectedDate)/\(String(describing: user!.uid))/").childByAutoId().setValue(post)
-        
-        
     }
-    
+   
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -135,9 +143,8 @@ class addModifyViewController: UIViewController, FSCalendarDataSource, FSCalenda
        return service.count
     }
     
-    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cella", for: indexPath) as!  addModifyCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cella", for: indexPath) as! addModifyCollectionViewCell
         cell.servizio.text = service[indexPath.row].tipo
         cell.price.text = service[indexPath.row].prezzo
         return cell
@@ -146,8 +153,6 @@ class addModifyViewController: UIViewController, FSCalendarDataSource, FSCalenda
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         tipo.append(service[indexPath.row].tipo)
         prezzo.append(service[indexPath.row].prezzo)
-
-    
     }
     
 
