@@ -95,12 +95,11 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
             }
             
             if let snapshotValue = snapshot.value as? [String:Any] {
-                let id = Int(snapshot.key)!
                 let tipo = (snapshotValue["tipo"])! as! String
                 let price = (snapshotValue["price"])! as! Int
                 let duration = (snapshotValue["duration"])! as! Int
 
-                self.services.append(Service(name: tipo, duration: duration, id: id, price: price))
+                self.services.append(Service(name: tipo, duration: duration, price: price))
                 self.tb.reloadData()
             }})
         

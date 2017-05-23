@@ -81,6 +81,18 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
                 let barberPhone = (snapshotValue["phone"])! as! String
                 let barberAddress = (snapshotValue["address"])! as! String
                 
+                let child = snapshot.childSnapshot(forPath: "services").value as? NSArray
+                var barberServices:[Service] = []
+                for c in child!{
+                    if let tempServiceChild = c as? [String:Any]{
+                    let serviceName = tempServiceChild["tipo"] as? String
+                    let serviceDuration = tempServiceChild["duration"] as? Int
+                    let servicePrice = tempServiceChild["price"] as? Int
+                    let service = Service(name: serviceName!, duration: serviceDuration!, price: servicePrice!)
+                    barberServices.append(service)
+                    }
+                }
+                print(barberServices)
                 let tempPin : MKPointAnnotation = MKPointAnnotation()
                 
                 tempPin.title = barberName
@@ -91,7 +103,7 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
                 
                 imageURL.downloadURL(completion: { (url, error) in
                     
-                    self.pins[tempPin] = Shop(ID: ID, name: barberName, desc: barberDesc, coordinate: tempPin.coordinate, phone: barberPhone, address: barberAddress, logo: url)
+                    self.pins[tempPin] = Shop(ID: ID, name: barberName, desc: barberDesc, coordinate: tempPin.coordinate, phone: barberPhone, address: barberAddress, services: barberServices, logo: url)
                     
                     self.personalMap.addAnnotation(tempPin)
                     self.initializeSearchBar()
