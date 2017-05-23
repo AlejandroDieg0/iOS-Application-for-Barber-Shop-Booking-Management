@@ -11,11 +11,14 @@ import FSCalendar
 
 class UserReservationViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, FSCalendarDataSource, FSCalendarDelegate, UIGestureRecognizerDelegate {
     
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var timeCollectionView: UICollectionView!
+    @IBOutlet weak var servicesCollectionView: UICollectionView!
     @IBOutlet weak var calendar: FSCalendar!
     @IBOutlet weak var animationSwitch: UISwitch!
     
     @IBOutlet weak var calendarHeightConstraint: NSLayoutConstraint!
+    
+    let slotSizeInMinutes = 15
     
     var selectedShop: Shop!
     
@@ -42,8 +45,8 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
         
         self.calendar.select(Date())
         
-        //self.view.addGestureRecognizer(self.scopeGesture)
-        //self.tableView.panGestureRecognizer.require(toFail: self.scopeGesture)
+        self.view.addGestureRecognizer(self.scopeGesture)
+        self.servicesCollectionView.panGestureRecognizer.require(toFail: self.scopeGesture)
         self.calendar.scope = .week
         
         // For UITest
@@ -58,7 +61,7 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
     // MARK:- UIGestureRecognizerDelegate
     
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        let shouldBegin = self.tableView.contentOffset.y <= -self.tableView.contentInset.top
+        let shouldBegin = self.servicesCollectionView.contentOffset.y <= -self.servicesCollectionView.contentInset.top
         if shouldBegin {
             let velocity = self.scopeGesture.velocity(in: self.view)
             switch self.calendar.scope {
@@ -94,17 +97,31 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return selectedShop.services.count
+        if (collectionView == self.servicesCollectionView) {
+            return selectedShop.services.count
+        } else {
+            return 1440 / slotSizeInMinutes
+        }
     }
     
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "defCell", for: indexPath) as!  ServiceCollectionViewCell
-        
-        cell.labelServiceName.text = selectedShop.services[indexPath.row].name
-        cell.labelServicePrice.text = "\(selectedShop.services[indexPath.row].price)€"
-        
-        return cell
+        if (collectionView == self.servicesCollectionView) {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "defCell", for: indexPath) as!  ServiceCollectionViewCell
+            
+            cell.labelServiceName.text = selectedShop.services[indexPath.row].name
+            cell.labelServicePrice.text = "\(selectedShop.services[indexPath.row].price)€"
+            
+            return cell
+        } else {
+            
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! freeTimeBarberCollectionViewCell
+            cell.label.text = "\(indexPath.row*slotSizeInMinutes/60):\((indexPath.row*slotSizeInMinutes%60))"
+            
+            return cell
+        }
     }
+    
+    
     
 }
