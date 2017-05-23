@@ -176,6 +176,9 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
         }
     }
    
+    @IBAction func profile(_ sender: UIBarButtonItem) {
+        performSegue(withIdentifier: "profile", sender: nil)
+    }
     
     
 }
