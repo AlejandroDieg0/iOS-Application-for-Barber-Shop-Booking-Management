@@ -22,15 +22,15 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
     @IBOutlet weak var name: UITextField!
    
     var ref: DatabaseReference!
-    
+    var id :String = "1"
     
     var selectedDate = ""
     var selectedTime = ""
-
+    var services : [Service] = []
     
-    var service: [(tipo: String, prezzo: String)] = []
+    //    var service: [(tipo: String, prezzo: String)] = []
     var selectedTipo: [String] = []
-    var selectedPrezzo : [String] = []
+    var selectedPrezzo : [Int] = []
     var timeSlot = ["09:00","09:15","09:30","09:45","10:00"]
     
     let firebaseAuth = Auth.auth()
@@ -86,31 +86,24 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
         //service.removeAll()
         self.tb.reloadData()
         //FIRBASE REFERENCE
-        self.ref.child("barbers/1/services")
-        ref!.observe( .childAdded, with: { (snapshot) in
+        var ref: DatabaseReference!
+        ref = Database.database().reference().child("barbers/\(self.id)/services")
+       
+        ref?.observe(.childAdded, with: { snapshot in
+            if !snapshot.exists() {
+                print("null")
+            }
             
-            if let userDict = snapshot.value as? [String:Any] {
-                
-                
-                let tipo = userDict["tipo"] as? String ?? "nil"
-                let price = userDict["prezzo"] as? String ?? "nil"
-                
-                print(tipo)
-                print(price)
-                let splittedPrice = price.characters.split { [",", "[","]"].contains(String($0)) }
-                let trimmedPrice = splittedPrice.map { String($0).trimmingCharacters(in: .whitespaces) }
-                
-                let splittedTipe = tipo.characters.split { [",", "[","]"].contains(String($0)) }
-                let trimmedTipe = splittedTipe.map { String($0).trimmingCharacters(in: .whitespaces) }
-            
-            
-                for i in 0..<trimmedPrice.count{
-                    self.service.append((tipo: trimmedTipe[i], prezzo: trimmedPrice[i]))
-               
-             
+            if let snapshotValue = snapshot.value as? [String:Any] {
+                let id = Int(snapshot.key)!
+                let tipo = (snapshotValue["tipo"])! as! String
+                let price = (snapshotValue["price"])! as! Int
+                let duration = (snapshotValue["duration"])! as! Int
+
+                self.services.append(Service(name: tipo, duration: duration, id: id, price: price))
                 self.tb.reloadData()
-                }
             }})
+        
     }
     
     
@@ -137,32 +130,32 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
     
     @IBAction func save(_ sender: UIBarButtonItem) {
         
-        let actionSheet = UIAlertController(title: "", message: "Confirm prenotation", preferredStyle: .actionSheet)
-        actionSheet.addAction(UIAlertAction(title: "OK", style: .default) { action in
-            
-            let selectedServiceTipe = self.selectedTipo.joined(separator: ",")
-            let selectedServicePrice = self.selectedPrezzo.joined(separator: ",")
-            let customerName = self.name.text
-            
-            //FIRBASE REFERENCE
-            let ref: DatabaseReference = Database.database().reference()
-            let post = [
-                "user":  self.user!.uid,
-                "services": [
-                    "prezzo": selectedServicePrice,
-                    "tipo": selectedServiceTipe,
-                ] ,
-                "time":   self.selectedTime,
-                "note": customerName ?? "Not inserted"
-                ] as [String : Any]
-            ref.child("prenotations/1/\(self.selectedDate)/").childByAutoId().setValue(post)
-         
-        })
-            
-        actionSheet.addAction(UIAlertAction(title: "CANCEL", style: .cancel, handler: nil))
-        
-        self.present(actionSheet, animated: true, completion:  nil)
-        //FIRBASE REFERENCE
+//        let actionSheet = UIAlertController(title: "", message: "Confirm prenotation", preferredStyle: .actionSheet)
+//        actionSheet.addAction(UIAlertAction(title: "OK", style: .default) { action in
+//            
+////            let selectedServiceTipe = self.selectedTipo.joined(separator: ",")
+////            let selectedServicePrice = self.selectedPrezzo.joined(separator: ",")
+////            let customerName = self.name.text
+////            
+////            //FIRBASE REFERENCE
+////            let ref: DatabaseReference = Database.database().reference()
+////            let post = [
+////                "user":  self.user!.uid,
+////                "services": [
+////                    "prezzo": selectedServicePrice,
+////                    "tipo": selectedServiceTipe,
+////                ] ,
+////                "time":   self.selectedTime,
+////                "note": customerName ?? "Not inserted"
+////                ] as [String : Any]
+////            ref.child("prenotations/1/\(self.selectedDate)/").childByAutoId().setValue(post)
+////         
+////        })
+//            
+//        actionSheet.addAction(UIAlertAction(title: "CANCEL", style: .cancel, handler: nil))
+//        
+//        self.present(actionSheet, animated: true, completion:  nil)
+//        //FIRBASE REFERENCE
     }
    
     //TABLE VIEW
@@ -170,18 +163,18 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
         return 1
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return service.count
+        return services.count
     }
  
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tb.dequeueReusableCell(withIdentifier: "cella", for: indexPath) as! addModifyCollectionViewCell
-        cell.servizio.text = service[indexPath.row].tipo
-        cell.price.text = service[indexPath.row].prezzo
+        cell.servizio.text = services[indexPath.row].name
+        cell.price.text = String(services[indexPath.row].price) + "€"
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedTipo.append(service[indexPath.row].tipo)
-        selectedPrezzo.append(service[indexPath.row].prezzo)
+        selectedTipo.append(services[indexPath.row].name)
+        selectedPrezzo.append(services[indexPath.row].price)
         
     }
     
