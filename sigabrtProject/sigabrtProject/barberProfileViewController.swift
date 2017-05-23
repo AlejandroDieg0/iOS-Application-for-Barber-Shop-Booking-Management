@@ -10,8 +10,8 @@ import UIKit
 import Firebase
 import FBSDKLoginKit
 
-class UserProfileViewController: UITableViewController {
-
+class barberProfileViewController: UITableViewController {
+    
     var x = ""
     let firebaseAuth = Auth.auth()
     let user = Auth.auth().currentUser
@@ -30,17 +30,17 @@ class UserProfileViewController: UITableViewController {
     @IBOutlet weak var reauthPassword: UITextField!
     @IBOutlet weak var reauthError: UILabel!
     @IBOutlet weak var sendMailPwReset: UIButton!
-
+    
     //CHANGE BUTTON
     @IBOutlet weak var sendMailPwbutton: UIButton!
-   
+    
     
     // ICON
     @IBOutlet weak var userNameIcon: UIImageView!
     @IBOutlet weak var mailIcon: UIImageView!
     @IBOutlet weak var phoneIcon: UIImageView!
     @IBOutlet weak var loveIcon: UIImageView!
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,18 +49,18 @@ class UserProfileViewController: UITableViewController {
         navigationItem.rightBarButtonItem = editButtonItem
         
         //GESTURE
-    let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UserProfileViewController.dismissKeyboard))
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UserProfileViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
-
+        
         self.changeName.isUserInteractionEnabled = false
         self.changeMail.isUserInteractionEnabled = false
         self.changePhone.isUserInteractionEnabled = false
         
         
-
-    self.reauthError.alpha = 0
-   
-    
+        
+        self.reauthError.alpha = 0
+        
+        
         
         if(FBSDKAccessToken.current() != nil){
             
@@ -85,7 +85,7 @@ class UserProfileViewController: UITableViewController {
                     
                 }
             })
-
+            
         }else{
             if Auth.auth().currentUser != nil {
                 
@@ -96,7 +96,7 @@ class UserProfileViewController: UITableViewController {
                 helloName.text = "Hello User!"
             }
         }
-
+        
         
     }
     
@@ -153,7 +153,7 @@ class UserProfileViewController: UITableViewController {
         self.navigationController?.popViewController(animated: true)
         return
     }
-   
+    
     // Delete profile
     
     @IBAction func deleteProfile(_ sender: UIButton) {
@@ -162,14 +162,14 @@ class UserProfileViewController: UITableViewController {
                 // An error happened.
             } else {
                 // Account deleted.
-            self.dismiss(animated: true, completion: nil)
+                self.dismiss(animated: true, completion: nil)
             }
         }
         return
     }
     
     // Send mail for password reset
-
+    
     @IBAction func sendMailPwReset(_ sender: Any) {
         guard let mail = self.changeMail.text, !mail.isEmpty else {
             return
@@ -178,11 +178,11 @@ class UserProfileViewController: UITableViewController {
         Auth.auth().sendPasswordReset(withEmail: mail) { (error) in
             // ...
         }
-
+        
         return
     }
     
-
+    
     
     // update del nome
     
@@ -219,11 +219,11 @@ class UserProfileViewController: UITableViewController {
             
             self.changeMail.isUserInteractionEnabled = true
             self.changeMail.textColor = UIColor.black
-
+            
             self.changeName.isUserInteractionEnabled = true
             self.changeName.textColor = UIColor.black
-
-
+            
+            
         } else {
             let ref = Database.database().reference().child("user/\(Auth.auth().currentUser?.uid ?? "noLogin")")
             ref.updateChildValues([
@@ -239,9 +239,9 @@ class UserProfileViewController: UITableViewController {
             
             self.changeName.isUserInteractionEnabled = false
             self.changeName.textColor = UIColor.gray
-
+            
             print("Changes Uploaded")
-
+            
         }
     }
     
@@ -255,7 +255,7 @@ class UserProfileViewController: UITableViewController {
         }
     }
     @IBAction func reauthButton(_ sender: UIButton) {
-      
+        
         guard let email = self.reauthMail.text, !email.isEmpty else {
             self.reauthError.alpha = 1
             self.reauthError.text = "You have to reauth to change your info"
@@ -275,7 +275,7 @@ class UserProfileViewController: UITableViewController {
                 UIView.animate(withDuration: 0.3, animations: {
                     self.reauthError.alpha = 1
                     
-               })
+                })
                 self.reauthMail.shake()
                 self.reauthPassword.shake()
                 print(error ?? "error")
@@ -304,18 +304,18 @@ class UserProfileViewController: UITableViewController {
                         self.changeName.text = newName!
                         self.helloName.text = "Hello \(newName!)"
                     })
-                
+                    
                 case "mailUpdate":
                     let newMail = self.changeMail.text
                     Auth.auth().currentUser?.updateEmail(to: newMail!) { (error) in
-
+                        
                     }
                     self.animateOut(sender: self.reauthView)
                     UIView.animate(withDuration: 0.4, animations: {
                         self.changeMail.alpha = 0
                         self.changeMail.text = ""
                         self.changeMail.text = newMail
-        
+                        
                         
                     })
                     
@@ -324,17 +324,17 @@ class UserProfileViewController: UITableViewController {
                 }
             }
         }
-  
+        
     }
     
     @IBAction func cancelButton(_ sender: Any) {
         animateOut(sender: reauthView)
     }
-
+    
     override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
         return .none
     }
-
+    
     override func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
         return false
     }
