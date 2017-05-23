@@ -106,10 +106,10 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
             
                 for i in 0..<trimmedPrice.count{
                     self.service.append((tipo: trimmedTipe[i], prezzo: trimmedPrice[i]))
-                }
                
              
                 self.tb.reloadData()
+                }
             }})
     }
     
