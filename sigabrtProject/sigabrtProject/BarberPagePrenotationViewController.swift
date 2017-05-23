@@ -153,7 +153,8 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == self.cv {
-
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as!  CollectionViewCell
+        
         let total = String(prenotationList[indexPath.row].prezzoServizio) + "€"
         cell.name.text = prenotationList[indexPath.row].customerName
         cell.time.text = prenotationList[indexPath.row].timeSelected
