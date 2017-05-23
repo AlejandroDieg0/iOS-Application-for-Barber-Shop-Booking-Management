@@ -11,12 +11,11 @@ import FSCalendar
 import Firebase
 
 
-class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSource, FSCalendarDelegate, UIGestureRecognizerDelegate,UICollectionViewDelegate, UICollectionViewDataSource  {
+class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSource, FSCalendarDelegate, UIGestureRecognizerDelegate,UICollectionViewDelegate, UICollectionViewDataSource {
 
     
 //    var prenotations : [(customerName: String, tipoServizio: String,prezzoServizio : [String], timeSelected: String, total: Int)] = []
     var prenotationList = [prenotation]()
-    
     
     var ref: DatabaseReference? = nil
    
@@ -28,6 +27,7 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
 //    var prezzoServizio : [String] = []
 //    var timeSelected = String()
     
+    @IBOutlet weak var cvFreeTime: UICollectionView!
     @IBOutlet weak var cv: UICollectionView!
     @IBOutlet weak var calendar: FSCalendar!
     @IBOutlet weak var calendarHeightConstraint: NSLayoutConstraint!
@@ -66,6 +66,8 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
             self.calendarHeightConstraint.constant = 400
         }
 
+        cvFreeTime.delegate = self
+        cvFreeTime.dataSource = self
         cv.delegate = self
         cv.dataSource = self
         
@@ -125,7 +127,6 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
         print("\(self.dateFormatter.string(from: calendar.currentPage))")
     }
     
-    // MARK:- UITableViewDataSource
     @IBAction func addPrenotation(_ sender: UIBarButtonItem) {
         
         performSegue(withIdentifier: "addItem", sender: nil)
@@ -138,29 +139,39 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return prenotationList.count
+        if collectionView == self.cv {
+             return prenotationList.count
+           
+        }
+            
+        else {
+            return timeSlot.count
+        }
+       
     }
     
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as!  CollectionViewCell
-        
-//        let total = String(prenotations[indexPath.row].total)
-//        cell.time.text = prenotations[indexPath.row].timeSelected
-//        cell.name.text = prenotations[indexPath.row].customerName
-//        cell.total.text = total
-//        cell.services.text = prenotations[indexPath.row].tipoServizio
+        if collectionView == self.cv {
 
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cella", for: indexPath) as!  CollectionViewCell
+        
         let total = String(prenotationList[indexPath.row].total)
         cell.name.text = prenotationList[indexPath.row].customerName
         cell.time.text = prenotationList[indexPath.row].timeSelected
         cell.total.text = total
         cell.services.text = prenotationList[indexPath.row].tipoServizio
         
-        
         return cell
+        }
+        
+        else{
+        let cell = cvFreeTime.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! freeTimeBarberCollectionViewCell
+        cell.label.text = timeSlot[indexPath.row]
+        return cell
+        }
     }
-    
+   
     
     
 }

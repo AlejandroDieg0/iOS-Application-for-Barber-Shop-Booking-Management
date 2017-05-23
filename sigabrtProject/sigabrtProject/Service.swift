@@ -12,13 +12,15 @@ var serviceList = [Service]()
 
 class Service {
     
+    let id: Int
     let name: String
     let duration: Int
-    let service : Dictionary<String, String>
+    let price: Int
     
-    init(name: String, duration: Int, service: Dictionary<String, String>){
+    init(name: String, duration: Int, id: Int, price: Int){
+        self.id = id
+        self.price = price
         self.name = name
         self.duration = duration
-        self.service = service
     }
 }

@@ -18,14 +18,15 @@ class Funcs: NSObject {
             let blurEffectView = UIVisualEffectView(effect: blurEffect)
             blurEffectView.frame = topController.view.bounds
             blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-            topController.view.addSubview(blurEffectView)
-            blurEffectView.contentView.alpha = 1
+            blurEffectView.contentView.alpha = 0
             
 
             
             while let presentedViewController = topController.presentedViewController {
                 topController = presentedViewController
             }
+            
+            topController.view.addSubview(blurEffectView)
             sender.center = topController.view.center
             topController.view.addSubview(sender)
             
@@ -36,13 +37,20 @@ class Funcs: NSObject {
                 //controller.visualEffect.alpha = 0.5
                 sender.transform = CGAffineTransform.identity
             }
+            
+
+            
         }
         
     }
     
     
     static func animateOut (sender: UIView) {
-                if let topController = UIApplication.shared.keyWindow?.rootViewController {
+                if var topController = UIApplication.shared.keyWindow?.rootViewController {
+                    while let presentedViewController = topController.presentedViewController {
+                        topController = presentedViewController
+                    }
+                    
                     for tempView in topController.view.subviews{
                         if let blurView = tempView as? UIVisualEffectView{
                             UIView.animate(withDuration: 0.4) {
