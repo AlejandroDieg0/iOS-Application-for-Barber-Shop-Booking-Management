@@ -42,6 +42,7 @@
 		E526F8DB1ECD68700023846A /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E526F8DA1ECD68700023846A /* UserProfileViewController.swift */; };
 		F303D5961ECF24EE009EC344 /* BarberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F303D5951ECF24EE009EC344 /* BarberViewController.swift */; };
 		F303D5981ECF29E1009EC344 /* ReservationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F303D5971ECF29E1009EC344 /* ReservationTableViewCell.swift */; };
+		F3EF9A121ED46FBE00BA2A6A /* ServiceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3EF9A111ED46FBE00BA2A6A /* ServiceCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -83,6 +84,7 @@
 		E526F8DA1ECD68700023846A /* UserProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
 		F303D5951ECF24EE009EC344 /* BarberViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarberViewController.swift; sourceTree = "<group>"; };
 		F303D5971ECF29E1009EC344 /* ReservationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReservationTableViewCell.swift; sourceTree = "<group>"; };
+		F3EF9A111ED46FBE00BA2A6A /* ServiceCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceCollectionViewCell.swift; sourceTree = "<group>"; };
 		FE4E48101E0B8755FAE84BC9 /* Pods_sigabrtProject.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_sigabrtProject.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -131,6 +133,7 @@
 				F303D5971ECF29E1009EC344 /* ReservationTableViewCell.swift */,
 				E51D33E01ED0766D004C9BEF /* CollectionViewCell.swift */,
 				E51D33E41ED07AE9004C9BEF /* addModifyCollectionViewCell.swift */,
+				F3EF9A111ED46FBE00BA2A6A /* ServiceCollectionViewCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -361,6 +364,7 @@
 				E3ACD9141ED1017E002B6399 /* prenotation.swift in Sources */,
 				C3D330BC1ED3420200000E67 /* ShopDetailViewController.swift in Sources */,
 				E3ACD9151ED10187002B6399 /* Reservation.swift in Sources */,
+				F3EF9A121ED46FBE00BA2A6A /* ServiceCollectionViewCell.swift in Sources */,
 				E33F8BEC1EC9F70000705497 /* Shop.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
