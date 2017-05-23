@@ -39,6 +39,7 @@
 		E51D33E71ED08D27004C9BEF /* prenotations.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51D33E61ED08D27004C9BEF /* prenotations.swift */; };
 		E521F3091ED225FD00F5AC84 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = E521F3081ED225FD00F5AC84 /* Service.swift */; };
 		E521F30B1ED466BC00F5AC84 /* freeTimeBarberTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E521F30A1ED466BC00F5AC84 /* freeTimeBarberTableViewCell.swift */; };
+		E526BED11ED49273005251A7 /* barberProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E526BED01ED49273005251A7 /* barberProfileViewController.swift */; };
 		E526F8D91ECD68680023846A /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E526F8D81ECD68680023846A /* LoginViewController.swift */; };
 		E526F8DB1ECD68700023846A /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E526F8DA1ECD68700023846A /* UserProfileViewController.swift */; };
 		F303D5961ECF24EE009EC344 /* BarberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F303D5951ECF24EE009EC344 /* BarberViewController.swift */; };
@@ -81,6 +82,7 @@
 		E51D33E61ED08D27004C9BEF /* prenotations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = prenotations.swift; sourceTree = "<group>"; };
 		E521F3081ED225FD00F5AC84 /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		E521F30A1ED466BC00F5AC84 /* freeTimeBarberTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = freeTimeBarberTableViewCell.swift; sourceTree = "<group>"; };
+		E526BED01ED49273005251A7 /* barberProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = barberProfileViewController.swift; sourceTree = "<group>"; };
 		E526F8D81ECD68680023846A /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		E526F8DA1ECD68700023846A /* UserProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
 		F303D5951ECF24EE009EC344 /* BarberViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarberViewController.swift; sourceTree = "<group>"; };
@@ -148,6 +150,7 @@
 				E526F8D81ECD68680023846A /* LoginViewController.swift */,
 				C3D330BB1ED3420200000E67 /* ShopDetailViewController.swift */,
 				E526F8DA1ECD68700023846A /* UserProfileViewController.swift */,
+				E526BED01ED49273005251A7 /* barberProfileViewController.swift */,
 				E3E1807B1ECDE31100E54186 /* ThirdViewController.swift */,
 				F303D5951ECF24EE009EC344 /* BarberViewController.swift */,
 				E3ACD9121ECF7429002B6399 /* Funcs.swift */,
@@ -344,6 +347,7 @@
 				E526F8DB1ECD68700023846A /* UserProfileViewController.swift in Sources */,
 				E521F3091ED225FD00F5AC84 /* Service.swift in Sources */,
 				9BD9F5081ECDD2EA006768F6 /* ModernSearchBarDelegate.swift in Sources */,
+				E526BED11ED49273005251A7 /* barberProfileViewController.swift in Sources */,
 				9BFBF98A1EBA232500DA7D25 /* ViewController.swift in Sources */,
 				9BD9F5091ECDD2EA006768F6 /* ModernSearchBarIcon.swift in Sources */,
 				E51D33E71ED08D27004C9BEF /* prenotations.swift in Sources */,
