@@ -30,6 +30,7 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
         locManager.desiredAccuracy = kCLLocationAccuracyBest
         locManager.requestWhenInUseAuthorization()
         locManager.startUpdatingLocation()
+        locManager.distanceFilter = 4000
         drawMap()
         self.modernSearchBar.delegateModernSearchBar = self
         
@@ -55,13 +56,13 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
-        //let location = locations[0]
+        let location = locations[0]
         
-        //let span:MKCoordinateSpan = MKCoordinateSpanMake(0.5, 0.5)
-        //let myLocation:CLLocationCoordinate2D = CLLocationCoordinate2DMake(location.coordinate.latitude, location.coordinate.longitude)
-        //let region:MKCoordinateRegion = MKCoordinateRegionMake(myLocation, span)
+        let span:MKCoordinateSpan = MKCoordinateSpanMake(0.5, 0.5)
+        let myLocation:CLLocationCoordinate2D = CLLocationCoordinate2DMake(location.coordinate.latitude, location.coordinate.longitude)
+        let region:MKCoordinateRegion = MKCoordinateRegionMake(myLocation, span)
         
-        //personalMap.setRegion(region, animated: true)
+        personalMap.setRegion(region, animated: true)
         self.personalMap.showsUserLocation = true
     }
     
