@@ -87,8 +87,8 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
                 let time = userDict["time"] as? String ?? ""
                 
                 let service = userDict["services"] as? [String: Any]
-                let serviceArray = service?["tipo"] as! String
-                let price = service?["price"] as! Int
+                let serviceArray = service?["tipo"] as? String
+                let price = service?["price"] as? Int
 
 //                let splittedPrice = priceArray.characters.split { [",", "[","]"].contains(String($0)) }
 //                let trimmedPrice = splittedPrice.map { String($0).trimmingCharacters(in: .whitespaces) }
@@ -100,7 +100,7 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
 //                }
                 print(time)
               // con classe
-                let  x = prenotation(customerName: name, tipoServizio: serviceArray, prezzoServizio: price, timeSelected: time)
+                let  x = prenotation(customerName: name, tipoServizio: serviceArray!, prezzoServizio: price!, timeSelected: time)
                 self.prenotationList.append(x)
             
                 self.cv.reloadData()
@@ -154,7 +154,6 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == self.cv {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as!  CollectionViewCell
-        
         let total = String(prenotationList[indexPath.row].prezzoServizio) + "€"
         cell.name.text = prenotationList[indexPath.row].customerName
         cell.time.text = prenotationList[indexPath.row].timeSelected
@@ -167,6 +166,7 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
         else{
         let cell = cvFreeTime.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! freeTimeBarberCollectionViewCell
         cell.label.text = timeSlot[indexPath.row]
+
         return cell
         }
     }

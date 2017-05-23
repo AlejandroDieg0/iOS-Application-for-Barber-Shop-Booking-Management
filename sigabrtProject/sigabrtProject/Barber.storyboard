@@ -313,6 +313,11 @@
                                                     </subviews>
                                                 </view>
                                                 <color key="backgroundColor" red="0.56470588235294117" green="0.68627450980392157" blue="0.77254901960784317" alpha="1" colorSpace="calibratedRGB"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <integer key="value" value="16"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <outlet property="label" destination="1ei-k5-RwZ" id="abB-CC-D0j"/>
                                                 </connections>
