@@ -20,12 +20,13 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
     var ref: DatabaseReference? = nil
    
     var timeSlot = ["9:00","9:15","9:30","9:45","10:00"]
-
+    
     
 //    var customerName = [String]()
 //    var tipoServizio: [String] = []
 //    var prezzoServizio : [String] = []
 //    var timeSelected = String()
+    @IBOutlet weak var totalReservations: UILabel!
     
     @IBOutlet weak var cvFreeTime: UICollectionView!
     @IBOutlet weak var cv: UICollectionView!
@@ -104,7 +105,10 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
                 self.prenotationList.append(x)
             
                 self.cv.reloadData()
+                self.totalReservations.text = String(self.prenotationList.count)
             }})
+        self.totalReservations.text = String(self.prenotationList.count)
+
     }
     
     func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
