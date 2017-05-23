@@ -86,19 +86,15 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
         //service.removeAll()
         self.tb.reloadData()
         //FIRBASE REFERENCE
-        self.ref.child("barbers").child("1").child("services")
-        ref?.observe(.childAdded, with: { (snapshot) in
+        self.ref.child("barbers/1/services")
+        ref!.observe( .childAdded, with: { (snapshot) in
             
-            if !snapshot.exists() {
-                print("null")
-            }
-            print("dfkjvhdfnkm")
             if let userDict = snapshot.value as? [String:Any] {
                 
                 
-                let tipo = userDict["tipo"] as? String ?? ""
-                let price = userDict["prezzo"] as? String ?? ""
-                print("ciao")
+                let tipo = userDict["tipo"] as? String ?? "nil"
+                let price = userDict["prezzo"] as? String ?? "nil"
+                
                 print(tipo)
                 print(price)
                 let splittedPrice = price.characters.split { [",", "[","]"].contains(String($0)) }
