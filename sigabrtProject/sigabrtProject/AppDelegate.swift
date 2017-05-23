@@ -40,6 +40,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navigationBarAppearance.tintColor = UIColor.white
         navigationBarAppearance.barTintColor = UIColor(red: 144/255, green: 175/255, blue: 197/255, alpha: 1)
         navigationBarAppearance.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.white]
+        let toolbarAppereance = UIToolbar.appearance()
+        toolbarAppereance.tintColor = UIColor.white
+        toolbarAppereance.barTintColor = UIColor(red: 144/255, green: 175/255, blue: 197/255, alpha: 1)
         
         return true
     }
