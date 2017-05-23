@@ -19,13 +19,10 @@ class UserProfileViewController: UITableViewController {
     @IBOutlet var reauthView: UIView!
     
     //INFO LABEL
-    @IBOutlet weak var labelMail: UILabel!
-    @IBOutlet weak var changemail: UITextField!
-    @IBOutlet weak var labelName: UILabel!
+    @IBOutlet weak var changeMail: UITextField!
     @IBOutlet weak var changeName: UITextField!
     @IBOutlet weak var helloName: UILabel!
     @IBOutlet weak var changePhone: UITextField!
-    @IBOutlet weak var labelPhone: UILabel!
     
     
     // REAUTH
@@ -47,6 +44,7 @@ class UserProfileViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         // let editBarButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.edit, target: self, action: Selector(("setEditing")))
         navigationItem.rightBarButtonItem = editButtonItem
         
@@ -54,10 +52,12 @@ class UserProfileViewController: UITableViewController {
     let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UserProfileViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
 
+        self.changeName.isUserInteractionEnabled = false
+        self.changeMail.isUserInteractionEnabled = false
+        self.changePhone.isUserInteractionEnabled = false
+        
+        
 
-    self.changeName.alpha = 0
-    self.changePhone.alpha = 0
-    self.changemail.alpha = 0
     self.reauthError.alpha = 0
    
     
@@ -79,8 +79,8 @@ class UserProfileViewController: UITableViewController {
                     let firstName = data["first_name"]
                     
                     self.helloName.text = "Hello \(firstName!)"
-                    self.labelName.text = firstName! as? String
-                    self.labelMail.text = data["email"] as? String
+                    self.changeName.text = firstName! as? String
+                    self.changeMail.text = data["email"] as? String
                     self.sendMailPwReset.setTitle("Connected as \(firstName!)", for: .normal)
                     
                 }
@@ -106,10 +106,10 @@ class UserProfileViewController: UITableViewController {
         ref.child("user").child((user?.uid)!).observeSingleEvent(of: .value, with: { (snapshot) in
             // Get user value
             if let value = snapshot.value as? NSDictionary {
-                self.labelPhone.text = value["phone"] as? String ?? ""
-                self.labelName.text = value["name"] as? String ?? ""
-                self.labelMail.text = user?.email
-                self.helloName.text = "Hello \(self.labelName.text!)"
+                self.changePhone.text = value["phone"] as? String ?? ""
+                self.changeName.text = value["name"] as? String ?? ""
+                self.changeMail.text = user?.email
+                self.helloName.text = "Hello \(self.changeName.text!)"
             } else {
                 self.inizializeUserData()
             }
@@ -171,7 +171,7 @@ class UserProfileViewController: UITableViewController {
     // Send mail for password reset
 
     @IBAction func sendMailPwReset(_ sender: Any) {
-        guard let mail = self.changemail.text, !mail.isEmpty else {
+        guard let mail = self.changeMail.text, !mail.isEmpty else {
             return
         }
         animateIn(sender: reauthView)
@@ -214,66 +214,33 @@ class UserProfileViewController: UITableViewController {
         
         if isEditing {
             print(editing)
-            UIView.animate(withDuration: 0.4) {
-                self.labelMail.alpha = 0
-                self.labelName.alpha = 0
-                self.labelPhone.alpha = 0
-                self.changeName.alpha = 1
-                self.changemail.alpha = 1
-                self.changePhone.alpha = 1
-            }
-            // setEditing(false, animated: true)
+            self.changePhone.isUserInteractionEnabled = true
+            self.changePhone.textColor = UIColor.black
+            
+            self.changeMail.isUserInteractionEnabled = true
+            self.changeMail.textColor = UIColor.black
+
+            self.changeName.isUserInteractionEnabled = true
+            self.changeName.textColor = UIColor.black
 
 
         } else {
-            UIView.animate(withDuration: 0.4) {
-                self.labelMail.alpha = 1
-                self.labelName.alpha = 1
-                self.labelPhone.alpha = 1
-                self.changeName.alpha = 0
-                self.changemail.alpha = 0
-                self.changePhone.alpha = 0
-            }
-            //  print(self.changeName.text!)
-            
-            if (self.changeName.text?.isEmpty )!{
-                print(self.labelName.text!)
-                self.changeName.text = self.labelName.text!
-                
-            }else{
-                print(self.changeName.text!)
-                self.labelName.text = self.changeName.text!
-                
-            }
-            if (self.changePhone.text?.isEmpty )!{
-                print(self.labelPhone.text!)
-                self.changePhone.text = self.labelPhone.text!
-                
-                
-            }else{
-                print(self.changePhone.text!)
-                self.labelPhone.text = self.changePhone.text!
-                
-                
-            }
-            if (self.changemail.text?.isEmpty )!{
-                print(self.labelMail.text!)
-                self.changemail.text = self.labelMail.text!
-                
-                
-            }else{
-                print(self.changemail.text!)
-                self.labelMail.text = self.changemail.text!
-                
-            }
-            
             let ref = Database.database().reference().child("user/\(Auth.auth().currentUser?.uid ?? "noLogin")")
-            
             ref.updateChildValues([
                 "name": self.changeName.text!,
                 "phone": self.changePhone.text!,
                 ])
-            print("done pressed")
+            
+            self.changePhone.isUserInteractionEnabled = false
+            self.changePhone.textColor = UIColor.gray
+            
+            self.changeMail.isUserInteractionEnabled = false
+            self.changeMail.textColor = UIColor.gray
+            
+            self.changeName.isUserInteractionEnabled = false
+            self.changeName.textColor = UIColor.gray
+
+            print("Changes Uploaded")
 
         }
     }
@@ -333,23 +300,21 @@ class UserProfileViewController: UITableViewController {
                     UIView.animate(withDuration: 0.4, animations: {
                         self.changeName.alpha = 0
                         self.changeName.text = ""
-                        self.labelName.alpha = 1
                         self.userNameIcon.alpha = 1
-                        self.labelName.text = newName!
+                        self.changeName.text = newName!
                         self.helloName.text = "Hello \(newName!)"
                     })
                 
                 case "mailUpdate":
-                    let newMail = self.changemail.text
+                    let newMail = self.changeMail.text
                     Auth.auth().currentUser?.updateEmail(to: newMail!) { (error) in
 
                     }
                     self.animateOut(sender: self.reauthView)
                     UIView.animate(withDuration: 0.4, animations: {
-                        self.changemail.alpha = 0
-                        self.changemail.text = ""
-                        self.labelMail.alpha = 1
-                        self.labelMail.text = newMail
+                        self.changeMail.alpha = 0
+                        self.changeMail.text = ""
+                        self.changeMail.text = newMail
         
                         
                     })

@@ -26,8 +26,6 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
         //let myPosition = CLLocationCoordinate2D(latitude: Double("41.9102399")!, longitude: Double("12.2551245")!)
         /*personalMap.setRegion(MKCoordinateRegionMakeWithDistance(myPosition, regionRadius, regionRadius), animated: true)*/
         
-        
-        
         locManager.delegate = self
         locManager.desiredAccuracy = kCLLocationAccuracyBest
         locManager.requestWhenInUseAuthorization()
@@ -44,8 +42,8 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
             self.performSegue(withIdentifier: "loginSuccess", sender: nil)
             return
         }
-        let controller = UIStoryboard(name: "User", bundle: nil).instantiateViewController(withIdentifier: "loginVC") as? LoginViewController
         
+        let controller = UIStoryboard(name: "User", bundle: nil).instantiateViewController(withIdentifier: "loginVC") as? LoginViewController
         self.addChildViewController(controller!)
         Funcs.animateIn(sender: (controller?.loginView)!)
     }
@@ -131,14 +129,6 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
         
         return pin
     }
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-
-        if segue.identifier == "userReservation"{
-            // let firstVC = segue.source as! MapViewController
-            let secondVC = segue.destination as! ShopDetailViewController
-            secondVC.barber = self.currentBarber
-        }
-    }
     
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         let tempAnnotation = view.annotation as? MKPointAnnotation
@@ -153,7 +143,6 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
     func onClickItemWithUrlSuggestionsView(item: ModernSearchBarModel) {
         print("User touched this item: "+item.title+" with this url: "+item.url.description)
         let selectedPin = findKeyForValue(value: item.url.description, shops: self.pins)!
-
         self.personalMap.selectAnnotation(selectedPin, animated: true)
     }
     
@@ -177,6 +166,14 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
         }
         
         self.modernSearchBar.setDatasWithUrl(datas: barberList)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "userReservation"{
+            let secondVC = segue.destination as! ShopDetailViewController
+            secondVC.barber = self.currentBarber
+        }
     }
     
 }
