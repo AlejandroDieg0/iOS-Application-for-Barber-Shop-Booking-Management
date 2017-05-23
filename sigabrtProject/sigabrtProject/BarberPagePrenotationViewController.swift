@@ -90,19 +90,19 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
                 
                 let service = userDict["services"] as? [String: Any]
                 let serviceArray = service?["tipo"] as! String
-                let priceArray = service?["prezzo"] as! String
+                let price = service?["price"] as! Int
 
-                let splittedPrice = priceArray.characters.split { [",", "[","]"].contains(String($0)) }
-                let trimmedPrice = splittedPrice.map { String($0).trimmingCharacters(in: .whitespaces) }
-            
-                var totalPrice = 0
-                let intArray = trimmedPrice.map { Int($0)!}
-                for i in 0..<intArray.count {
-                    totalPrice += intArray[i]
-                }
+//                let splittedPrice = priceArray.characters.split { [",", "[","]"].contains(String($0)) }
+//                let trimmedPrice = splittedPrice.map { String($0).trimmingCharacters(in: .whitespaces) }
+//            
+//                var totalPrice = 0
+//                let intArray = trimmedPrice.map { Int($0)!}
+//                for i in 0..<intArray.count {
+//                    totalPrice += intArray[i]
+//                }
                 print(time)
               // con classe
-                let  x = prenotation(customerName: name, tipoServizio: serviceArray, prezzoServizio: trimmedPrice, timeSelected: time, total: totalPrice)
+                let  x = prenotation(customerName: name, tipoServizio: serviceArray, prezzoServizio: price, timeSelected: time)
                 self.prenotationList.append(x)
             
                 self.cv.reloadData()
@@ -156,7 +156,7 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
 //        cell.total.text = total
 //        cell.services.text = prenotations[indexPath.row].tipoServizio
 
-        let total = String(prenotationList[indexPath.row].total)
+        let total = String(prenotationList[indexPath.row].prezzoServizio) + "€"
         cell.name.text = prenotationList[indexPath.row].customerName
         cell.time.text = prenotationList[indexPath.row].timeSelected
         cell.total.text = total
