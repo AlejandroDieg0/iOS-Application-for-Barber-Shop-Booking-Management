@@ -11,12 +11,14 @@ import FSCalendar
 import Firebase
 
 
-class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSource, FSCalendarDelegate, UIGestureRecognizerDelegate,UICollectionViewDelegate, UICollectionViewDataSource  {
+class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSource, FSCalendarDelegate, UIGestureRecognizerDelegate,UICollectionViewDelegate, UICollectionViewDataSource, UITableViewDataSource,UITableViewDelegate  {
 
     
 //    var prenotations : [(customerName: String, tipoServizio: String,prezzoServizio : [String], timeSelected: String, total: Int)] = []
     var prenotationList = [prenotation]()
     
+    @IBOutlet weak var logo: UIImageView!
+    @IBOutlet var labelNothingHere: UIView!
     
     var ref: DatabaseReference? = nil
    
@@ -28,6 +30,7 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
 //    var prezzoServizio : [String] = []
 //    var timeSelected = String()
     
+    @IBOutlet weak var tb: UITableView!
     @IBOutlet weak var cv: UICollectionView!
     @IBOutlet weak var calendar: FSCalendar!
     @IBOutlet weak var calendarHeightConstraint: NSLayoutConstraint!
@@ -52,7 +55,8 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        tb.delegate = self
+        tb.dataSource = self
         //today date
         let data = Date()
         let formatter = DateFormatter()
@@ -138,6 +142,7 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+     
         return prenotationList.count
     }
     
@@ -161,6 +166,23 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
         return cell
     }
     
+    //TABLE VIEW
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return timeSlot.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! freeTimeBarberTableViewCell
+        cell.label.text = timeSlot[indexPath.row]
+        return cell
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+       
+        
+    }
     
     
 }

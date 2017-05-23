@@ -86,8 +86,8 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
         //service.removeAll()
         self.tb.reloadData()
         //FIRBASE REFERENCE
-        self.ref.child("barbers/1/services")
-        ref!.observe( .childAdded, with: { (snapshot) in
+
+        self.ref.child("barbers/1/services").observe(.childAdded, with: { snapshot in
             
             if let userDict = snapshot.value as? [String:Any] {
                 
