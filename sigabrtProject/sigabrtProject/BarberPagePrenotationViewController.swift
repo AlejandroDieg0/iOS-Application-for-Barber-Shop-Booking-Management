@@ -101,7 +101,7 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
 //                }
                 print(time)
               // con classe
-                let  x = prenotation(customerName: name, tipoServizio: serviceArray!, prezzoServizio: price!, timeSelected: time)
+                let  x = prenotation(customerName: name, tipoServizio: serviceArray, prezzoServizio: price, timeSelected: time)
                 self.prenotationList.append(x)
             
                 self.cv.reloadData()
@@ -159,6 +159,7 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
         if collectionView == self.cv {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as!  CollectionViewCell
         let total = String(prenotationList[indexPath.row].prezzoServizio) + "€"
+        
         cell.name.text = prenotationList[indexPath.row].customerName
         cell.time.text = prenotationList[indexPath.row].timeSelected
         cell.total.text = total
