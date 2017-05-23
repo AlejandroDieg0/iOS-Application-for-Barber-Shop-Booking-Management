@@ -26,6 +26,7 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
 //    var tipoServizio: [String] = []
 //    var prezzoServizio : [String] = []
 //    var timeSelected = String()
+    
     @IBOutlet weak var totalReservations: UILabel!
     
     @IBOutlet weak var cvFreeTime: UICollectionView!
@@ -175,7 +176,5 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
         return cell
         }
     }
-   
-    
     
 }
