@@ -8,7 +8,7 @@
 
 import UIKit
 
-class freeTimeBarberTableViewCell: UITableViewCell {
+class freeTimeBarberCollectionViewCell: UICollectionViewCell {
     
     
     @IBOutlet weak var label: UILabel!
