@@ -21,14 +21,16 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
     
     @IBOutlet weak var name: UITextField!
    
+    var ref: DatabaseReference!
+    
     
     var selectedDate = ""
     var selectedTime = ""
 
     
-    var service: [(tipo: String, prezzo: String)] = [("Taglio", "10"),( "Colore", "40") ,( "Beard", "5")]
-    var tipo: [String] = []
-    var prezzo : [String] = []
+    var service: [(tipo: String, prezzo: String)] = []
+    var selectedTipo: [String] = []
+    var selectedPrezzo : [String] = []
     var timeSlot = ["09:00","09:15","09:30","09:45","10:00"]
     
     let firebaseAuth = Auth.auth()
@@ -52,6 +54,7 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        ref = Database.database().reference()
         
         time.delegate = self
         time.dataSource = self
@@ -69,55 +72,51 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
         if UIDevice.current.model.hasPrefix("iPad") {
             self.calendarHeightConstraint.constant = 400
         }
-        
+        readData()
+
         self.calendar.select(Date())
         self.view.addGestureRecognizer(self.scopeGesture)
         self.calendar.scope = .week
+        
+        
        
     }
     
     func readData(){
-        prenotationList.removeAll()
+        //service.removeAll()
         self.tb.reloadData()
         //FIRBASE REFERENCE
-//        ref = Database.database().reference().child("prenotations").child("1").child(selectedDate)
-//        ref?.observe(.childAdded, with: { (snapshot) in
-//            if let userDict = snapshot.value as? [String:Any] {
-//                let name = userDict["name"] as? String ?? ""
-//                let time = userDict["time"] as? String ?? ""
-//                
-//                let service = userDict["services"] as? [String: Any]
-//                let serviceArray = service?["tipo"] as! String
-//                let priceArray = service?["prezzo"] as! String
-//                
-//                let splittedPrice = priceArray.characters.split { [",", "[","]"].contains(String($0)) }
-//                let trimmedPrice = splittedPrice.map { String($0).trimmingCharacters(in: .whitespaces) }
-//                
-//                var totalPrice = 0
-//                let intArray = trimmedPrice.map { Int($0)!}
-//                for i in 0..<intArray.count {
-//                    totalPrice += intArray[i]
-//                }
-//                print(time)
-//                // con classe
-//                let  x = prenotation(customerName: name, tipoServizio: serviceArray, prezzoServizio: trimmedPrice, timeSelected: time, total: totalPrice)
-//                self.prenotationList.append(x)
-//                
-//                self.cv.reloadData()
-//            }})
+        self.ref.child("barbers").child("1").child("services")
+        ref?.observe(.childAdded, with: { (snapshot) in
+            
+            if !snapshot.exists() {
+                print("null")
+            }
+            print("dfkjvhdfnkm")
+            if let userDict = snapshot.value as? [String:Any] {
+                
+                
+                let tipo = userDict["tipo"] as? String ?? ""
+                let price = userDict["prezzo"] as? String ?? ""
+                print("ciao")
+                print(tipo)
+                print(price)
+                let splittedPrice = price.characters.split { [",", "[","]"].contains(String($0)) }
+                let trimmedPrice = splittedPrice.map { String($0).trimmingCharacters(in: .whitespaces) }
+                
+                let splittedTipe = tipo.characters.split { [",", "[","]"].contains(String($0)) }
+                let trimmedTipe = splittedTipe.map { String($0).trimmingCharacters(in: .whitespaces) }
+            
+            
+                for i in 0..<trimmedPrice.count{
+                    self.service.append((tipo: trimmedTipe[i], prezzo: trimmedPrice[i]))
+                }
+               
+             
+                self.tb.reloadData()
+            }})
     }
     
-    
-//    func dateChanged(_ sender: UIDatePicker) {
-//        let dateFormatter = DateFormatter()
-//        var convertedDate: String!
-//        dateFormatter.dateFormat = "hh:mm"
-//        convertedDate = dateFormatter.string(from: time.date)
-//        print(convertedDate)
-//        selectedTime = convertedDate
-//
-//    }
-//    
     
     func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
         self.calendarHeightConstraint.constant = bounds.height
@@ -145,8 +144,8 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
         let actionSheet = UIAlertController(title: "", message: "Confirm prenotation", preferredStyle: .actionSheet)
         actionSheet.addAction(UIAlertAction(title: "OK", style: .default) { action in
             
-            let selectedServiceTipe = self.tipo.joined(separator: ",")
-            let selectedServicePrice = self.prezzo.joined(separator: ",")
+            let selectedServiceTipe = self.selectedTipo.joined(separator: ",")
+            let selectedServicePrice = self.selectedPrezzo.joined(separator: ",")
             let customerName = self.name.text
             
             //FIRBASE REFERENCE
@@ -185,8 +184,8 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tipo.append(service[indexPath.row].tipo)
-        prezzo.append(service[indexPath.row].prezzo)
+        selectedTipo.append(service[indexPath.row].tipo)
+        selectedPrezzo.append(service[indexPath.row].prezzo)
         
     }
     
