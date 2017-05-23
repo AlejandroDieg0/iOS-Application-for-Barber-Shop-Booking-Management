@@ -19,6 +19,7 @@ class Funcs: NSObject {
             blurEffectView.frame = topController.view.bounds
             blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
             topController.view.addSubview(blurEffectView)
+            blurEffectView.contentView.alpha = 1
             
 
             
@@ -29,7 +30,7 @@ class Funcs: NSObject {
             topController.view.addSubview(sender)
             
             sender.transform = CGAffineTransform.init(scaleX: 1.2, y: 1.2)
-            sender.alpha = 0
+            sender.alpha = 1
             UIView.animate(withDuration: 0.4) {
                 sender.alpha = 0.85
                 //controller.visualEffect.alpha = 0.5
