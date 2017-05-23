@@ -42,8 +42,8 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
         
         self.calendar.select(Date())
         
-        self.view.addGestureRecognizer(self.scopeGesture)
-        self.tableView.panGestureRecognizer.require(toFail: self.scopeGesture)
+        //self.view.addGestureRecognizer(self.scopeGesture)
+        //self.tableView.panGestureRecognizer.require(toFail: self.scopeGesture)
         self.calendar.scope = .week
         
         // For UITest
@@ -102,9 +102,7 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "defCell", for: indexPath) as!  ServiceCollectionViewCell
         
         cell.labelServiceName.text = selectedShop.services[indexPath.row].name
-        //cell.labelServicePrice.text = selectedShop.services[indexPath.row]
-        
-        
+        cell.labelServicePrice.text = "\(selectedShop.services[indexPath.row].price)€"
         
         return cell
     }
