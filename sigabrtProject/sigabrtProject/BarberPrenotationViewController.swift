@@ -86,18 +86,18 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
         //service.removeAll()
         self.tb.reloadData()
         //FIRBASE REFERENCE
-        self.ref.child("barbers").child("1").child("services")
-        ref?.observe(.childAdded, with: { (snapshot) in
+
+        self.ref.child("barbers/1/services").observe(.childAdded, with: { snapshot in
             
             if !snapshot.exists() {
                 print("null")
             }
-            print("dfkjvhdfnkm")
-            if let userDict = snapshot.value as? [String:Any] {
-                
-                
-                let tipo = userDict["tipo"] as? String ?? ""
-                let price = userDict["prezzo"] as? String ?? ""
+            print(snapshot)
+            print(snapshot.value)
+            if let snapshotValue = snapshot.value as? [String:Any] {
+                let tipo = (snapshotValue["tipo"])! as! String
+                let price = (snapshotValue["prezzo"])! as! String
+
                 print("ciao")
                 print(tipo)
                 print(price)
@@ -110,10 +110,10 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
             
                 for i in 0..<trimmedPrice.count{
                     self.service.append((tipo: trimmedTipe[i], prezzo: trimmedPrice[i]))
-                }
                
              
                 self.tb.reloadData()
+                }
             }})
     }
     
