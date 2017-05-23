@@ -27,7 +27,7 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
     var selectedDate = ""
     var selectedTime = ""
     var services : [Service] = []
-    
+    var selectedServices : (name: String, price: Int, duration: Int) = (name : "" , price : 0, duration : 0)
     //    var service: [(tipo: String, prezzo: String)] = []
     var selectedTipo: [String] = []
     var selectedPrezzo : [Int] = []
@@ -95,12 +95,11 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
             }
             
             if let snapshotValue = snapshot.value as? [String:Any] {
-                let id = Int(snapshot.key)!
                 let tipo = (snapshotValue["tipo"])! as! String
                 let price = (snapshotValue["price"])! as! Int
                 let duration = (snapshotValue["duration"])! as! Int
 
-                self.services.append(Service(name: tipo, duration: duration, id: id, price: price))
+                self.services.append(Service(name: tipo, duration: duration, price: price))
                 self.tb.reloadData()
             }})
         
@@ -130,31 +129,29 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
     
     @IBAction func save(_ sender: UIBarButtonItem) {
         
-//        let actionSheet = UIAlertController(title: "", message: "Confirm prenotation", preferredStyle: .actionSheet)
-//        actionSheet.addAction(UIAlertAction(title: "OK", style: .default) { action in
-//            
-////            let selectedServiceTipe = self.selectedTipo.joined(separator: ",")
-////            let selectedServicePrice = self.selectedPrezzo.joined(separator: ",")
-////            let customerName = self.name.text
-////            
-////            //FIRBASE REFERENCE
-////            let ref: DatabaseReference = Database.database().reference()
-////            let post = [
-////                "user":  self.user!.uid,
-////                "services": [
-////                    "prezzo": selectedServicePrice,
-////                    "tipo": selectedServiceTipe,
-////                ] ,
-////                "time":   self.selectedTime,
-////                "note": customerName ?? "Not inserted"
-////                ] as [String : Any]
-////            ref.child("prenotations/1/\(self.selectedDate)/").childByAutoId().setValue(post)
-////         
-////        })
-//            
-//        actionSheet.addAction(UIAlertAction(title: "CANCEL", style: .cancel, handler: nil))
-//        
-//        self.present(actionSheet, animated: true, completion:  nil)
+        let actionSheet = UIAlertController(title: "", message: "Confirm prenotation", preferredStyle: .actionSheet)
+        actionSheet.addAction(UIAlertAction(title: "OK", style: .default) { action in
+        let customerName = self.name.text
+            //FIRBASE REFERENCE
+            let ref: DatabaseReference = Database.database().reference()
+            let post = [
+                "user":  self.user!.uid,
+                "services": [
+                    "price": self.selectedServices.price,
+                    "tipo": self.selectedServices.name,
+                    "duration": self.selectedServices.duration,
+
+                ] ,
+                "time":   self.selectedTime,
+                "note": customerName ?? "Not inserted"
+                ] as [String : Any]
+            ref.child("prenotations/1/\(self.selectedDate)/").childByAutoId().setValue(post)
+         
+        })
+        
+        actionSheet.addAction(UIAlertAction(title: "CANCEL", style: .cancel, handler: nil))
+        
+        self.present(actionSheet, animated: true, completion:  nil)
 //        //FIRBASE REFERENCE
     }
    
@@ -173,8 +170,14 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedTipo.append(services[indexPath.row].name)
-        selectedPrezzo.append(services[indexPath.row].price)
+        self.selectedServices.duration =  self.selectedServices.duration + services[indexPath.row].duration
+        self.selectedServices.price =  self.selectedServices.price + services[indexPath.row].price
+        
+        if (self.selectedServices.name == "" ){
+            self.selectedServices.name =  self.selectedServices.name + services[indexPath.row].name
+        } else{
+            self.selectedServices.name =  self.selectedServices.name + ", " + services[indexPath.row].name
+        }
         
     }
     

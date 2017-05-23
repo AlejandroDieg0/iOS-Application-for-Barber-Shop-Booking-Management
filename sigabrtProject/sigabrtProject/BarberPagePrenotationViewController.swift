@@ -11,26 +11,25 @@ import FSCalendar
 import Firebase
 
 
-class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSource, FSCalendarDelegate, UIGestureRecognizerDelegate,UICollectionViewDelegate, UICollectionViewDataSource, UITableViewDataSource,UITableViewDelegate  {
+class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSource, FSCalendarDelegate, UIGestureRecognizerDelegate,UICollectionViewDelegate, UICollectionViewDataSource {
 
     
 //    var prenotations : [(customerName: String, tipoServizio: String,prezzoServizio : [String], timeSelected: String, total: Int)] = []
     var prenotationList = [prenotation]()
     
-    @IBOutlet weak var logo: UIImageView!
-    @IBOutlet var labelNothingHere: UIView!
-    
     var ref: DatabaseReference? = nil
    
     var timeSlot = ["9:00","9:15","9:30","9:45","10:00"]
-
+    
     
 //    var customerName = [String]()
 //    var tipoServizio: [String] = []
 //    var prezzoServizio : [String] = []
 //    var timeSelected = String()
     
-    @IBOutlet weak var tb: UITableView!
+    @IBOutlet weak var totalReservations: UILabel!
+    
+    @IBOutlet weak var cvFreeTime: UICollectionView!
     @IBOutlet weak var cv: UICollectionView!
     @IBOutlet weak var calendar: FSCalendar!
     @IBOutlet weak var calendarHeightConstraint: NSLayoutConstraint!
@@ -55,8 +54,7 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        tb.delegate = self
-        tb.dataSource = self
+        
         //today date
         let data = Date()
         let formatter = DateFormatter()
@@ -70,6 +68,8 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
             self.calendarHeightConstraint.constant = 400
         }
 
+        cvFreeTime.delegate = self
+        cvFreeTime.dataSource = self
         cv.delegate = self
         cv.dataSource = self
         
@@ -89,24 +89,27 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
                 let time = userDict["time"] as? String ?? ""
                 
                 let service = userDict["services"] as? [String: Any]
-                let serviceArray = service?["tipo"] as! String
-                let priceArray = service?["prezzo"] as! String
+                let serviceArray = service?["tipo"] as? String ?? ""
+                let price = service?["price"] as? Int ?? 0
 
-                let splittedPrice = priceArray.characters.split { [",", "[","]"].contains(String($0)) }
-                let trimmedPrice = splittedPrice.map { String($0).trimmingCharacters(in: .whitespaces) }
-            
-                var totalPrice = 0
-                let intArray = trimmedPrice.map { Int($0)!}
-                for i in 0..<intArray.count {
-                    totalPrice += intArray[i]
-                }
+//                let splittedPrice = priceArray.characters.split { [",", "[","]"].contains(String($0)) }
+//                let trimmedPrice = splittedPrice.map { String($0).trimmingCharacters(in: .whitespaces) }
+//            
+//                var totalPrice = 0
+//                let intArray = trimmedPrice.map { Int($0)!}
+//                for i in 0..<intArray.count {
+//                    totalPrice += intArray[i]
+//                }
                 print(time)
               // con classe
-                let  x = prenotation(customerName: name, tipoServizio: serviceArray, prezzoServizio: trimmedPrice, timeSelected: time, total: totalPrice)
+                let  x = prenotation(customerName: name, tipoServizio: serviceArray, prezzoServizio: price, timeSelected: time)
                 self.prenotationList.append(x)
             
                 self.cv.reloadData()
+                self.totalReservations.text = String(self.prenotationList.count)
             }})
+        self.totalReservations.text = String(self.prenotationList.count)
+
     }
     
     func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
@@ -129,7 +132,6 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
         print("\(self.dateFormatter.string(from: calendar.currentPage))")
     }
     
-    // MARK:- UITableViewDataSource
     @IBAction func addPrenotation(_ sender: UIBarButtonItem) {
         
         performSegue(withIdentifier: "addItem", sender: nil)
@@ -142,47 +144,37 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-     
-        return prenotationList.count
+        if collectionView == self.cv {
+             return prenotationList.count
+           
+        }
+            
+        else {
+            return timeSlot.count
+        }
+       
     }
     
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if collectionView == self.cv {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as!  CollectionViewCell
+        let total = String(prenotationList[indexPath.row].prezzoServizio) + "€"
         
-//        let total = String(prenotations[indexPath.row].total)
-//        cell.time.text = prenotations[indexPath.row].timeSelected
-//        cell.name.text = prenotations[indexPath.row].customerName
-//        cell.total.text = total
-//        cell.services.text = prenotations[indexPath.row].tipoServizio
-
-        let total = String(prenotationList[indexPath.row].total)
         cell.name.text = prenotationList[indexPath.row].customerName
         cell.time.text = prenotationList[indexPath.row].timeSelected
         cell.total.text = total
         cell.services.text = prenotationList[indexPath.row].tipoServizio
         
-        
         return cell
-    }
-    
-    //TABLE VIEW
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return timeSlot.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! freeTimeBarberTableViewCell
+        }
+        
+        else{
+        let cell = cvFreeTime.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! freeTimeBarberCollectionViewCell
         cell.label.text = timeSlot[indexPath.row]
+
         return cell
+        }
     }
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-       
-        
-    }
-    
     
 }

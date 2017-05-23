@@ -30,6 +30,7 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
         locManager.desiredAccuracy = kCLLocationAccuracyBest
         locManager.requestWhenInUseAuthorization()
         locManager.startUpdatingLocation()
+        locManager.distanceFilter = 4000
         drawMap()
         self.modernSearchBar.delegateModernSearchBar = self
         
@@ -55,13 +56,13 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
-        //let location = locations[0]
+        let location = locations[0]
         
-        //let span:MKCoordinateSpan = MKCoordinateSpanMake(0.5, 0.5)
-        //let myLocation:CLLocationCoordinate2D = CLLocationCoordinate2DMake(location.coordinate.latitude, location.coordinate.longitude)
-        //let region:MKCoordinateRegion = MKCoordinateRegionMake(myLocation, span)
+        let span:MKCoordinateSpan = MKCoordinateSpanMake(0.5, 0.5)
+        let myLocation:CLLocationCoordinate2D = CLLocationCoordinate2DMake(location.coordinate.latitude, location.coordinate.longitude)
+        let region:MKCoordinateRegion = MKCoordinateRegionMake(myLocation, span)
         
-        //personalMap.setRegion(region, animated: true)
+        personalMap.setRegion(region, animated: true)
         self.personalMap.showsUserLocation = true
     }
     
@@ -80,6 +81,18 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
                 let barberPhone = (snapshotValue["phone"])! as! String
                 let barberAddress = (snapshotValue["address"])! as! String
                 
+                let child = snapshot.childSnapshot(forPath: "services").value as? NSArray
+                var barberServices:[Service] = []
+                for c in child!{
+                    if let tempServiceChild = c as? [String:Any]{
+                    let serviceName = tempServiceChild["tipo"] as? String
+                    let serviceDuration = tempServiceChild["duration"] as? Int
+                    let servicePrice = tempServiceChild["price"] as? Int
+                    let service = Service(name: serviceName!, duration: serviceDuration!, price: servicePrice!)
+                    barberServices.append(service)
+                    }
+                }
+                print(barberServices)
                 let tempPin : MKPointAnnotation = MKPointAnnotation()
                 
                 tempPin.title = barberName
@@ -90,7 +103,7 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
                 
                 imageURL.downloadURL(completion: { (url, error) in
                     
-                    self.pins[tempPin] = Shop(ID: ID, name: barberName, desc: barberDesc, coordinate: tempPin.coordinate, phone: barberPhone, address: barberAddress, logo: url)
+                    self.pins[tempPin] = Shop(ID: ID, name: barberName, desc: barberDesc, coordinate: tempPin.coordinate, phone: barberPhone, address: barberAddress, services: barberServices, logo: url)
                     
                     self.personalMap.addAnnotation(tempPin)
                     self.initializeSearchBar()

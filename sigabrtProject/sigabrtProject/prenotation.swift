@@ -14,15 +14,13 @@ class prenotation {
     
     let customerName: String
     let tipoServizio: String
-    let prezzoServizio : [String]
+    let prezzoServizio : Int
     let timeSelected: String
-    let total: Int
     
-    init(customerName: String, tipoServizio: String,prezzoServizio: [String], timeSelected: String, total: Int){
+    init(customerName: String, tipoServizio: String, prezzoServizio: Int, timeSelected: String){
         self.customerName = customerName
         self.tipoServizio = tipoServizio
         self.prezzoServizio = prezzoServizio
         self.timeSelected = timeSelected
-        self.total = total
     }
 }
