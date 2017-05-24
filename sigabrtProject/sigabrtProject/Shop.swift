@@ -35,4 +35,16 @@ class Shop: NSObject , MKAnnotation {
         self.hours = hours
         
     }
+    init(ID: Int, name : String, desc : String, phone: String, address: String, services: [Service], hours: [[Int]]){
+        
+        self.ID = ID
+        self.name = name
+        self.desc = desc
+        self.phone = phone
+        self.address = address
+        self.services = services
+        self.hours = hours
+        
+    }
+
 }

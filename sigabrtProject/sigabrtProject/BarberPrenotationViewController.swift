@@ -22,8 +22,7 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
     @IBOutlet weak var name: UITextField!
    
     var ref: DatabaseReference!
-    var id :String = "1"
-    
+       
     var selectedDate = ""
     var selectedTime = ""
     var services : [Service] = []
@@ -55,6 +54,7 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         ref = Database.database().reference()
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
         view.addGestureRecognizer(tap)
@@ -89,7 +89,7 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
         self.tb.reloadData()
         //FIRBASE REFERENCE
         var ref: DatabaseReference!
-        ref = Database.database().reference().child("barbers/\(self.id)/services")
+        ref = Database.database().reference().child("barbers/\(String(Funcs.loggedUser.favBarberId))/services")
        
         ref?.observe(.childAdded, with: { snapshot in
             if !snapshot.exists() {

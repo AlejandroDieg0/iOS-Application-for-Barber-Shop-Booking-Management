@@ -7,9 +7,12 @@
 //
 
 import UIKit
+import Firebase
 
 class Funcs: NSObject {
-
+    static var loggedUser : User!
+    static var currentShop : Shop!
+    
     static func animateIn(sender: UIView) {
         
         if var topController = UIApplication.shared.keyWindow?.rootViewController {
@@ -66,6 +69,69 @@ class Funcs: NSObject {
         }) { (success:Bool) in
             sender.removeFromSuperview()
         }
+        }
+    }
+    static func loadUserData(){
+        let user = Auth.auth().currentUser
+        if (user == nil) {return}
+        let ref = Database.database().reference()
+        ref.child("user").child((user?.uid)!).observeSingleEvent(of: .value, with: { (snapshot) in
+            // Get user value
+            if let value = snapshot.value as? NSDictionary {
+                let phone = value["phone"] as? String ?? ""
+                let name = value["name"] as? String ?? ""
+                let favBarber = value["favbarber"] as? Int ?? -1
+                let userType = value["usertime"] as? Int ?? 1
+                let mail = user?.email
+                Funcs.loggedUser = User(name: name, mail: mail!, phone: phone, userType: userType, favBarberId: favBarber)
+                print(self.loggedUser.favBarberId)
+                // self.loadCurrentShop()
+            }
+        }) { (error) in
+            print(error.localizedDescription)
+        }
+    }
+    static func loadCurrentShop(){
+        let user = Auth.auth().currentUser
+        if (user == nil) {return}
+        let ref = Database.database().reference()
+        ref.child("barbers").child(String(self.loggedUser.favBarberId)).observeSingleEvent(of: .value, with: { (snapshot) in
+            // Get user value
+            if let value = snapshot.value as? NSDictionary {
+                let barberName = value["name"] as? String ?? "NoName"
+                let barberDesc = value["description"] as? String ?? "NoDesc"
+                let barberPhone = value["phone"] as? String ?? "NoPhone"
+                let barberAddress = (value["address"])! as? String ?? "NoAddress"
+                
+                var barberServices:[Service] = []
+                if let child = snapshot.childSnapshot(forPath: "services").value as? NSArray {
+                    for c in child{
+                        if let tempServiceChild = c as? [String:Any]{
+                            let serviceName = tempServiceChild["name"] as? String ?? "NoName"
+                            let serviceDuration = tempServiceChild["duration"] as? Int ?? 0
+                            let servicePrice = tempServiceChild["price"] as? Int ?? 0
+                            let service = Service(name: serviceName, duration: serviceDuration, price: servicePrice)
+                            barberServices.append(service)
+                        }
+                    }
+                }
+//                if let child = snapshot.childSnapshot(forPath: "hours").value as? NSArray {
+//                    for c in child{
+//                        if let tempServiceChild = c as? [String:Any]{
+//                            let serviceName = tempServiceChild["name"] as? String ?? "NoName"
+//                            let serviceDuration = tempServiceChild["duration"] as? Int ?? 0
+//                            let servicePrice = tempServiceChild["price"] as? Int ?? 0
+//                            let service = Service(name: serviceName, duration: serviceDuration, price: servicePrice)
+//                            barberServices.append(service)
+//                        }
+//                    }
+//                }
+
+                Funcs.currentShop = Shop(ID: self.loggedUser.favBarberId, name: barberName, desc: barberDesc, phone: barberPhone, address: barberAddress, services: barberServices, hours: [[480,780,960,1200],[480,780,960,1200],[480,780,960,1200],[480,780,960,1200],[480,780,960,1200],[480,780,960,1200],[]])
+                print(self.loggedUser.favBarberId)
+            }
+        }) { (error) in
+            print(error.localizedDescription)
         }
     }
 }
