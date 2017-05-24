@@ -174,8 +174,10 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
     
     func initializeSearchBar(){
         var barberList = Array<ModernSearchBarModel>()
+        let defautlIcon : URL = URL(string: "https://cdn2.iconfinder.com/data/icons/gnomeicontheme/32x32/actions/edit-cut.png")!
         for barber in self.pins.values {
-            barberList.append(ModernSearchBarModel(title: barber.name, url: barber.logo!))
+            let barberIcon = barber.logo ?? defautlIcon
+            barberList.append(ModernSearchBarModel(title: barber.name, url: barberIcon))
         }
         
         self.modernSearchBar.setDatasWithUrl(datas: barberList)
