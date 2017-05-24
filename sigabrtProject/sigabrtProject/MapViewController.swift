@@ -73,7 +73,7 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
         
         ref.observe(.childAdded, with: { snapshot in
             if let snapshotValue = snapshot.value as? [String:Any] {
-                let barberName = (snapshotValue["name"])! as! String
+                let barberName = (snapshotValue["name"]) as? String
                 let barberDesc = (snapshotValue["description"])! as! String
                 let barberLat = snapshotValue["latitude"] as! Double
                 let barberLon = (snapshotValue["longitude"])! as! Double
@@ -103,7 +103,7 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
                 
                 imageURL.downloadURL(completion: { (url, error) in
                     
-                    self.pins[tempPin] = Shop(ID: ID, name: barberName, desc: barberDesc, coordinate: tempPin.coordinate, phone: barberPhone, address: barberAddress, services: barberServices, logo: url)
+                    self.pins[tempPin] = Shop(ID: ID, name: barberName!, desc: barberDesc, coordinate: tempPin.coordinate, phone: barberPhone, address: barberAddress, services: barberServices, logo: url)
                     
                     self.personalMap.addAnnotation(tempPin)
                     self.initializeSearchBar()

@@ -25,6 +25,7 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
 //    var tipoServizio: [String] = []
 //    var prezzoServizio : [String] = []
 //    var timeSelected = String()
+    @IBOutlet weak var updated: UILabel!
     
     @IBOutlet weak var totalReservations: UILabel!
     
@@ -107,6 +108,19 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
                 self.cv.reloadData()
                 self.totalReservations.text = String(self.prenotationList.count)
             }})
+        // *** Create date ***
+        let date = NSDate()
+        
+        // *** create calendar object ***
+        var calendar = NSCalendar.current
+        let unitFlags = Set<Calendar.Component>([.hour, .minute])
+        calendar.timeZone = TimeZone(identifier: "UTC")!
+        
+        // *** Get All components from date ***
+        let components = calendar.dateComponents(unitFlags, from: date as Date)
+        let hour = calendar.component(.hour, from: date as Date)
+        let minutes = calendar.component(.minute, from: date as Date)
+        self.updated.text = "updated at \(hour):\(minutes)"
         self.totalReservations.text = String(self.prenotationList.count)
 
     }
