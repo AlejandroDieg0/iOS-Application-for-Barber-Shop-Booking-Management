@@ -38,6 +38,7 @@
 		E521F3091ED225FD00F5AC84 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = E521F3081ED225FD00F5AC84 /* Service.swift */; };
 		E521F30B1ED466BC00F5AC84 /* freeTimeBarberTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E521F30A1ED466BC00F5AC84 /* freeTimeBarberTableViewCell.swift */; };
 		E526BED11ED49273005251A7 /* barberProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E526BED01ED49273005251A7 /* barberProfileViewController.swift */; };
+		E526BED31ED5DF5A005251A7 /* barberSelfServiceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E526BED21ED5DF5A005251A7 /* barberSelfServiceTableViewCell.swift */; };
 		E526F8D91ECD68680023846A /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E526F8D81ECD68680023846A /* LoginViewController.swift */; };
 		E526F8DB1ECD68700023846A /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E526F8DA1ECD68700023846A /* UserProfileViewController.swift */; };
 		F303D5961ECF24EE009EC344 /* BarberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F303D5951ECF24EE009EC344 /* BarberViewController.swift */; };
@@ -80,6 +81,7 @@
 		E521F3081ED225FD00F5AC84 /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		E521F30A1ED466BC00F5AC84 /* freeTimeBarberTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = freeTimeBarberTableViewCell.swift; sourceTree = "<group>"; };
 		E526BED01ED49273005251A7 /* barberProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = barberProfileViewController.swift; sourceTree = "<group>"; };
+		E526BED21ED5DF5A005251A7 /* barberSelfServiceTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = barberSelfServiceTableViewCell.swift; sourceTree = "<group>"; };
 		E526F8D81ECD68680023846A /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		E526F8DA1ECD68700023846A /* UserProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
 		F303D5951ECF24EE009EC344 /* BarberViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarberViewController.swift; sourceTree = "<group>"; };
@@ -132,6 +134,7 @@
 				F303D5971ECF29E1009EC344 /* ReservationTableViewCell.swift */,
 				E51D33E01ED0766D004C9BEF /* CollectionViewCell.swift */,
 				E51D33E41ED07AE9004C9BEF /* addModifyCollectionViewCell.swift */,
+				E526BED21ED5DF5A005251A7 /* barberSelfServiceTableViewCell.swift */,
 				F3EF9A111ED46FBE00BA2A6A /* ServiceCollectionViewCell.swift */,
 			);
 			name = View;
@@ -366,6 +369,7 @@
 				C3D330BC1ED3420200000E67 /* ShopDetailViewController.swift in Sources */,
 				F3EF9A121ED46FBE00BA2A6A /* ServiceCollectionViewCell.swift in Sources */,
 				E33F8BEC1EC9F70000705497 /* Shop.swift in Sources */,
+				E526BED31ED5DF5A005251A7 /* barberSelfServiceTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

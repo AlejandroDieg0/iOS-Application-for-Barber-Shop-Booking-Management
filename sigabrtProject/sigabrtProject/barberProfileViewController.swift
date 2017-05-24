@@ -13,34 +13,28 @@ import FBSDKLoginKit
 class barberProfileViewController: UITableViewController {
     
     var x = ""
+    var id :String = "1"
     let firebaseAuth = Auth.auth()
     let user = Auth.auth().currentUser
+     var services : [Service] = []
     
     //INFO LABEL
     @IBOutlet weak var changeMail: UITextField!
     @IBOutlet weak var changeName: UITextField!
     @IBOutlet weak var helloName: UILabel!
     @IBOutlet weak var changePhone: UITextField!
+    @IBOutlet weak var logoBarber: UIImageView!
     
+    @IBOutlet weak var tb: UITableView!
     
-    // REAUTH
-    @IBOutlet weak var reauthMail: UITextField!
-    @IBOutlet weak var reauthPassword: UITextField!
-    @IBOutlet weak var reauthError: UILabel!
     @IBOutlet weak var sendMailPwReset: UIButton!
-    
-    //CHANGE BUTTON
-    @IBOutlet weak var sendMailPwbutton: UIButton!
-    
-    
-    // ICON
-    @IBOutlet weak var userNameIcon: UIImageView!
-    @IBOutlet weak var mailIcon: UIImageView!
-    @IBOutlet weak var phoneIcon: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tb.delegate = self
+        tb.dataSource = self
+        logoBarber.layer.cornerRadius = logoBarber.frame.size.width/2
         // let editBarButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.edit, target: self, action: Selector(("setEditing")))
         navigationItem.rightBarButtonItem = editButtonItem
         
@@ -108,8 +102,28 @@ class barberProfileViewController: UITableViewController {
         }) { (error) in
             print(error.localizedDescription)
         }
+        
+        
     }
-    
+    func loadBarberService(){
+        //FIRBASE REFERENCE
+        var ref: DatabaseReference!
+        ref = Database.database().reference().child("barbers/\(self.id)/services")
+        
+        ref?.observe(.childAdded, with: { snapshot in
+            if !snapshot.exists() {
+                print("null")
+            }
+            
+            if let snapshotValue = snapshot.value as? [String:Any] {
+                let tipo = (snapshotValue["name"])! as! String
+                let price = (snapshotValue["price"])! as! Int
+                let duration = (snapshotValue["duration"])! as! Int
+                
+                self.services.append(Service(name: tipo, duration: duration, price: price))
+                self.tb.reloadData()
+            }})
+        }
     func inizializeUserData(){
         let user = Auth.auth().currentUser
         if (user != nil){
@@ -210,7 +224,39 @@ class barberProfileViewController: UITableViewController {
             
         }
     }
-   
+    
+    //TABLE VIEW
+     override func numberOfSections(in tableView: UITableView) -> Int {
+        if tableView == self.tb{
+        return 1
+        }
+        else{
+            return super.numberOfSections(in: tableView)
+        }
+    }
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+       if tableView == self.tb{
+        return services.count
+       } else {
+        return super.tableView(tableView, numberOfRowsInSection: section)
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+       if tableView == self.tb{
+        let cell = tb.dequeueReusableCell(withIdentifier: "serviceCell", for: indexPath) as! barberSelfServiceTableViewCell
+        cell.servizio.text = services[indexPath.row].name
+        cell.price.text = String(services[indexPath.row].price) + "€"
+        return cell
+       }
+       else{
+        return super.tableView(tableView, cellForRowAt: indexPath)
+        }
+    }
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+    }
+
     
     override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
         return .none
@@ -241,5 +287,5 @@ class barberProfileViewController: UITableViewController {
          self.present(alert, animated: true)
     }
     
-   
+    
 }
