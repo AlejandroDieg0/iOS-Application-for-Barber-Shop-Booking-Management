@@ -83,9 +83,9 @@ class Funcs: NSObject {
                 let favBarber = value["favbarber"] as? Int ?? -1
                 let userType = value["usertime"] as? Int ?? 1
                 let mail = user?.email
-                Funcs.loggedUser = User(name: name, mail: mail!, phone: phone, userType: userType, favBarberId: favBarber)
+                self.loggedUser = User(name: name, mail: mail!, phone: phone, userType: userType, favBarberId: favBarber)
                 print(self.loggedUser.favBarberId)
-                // self.loadCurrentShop()
+                self.loadCurrentShop()
             }
         }) { (error) in
             print(error.localizedDescription)
@@ -115,20 +115,27 @@ class Funcs: NSObject {
                         }
                     }
                 }
-//                if let child = snapshot.childSnapshot(forPath: "hours").value as? NSArray {
-//                    for c in child{
-//                        if let tempServiceChild = c as? [String:Any]{
-//                            let serviceName = tempServiceChild["name"] as? String ?? "NoName"
-//                            let serviceDuration = tempServiceChild["duration"] as? Int ?? 0
-//                            let servicePrice = tempServiceChild["price"] as? Int ?? 0
-//                            let service = Service(name: serviceName, duration: serviceDuration, price: servicePrice)
-//                            barberServices.append(service)
-//                        }
-//                    }
-//                }
-
-                Funcs.currentShop = Shop(ID: self.loggedUser.favBarberId, name: barberName, desc: barberDesc, phone: barberPhone, address: barberAddress, services: barberServices, hours: [[480,780,960,1200],[480,780,960,1200],[480,780,960,1200],[480,780,960,1200],[480,780,960,1200],[480,780,960,1200],[]])
-                print(self.loggedUser.favBarberId)
+                var hours : [String:[[Int]]] = [:]
+                if let child = snapshot.childSnapshot(forPath: "hours").value as? [String:Any]  {
+                    
+                    for c in child{
+                        hours[c.key] = []
+                        if let smallChild = snapshot.childSnapshot(forPath: "hours/\(c.key)").value as? NSArray  {
+                            for smallC in smallChild{
+                                if let tempTime = smallC as? [String:Any]{
+                                    
+                                    let open = tempTime["open"] as? Int ?? 0
+                                    let close = tempTime["close"] as? Int ?? 0
+                                    
+                                    hours[c.key]?.append([open,close])
+                                    
+                                }
+                            }
+                        }
+                    }
+                }
+                self.currentShop = Shop(ID: self.loggedUser.favBarberId, name: barberName, desc: barberDesc, phone: barberPhone, address: barberAddress, services: barberServices, hours: hours)
+                print(self.currentShop.hours!)
             }
         }) { (error) in
             print(error.localizedDescription)

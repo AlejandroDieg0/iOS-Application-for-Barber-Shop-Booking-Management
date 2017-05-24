@@ -37,7 +37,7 @@ class ShopDetailViewController: UIViewController, UICollectionViewDataSource, UI
         labelAddress.text = barber?.address
         labelPhone.text = barber?.phone
         Nuke.loadImage(with: (barber?.logo)!, into: imageBarberShop)
-        labelHours.text = "Opening Hours: \((barber?.hours[0][0])!/60):00"
+        // labelHours.text = "Opening Hours: \((barber?.hours[0][0])!/60):00"
         // Do any additional setup after loading the view.
     }
     

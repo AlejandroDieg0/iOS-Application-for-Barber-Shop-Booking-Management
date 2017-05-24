@@ -20,9 +20,9 @@ class Shop: NSObject , MKAnnotation {
     var phone: String = ""
     var address: String = ""
     var logo : URL?
-    var hours: [[Int]] = [[]]
+    var hours: [String:[[Int]]]?
     
-    init(ID: Int, name : String, desc : String, coordinate: CLLocationCoordinate2D, phone: String, address: String, services: [Service], logo: URL?, hours: [[Int]]){
+    init(ID: Int, name : String, desc : String, coordinate: CLLocationCoordinate2D, phone: String, address: String, services: [Service], logo: URL?, hours:  [String:[[Int]]]){
         
         self.ID = ID
         self.name = name
@@ -35,7 +35,7 @@ class Shop: NSObject , MKAnnotation {
         self.hours = hours
         
     }
-    init(ID: Int, name : String, desc : String, phone: String, address: String, services: [Service], hours: [[Int]]){
+    init(ID: Int, name : String, desc : String, phone: String, address: String, services: [Service], hours: [String:[[Int]]]){
         
         self.ID = ID
         self.name = name

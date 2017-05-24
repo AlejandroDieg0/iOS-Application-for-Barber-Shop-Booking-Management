@@ -94,16 +94,25 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
                     }
                 }
                 
-                /*var barberHours:[[Int]]
-                if let child = snapshot.childSnapshot(forPath: "services").value as? NSArray {
+                var hours : [String:[[Int]]] = [:]
+                if let child = snapshot.childSnapshot(forPath: "hours").value as? [String:Any]  {
+    
                     for c in child{
-                        if let tempServiceChild = c as? NSArray{
-                            
+                     hours[c.key] = []
+                        if let smallChild = snapshot.childSnapshot(forPath: "hours/\(c.key)").value as? NSArray  {
+                            for smallC in smallChild{
+                                if let tempTime = smallC as? [String:Any]{
+                                    
+                                    let open = tempTime["open"] as? Int ?? 0
+                                    let close = tempTime["close"] as? Int ?? 0
+                                    
+                                    hours[c.key]?.append([open,close])
+                                    
+                                }
+                            }
                         }
-                        barberHours[0][]
                     }
-                }*/
-                
+                }
                 let tempPin : MKPointAnnotation = MKPointAnnotation()
                 
                 tempPin.title = barberName
@@ -114,7 +123,7 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
                 
                 imageURL.downloadURL(completion: { (url, error) in
                     
-                    self.pins[tempPin] = Shop(ID: ID, name: barberName, desc: barberDesc, coordinate: tempPin.coordinate, phone: barberPhone, address: barberAddress, services: barberServices, logo: url, hours: [[480,780,960,1200],[480,780,960,1200],[480,780,960,1200],[480,780,960,1200],[480,780,960,1200],[480,780,960,1200],[]])
+                    self.pins[tempPin] = Shop(ID: ID, name: barberName, desc: barberDesc, coordinate: tempPin.coordinate, phone: barberPhone, address: barberAddress, services: barberServices, logo: url, hours: hours)
                     
                     self.personalMap.addAnnotation(tempPin)
                     self.initializeSearchBar()
