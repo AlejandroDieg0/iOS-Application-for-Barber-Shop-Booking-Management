@@ -27,8 +27,8 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
     var selectedDate = ""
     var selectedTime = ""
     var services : [Service] = []
-    var selectedServices : (name: String, price: Int, duration: Int) = (name : "" , price : 0, duration : 0)
-    //    var service: [(tipo: String, prezzo: String)] = []
+    var selectedServices : [Service] = []
+
     var selectedTipo: [String] = []
     var selectedPrezzo : [Int] = []
     var timeSlot = ["09:00","09:15","09:30","09:45","10:00"]
@@ -95,7 +95,7 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
             }
             
             if let snapshotValue = snapshot.value as? [String:Any] {
-                let tipo = (snapshotValue["tipo"])! as! String
+                let tipo = (snapshotValue["name"])! as! String
                 let price = (snapshotValue["price"])! as! Int
                 let duration = (snapshotValue["duration"])! as! Int
 
@@ -134,19 +134,20 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
         let customerName = self.name.text
             //FIRBASE REFERENCE
             let ref: DatabaseReference = Database.database().reference()
+            ref.child("prenotations/1/\(self.selectedDate)/").childByAutoId()
             let post = [
                 "user":  self.user!.uid,
                 "services": [
-                    "price": self.selectedServices.price,
-                    "tipo": self.selectedServices.name,
-                    "duration": self.selectedServices.duration,
+                    "price": 11, //self.selectedServices.price,
+                    "name": "test", //self.selectedServices.name,
+                    "duration": 20, //self.selectedServices.duration,
 
                 ] ,
                 "time":   self.selectedTime,
                 "note": customerName ?? "Not inserted"
                 ] as [String : Any]
-            ref.child("prenotations/1/\(self.selectedDate)/").childByAutoId().setValue(post)
-         
+            ref.setValue(post)
+            print(ref.key)
         })
         
         actionSheet.addAction(UIAlertAction(title: "CANCEL", style: .cancel, handler: nil))
@@ -170,15 +171,15 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.selectedServices.duration =  self.selectedServices.duration + services[indexPath.row].duration
-        self.selectedServices.price =  self.selectedServices.price + services[indexPath.row].price
-        
-        if (self.selectedServices.name == "" ){
-            self.selectedServices.name =  self.selectedServices.name + services[indexPath.row].name
-        } else{
-            self.selectedServices.name =  self.selectedServices.name + ", " + services[indexPath.row].name
-        }
-        
+//        self.selectedServices.duration =  self.selectedServices.duration + services[indexPath.row].duration
+//        self.selectedServices.price =  self.selectedServices.price + services[indexPath.row].price
+//        
+//        if (self.selectedServices.name == "" ){
+//            self.selectedServices.name =  self.selectedServices.name + services[indexPath.row].name
+//        } else{
+//            self.selectedServices.name =  self.selectedServices.name + ", " + services[indexPath.row].name
+//        }
+//        
     }
     
     // PICKER VIEW

@@ -88,7 +88,7 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
                 let time = userDict["time"] as? String ?? ""
                 
                 let service = userDict["services"] as? [String: Any]
-                let serviceArray = service?["tipo"] as? String ?? ""
+                let serviceArray = service?["name"] as? String ?? ""
                 let price = service?["price"] as? Int ?? 0
 
 //                let splittedPrice = priceArray.characters.split { [",", "[","]"].contains(String($0)) }
