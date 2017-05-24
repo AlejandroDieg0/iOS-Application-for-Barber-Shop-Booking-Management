@@ -16,8 +16,6 @@ class barberProfileViewController: UITableViewController {
     let firebaseAuth = Auth.auth()
     let user = Auth.auth().currentUser
     
-    @IBOutlet var reauthView: UIView!
-    
     //INFO LABEL
     @IBOutlet weak var changeMail: UITextField!
     @IBOutlet weak var changeName: UITextField!
@@ -39,8 +37,6 @@ class barberProfileViewController: UITableViewController {
     @IBOutlet weak var userNameIcon: UIImageView!
     @IBOutlet weak var mailIcon: UIImageView!
     @IBOutlet weak var phoneIcon: UIImageView!
-    @IBOutlet weak var loveIcon: UIImageView!
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,11 +51,6 @@ class barberProfileViewController: UITableViewController {
         self.changeName.isUserInteractionEnabled = false
         self.changeMail.isUserInteractionEnabled = false
         self.changePhone.isUserInteractionEnabled = false
-        
-        
-        
-        self.reauthError.alpha = 0
-        
         
         
         if(FBSDKAccessToken.current() != nil){
@@ -174,8 +165,7 @@ class barberProfileViewController: UITableViewController {
         guard let mail = self.changeMail.text, !mail.isEmpty else {
             return
         }
-        animateIn(sender: reauthView)
-        Auth.auth().sendPasswordReset(withEmail: mail) { (error) in
+            Auth.auth().sendPasswordReset(withEmail: mail) { (error) in
             // ...
         }
         
@@ -183,31 +173,6 @@ class barberProfileViewController: UITableViewController {
     }
     
     
-    
-    // update del nome
-    
-    
-    func animateIn(sender: UIView) {
-        //        let xPosition = view.center as CGFloat
-        //        let yPosition = view.center.y - 20
-        //
-        //        let height = 330 as CGFloat
-        //        let width = 260 as CGFloat
-        //
-        //        sender.frame = CGRect(x: xPosition,y: yPosition,width: width,height: height)
-        sender.center = self.view.center
-        self.view.addSubview(sender)
-        
-        sender.transform = CGAffineTransform.init(scaleX: 1.2, y: 1.2)
-        sender.alpha = 0
-        UIView.animate(withDuration: 0.4) {
-            sender.alpha = 0.9
-            
-            
-            sender.transform = CGAffineTransform.identity
-        }
-        
-    }
     
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
@@ -225,6 +190,7 @@ class barberProfileViewController: UITableViewController {
             
             
         } else {
+            createAlert()
             let ref = Database.database().reference().child("user/\(Auth.auth().currentUser?.uid ?? "noLogin")")
             ref.updateChildValues([
                 "name": self.changeName.text!,
@@ -244,92 +210,7 @@ class barberProfileViewController: UITableViewController {
             
         }
     }
-    
-    func animateOut (sender: UIView) {
-        UIView.animate(withDuration: 0.4, animations: {
-            sender.transform = CGAffineTransform.init(scaleX: 1.2, y: 1.2)
-            sender.alpha = 0
-            
-        }) { (success:Bool) in
-            sender.removeFromSuperview()
-        }
-    }
-    @IBAction func reauthButton(_ sender: UIButton) {
-        
-        guard let email = self.reauthMail.text, !email.isEmpty else {
-            self.reauthError.alpha = 1
-            self.reauthError.text = "You have to reauth to change your info"
-            self.reauthMail.shake()
-            return
-        }
-        guard let password = self.reauthPassword.text, !password.isEmpty else {
-            self.reauthError.alpha = 1
-            self.reauthError.text = "You have to reauth to change your info"
-            self.reauthPassword.shake()
-            return
-        }
-        
-        firebaseAuth.signIn(withEmail: email, password: password) { user, error in
-            if error != nil {
-                self.reauthError.text = "Wrong mail or password."
-                UIView.animate(withDuration: 0.3, animations: {
-                    self.reauthError.alpha = 1
-                    
-                })
-                self.reauthMail.shake()
-                self.reauthPassword.shake()
-                print(error ?? "error")
-                
-            } else {
-                // User re-authenticated.
-                
-                self.reauthMail.text = ""
-                self.reauthPassword.text = ""
-                self.reauthError.alpha = 0
-                
-                switch self.x {
-                case "name":
-                    
-                    let newName = self.changeName.text
-                    let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
-                    changeRequest?.displayName = newName
-                    changeRequest?.commitChanges() { (error) in
-                        // ...
-                    }
-                    self.animateOut(sender: self.reauthView)
-                    UIView.animate(withDuration: 0.4, animations: {
-                        self.changeName.alpha = 0
-                        self.changeName.text = ""
-                        self.userNameIcon.alpha = 1
-                        self.changeName.text = newName!
-                        self.helloName.text = "Hello \(newName!)"
-                    })
-                    
-                case "mailUpdate":
-                    let newMail = self.changeMail.text
-                    Auth.auth().currentUser?.updateEmail(to: newMail!) { (error) in
-                        
-                    }
-                    self.animateOut(sender: self.reauthView)
-                    UIView.animate(withDuration: 0.4, animations: {
-                        self.changeMail.alpha = 0
-                        self.changeMail.text = ""
-                        self.changeMail.text = newMail
-                        
-                        
-                    })
-                    
-                default:
-                    return
-                }
-            }
-        }
-        
-    }
-    
-    @IBAction func cancelButton(_ sender: Any) {
-        animateOut(sender: reauthView)
-    }
+   
     
     override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
         return .none
@@ -338,4 +219,27 @@ class barberProfileViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
         return false
     }
+    // REAUTH
+    func createAlert(){
+        let alert = UIAlertController(title: "Authentication", message: "", preferredStyle: UIAlertControllerStyle.alert)
+        
+        alert.addTextField { (email) in
+            email.placeholder = "Current Email"
+        }
+        alert.addTextField { (password) in
+            password.placeholder = "Current Password"
+            password.isSecureTextEntry = true
+        }
+        alert.addAction(UIAlertAction(title: "ok", style: .default, handler: { (action) in
+            let textF = alert.textFields?[0] as UITextField!
+            print(textF)
+            
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+       
+         self.present(alert, animated: true)
+    }
+    
+   
 }
