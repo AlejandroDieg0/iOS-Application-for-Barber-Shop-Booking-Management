@@ -95,7 +95,7 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
             }
             
             if let snapshotValue = snapshot.value as? [String:Any] {
-                let tipo = (snapshotValue["name"])! as! String
+                let tipo = (snapshotValue["tipo"])! as! String
                 let price = (snapshotValue["price"])! as! Int
                 let duration = (snapshotValue["duration"])! as! Int
 
@@ -134,19 +134,20 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
         let customerName = self.name.text
             //FIRBASE REFERENCE
             let ref: DatabaseReference = Database.database().reference()
-            ref.child("prenotations/1/\(self.selectedDate)/").childByAutoId()
+            
             let post = [
                 "user":  self.user!.uid,
                 "services": [
                     "price": 11, //self.selectedServices.price,
-                    "name": "test", //self.selectedServices.name,
+                    "type": "test", //self.selectedServices.name,
                     "duration": 20, //self.selectedServices.duration,
 
                 ] ,
                 "time":   self.selectedTime,
                 "note": customerName ?? "Not inserted"
                 ] as [String : Any]
-            ref.setValue(post)
+            ref.child("prenotations/1/\(self.selectedDate)/").childByAutoId().setValue(post)
+            
             print(ref.key)
         })
         
