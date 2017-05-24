@@ -180,15 +180,14 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-       return 1440 / slotSizeInMinutes
-        //return timeSlot.count
+        //return 1440 / slotSizeInMinutes
+        return calcSlots(day: "Saturday")
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         let time =  "\(row*slotSizeInMinutes/60):\((row*slotSizeInMinutes%60))"
         
         return time
-        //return timeSlot[row]
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
@@ -199,6 +198,14 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
     override func dismissKeyboard() {
         view.endEditing(true)
     }
+    func calcSlots(day: String) -> Int {
+        var totalWorkTime : Int = 0
+        
+        for slots in (Funcs.currentShop.hours?[day])!{
+            totalWorkTime = slots[1] - slots[0]
+        }
     
+    return totalWorkTime / slotSizeInMinutes
+    }
 }
 
