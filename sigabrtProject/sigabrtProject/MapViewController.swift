@@ -73,19 +73,19 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
         
         ref.observe(.childAdded, with: { snapshot in
             if let snapshotValue = snapshot.value as? [String:Any] {
-                let barberName = (snapshotValue["name"])! as! String
-                let barberDesc = (snapshotValue["description"])! as! String
-                let barberLat = snapshotValue["latitude"] as! Double
-                let barberLon = (snapshotValue["longitude"])! as! Double
+                let barberName = (snapshotValue["name"])! as? String ?? ""
+                let barberDesc = (snapshotValue["description"])! as? String ?? ""
+                let barberLat = snapshotValue["latitude"] as? Double ?? 14.04
+                let barberLon = (snapshotValue["longitude"])! as? Double ?? 44.03
                 let ID = Int(snapshot.key)!
-                let barberPhone = (snapshotValue["phone"])! as! String
-                let barberAddress = (snapshotValue["address"])! as! String
+                let barberPhone = (snapshotValue["phone"])! as? String ?? ""
+                let barberAddress = (snapshotValue["address"])! as? String ?? ""
                 
                 let child = snapshot.childSnapshot(forPath: "services").value as? NSArray
                 var barberServices:[Service] = []
                 for c in child!{
                     if let tempServiceChild = c as? [String:Any]{
-                    let serviceName = tempServiceChild["tipo"] as? String
+                    let serviceName = tempServiceChild["name"] as? String 
                     let serviceDuration = tempServiceChild["duration"] as? Int
                     let servicePrice = tempServiceChild["price"] as? Int
                     let service = Service(name: serviceName!, duration: serviceDuration!, price: servicePrice!)
