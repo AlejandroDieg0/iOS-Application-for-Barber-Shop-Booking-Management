@@ -199,6 +199,7 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
         if segue.identifier == "userReservation"{
             let secondVC = segue.destination as! ShopDetailViewController
             secondVC.barber = self.currentBarber
+            
         }
     }
     

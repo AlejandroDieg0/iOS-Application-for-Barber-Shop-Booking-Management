@@ -61,7 +61,7 @@ class LoginViewController: UIViewController {
         loginError.alpha = 0
     }
     
-    func dismissKeyboard() {
+    override func dismissKeyboard() {
         view.endEditing(true)
     }
     

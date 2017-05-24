@@ -139,7 +139,7 @@ class UserProfileViewController: UITableViewController {
         
     }
     
-    func dismissKeyboard() {
+    override func dismissKeyboard() {
         view.endEditing(true)
     }
     
