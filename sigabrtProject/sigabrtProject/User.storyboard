@@ -178,10 +178,10 @@
                                 </connections>
                             </collectionView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gYT-gz-KAn">
-                                <rect key="frame" x="0.0" y="540" width="375" height="51"/>
+                                <rect key="frame" x="0.0" y="540" width="375" height="78"/>
                                 <subviews>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="avU-dJ-6H4">
-                                        <rect key="frame" x="0.0" y="22" width="375" height="21"/>
+                                        <rect key="frame" x="0.0" y="20" width="375" height="56"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="xJC-09-8lJ">
                                             <size key="itemSize" width="53" height="53"/>
@@ -191,7 +191,7 @@
                                         </collectionViewFlowLayout>
                                         <cells>
                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="co8-tt-xPj" customClass="freeTimeBarberCollectionViewCell" customModule="sigabrtProject" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="-14.5" width="50" height="50"/>
+                                                <rect key="frame" x="0.0" y="1.5" width="53" height="53"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                                     <rect key="frame" x="0.0" y="0.0" width="53" height="53"/>

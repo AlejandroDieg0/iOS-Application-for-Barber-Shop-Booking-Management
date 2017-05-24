@@ -53,11 +53,6 @@ class barberProfileViewController: UITableViewController {
         self.changePhone.isUserInteractionEnabled = false
         
         
-        
-        self.reauthError.alpha = 0
-        
-        
-        
         if(FBSDKAccessToken.current() != nil){
             
             let graphRequest:FBSDKGraphRequest = FBSDKGraphRequest(graphPath: "me", parameters: ["fields":"first_name,email, picture.type(large)"])
@@ -195,7 +190,7 @@ class barberProfileViewController: UITableViewController {
             
             
         } else {
-            createAlert(title: "OK", message: "CIAO")
+            createAlert()
             let ref = Database.database().reference().child("user/\(Auth.auth().currentUser?.uid ?? "noLogin")")
             ref.updateChildValues([
                 "name": self.changeName.text!,
@@ -225,69 +220,26 @@ class barberProfileViewController: UITableViewController {
         return false
     }
     // REAUTH
-    func createAlert(title: String,message: String){
-        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+    func createAlert(){
+        let alert = UIAlertController(title: "Authentication", message: "", preferredStyle: UIAlertControllerStyle.alert)
         
-        alert.addAction(UIAlertAction(title:"OK", style: .default, handler: { (action) in
+        alert.addTextField { (email) in
+            email.placeholder = "Current Email"
+        }
+        alert.addTextField { (password) in
+            password.placeholder = "Current Password"
+            password.isSecureTextEntry = true
+        }
+        alert.addAction(UIAlertAction(title: "ok", style: .default, handler: { (action) in
+            let textF = alert.textFields?[0] as UITextField!
+            print(textF)
             
-            guard let email = self.reauthMail.text, !email.isEmpty else {
-                self.reauthError.alpha = 1
-                self.reauthError.text = "You have to reauth to change your info"
-                self.reauthMail.shake()
-                return
-            }
-            guard let password = self.reauthPassword.text, !password.isEmpty else {
-                self.reauthError.alpha = 1
-                self.reauthError.text = "You have to reauth to change your info"
-                self.reauthPassword.shake()
-                return
-            }
-            
-            self.firebaseAuth.signIn(withEmail: email, password: password) { user, error in
-                if error != nil {
-                    self.reauthError.text = "Wrong mail or password."
-                    UIView.animate(withDuration: 0.3, animations: {
-                        self.reauthError.alpha = 1
-                        
-                    })
-                    self.reauthMail.shake()
-                    self.reauthPassword.shake()
-                    print(error ?? "error")
-                    
-                } else {
-                    // User re-authenticated.
-                    
-                    self.reauthMail.text = ""
-                    self.reauthPassword.text = ""
-                    self.reauthError.alpha = 0
-                    
-                    switch self.x {
-                    case "name":
-                        
-                        let newName = self.changeName.text
-                        let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
-                        changeRequest?.displayName = newName
-                        changeRequest?.commitChanges() { (error) in
-                            // ...
-                        }
-                        
-                    case "mailUpdate":
-                        let newMail = self.changeMail.text
-                        Auth.auth().currentUser?.updateEmail(to: newMail!) { (error) in
-                            
-                        }
-                    default:
-                        return
-                    }
-                }
-            }
-            
-            
-
-                alert.dismiss(animated: true, completion: {
-                    print("ciao")
-                    
-                    })
-                }))
-            }
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+       
+         self.present(alert, animated: true)
+    }
+    
+   
 }
