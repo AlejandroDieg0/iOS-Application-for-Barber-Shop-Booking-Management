@@ -7,15 +7,26 @@
 //
 
 import UIKit
+import Nuke
 
 class ShopDetailViewController: UIViewController {
     
     var barber : Shop?
     
+    @IBOutlet weak var imageBarberShop: UIImageView!
+    @IBOutlet weak var labelBarberName: UILabel!
+    @IBOutlet weak var labelAddress: UILabel!
+    @IBOutlet weak var labelPhone: UILabel!
+    @IBOutlet weak var labelHours: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         print(barber!.desc)
+        labelBarberName.text = barber?.name
+        labelAddress.text = barber?.address
+        labelPhone.text = barber?.phone
+        Nuke.loadImage(with: (barber?.logo)!, into: imageBarberShop)
+        //labelHours.text = barber?.hours
         // Do any additional setup after loading the view.
     }
     
