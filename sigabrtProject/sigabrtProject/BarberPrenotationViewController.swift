@@ -55,7 +55,8 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
     override func viewDidLoad() {
         super.viewDidLoad()
         ref = Database.database().reference()
-        
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        view.addGestureRecognizer(tap)
         time.delegate = self
         time.dataSource = self
         //today date
@@ -134,20 +135,23 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
         let customerName = self.name.text
             //FIRBASE REFERENCE
             let ref: DatabaseReference = Database.database().reference()
-            ref.child("prenotations/1/\(self.selectedDate)/").childByAutoId()
+            
             let post = [
                 "user":  self.user!.uid,
-                "services": [
-                    "price": 11, //self.selectedServices.price,
-                    "name": "test", //self.selectedServices.name,
-                    "duration": 20, //self.selectedServices.duration,
-
-                ] ,
                 "time":   self.selectedTime,
                 "note": customerName ?? "Not inserted"
                 ] as [String : Any]
-            ref.setValue(post)
-            print(ref.key)
+            
+            let key = ref.child("prenotations/1/\(self.selectedDate)/").childByAutoId().key
+            
+            ref.child("prenotations/1/\(self.selectedDate)/").child(key).setValue(post)
+            
+            for service in self.selectedServices {
+                let post = [        "price": service.price,
+                                    "type": service.name,
+                                    "duration": service.duration] as [String : Any]
+                ref.child("prenotations/1/\(self.selectedDate)/\(key)/services").childByAutoId().setValue(post)
+            }
         })
         
         actionSheet.addAction(UIAlertAction(title: "CANCEL", style: .cancel, handler: nil))
@@ -171,15 +175,9 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        self.selectedServices.duration =  self.selectedServices.duration + services[indexPath.row].duration
-//        self.selectedServices.price =  self.selectedServices.price + services[indexPath.row].price
-//        
-//        if (self.selectedServices.name == "" ){
-//            self.selectedServices.name =  self.selectedServices.name + services[indexPath.row].name
-//        } else{
-//            self.selectedServices.name =  self.selectedServices.name + ", " + services[indexPath.row].name
-//        }
-//        
+       
+        self.selectedServices.append(services[indexPath.row])
+
     }
     
     // PICKER VIEW
@@ -200,6 +198,9 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
         print(selectedTime)
     }
 
-
+    func dismissKeyboard() {
+        view.endEditing(true)
+    }
+    
 }
 
