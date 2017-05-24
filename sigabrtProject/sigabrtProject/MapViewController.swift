@@ -78,21 +78,21 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
                 let barberLat = snapshotValue["latitude"] as! Double
                 let barberLon = (snapshotValue["longitude"])! as! Double
                 let ID = Int(snapshot.key)!
-                let barberPhone = (snapshotValue["phone"])! as! String
-                let barberAddress = (snapshotValue["address"])! as! String
+                let barberPhone = snapshotValue["phone"] as? String ?? "NoPhone"
+                let barberAddress = (snapshotValue["address"])! as? String ?? "NoAddress"
                 
-                let child = snapshot.childSnapshot(forPath: "services").value as? NSArray
                 var barberServices:[Service] = []
-                for c in child!{
-                    if let tempServiceChild = c as? [String:Any]{
-                    let serviceName = tempServiceChild["tipo"] as? String
-                    let serviceDuration = tempServiceChild["duration"] as? Int
-                    let servicePrice = tempServiceChild["price"] as? Int
-                    let service = Service(name: serviceName!, duration: serviceDuration!, price: servicePrice!)
-                    barberServices.append(service)
+                if let child = snapshot.childSnapshot(forPath: "services").value as? NSArray {
+                    for c in child{
+                        if let tempServiceChild = c as? [String:Any]{
+                            let serviceName = tempServiceChild["name"] as? String ?? "NoName"
+                            let serviceDuration = tempServiceChild["duration"] as? Int ?? 0
+                            let servicePrice = tempServiceChild["price"] as? Int ?? 0
+                            let service = Service(name: serviceName, duration: serviceDuration, price: servicePrice)
+                            barberServices.append(service)
+                        }
                     }
                 }
-                print(barberServices)
                 let tempPin : MKPointAnnotation = MKPointAnnotation()
                 
                 tempPin.title = barberName
@@ -174,8 +174,10 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
     
     func initializeSearchBar(){
         var barberList = Array<ModernSearchBarModel>()
+        let defautlIcon : URL = URL(string: "https://cdn2.iconfinder.com/data/icons/gnomeicontheme/32x32/actions/edit-cut.png")!
         for barber in self.pins.values {
-            barberList.append(ModernSearchBarModel(title: barber.name, url: barber.logo!))
+            let barberIcon = barber.logo ?? defautlIcon
+            barberList.append(ModernSearchBarModel(title: barber.name, url: barberIcon))
         }
         
         self.modernSearchBar.setDatasWithUrl(datas: barberList)
