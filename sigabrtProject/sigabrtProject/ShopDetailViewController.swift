@@ -8,11 +8,13 @@
 
 import UIKit
 import Nuke
+import Firebase
 
-class ShopDetailViewController: UIViewController {
+class ShopDetailViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     
     var barber : Shop?
     
+    @IBOutlet weak var cvGallery: UICollectionView!
     @IBOutlet weak var imageBarberShop: UIImageView!
     @IBOutlet weak var labelBarberName: UILabel!
     @IBOutlet weak var labelAddress: UILabel!
@@ -20,18 +22,51 @@ class ShopDetailViewController: UIViewController {
     @IBOutlet weak var labelHours: UILabel!
     @IBOutlet weak var labelDescription: UILabel!
     
+    let reuseIdentifier = "imageCell"
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        cvGallery.delegate = self
+        cvGallery.dataSource = self
+        self.view.addSubview(cvGallery)
         print(barber!.desc)
         labelBarberName.text = barber?.name
         labelDescription.text = barber?.desc
         labelAddress.text = barber?.address
         labelPhone.text = barber?.phone
         Nuke.loadImage(with: (barber?.logo)!, into: imageBarberShop)
-        labelHours.text = "Oradio di apertura: \((barber?.hours[0][0])!/60):00"
+        labelHours.text = "Opening Hours: \((barber?.hours[0][0])!/60):00"
         // Do any additional setup after loading the view.
     }
     
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        
+        return 5
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath as IndexPath) as! GalleryCollectionViewCell
+        
+        let imageURL = Storage.storage().reference(forURL: "gs://sigabrt-iosda.appspot.com/").child("barbers/gallery/\(barber!.ID)/\(indexPath.row).jpg")
+        
+        imageURL.downloadURL(completion: { (url, error) in
+            
+            print(imageURL)
+            Nuke.loadImage(with: url!, into: cell.img)
+            
+        })
+
+        
+        
+        
+    
+
+        return cell
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
