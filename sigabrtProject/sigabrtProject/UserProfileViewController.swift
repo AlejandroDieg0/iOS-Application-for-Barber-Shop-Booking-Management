@@ -108,8 +108,11 @@ class UserProfileViewController: UITableViewController {
             if let value = snapshot.value as? NSDictionary {
                 self.changePhone.text = value["phone"] as? String ?? ""
                 self.changeName.text = value["name"] as? String ?? ""
+                let favBarber = value["favbarber"] as? Int ?? -1
+                let userType = value["usertime"] as? Int ?? 1
                 self.changeMail.text = user?.email
                 self.helloName.text = "Hello \(self.changeName.text!)"
+                Funcs.loggedUser = User(name: self.changeName.text!, mail: self.changeMail.text!, phone: self.changePhone.text!, userType: userType, favBarberId: favBarber)
             } else {
                 self.inizializeUserData()
             }
@@ -127,6 +130,7 @@ class UserProfileViewController: UITableViewController {
                 "name":  "",
                 "phone": "",
                 "favbarber":   -1,
+                "usertype": 1,
                 ] as [String : Any]
             
             ref.child("user/\(user!.uid)/").setValue(post)

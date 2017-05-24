@@ -15,8 +15,7 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
     @IBOutlet weak var name: UITextField!
    
     var ref: DatabaseReference!
-    var id :String = "1"
-    
+       
     var selectedDate = ""
     var selectedTime = ""
     var services : [Service] = []
@@ -25,6 +24,7 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
     var selectedTipo: [String] = []
     var selectedPrezzo : [Int] = []
     var timeSlot = ["09:00","09:15","09:30","09:45","10:00"]
+    let slotSizeInMinutes = 15
     
     let firebaseAuth = Auth.auth()
     let user = Auth.auth().currentUser
@@ -47,6 +47,7 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         ref = Database.database().reference()
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
         view.addGestureRecognizer(tap)
@@ -81,7 +82,7 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
         self.tb.reloadData()
         //FIRBASE REFERENCE
         var ref: DatabaseReference!
-        ref = Database.database().reference().child("barbers/\(self.id)/services")
+        ref = Database.database().reference().child("barbers/\(String(Funcs.loggedUser.favBarberId))/services")
        
         ref?.observe(.childAdded, with: { snapshot in
             if !snapshot.exists() {
@@ -179,15 +180,19 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return timeSlot.count
+       return 1440 / slotSizeInMinutes
+        //return timeSlot.count
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return timeSlot[row]
+        let time =  "\(row*slotSizeInMinutes/60):\((row*slotSizeInMinutes%60))"
+        
+        return time
+        //return timeSlot[row]
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        selectedTime = timeSlot[row]
+        // selectedTime = timeSlot[row]
         print(selectedTime)
     }
 
