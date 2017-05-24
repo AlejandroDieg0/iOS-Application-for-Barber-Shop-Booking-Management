@@ -137,12 +137,6 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
             
             let post = [
                 "user":  self.user!.uid,
-                "services": [
-                    "price": 11, //self.selectedServices.price,
-                    "type": "test", //self.selectedServices.name,
-                    "duration": 20, //self.selectedServices.duration,
-
-                ] ,
                 "time":   self.selectedTime,
                 "note": customerName ?? "Not inserted"
                 ] as [String : Any]
@@ -151,8 +145,12 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
             
             ref.child("prenotations/1/\(self.selectedDate)/").child(key).setValue(post)
             
-            //ref.child("prenotations/1/\(self.selectedDate)/").childByAutoId().setValue(post)
-            print(key)
+            for service in self.selectedServices {
+                let post = [        "price": service.price,
+                                    "type": service.name,
+                                    "duration": service.duration] as [String : Any]
+                ref.child("prenotations/1/\(self.selectedDate)/\(key)/services").childByAutoId().setValue(post)
+            }
         })
         
         actionSheet.addAction(UIAlertAction(title: "CANCEL", style: .cancel, handler: nil))
@@ -176,15 +174,9 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        self.selectedServices.duration =  self.selectedServices.duration + services[indexPath.row].duration
-//        self.selectedServices.price =  self.selectedServices.price + services[indexPath.row].price
-//        
-//        if (self.selectedServices.name == "" ){
-//            self.selectedServices.name =  self.selectedServices.name + services[indexPath.row].name
-//        } else{
-//            self.selectedServices.name =  self.selectedServices.name + ", " + services[indexPath.row].name
-//        }
-//        
+       
+        self.selectedServices.append(services[indexPath.row])
+
     }
     
     // PICKER VIEW
