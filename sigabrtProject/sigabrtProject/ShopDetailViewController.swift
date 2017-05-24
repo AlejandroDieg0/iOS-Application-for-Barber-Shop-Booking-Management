@@ -18,15 +18,17 @@ class ShopDetailViewController: UIViewController {
     @IBOutlet weak var labelAddress: UILabel!
     @IBOutlet weak var labelPhone: UILabel!
     @IBOutlet weak var labelHours: UILabel!
+    @IBOutlet weak var labelDescription: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         print(barber!.desc)
         labelBarberName.text = barber?.name
+        labelDescription.text = barber?.desc
         labelAddress.text = barber?.address
         labelPhone.text = barber?.phone
         Nuke.loadImage(with: (barber?.logo)!, into: imageBarberShop)
-        //labelHours.text = barber?.hours
+        labelHours.text = "Oradio di apertura: \((barber?.hours[0][0])!/60):00"
         // Do any additional setup after loading the view.
     }
     

@@ -55,7 +55,8 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
     override func viewDidLoad() {
         super.viewDidLoad()
         ref = Database.database().reference()
-        
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        view.addGestureRecognizer(tap)
         time.delegate = self
         time.dataSource = self
         //today date
@@ -197,6 +198,9 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
         print(selectedTime)
     }
 
-
+    func dismissKeyboard() {
+        view.endEditing(true)
+    }
+    
 }
 
