@@ -95,7 +95,7 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
             }
             
             if let snapshotValue = snapshot.value as? [String:Any] {
-                let tipo = (snapshotValue["tipo"])! as! String
+                let tipo = (snapshotValue["name"])! as! String
                 let price = (snapshotValue["price"])! as! Int
                 let duration = (snapshotValue["duration"])! as! Int
 
@@ -146,9 +146,13 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
                 "time":   self.selectedTime,
                 "note": customerName ?? "Not inserted"
                 ] as [String : Any]
-            ref.child("prenotations/1/\(self.selectedDate)/").childByAutoId().setValue(post)
             
-            print(ref.key)
+            let key = ref.child("prenotations/1/\(self.selectedDate)/").childByAutoId().key
+            
+            ref.child("prenotations/1/\(self.selectedDate)/").child(key).setValue(post)
+            
+            //ref.child("prenotations/1/\(self.selectedDate)/").childByAutoId().setValue(post)
+            print(key)
         })
         
         actionSheet.addAction(UIAlertAction(title: "CANCEL", style: .cancel, handler: nil))
