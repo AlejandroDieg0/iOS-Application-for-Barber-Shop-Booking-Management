@@ -17,13 +17,14 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
     var ref: DatabaseReference!
        
     var selectedDate = ""
-    var selectedTime = ""
-    var services : [Service] = []
+    var selectedTimeInMinutes: Int!
+    var services: [Service] = []
     var selectedServices : [Service] = []
 
     var selectedTipo: [String] = []
     var selectedPrezzo : [Int] = []
-    var timeSlot = ["09:00","09:15","09:30","09:45","10:00"]
+    var timeSlot: [String] = []
+    var timeSlotInMinutes : [Int] = []
     let slotSizeInMinutes = 15
     
     let firebaseAuth = Auth.auth()
@@ -49,7 +50,7 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
         super.viewDidLoad()
         
         ref = Database.database().reference()
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
         time.delegate = self
         time.dataSource = self
@@ -58,9 +59,10 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
         let formatter = DateFormatter()
         formatter.dateFormat = "yy-MM-dd"
         selectedDate = formatter.string(from: data)
-        selectedTime = timeSlot.first!
+        //TODO: leggere il weekday
+        calcSlots(day: "Friday")
         
-       // self.time.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
+        //self.time.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
         tb.allowsMultipleSelection = true
         tb.delegate = self
         tb.dataSource = self
@@ -72,9 +74,6 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
         self.calendar.select(Date())
         self.view.addGestureRecognizer(self.scopeGesture)
         self.calendar.scope = .week
-        
-        
-       
     }
     
     func readData(){
@@ -97,7 +96,6 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
                 self.services.append(Service(name: tipo, duration: duration, price: price))
                 self.tb.reloadData()
             }})
-        
     }
     
     
@@ -112,6 +110,9 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
         print("selected dates is \(selectedDates)")
          self.selectedDate = self.dateFormatter.string(from: date)
         print(selectedDate)
+        
+        //TODO: richiamare calcSlots
+        
         if monthPosition == .next || monthPosition == .previous {
             calendar.setCurrentPage(date, animated: true)
         }
@@ -132,7 +133,7 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
             
             let post = [
                 "user":  self.user!.uid,
-                "time":   self.selectedTime,
+                "time":  self.selectedTimeInMinutes,
                 "note": customerName ?? "Not inserted"
                 ] as [String : Any]
             
@@ -151,10 +152,8 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
         actionSheet.addAction(UIAlertAction(title: "CANCEL", style: .cancel, handler: nil))
         
         self.present(actionSheet, animated: true, completion:  nil)
-//        //FIRBASE REFERENCE
     }
    
-    //TABLE VIEW
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -168,10 +167,9 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
         cell.price.text = String(services[indexPath.row].price) + "€"
         return cell
     }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-       
         self.selectedServices.append(services[indexPath.row])
-
     }
     
     // PICKER VIEW
@@ -180,32 +178,39 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        //return 1440 / slotSizeInMinutes
-        return calcSlots(day: "Saturday")
+        return timeSlot.count
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        let time =  "\(row*slotSizeInMinutes/60):\((row*slotSizeInMinutes%60))"
-        
-        return time
+        return timeSlot[row]
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        // selectedTime = timeSlot[row]
-        print(selectedTime)
+        selectedTimeInMinutes = timeSlotInMinutes[row]
     }
 
     override func dismissKeyboard() {
         view.endEditing(true)
     }
-    func calcSlots(day: String) -> Int {
-        var totalWorkTime : Int = 0
-        
-        for slots in (Funcs.currentShop.hours?[day])!{
-            totalWorkTime = slots[1] - slots[0]
-        }
     
-    return totalWorkTime / slotSizeInMinutes
+    func calcSlots(day: String) {
+        let slotsInADay = 1440 / slotSizeInMinutes
+        
+        for currslot in 0 ... slotsInADay {
+            let currentSlotMinute = currslot * slotSizeInMinutes
+            for shopOpeningFrame in (Funcs.currentShop.hours?[day])!{
+                //TODO: bisogna aggiungere a currentSlotMinute la durata del servizio (dei servizi) selezionati
+                var isBookable = false
+                if (currentSlotMinute >= shopOpeningFrame[0] && currentSlotMinute < shopOpeningFrame[1]){
+                    isBookable = true
+                }
+                //TODO: ulteriore if per controllare che currentSlotMinute non sia già nell'array delle prenotazioni (non sia già prenotato)
+                if (isBookable){
+                    timeSlotInMinutes.append(currentSlotMinute)
+                    timeSlot.append("\(currentSlotMinute/60):\(currentSlotMinute%60)")
+                }
+            }
+        }
     }
 }
 

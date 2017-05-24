@@ -15,12 +15,12 @@ class Prenotation {
     let customerName: String
     let tipoServizio: String
     let prezzoServizio : Int
-    let timeSelected: String
+    let timeInMinute: Int
     
-    init(customerName: String, tipoServizio: String, prezzoServizio: Int, timeSelected: String){
+    init(customerName: String, tipoServizio: String, prezzoServizio: Int, timeInMinute: Int){
         self.customerName = customerName
         self.tipoServizio = tipoServizio
         self.prezzoServizio = prezzoServizio
-        self.timeSelected = timeSelected
+        self.timeInMinute = timeInMinute
     }
 }

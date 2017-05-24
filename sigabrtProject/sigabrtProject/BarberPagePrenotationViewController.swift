@@ -87,7 +87,7 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
     ref?.observe(.childAdded, with: { (snapshot) in
             if let userDict = snapshot.value as? [String:Any] {
                 let name = userDict["name"] as? String ?? ""
-                let time = userDict["time"] as? String ?? ""
+                let time = userDict["time"] as? Int ?? 0
                 
                 let service = userDict["services"] as? [String: Any]
                 let serviceArray = service?["name"] as? String ?? ""
@@ -103,7 +103,7 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
 //                }
                 print(time)
               // con classe
-                let  x = Prenotation(customerName: name, tipoServizio: serviceArray, prezzoServizio: price, timeSelected: time)
+                let  x = Prenotation(customerName: name, tipoServizio: serviceArray, prezzoServizio: price, timeInMinute: time)
                 self.prenotationList.append(x)
             
                 self.cv.reloadData()
@@ -181,7 +181,7 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
         let total = String(prenotationList[indexPath.row].prezzoServizio) + "€"
         
         cell.name.text = prenotationList[indexPath.row].customerName
-        cell.time.text = prenotationList[indexPath.row].timeSelected
+        cell.time.text = "\(prenotationList[indexPath.row].timeInMinute/60):\(prenotationList[indexPath.row].timeInMinute%60)"
         cell.total.text = total
         cell.services.text = prenotationList[indexPath.row].tipoServizio
         
