@@ -134,20 +134,25 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
         let customerName = self.name.text
             //FIRBASE REFERENCE
             let ref: DatabaseReference = Database.database().reference()
-            ref.child("prenotations/1/\(self.selectedDate)/").childByAutoId()
+            
             let post = [
                 "user":  self.user!.uid,
                 "services": [
                     "price": 11, //self.selectedServices.price,
-                    "name": "test", //self.selectedServices.name,
+                    "type": "test", //self.selectedServices.name,
                     "duration": 20, //self.selectedServices.duration,
 
                 ] ,
                 "time":   self.selectedTime,
                 "note": customerName ?? "Not inserted"
                 ] as [String : Any]
-            ref.setValue(post)
-            print(ref.key)
+            
+            let key = ref.child("prenotations/1/\(self.selectedDate)/").childByAutoId().key
+            
+            ref.child("prenotations/1/\(self.selectedDate)/").child(key).setValue(post)
+            
+            //ref.child("prenotations/1/\(self.selectedDate)/").childByAutoId().setValue(post)
+            print(key)
         })
         
         actionSheet.addAction(UIAlertAction(title: "CANCEL", style: .cancel, handler: nil))
