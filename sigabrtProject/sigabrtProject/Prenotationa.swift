@@ -8,9 +8,9 @@
 import Foundation
 import UIKit
 
-var prenotationList = [prenotation]()
+var prenotationList = [Prenotation]()
 
-class prenotation {
+class Prenotation {
     
     let customerName: String
     let tipoServizio: String

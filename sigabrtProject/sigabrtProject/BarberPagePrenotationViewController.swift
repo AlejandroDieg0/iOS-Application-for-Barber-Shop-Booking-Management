@@ -14,8 +14,7 @@ import Firebase
 class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSource, FSCalendarDelegate, UIGestureRecognizerDelegate,UICollectionViewDelegate, UICollectionViewDataSource {
 
     
-//    var prenotations : [(customerName: String, tipoServizio: String,prezzoServizio : [String], timeSelected: String, total: Int)] = []
-    var prenotationList = [prenotation]()
+    var prenotationList = [Prenotation]()
     
     var ref: DatabaseReference? = nil
    
@@ -102,7 +101,7 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
 //                }
                 print(time)
               // con classe
-                let  x = prenotation(customerName: name, tipoServizio: serviceArray, prezzoServizio: price, timeSelected: time)
+                let  x = Prenotation(customerName: name, tipoServizio: serviceArray, prezzoServizio: price, timeSelected: time)
                 self.prenotationList.append(x)
             
                 self.cv.reloadData()
