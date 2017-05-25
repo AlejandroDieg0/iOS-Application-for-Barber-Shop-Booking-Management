@@ -38,16 +38,16 @@ class bottomScrollable: UIViewController{
 
         
         
-        func prepareBackgroundView(){
-            let blurEffect = UIBlurEffect.init(style: .dark)
-            let visualEffect = UIVisualEffectView.init(effect: blurEffect)
-            let bluredView = UIVisualEffectView.init(effect: blurEffect)
-            bluredView.contentView.addSubview(visualEffect)
-            visualEffect.frame = UIScreen.main.bounds
-            bluredView.frame = UIScreen.main.bounds
-            view.insertSubview(bluredView, at: 0)
-        }
-        
+//        func prepareBackgroundView(){
+//            let blurEffect = UIBlurEffect.init(style: .dark)
+//            let visualEffect = UIVisualEffectView.init(effect: blurEffect)
+//            let bluredView = UIVisualEffectView.init(effect: blurEffect)
+//            bluredView.contentView.addSubview(visualEffect)
+//            visualEffect.frame = UIScreen.main.bounds
+//            bluredView.frame = UIScreen.main.bounds
+//            view.insertSubview(bluredView, at: 0)
+//        }
+    
         func panGesture(recognizer: UIPanGestureRecognizer) {
             let translation = recognizer.translation(in: self.view)
             let y = self.view.frame.minY
@@ -58,7 +58,7 @@ class bottomScrollable: UIViewController{
         
         override func viewWillAppear(_ animated: Bool) {
             super.viewWillAppear(animated)
-            prepareBackgroundView()
+//            prepareBackgroundView()
             
         }
         
