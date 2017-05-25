@@ -183,6 +183,7 @@
                             </switch>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bz9-pk-qCv">
                                 <rect key="frame" x="233" y="559" width="126" height="67"/>
+                                <color key="backgroundColor" red="0.20000000000000001" green="0.41960784309999999" blue="0.52941176469999995" alpha="0.23798694349315069" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="126" id="kjt-BV-BKM"/>
                                 </constraints>
