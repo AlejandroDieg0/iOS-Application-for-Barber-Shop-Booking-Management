@@ -36,9 +36,7 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //TODO: Capire come cazzo fare per far scomparire la tastiere senza rompere tutto 
-        
-        //self.hideKeyboardWhenTappedAround()
+        self.hideKeyboardWhenTappedAround()
         
         //today date
         let data = Date()
