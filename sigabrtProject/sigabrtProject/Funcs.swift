@@ -83,6 +83,7 @@ class Funcs: NSObject {
             }
         }
     }
+    
     static func addReservation(time: Int, note: String?, services: [Service], date: Date){
         let ref: DatabaseReference = Database.database().reference()
         

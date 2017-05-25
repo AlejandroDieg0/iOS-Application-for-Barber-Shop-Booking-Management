@@ -46,8 +46,8 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
         if UIDevice.current.model.hasPrefix("iPad") {
             self.calendarHeightConstraint.constant = 400
         }
-        
-        busySlots(date: data)
+
+        Funcs.busySlots(date: data, collection: freeTimeSlotCollectionView)
         
         //self.time.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
         servicesTableView.allowsMultipleSelection = true
@@ -90,10 +90,7 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
     }
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-        print("did select date \(self.dateFormatter.string(from: date))")
-        
-        self.selectedDate = date
-        
+        print("did select date \(date)")
         Funcs.busySlots(date: date, collection: freeTimeSlotCollectionView)
         
         if monthPosition == .next || monthPosition == .previous {
@@ -102,7 +99,7 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
     }
     
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
-        print("\(self.dateFormatter.string(from: calendar.currentPage))")
+        print("\(calendar.currentPage))")
     }
     
     @IBAction func save(_ sender: UIBarButtonItem) {
@@ -135,12 +132,8 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
         return cell
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.selectedServices.append(services[indexPath.row])
-    }
-    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        selectedTimeInMinutes = timeSlotInMinutes[indexPath.row]
+        selectedTimeInMinutes = Funcs.bookableSlotsInMinutes[indexPath.row]
         
         for cell in self.freeTimeSlotCollectionView.visibleCells{
             
@@ -151,6 +144,7 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
         
         print(selectedTimeInMinutes)
     }
+    
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -180,60 +174,10 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
         return cell
     }
     
-    override func dismissKeyboard() {
-        view.endEditing(true)
-    }
-    func busySlots(date: Date) {
-        let selectedDay = self.dateFormatter.string(from: date)
-        var busySlots : [Int] = []
-        
-        print(selectedDay)
-        print(String(Funcs.currentShop.ID))
-        
-        ref = Database.database().reference().child("prenotations").child(String(Funcs.currentShop.ID)).child(selectedDay)
-        ref?.observe(.childAdded, with: { (snapshot) in
-            if let userDict = snapshot.value as? [String:Any] {
-                let time = userDict["time"] as? Int ?? 0
-                busySlots.append(time)
-                self.calcSlots(day: date, busySlots: busySlots)
-                
-                print(time)
-                
-            }})
-        self.calcSlots(day: date, busySlots: busySlots)
-        
-    }
-    
-    func calcSlots(day: Date, busySlots: [Int]) {
-        print(busySlots)
+    fileprivate lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.locale = Locale(identifier: "en_US")
-        formatter.dateStyle = DateFormatter.Style.full
-        
-        timeSlotInMinutes = []
-        let selectedDay = formatter.string(from: day).components(separatedBy: ",")
-        print(selectedDay[0])
-        let slotsInADay = 1440 / slotSizeInMinutes
-        
-        for currslot in 0 ... slotsInADay {
-            var isBookable = false
-            
-            let currentSlotMinute = currslot * slotSizeInMinutes
-            if let arrayDay = (Funcs.currentShop.hours?[selectedDay[0]]){
-                for shopOpeningFrame in arrayDay {
-                    //TODO: bisogna aggiungere a currentSlotMinute la durata del servizio (dei servizi) selezionati
-                    if (currentSlotMinute >= shopOpeningFrame[0] && currentSlotMinute < shopOpeningFrame[1] && !timeSlotInMinutes.contains(currentSlotMinute) && !busySlots.contains(currentSlotMinute)){
-                        isBookable = true
-                    }
-                    if (isBookable){
-                        timeSlotInMinutes.append(currentSlotMinute)
-                        isBookable = false
-                    }
-                }
-            }
-            
-        }
-        freeTimeSlotCollectionView.reloadData()
-    }
+        formatter.dateFormat = "yy-MM-dd"
+        return formatter
+    }()
 }
 
