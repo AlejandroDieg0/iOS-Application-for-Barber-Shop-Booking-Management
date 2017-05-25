@@ -23,7 +23,7 @@ class UserProfileViewController: UITableViewController {
     @IBOutlet weak var changeName: UITextField!
     @IBOutlet weak var helloName: UILabel!
     @IBOutlet weak var changePhone: UITextField!
-    
+    @IBOutlet weak var labelFavBarber: UILabel!
     
     // REAUTH
     @IBOutlet weak var reauthMail: UITextField!
@@ -90,6 +90,7 @@ class UserProfileViewController: UITableViewController {
             if Auth.auth().currentUser != nil {
                 
                 loadUserData()
+                labelFavBarber.text = Funcs.currentShop.name
                 
             } else {
                 print("no logged with Firebase")
@@ -121,6 +122,7 @@ class UserProfileViewController: UITableViewController {
             print(error.localizedDescription)
         }
     }
+    
     
     func inizializeUserData(){
         let user = Auth.auth().currentUser
