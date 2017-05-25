@@ -3,8 +3,8 @@ import UIKit
 import FSCalendar
 import Firebase
 
-class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, FSCalendarDelegate, UIGestureRecognizerDelegate,UITableViewDelegate, UITableViewDataSource , UIPickerViewDelegate, UIPickerViewDataSource{
-    
+class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, FSCalendarDelegate, UIGestureRecognizerDelegate, UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource{
+  
     @IBOutlet weak var calendar: FSCalendar!
     
     @IBOutlet weak var calendarHeightConstraint: NSLayoutConstraint!
@@ -49,8 +49,11 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
         super.viewDidLoad()
         
         ref = Database.database().reference()
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
-        view.addGestureRecognizer(tap)
+        
+        //TODO: Capire come cazzo fare per far scomparire la tastiere senza rompere tutto 
+        
+        //self.hideKeyboardWhenTappedAround()
+        
         //today date
         let data = Date()
         let formatter = DateFormatter()
