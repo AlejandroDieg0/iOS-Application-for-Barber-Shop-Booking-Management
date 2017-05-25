@@ -4,7 +4,7 @@ import FSCalendar
 import Firebase
 
 class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, FSCalendarDelegate, UIGestureRecognizerDelegate, UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource{
-  
+    
     @IBOutlet weak var calendar: FSCalendar!
     
     @IBOutlet weak var calendarHeightConstraint: NSLayoutConstraint!
@@ -16,7 +16,7 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
     @IBOutlet weak var freeTimeSlotCollectionView: UICollectionView!
     var ref: DatabaseReference!
     
-    var selectedDate = ""
+    var selectedDate : Date = Date()
     var selectedTimeInMinutes: Int!
     var services: [Service] = []
     var selectedServices : [Service] = []
@@ -49,11 +49,7 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
         
         self.hideKeyboardWhenTappedAround()
         
-        //today date
-        let data = Date()
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yy-MM-dd"
-        selectedDate = formatter.string(from: data)
+        let data = selectedDate
         
         self.calendar.scope = .week
         calendar.appearance.headerDateFormat = "MMM yyyy"
@@ -61,7 +57,7 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
         if UIDevice.current.model.hasPrefix("iPad") {
             self.calendarHeightConstraint.constant = 400
         }
-
+        
         busySlots(date: data)
         
         //self.time.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
@@ -74,11 +70,11 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
         
         self.calendar.select(Date())
         self.view.addGestureRecognizer(self.scopeGesture)
-
+        
     }
     
     func readData(){
-        //service.removeAll()
+        self.services.removeAll()
         self.servicesTableView.reloadData()
         var ref: DatabaseReference!
         ref = Database.database().reference().child("barbers/\(String(Funcs.loggedUser.favBarberId))/services")
@@ -106,8 +102,8 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         print("did select date \(self.dateFormatter.string(from: date))")
-        self.selectedDate = self.dateFormatter.string(from: date)
-        print(selectedDate)
+        
+        self.selectedDate = date
         
         self.busySlots(date: date)
         
@@ -120,35 +116,20 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
         print("\(self.dateFormatter.string(from: calendar.currentPage))")
     }
     
-    
     @IBAction func save(_ sender: UIBarButtonItem) {
-        
+        let note = self.name.text
         let actionSheet = UIAlertController(title: "", message: "Confirm prenotation", preferredStyle: .actionSheet)
+        
         actionSheet.addAction(UIAlertAction(title: "OK", style: .default) { action in
-            let customerName = self.name.text
-            let ref: DatabaseReference = Database.database().reference()
             
-            let post = [
-                "user":  Auth.auth().currentUser!.uid,
-                "time":  self.selectedTimeInMinutes,
-                "note": customerName ?? "Not inserted"
-                ] as [String : Any]
-            
-            let key = ref.child("prenotations/\(Funcs.currentShop.ID)/\(self.selectedDate)/").childByAutoId().key
-            
-            ref.child("prenotations/\(Funcs.currentShop.ID)/\(self.selectedDate)/").child(key).setValue(post)
-            
-            for service in self.selectedServices {
-                let post = ["price": service.price,
-                            "type": service.name,
-                            "duration": service.duration] as [String : Any]
-                ref.child("prenotations/\(Funcs.currentShop.ID)/\(self.selectedDate)/\(key)/services").childByAutoId().setValue(post)
-            }
+            Funcs.addReservation(time: self.selectedTimeInMinutes, note: note, services: self.selectedServices, date: self.selectedDate)
         })
         
         actionSheet.addAction(UIAlertAction(title: "CANCEL", style: .cancel, handler: nil))
         
         self.present(actionSheet, animated: true, completion:  nil)
+        
+        
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -171,14 +152,14 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         selectedTimeInMinutes = timeSlotInMinutes[indexPath.row]
-
+        
         for cell in self.freeTimeSlotCollectionView.visibleCells{
             
             cell.contentView.backgroundColor = UIColor(red: 144/255, green: 175/255, blue: 197/255, alpha: 1)
         }
-
+        
         collectionView.cellForItem(at: indexPath)?.contentView.backgroundColor = UIColor(red: 51/255, green: 107/255, blue: 135/255, alpha: 1)
-
+        
         print(selectedTimeInMinutes)
     }
     
@@ -202,11 +183,11 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
                 cell.contentView.backgroundColor = UIColor(red: 144/255, green: 175/255, blue: 197/255, alpha: 1)
                 
             }
-
+            
         }else{
             cell.contentView.backgroundColor = UIColor(red: 144/255, green: 175/255, blue: 197/255, alpha: 1)
         }
-
+        
         return cell
     }
     
@@ -214,14 +195,12 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
         view.endEditing(true)
     }
     func busySlots(date: Date) {
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yy-MM-dd"
-        let selectedDay = dateFormatter.string(from: date)
-        
+        let selectedDay = self.dateFormatter.string(from: date)
         var busySlots : [Int] = []
+        
         print(selectedDay)
         print(String(Funcs.currentShop.ID))
+        
         ref = Database.database().reference().child("prenotations").child(String(Funcs.currentShop.ID)).child(selectedDay)
         ref?.observe(.childAdded, with: { (snapshot) in
             if let userDict = snapshot.value as? [String:Any] {
@@ -233,22 +212,23 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
                 
             }})
         self.calcSlots(day: date, busySlots: busySlots)
-
+        
     }
     
     func calcSlots(day: Date, busySlots: [Int]) {
         print(busySlots)
-        dateFormatter.locale = Locale(identifier: "en_US")
-        dateFormatter.dateStyle = DateFormatter.Style.full
-
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US")
+        formatter.dateStyle = DateFormatter.Style.full
+        
         timeSlotInMinutes = []
-        let selectedDay = dateFormatter.string(from: day).components(separatedBy: ",")
+        let selectedDay = formatter.string(from: day).components(separatedBy: ",")
         print(selectedDay[0])
         let slotsInADay = 1440 / slotSizeInMinutes
-
+        
         for currslot in 0 ... slotsInADay {
             var isBookable = false
-
+            
             let currentSlotMinute = currslot * slotSizeInMinutes
             if let arrayDay = (Funcs.currentShop.hours?[selectedDay[0]]){
                 for shopOpeningFrame in arrayDay {
@@ -262,9 +242,9 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
                     }
                 }
             }
-
+            
         }
-    freeTimeSlotCollectionView.reloadData()
+        freeTimeSlotCollectionView.reloadData()
     }
 }
 

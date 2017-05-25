@@ -84,6 +84,30 @@ class Funcs: NSObject {
         }
         }
     }
+    static func addReservation(time: Int, note: String?, services: [Service], date: Date){
+        let ref: DatabaseReference = Database.database().reference()
+        
+        let reservationDate = date.toString(format: "yy-MM-dd")
+        
+        print(reservationDate)
+        let post = [
+            "user":  Auth.auth().currentUser!.uid,
+            "time":  time,
+            "note": note ?? "Not inserted"
+            ] as [String : Any]
+        
+        let key = ref.child("prenotations/\(self.currentShop.ID)/\(reservationDate)/").childByAutoId().key
+        
+        ref.child("prenotations/\(self.currentShop.ID)/\(reservationDate)/").child(key).setValue(post)
+        
+        for service in services {
+            let post = ["price": service.price,
+                        "type": service.name,
+                        "duration": service.duration] as [String : Any]
+            ref.child("prenotations/\(self.currentShop.ID)/\(reservationDate)/\(key)/services").childByAutoId().setValue(post)
+        }
+        
+    }
     static func loadUserData(){
         let user = Auth.auth().currentUser
         if (user == nil) {return}
