@@ -18,7 +18,7 @@
                         <viewControllerLayoutGuide type="top" id="XHb-OV-bHc"/>
                         <viewControllerLayoutGuide type="bottom" id="yCA-uT-hkB"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Hts-3o-LF3" customClass="A">
+                    <view key="view" contentMode="scaleToFill" id="Hts-3o-LF3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="745"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -79,7 +79,7 @@
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <prototypes>
-                                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cella" id="k9K-Cn-XTj" customClass="addModifyCollectionViewCell" customModule="sigabrtProject" customModuleProvider="target">
+                                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="serviceCell" id="k9K-Cn-XTj" customClass="addModifyCollectionViewCell" customModule="sigabrtProject" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="k9K-Cn-XTj" id="6cA-wI-TYE">
@@ -190,7 +190,7 @@
                         <outlet property="calendar" destination="ClE-tN-Zjd" id="SGW-0J-ehZ"/>
                         <outlet property="calendarHeightConstraint" destination="kgh-jp-Dhf" id="8g9-tI-FaK"/>
                         <outlet property="name" destination="s13-dg-7I4" id="1Hb-uw-ZMl"/>
-                        <outlet property="tb" destination="0u4-22-fft" id="MVA-30-uru"/>
+                        <outlet property="servicesTableView" destination="0u4-22-fft" id="uer-a0-2XR"/>
                         <outlet property="time" destination="U66-qh-hnh" id="t88-bf-Qqd"/>
                     </connections>
                 </viewController>
@@ -312,7 +312,7 @@
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="13:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1ei-k5-RwZ">
-                                                            <rect key="frame" x="12" y="21" width="34.5" height="16"/>
+                                                            <rect key="frame" x="12" y="22" width="34.5" height="16"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -451,8 +451,8 @@
                     <connections>
                         <outlet property="calendar" destination="XUM-iE-fA3" id="HA5-3L-hwx"/>
                         <outlet property="calendarHeightConstraint" destination="Qbm-xV-qQs" id="rt0-gb-7CG"/>
-                        <outlet property="cv" destination="Y59-BG-9YC" id="JsN-hH-tKY"/>
-                        <outlet property="cvFreeTime" destination="l0l-o2-Qr4" id="zwu-3z-tLO"/>
+                        <outlet property="freeTimeCollectionView" destination="l0l-o2-Qr4" id="j6n-5I-aJj"/>
+                        <outlet property="prenotationCollectionView" destination="Y59-BG-9YC" id="4kt-U5-Ceh"/>
                         <outlet property="totalReservations" destination="k3y-wx-1hh" id="aom-St-q41"/>
                         <outlet property="updated" destination="o5O-W1-XD6" id="FE5-qD-PR1"/>
                         <segue destination="9GH-Up-GbH" kind="show" identifier="addItem" id="FLD-Zg-tRf">
@@ -777,7 +777,4 @@
         <image name="update-arrows" width="64" height="64"/>
         <image name="user" width="32" height="32"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="ggW-D3-G7t"/>
-    </inferredMetricsTieBreakers>
 </document>
