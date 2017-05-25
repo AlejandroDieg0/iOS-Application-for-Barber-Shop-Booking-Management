@@ -12,8 +12,6 @@ import FBSDKLoginKit
 
 class barberProfileViewController: UITableViewController {
     
-    var x = ""
-    var id :String = "1"
     let firebaseAuth = Auth.auth()
     let user = Auth.auth().currentUser
      var services : [Service] = []
@@ -108,7 +106,7 @@ class barberProfileViewController: UITableViewController {
     func loadBarberService(){
         //FIRBASE REFERENCE
         var ref: DatabaseReference!
-        ref = Database.database().reference().child("barbers/\(self.id)/services")
+        ref = Database.database().reference().child("barbers/\(Funcs.currentShop.ID)/services")
         
         ref?.observe(.childAdded, with: { snapshot in
             if !snapshot.exists() {
@@ -277,9 +275,6 @@ class barberProfileViewController: UITableViewController {
             password.isSecureTextEntry = true
         }
         alert.addAction(UIAlertAction(title: "ok", style: .default, handler: { (action) in
-            let textF = alert.textFields?[0] as UITextField!
-            print(textF)
-            
         }))
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))

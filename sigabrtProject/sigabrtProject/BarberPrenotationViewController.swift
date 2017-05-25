@@ -10,7 +10,7 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
     @IBOutlet weak var calendarHeightConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var time: UIPickerView!
-    @IBOutlet weak var tb: UITableView!
+    @IBOutlet weak var servicesTableView: UITableView!
     
     @IBOutlet weak var name: UITextField!
    
@@ -63,9 +63,9 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
         calcSlots(day: "Friday")
         
         //self.time.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
-        tb.allowsMultipleSelection = true
-        tb.delegate = self
-        tb.dataSource = self
+        servicesTableView.allowsMultipleSelection = true
+        servicesTableView.delegate = self
+        servicesTableView.dataSource = self
         if UIDevice.current.model.hasPrefix("iPad") {
             self.calendarHeightConstraint.constant = 400
         }
@@ -78,7 +78,7 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
     
     func readData(){
         //service.removeAll()
-        self.tb.reloadData()
+        self.servicesTableView.reloadData()
         //FIRBASE REFERENCE
         var ref: DatabaseReference!
         ref = Database.database().reference().child("barbers/\(String(Funcs.loggedUser.favBarberId))/services")
@@ -94,7 +94,7 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
                 let duration = (snapshotValue["duration"])! as! Int
 
                 self.services.append(Service(name: tipo, duration: duration, price: price))
-                self.tb.reloadData()
+                self.servicesTableView.reloadData()
             }})
     }
     
@@ -162,7 +162,7 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
     }
  
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tb.dequeueReusableCell(withIdentifier: "cella", for: indexPath) as! addModifyCollectionViewCell
+        let cell = servicesTableView.dequeueReusableCell(withIdentifier: "serviceCell", for: indexPath) as! addModifyCollectionViewCell
         cell.servizio.text = services[indexPath.row].name
         cell.price.text = String(services[indexPath.row].price) + "€"
         return cell

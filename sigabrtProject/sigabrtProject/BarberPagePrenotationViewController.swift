@@ -30,8 +30,8 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
     
     @IBOutlet weak var totalReservations: UILabel!
     
-    @IBOutlet weak var cvFreeTime: UICollectionView!
-    @IBOutlet weak var cv: UICollectionView!
+    @IBOutlet weak var freeTimeCollectionView: UICollectionView!
+    @IBOutlet weak var prenotationCollectionView: UICollectionView!
     @IBOutlet weak var calendar: FSCalendar!
     @IBOutlet weak var calendarHeightConstraint: NSLayoutConstraint!
     fileprivate lazy var dateFormatter: DateFormatter = {
@@ -69,10 +69,10 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
             self.calendarHeightConstraint.constant = 400
         }
 
-        cvFreeTime.delegate = self
-        cvFreeTime.dataSource = self
-        cv.delegate = self
-        cv.dataSource = self
+        freeTimeCollectionView.delegate = self
+        freeTimeCollectionView.dataSource = self
+        prenotationCollectionView.delegate = self
+        prenotationCollectionView.dataSource = self
         
         self.view.addGestureRecognizer(self.scopeGesture)
         
@@ -81,7 +81,7 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
     
     func readData(){
     prenotationList.removeAll()
-    self.cv.reloadData()
+    self.prenotationCollectionView.reloadData()
     //FIRBASE REFERENCE
     ref = Database.database().reference().child("prenotations").child("1").child(selectedDate)
     ref?.observe(.childAdded, with: { (snapshot) in
@@ -106,7 +106,7 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
                 let  x = Prenotation(customerName: name, tipoServizio: serviceArray, prezzoServizio: price, timeInMinute: time)
                 self.prenotationList.append(x)
             
-                self.cv.reloadData()
+                self.prenotationCollectionView.reloadData()
                 self.totalReservations.text = String(self.prenotationList.count)
             }})
        
@@ -163,7 +163,7 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionView == self.cv {
+        if collectionView == self.prenotationCollectionView {
              return prenotationList.count
            
         }
@@ -176,7 +176,7 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
     
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if collectionView == self.cv {
+        if collectionView == self.prenotationCollectionView {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as!  CollectionViewCell
         let total = String(prenotationList[indexPath.row].prezzoServizio) + "€"
         
@@ -189,7 +189,7 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
         }
         
         else{
-        let cell = cvFreeTime.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! freeTimeBarberCollectionViewCell
+        let cell = freeTimeCollectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! freeTimeBarberCollectionViewCell
         cell.label.text = timeSlot[indexPath.row]
 
         return cell
