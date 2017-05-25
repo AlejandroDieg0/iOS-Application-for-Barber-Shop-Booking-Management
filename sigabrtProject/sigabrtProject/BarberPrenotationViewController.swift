@@ -71,7 +71,6 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
     func readData(){
         //service.removeAll()
         self.servicesTableView.reloadData()
-        //FIRBASE REFERENCE
         var ref: DatabaseReference!
         ref = Database.database().reference().child("barbers/\(String(Funcs.loggedUser.favBarberId))/services")
         
@@ -112,7 +111,6 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
         let actionSheet = UIAlertController(title: "", message: "Confirm prenotation", preferredStyle: .actionSheet)
         actionSheet.addAction(UIAlertAction(title: "OK", style: .default) { action in
             let customerName = self.name.text
-            //FIRBASE REFERENCE
             let ref: DatabaseReference = Database.database().reference()
             
             let post = [
@@ -154,11 +152,6 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.selectedServices.append(services[indexPath.row])
-    }
-    
-    // PICKER VIEW
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

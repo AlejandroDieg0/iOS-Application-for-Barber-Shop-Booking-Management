@@ -12,6 +12,7 @@ import Firebase
 extension UIViewController {
     func hideKeyboardWhenTappedAround() {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
     }
     
@@ -108,7 +109,7 @@ class Funcs: NSObject {
         let user = Auth.auth().currentUser
         if (user == nil) {return}
         ref.child("barbers").child(String(self.loggedUser.favBarberId)).observeSingleEvent(of: .value, with: { (snapshot) in
-            // Get user value
+            // Get shop description
             if let value = snapshot.value as? NSDictionary {
                 let barberName = value["name"] as? String ?? "NoName"
                 let barberDesc = value["description"] as? String ?? "NoDesc"

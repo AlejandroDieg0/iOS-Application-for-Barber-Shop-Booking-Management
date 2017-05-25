@@ -10,6 +10,10 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
     @IBOutlet weak var personalMap: MKMapView!
     
     @IBOutlet weak var modernSearchBar: ModernSearchBar!
+//    
+//    @IBOutlet weak var nearBarberShops: UITableView!
+    
+    @IBOutlet weak var imgShop: UIImageView!
     
     var locManager = CLLocationManager()
     
@@ -19,7 +23,12 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
     var TempID: Int = 0
     var barbers: [Shop] = []
     var currentBarber : Shop?
-    
+
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        addBottomSheetView()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         Funcs.loadUserData()
@@ -35,7 +44,6 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
         self.modernSearchBar.delegateModernSearchBar = self
         
     }
-    
     
     @IBAction func loginButton(_ sender: Any) {
         if Auth.auth().currentUser != nil {
@@ -124,9 +132,11 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
                 imageURL.downloadURL(completion: { (url, error) in
                     
                     self.pins[tempPin] = Shop(ID: ID, name: barberName, desc: barberDesc, coordinate: tempPin.coordinate, phone: barberPhone, address: barberAddress, services: barberServices, logo: url, hours: hours)
+//                    self.barbers.append( self.pins[tempPin]!)
                     
                     self.personalMap.addAnnotation(tempPin)
                     self.initializeSearchBar()
+//                    self.nearBarberShops.reloadData()
                     
                 })
                 
@@ -174,6 +184,7 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
     }
     
     func onClickItemWithUrlSuggestionsView(item: ModernSearchBarModel) {
+        //per il click
         print("User touched this item: "+item.title+" with this url: "+item.url.description)
         let selectedPin = findKeyForValue(value: item.url.description, shops: self.pins)!
         self.personalMap.selectAnnotation(selectedPin, animated: true)
@@ -210,6 +221,20 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
             secondVC.barber = self.currentBarber
             
         }
+    }
+    
+    func addBottomSheetView() {
+        
+        let bottomSheetVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "bottomScrollable") as! bottomScrollable
+        
+        self.addChildViewController(bottomSheetVC)
+        
+        self.view.addSubview(bottomSheetVC.view)
+        bottomSheetVC.didMove(toParentViewController: self)
+        
+        let height = view.frame.height
+        let width  = view.frame.width
+        bottomSheetVC.view.frame = CGRect(x: 0,y: self.view.frame.maxY,width: width,height: height)
     }
     
 }
