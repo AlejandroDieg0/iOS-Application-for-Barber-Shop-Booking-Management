@@ -21,6 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
         
+        UIApplication.shared.statusBarStyle = .lightContent
         
         // Controllo termini accettati
         if(UserDefaults.standard.bool(forKey: "disableWizard"))
