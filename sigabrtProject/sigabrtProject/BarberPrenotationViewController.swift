@@ -23,12 +23,8 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
     
     var selectedTipo: [String] = []
     var selectedPrezzo : [Int] = []
-    var timeSlot: [String] = []
     var timeSlotInMinutes : [Int] = []
     let slotSizeInMinutes = 15
-    
-    let firebaseAuth = Auth.auth()
-    let user = Auth.auth().currentUser
     
     fileprivate lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -141,20 +137,20 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
             let ref: DatabaseReference = Database.database().reference()
             
             let post = [
-                "user":  self.user!.uid,
+                "user":  Auth.auth().currentUser!.uid,
                 "time":  self.selectedTimeInMinutes,
                 "note": customerName ?? "Not inserted"
                 ] as [String : Any]
             
-            let key = ref.child("prenotations/1/\(self.selectedDate)/").childByAutoId().key
+            let key = ref.child("prenotations/\(Funcs.currentShop.ID)/\(self.selectedDate)/").childByAutoId().key
             
-            ref.child("prenotations/1/\(self.selectedDate)/").child(key).setValue(post)
+            ref.child("prenotations/\(Funcs.currentShop.ID)/\(self.selectedDate)/").child(key).setValue(post)
             
             for service in self.selectedServices {
-                let post = [        "price": service.price,
-                                    "type": service.name,
-                                    "duration": service.duration] as [String : Any]
-                ref.child("prenotations/1/\(self.selectedDate)/\(key)/services").childByAutoId().setValue(post)
+                let post = ["price": service.price,
+                            "type": service.name,
+                            "duration": service.duration] as [String : Any]
+                ref.child("prenotations/\(Funcs.currentShop.ID)/\(self.selectedDate)/\(key)/services").childByAutoId().setValue(post)
             }
         })
         
@@ -201,12 +197,12 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return timeSlot.count
+        return timeSlotInMinutes.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "timeCell", for: indexPath) as! freeTimeBarberCollectionViewCell
-        cell.label.text = timeSlot[indexPath.row]
+        cell.label.text = "\(String(format: "%02d", timeSlotInMinutes[indexPath.row]/60)):\(String(format: "%02d", timeSlotInMinutes[indexPath.row]%60))"
         
         let iPath = self.freeTimeSlotCollectionView.indexPathsForSelectedItems!
         if (iPath != []){
@@ -258,7 +254,6 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
         dateFormatter.locale = Locale(identifier: "en_US")
         dateFormatter.dateStyle = DateFormatter.Style.full
         // let test = dateFormatter.string(from: date)
-        timeSlot = []
         timeSlotInMinutes = []
         let selectedDay = dateFormatter.string(from: day).components(separatedBy: ",")
         print(selectedDay[0])
@@ -277,7 +272,6 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
                     //TODO: ulteriore if per controllare che currentSlotMinute non sia già nell'array delle prenotazioni (non sia già prenotato)
                     if (isBookable){
                         timeSlotInMinutes.append(currentSlotMinute)
-                        timeSlot.append("\(currentSlotMinute/60):\(String(format: "%02d" ,currentSlotMinute%60))")
                         isBookable = false
                     }
                 }

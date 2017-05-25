@@ -20,12 +20,6 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
     var ref: DatabaseReference? = nil
    
     var timeSlot = ["9:00","9:15","9:30","9:45","10:00"]
-    
-    
-//    var customerName = [String]()
-//    var tipoServizio: [String] = []
-//    var prezzoServizio : [String] = []
-//    var timeSelected = String()
     @IBOutlet weak var updated: UILabel!
     
     @IBOutlet weak var totalReservations: UILabel!
@@ -83,7 +77,7 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
     prenotationList.removeAll()
     self.prenotationCollectionView.reloadData()
     //FIRBASE REFERENCE
-    ref = Database.database().reference().child("prenotations").child("1").child(selectedDate)
+    ref = Database.database().reference().child("prenotations/\(Funcs.currentShop.ID)").child(selectedDate)
     ref?.observe(.childAdded, with: { (snapshot) in
             if let userDict = snapshot.value as? [String:Any] {
                 let name = userDict["name"] as? String ?? ""
@@ -92,17 +86,7 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
                 let service = userDict["services"] as? [String: Any]
                 let serviceArray = service?["name"] as? String ?? ""
                 let price = service?["price"] as? Int ?? 0
-
-//                let splittedPrice = priceArray.characters.split { [",", "[","]"].contains(String($0)) }
-//                let trimmedPrice = splittedPrice.map { String($0).trimmingCharacters(in: .whitespaces) }
-//            
-//                var totalPrice = 0
-//                let intArray = trimmedPrice.map { Int($0)!}
-//                for i in 0..<intArray.count {
-//                    totalPrice += intArray[i]
-//                }
-                print(time)
-              // con classe
+                
                 let  x = Prenotation(customerName: name, tipoServizio: serviceArray, prezzoServizio: price, timeInMinute: time)
                 self.prenotationList.append(x)
             
@@ -216,9 +200,6 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
         let needsConnection = (flags.rawValue & UInt32(kSCNetworkFlagsConnectionRequired)) != 0
         return (isReachable && !needsConnection)
     }
-    
-   
-
 }
 
 extension Date {
