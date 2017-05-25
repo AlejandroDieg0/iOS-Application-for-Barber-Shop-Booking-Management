@@ -250,6 +250,7 @@
                     <connections>
                         <outlet property="calendar" destination="ClE-tN-Zjd" id="SGW-0J-ehZ"/>
                         <outlet property="calendarHeightConstraint" destination="kgh-jp-Dhf" id="8g9-tI-FaK"/>
+                        <outlet property="freeTimeSlotCollectionView" destination="dIe-YU-phe" id="ujY-1a-TNO"/>
                         <outlet property="name" destination="s13-dg-7I4" id="1Hb-uw-ZMl"/>
                         <outlet property="servicesTableView" destination="0u4-22-fft" id="uer-a0-2XR"/>
                     </connections>

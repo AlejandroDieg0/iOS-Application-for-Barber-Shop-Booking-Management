@@ -13,6 +13,7 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
     
     @IBOutlet weak var name: UITextField!
     
+    @IBOutlet weak var freeTimeSlotCollectionView: UICollectionView!
     var ref: DatabaseReference!
     
     var selectedDate = ""
@@ -208,6 +209,8 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
         dateFormatter.locale = Locale(identifier: "en_US")
         dateFormatter.dateStyle = DateFormatter.Style.full
         // let test = dateFormatter.string(from: date)
+        timeSlot = []
+        timeSlotInMinutes = []
         let selectedDay = dateFormatter.string(from: day).components(separatedBy: ",")
         print(selectedDay[0])
         let slotsInADay = 1440 / slotSizeInMinutes
@@ -230,7 +233,7 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
             }
 
         }
-    
+    freeTimeSlotCollectionView.reloadData()
     }
 }
 

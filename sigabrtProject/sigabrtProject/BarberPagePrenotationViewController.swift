@@ -138,13 +138,6 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         print("did select date \(self.dateFormatter.string(from: date))")
-        dateFormatter.locale = Locale(identifier: "en_US")
-        dateFormatter.dateStyle = DateFormatter.Style.full
-        // let test = dateFormatter.string(from: date)
-        let today = dateFormatter.string(from: date).components(separatedBy: ",")
-        
-        print(today[0])
-        
         
         self.selectedDate = self.dateFormatter.string(from: date)
         self.readData()
