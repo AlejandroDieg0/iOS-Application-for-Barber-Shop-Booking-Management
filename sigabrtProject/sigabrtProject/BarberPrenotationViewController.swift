@@ -39,7 +39,8 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
         self.hideKeyboardWhenTappedAround()
         
         let data = selectedDate
-        
+        print("qui")
+        print(data)
         self.calendar.scope = .week
         calendar.appearance.headerDateFormat = "MMM yyyy"
         self.calendar.appearance.headerMinimumDissolvedAlpha = 0.0;
@@ -91,6 +92,7 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         print("did select date \(date)")
+        self.selectedDate = date
         Funcs.busySlots(date: date, collection: freeTimeSlotCollectionView)
         
         if monthPosition == .next || monthPosition == .previous {
@@ -132,6 +134,10 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.selectedServices.append(services[indexPath.row])
+    }
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         selectedTimeInMinutes = Funcs.bookableSlotsInMinutes[indexPath.row]
         
