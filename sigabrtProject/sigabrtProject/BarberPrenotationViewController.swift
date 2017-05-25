@@ -230,7 +230,7 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
             }
 
         }
-    freeTimeBarberCollectionView
+    
     }
 }
 
