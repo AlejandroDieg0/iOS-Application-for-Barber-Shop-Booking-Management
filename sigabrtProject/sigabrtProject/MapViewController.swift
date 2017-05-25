@@ -225,7 +225,8 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
     }
     
     func addBottomSheetView() {
-        let bottomSheetVC = bottomScrollable()
+        
+        let bottomSheetVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "bottomScrollable") as! bottomScrollable
         
         self.addChildViewController(bottomSheetVC)
         
