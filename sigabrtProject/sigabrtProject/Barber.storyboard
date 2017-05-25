@@ -537,7 +537,7 @@
                     <connections>
                         <outlet property="calendar" destination="XUM-iE-fA3" id="HA5-3L-hwx"/>
                         <outlet property="calendarHeightConstraint" destination="Qbm-xV-qQs" id="rt0-gb-7CG"/>
-                        <outlet property="freeTimeCollectionView" destination="l0l-o2-Qr4" id="j6n-5I-aJj"/>
+                        <outlet property="freeTimeSlotCollectionView" destination="l0l-o2-Qr4" id="rx5-tM-fnd"/>
                         <outlet property="prenotationCollectionView" destination="Y59-BG-9YC" id="4kt-U5-Ceh"/>
                         <outlet property="totalReservations" destination="k3y-wx-1hh" id="aom-St-q41"/>
                         <outlet property="updated" destination="o5O-W1-XD6" id="FE5-qD-PR1"/>
