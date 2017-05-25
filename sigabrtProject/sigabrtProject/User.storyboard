@@ -22,13 +22,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6sm-PC-ZmB" userLabel="barberLogo">
-                                <rect key="frame" x="7" y="268" width="58" height="58"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Phone" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xS5-Pz-r1N">
-                                <rect key="frame" x="7" y="363" width="360" height="30"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Set as favourite" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l7q-oG-3Kj">
+                                <rect key="frame" x="11" y="610" width="353" height="47"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -88,15 +83,30 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rbf-T1-e57">
-                                <rect key="frame" x="16" y="511" width="343" height="30"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Hours" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2FU-qq-P79">
+                                <rect key="frame" x="11" y="378" width="353" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                <state key="normal" title="Set Favourite!"/>
-                                <connections>
-                                    <action selector="setFavourite:" destination="RvJ-Ki-QDK" eventType="touchUpInside" id="eJC-il-L0b"/>
-                                </connections>
-                            </button>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Description" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eN2-w3-TSY">
+                                <rect key="frame" x="69" y="256" width="295" height="58"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Address" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="noZ-mi-8wb">
+                                <rect key="frame" x="11" y="318" width="353" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803915" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
@@ -118,7 +128,6 @@
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
-                        <outlet property="buttonFavourite" destination="Rbf-T1-e57" id="IpX-ac-NaA"/>
                         <outlet property="cvGallery" destination="DIR-gM-BKD" id="9kd-QH-nge"/>
                         <outlet property="imageBarberShop" destination="6sm-PC-ZmB" id="I4Q-Ig-FsA"/>
                         <outlet property="labelAddress" destination="noZ-mi-8wb" id="2as-Ir-BqG"/>
@@ -178,7 +187,7 @@
                                 </connections>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="82F-0f-6Xd">
-                                <rect key="frame" x="11" y="372" width="353" height="162"/>
+                                <rect key="frame" x="11" y="372" width="353" height="148"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="pqq-Lx-Qya">
                                     <size key="itemSize" width="170" height="70"/>
@@ -313,7 +322,7 @@
                             <constraint firstItem="7Fb-F6-sSP" firstAttribute="leading" secondItem="qq3-Te-C78" secondAttribute="leading" id="kxm-HW-b3T"/>
                             <constraint firstItem="gYT-gz-KAn" firstAttribute="trailing" secondItem="7Fb-F6-sSP" secondAttribute="trailing" constant="-11" id="pBu-hq-czD"/>
                             <constraint firstItem="gYT-gz-KAn" firstAttribute="top" secondItem="qq3-Te-C78" secondAttribute="top" constant="581" id="pOy-uG-7Wn"/>
-                            <constraint firstItem="gYT-gz-KAn" firstAttribute="top" secondItem="82F-0f-6Xd" secondAttribute="bottom" constant="47" id="vPt-Mq-Xlh"/>
+                            <constraint firstItem="gYT-gz-KAn" firstAttribute="top" secondItem="82F-0f-6Xd" secondAttribute="bottom" constant="61" id="vPt-Mq-Xlh"/>
                             <constraint firstItem="gYT-gz-KAn" firstAttribute="leading" secondItem="7Fb-F6-sSP" secondAttribute="leading" constant="11" id="vf3-LH-iVI"/>
                             <constraint firstItem="gYT-gz-KAn" firstAttribute="trailing" secondItem="82F-0f-6Xd" secondAttribute="trailing" id="vwd-Av-h3X"/>
                             <constraint firstItem="sKV-wr-mye" firstAttribute="top" secondItem="gYT-gz-KAn" secondAttribute="bottom" constant="8" id="wqC-Ns-A4D"/>
