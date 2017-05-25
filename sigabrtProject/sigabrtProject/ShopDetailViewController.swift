@@ -21,6 +21,7 @@ class ShopDetailViewController: UIViewController, UICollectionViewDataSource, UI
     @IBOutlet weak var labelPhone: UILabel!
     @IBOutlet weak var labelHours: UILabel!
     @IBOutlet weak var labelDescription: UILabel!
+    @IBOutlet weak var buttonFavourite: UIButton!
     
     let reuseIdentifier = "imageCell"
     
@@ -37,6 +38,14 @@ class ShopDetailViewController: UIViewController, UICollectionViewDataSource, UI
         labelAddress.text = barber?.address
         labelPhone.text = barber?.phone
         Nuke.loadImage(with: (barber?.logo)!, into: imageBarberShop)
+        if Funcs.loggedUser != nil {
+            if Funcs.flagFavBarber == 0 {
+                buttonFavourite.setTitle("Set Favourite!", for: .normal)
+            } else {
+                buttonFavourite.setTitle("Remove Favourite!", for: .normal)
+            }
+        }
+
         // labelHours.text = "Opening Hours: \((barber?.hours[0][0])!/60):00"
         // Do any additional setup after loading the view.
     }
@@ -79,4 +88,26 @@ class ShopDetailViewController: UIViewController, UICollectionViewDataSource, UI
         }
     }
     
+    @IBAction func setFavourite(_ sender: Any) {
+        if Funcs.flagFavBarber == 0 {
+            Funcs.flagFavBarber = 1
+            buttonFavourite.setTitle("Remove Favourite!", for: .normal)
+            if Funcs.loggedUser != nil {
+                var ref: DatabaseReference!
+                ref = Database.database().reference().child("user/\((Auth.auth().currentUser?.uid)!)")
+                let post = ["favbarber": barber?.ID ?? -1]
+                ref.updateChildValues(post)
+            }
+        } else {
+            Funcs.flagFavBarber = 0
+            buttonFavourite.setTitle("Set Favourite!", for: .normal)
+            if Funcs.loggedUser != nil {
+                var ref: DatabaseReference!
+                ref = Database.database().reference().child("user/\((Auth.auth().currentUser?.uid)!)")
+                let post = ["favbarber": -1]
+                ref.updateChildValues(post)
+            }
+        }
+        Funcs.loadUserData()
+    }
 }

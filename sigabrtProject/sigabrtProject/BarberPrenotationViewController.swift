@@ -3,8 +3,8 @@ import UIKit
 import FSCalendar
 import Firebase
 
-class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, FSCalendarDelegate, UIGestureRecognizerDelegate, UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource{
-  
+class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, FSCalendarDelegate, UIGestureRecognizerDelegate,UITableViewDelegate, UITableViewDataSource , UIPickerViewDelegate, UIPickerViewDataSource{
+    
     @IBOutlet weak var calendar: FSCalendar!
     
     @IBOutlet weak var calendarHeightConstraint: NSLayoutConstraint!
@@ -12,14 +12,14 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
     @IBOutlet weak var servicesTableView: UITableView!
     
     @IBOutlet weak var name: UITextField!
-   
+    
     var ref: DatabaseReference!
-       
+    
     var selectedDate = ""
     var selectedTimeInMinutes: Int!
     var services: [Service] = []
     var selectedServices : [Service] = []
-
+    
     var selectedTipo: [String] = []
     var selectedPrezzo : [Int] = []
     var timeSlot: [String] = []
@@ -56,21 +56,27 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
         let formatter = DateFormatter()
         formatter.dateFormat = "yy-MM-dd"
         selectedDate = formatter.string(from: data)
+        
+        self.calendar.scope = .week
+        calendar.appearance.headerDateFormat = "MMM yyyy"
+        self.calendar.appearance.headerMinimumDissolvedAlpha = 0.0;
+        if UIDevice.current.model.hasPrefix("iPad") {
+            self.calendarHeightConstraint.constant = 400
+        }
+
         //TODO: leggere il weekday
-        calcSlots(day: "Friday")
+        calcSlots(day: data)
         
         //self.time.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
         servicesTableView.allowsMultipleSelection = true
         servicesTableView.delegate = self
         servicesTableView.dataSource = self
-        if UIDevice.current.model.hasPrefix("iPad") {
-            self.calendarHeightConstraint.constant = 400
-        }
+        
         readData()
-
+        
         self.calendar.select(Date())
         self.view.addGestureRecognizer(self.scopeGesture)
-        self.calendar.scope = .week
+
     }
     
     func readData(){
@@ -79,7 +85,7 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
         //FIRBASE REFERENCE
         var ref: DatabaseReference!
         ref = Database.database().reference().child("barbers/\(String(Funcs.loggedUser.favBarberId))/services")
-       
+        
         ref?.observe(.childAdded, with: { snapshot in
             if !snapshot.exists() {
                 print("null")
@@ -89,7 +95,7 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
                 let tipo = (snapshotValue["name"])! as! String
                 let price = (snapshotValue["price"])! as! Int
                 let duration = (snapshotValue["duration"])! as! Int
-
+                
                 self.services.append(Service(name: tipo, duration: duration, price: price))
                 self.servicesTableView.reloadData()
             }})
@@ -103,12 +109,13 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         print("did select date \(self.dateFormatter.string(from: date))")
-        let selectedDates = calendar.selectedDates.map({self.dateFormatter.string(from: $0)})
-        print("selected dates is \(selectedDates)")
-         self.selectedDate = self.dateFormatter.string(from: date)
+//        let selectedDates = calendar.selectedDates.map({self.dateFormatter.string(from: $0)})
+//        print("selected dates is \(selectedDates)")
+        self.selectedDate = self.dateFormatter.string(from: date)
         print(selectedDate)
         
         //TODO: richiamare calcSlots
+        self.calcSlots(day: date)
         
         if monthPosition == .next || monthPosition == .previous {
             calendar.setCurrentPage(date, animated: true)
@@ -124,7 +131,7 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
         
         let actionSheet = UIAlertController(title: "", message: "Confirm prenotation", preferredStyle: .actionSheet)
         actionSheet.addAction(UIAlertAction(title: "OK", style: .default) { action in
-        let customerName = self.name.text
+            let customerName = self.name.text
             //FIRBASE REFERENCE
             let ref: DatabaseReference = Database.database().reference()
             
@@ -150,14 +157,14 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
         
         self.present(actionSheet, animated: true, completion:  nil)
     }
-   
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return services.count
     }
- 
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = servicesTableView.dequeueReusableCell(withIdentifier: "serviceCell", for: indexPath) as! addModifyCollectionViewCell
         cell.servizio.text = services[indexPath.row].name
@@ -189,17 +196,22 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
         cell.label.text = timeSlot[indexPath.row]
         return cell
     }
-
+    
     override func dismissKeyboard() {
         view.endEditing(true)
     }
     
-    func calcSlots(day: String) {
+    func calcSlots(day: Date) {
+        dateFormatter.locale = Locale(identifier: "en_US")
+        dateFormatter.dateStyle = DateFormatter.Style.full
+        // let test = dateFormatter.string(from: date)
+        let selectedDay = dateFormatter.string(from: day).components(separatedBy: ",")
+        print(selectedDay[0])
         let slotsInADay = 1440 / slotSizeInMinutes
         
         for currslot in 0 ... slotsInADay {
             let currentSlotMinute = currslot * slotSizeInMinutes
-            for shopOpeningFrame in (Funcs.currentShop.hours?[day])!{
+            for shopOpeningFrame in (Funcs.currentShop.hours?[selectedDay[0]])!{
                 //TODO: bisogna aggiungere a currentSlotMinute la durata del servizio (dei servizi) selezionati
                 var isBookable = false
                 if (currentSlotMinute >= shopOpeningFrame[0] && currentSlotMinute < shopOpeningFrame[1]){
