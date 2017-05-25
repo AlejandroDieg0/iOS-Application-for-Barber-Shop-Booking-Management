@@ -47,9 +47,7 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
         
         ref = Database.database().reference()
         
-        //TODO: Capire come cazzo fare per far scomparire la tastiere senza rompere tutto 
-        
-        //self.hideKeyboardWhenTappedAround()
+        self.hideKeyboardWhenTappedAround()
         
         //today date
         let data = Date()
@@ -64,7 +62,6 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
             self.calendarHeightConstraint.constant = 400
         }
 
-        //TODO: leggere il weekday
         busySlots(date: data)
         
         //self.time.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
@@ -83,7 +80,6 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
     func readData(){
         //service.removeAll()
         self.servicesTableView.reloadData()
-        //FIRBASE REFERENCE
         var ref: DatabaseReference!
         ref = Database.database().reference().child("barbers/\(String(Funcs.loggedUser.favBarberId))/services")
         
@@ -110,12 +106,9 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         print("did select date \(self.dateFormatter.string(from: date))")
-//        let selectedDates = calendar.selectedDates.map({self.dateFormatter.string(from: $0)})
-//        print("selected dates is \(selectedDates)")
         self.selectedDate = self.dateFormatter.string(from: date)
         print(selectedDate)
         
-        //TODO: richiamare calcSlots
         self.busySlots(date: date)
         
         if monthPosition == .next || monthPosition == .previous {
@@ -133,7 +126,6 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
         let actionSheet = UIAlertController(title: "", message: "Confirm prenotation", preferredStyle: .actionSheet)
         actionSheet.addAction(UIAlertAction(title: "OK", style: .default) { action in
             let customerName = self.name.text
-            //FIRBASE REFERENCE
             let ref: DatabaseReference = Database.database().reference()
             
             let post = [
@@ -175,11 +167,6 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.selectedServices.append(services[indexPath.row])
-    }
-    
-    // PICKER VIEW
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -253,7 +240,7 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
         print(busySlots)
         dateFormatter.locale = Locale(identifier: "en_US")
         dateFormatter.dateStyle = DateFormatter.Style.full
-        // let test = dateFormatter.string(from: date)
+
         timeSlotInMinutes = []
         let selectedDay = dateFormatter.string(from: day).components(separatedBy: ",")
         print(selectedDay[0])
@@ -269,7 +256,6 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
                     if (currentSlotMinute >= shopOpeningFrame[0] && currentSlotMinute < shopOpeningFrame[1] && !timeSlotInMinutes.contains(currentSlotMinute) && !busySlots.contains(currentSlotMinute)){
                         isBookable = true
                     }
-                    //TODO: ulteriore if per controllare che currentSlotMinute non sia già nell'array delle prenotazioni (non sia già prenotato)
                     if (isBookable){
                         timeSlotInMinutes.append(currentSlotMinute)
                         isBookable = false

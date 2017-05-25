@@ -29,7 +29,6 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
         super.viewDidAppear(animated)
         addBottomSheetView()
     }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         Funcs.loadUserData()
