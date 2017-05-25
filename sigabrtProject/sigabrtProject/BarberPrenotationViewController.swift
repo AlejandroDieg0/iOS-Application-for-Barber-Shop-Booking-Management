@@ -14,7 +14,6 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
     @IBOutlet weak var name: UITextField!
     
     @IBOutlet weak var freeTimeSlotCollectionView: UICollectionView!
-    var ref: DatabaseReference!
     
     var selectedDate : Date = Date()
     var selectedTimeInMinutes: Int!
@@ -23,14 +22,6 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
     
     var selectedTipo: [String] = []
     var selectedPrezzo : [Int] = []
-    var timeSlotInMinutes : [Int] = []
-    let slotSizeInMinutes = 15
-    
-    fileprivate lazy var dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yy-MM-dd"
-        return formatter
-    }()
     
     fileprivate lazy var scopeGesture: UIPanGestureRecognizer = {
         [unowned self] in
@@ -44,8 +35,6 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        ref = Database.database().reference()
         
         self.hideKeyboardWhenTappedAround()
         
@@ -105,7 +94,7 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
         
         self.selectedDate = date
         
-        self.busySlots(date: date)
+        Funcs.busySlots(date: date, collection: freeTimeSlotCollectionView)
         
         if monthPosition == .next || monthPosition == .previous {
             calendar.setCurrentPage(date, animated: true)
@@ -165,12 +154,12 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return timeSlotInMinutes.count
+        return Funcs.bookableSlotsInMinutes.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "timeCell", for: indexPath) as! freeTimeBarberCollectionViewCell
-        cell.label.text = "\(String(format: "%02d", timeSlotInMinutes[indexPath.row]/60)):\(String(format: "%02d", timeSlotInMinutes[indexPath.row]%60))"
+        cell.label.text = Funcs.minutesToHour(Funcs.bookableSlotsInMinutes[indexPath.row])
         
         let iPath = self.freeTimeSlotCollectionView.indexPathsForSelectedItems!
         if (iPath != []){
