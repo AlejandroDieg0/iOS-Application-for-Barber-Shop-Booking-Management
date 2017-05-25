@@ -214,19 +214,23 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
         
         for currslot in 0 ... slotsInADay {
             let currentSlotMinute = currslot * slotSizeInMinutes
-            for shopOpeningFrame in (Funcs.currentShop.hours?[selectedDay[0]])!{
-                //TODO: bisogna aggiungere a currentSlotMinute la durata del servizio (dei servizi) selezionati
-                var isBookable = false
-                if (currentSlotMinute >= shopOpeningFrame[0] && currentSlotMinute < shopOpeningFrame[1]){
-                    isBookable = true
-                }
-                //TODO: ulteriore if per controllare che currentSlotMinute non sia già nell'array delle prenotazioni (non sia già prenotato)
-                if (isBookable){
-                    timeSlotInMinutes.append(currentSlotMinute)
-                    timeSlot.append("\(currentSlotMinute/60):\(currentSlotMinute%60)")
+            if let arrayDay = (Funcs.currentShop.hours?[selectedDay[0]]){
+                for shopOpeningFrame in arrayDay {
+                    //TODO: bisogna aggiungere a currentSlotMinute la durata del servizio (dei servizi) selezionati
+                    var isBookable = false
+                    if (currentSlotMinute >= shopOpeningFrame[0] && currentSlotMinute < shopOpeningFrame[1]){
+                        isBookable = true
+                    }
+                    //TODO: ulteriore if per controllare che currentSlotMinute non sia già nell'array delle prenotazioni (non sia già prenotato)
+                    if (isBookable){
+                        timeSlotInMinutes.append(currentSlotMinute)
+                        timeSlot.append("\(currentSlotMinute/60):\(currentSlotMinute%60)")
+                    }
                 }
             }
+
         }
+    freeTimeBarberCollectionView
     }
 }
 
