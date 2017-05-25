@@ -3,14 +3,13 @@ import UIKit
 import FSCalendar
 import Firebase
 
-class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, FSCalendarDelegate, UIGestureRecognizerDelegate,UITableViewDelegate, UITableViewDataSource , UIPickerViewDelegate, UIPickerViewDataSource{
+class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, FSCalendarDelegate, UIGestureRecognizerDelegate, UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource{
   
     @IBOutlet weak var calendar: FSCalendar!
     
     @IBOutlet weak var calendarHeightConstraint: NSLayoutConstraint!
     
-    @IBOutlet weak var time: UIPickerView!
-    @IBOutlet weak var tb: UITableView!
+    @IBOutlet weak var servicesTableView: UITableView!
     
     @IBOutlet weak var name: UITextField!
    
@@ -52,8 +51,6 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
         ref = Database.database().reference()
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
-        time.delegate = self
-        time.dataSource = self
         //today date
         let data = Date()
         let formatter = DateFormatter()
@@ -63,9 +60,9 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
         calcSlots(day: "Friday")
         
         //self.time.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
-        tb.allowsMultipleSelection = true
-        tb.delegate = self
-        tb.dataSource = self
+        servicesTableView.allowsMultipleSelection = true
+        servicesTableView.delegate = self
+        servicesTableView.dataSource = self
         if UIDevice.current.model.hasPrefix("iPad") {
             self.calendarHeightConstraint.constant = 400
         }
@@ -78,7 +75,7 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
     
     func readData(){
         //service.removeAll()
-        self.tb.reloadData()
+        self.servicesTableView.reloadData()
         //FIRBASE REFERENCE
         var ref: DatabaseReference!
         ref = Database.database().reference().child("barbers/\(String(Funcs.loggedUser.favBarberId))/services")
@@ -94,7 +91,7 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
                 let duration = (snapshotValue["duration"])! as! Int
 
                 self.services.append(Service(name: tipo, duration: duration, price: price))
-                self.tb.reloadData()
+                self.servicesTableView.reloadData()
             }})
     }
     
@@ -162,7 +159,7 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
     }
  
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tb.dequeueReusableCell(withIdentifier: "cella", for: indexPath) as! addModifyCollectionViewCell
+        let cell = servicesTableView.dequeueReusableCell(withIdentifier: "serviceCell", for: indexPath) as! addModifyCollectionViewCell
         cell.servizio.text = services[indexPath.row].name
         cell.price.text = String(services[indexPath.row].price) + "€"
         return cell
@@ -177,16 +174,20 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
         return 1
     }
     
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        selectedTimeInMinutes = timeSlotInMinutes[indexPath.row]
+        print(selectedTimeInMinutes)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return timeSlot.count
     }
     
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return timeSlot[row]
-    }
     
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        selectedTimeInMinutes = timeSlotInMinutes[row]
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "timeCell", for: indexPath) as! freeTimeBarberCollectionViewCell
+        cell.label.text = timeSlot[indexPath.row]
+        return cell
     }
 
     override func dismissKeyboard() {
