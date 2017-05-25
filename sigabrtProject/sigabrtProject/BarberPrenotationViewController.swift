@@ -187,6 +187,8 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         selectedTimeInMinutes = timeSlotInMinutes[indexPath.row]
+        collectionView.cellForItem(at: indexPath)?.contentView.backgroundColor = UIColor(red: 51/255, green: 107/255, blue: 135/255, alpha: 1)
+        
         print(selectedTimeInMinutes)
     }
     
@@ -214,13 +216,14 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
         let selectedDay = dateFormatter.string(from: day).components(separatedBy: ",")
         print(selectedDay[0])
         let slotsInADay = 1440 / slotSizeInMinutes
-        
+
         for currslot in 0 ... slotsInADay {
+            var isBookable = false
+
             let currentSlotMinute = currslot * slotSizeInMinutes
             if let arrayDay = (Funcs.currentShop.hours?[selectedDay[0]]){
                 for shopOpeningFrame in arrayDay {
                     //TODO: bisogna aggiungere a currentSlotMinute la durata del servizio (dei servizi) selezionati
-                    var isBookable = false
                     if (currentSlotMinute >= shopOpeningFrame[0] && currentSlotMinute < shopOpeningFrame[1]){
                         isBookable = true
                     }
