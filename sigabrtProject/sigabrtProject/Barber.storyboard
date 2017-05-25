@@ -13,7 +13,7 @@
         <!--Data Source-->
         <scene sceneID="lS5-Gm-NwG">
             <objects>
-                <viewController title="FSCalendarScopeExample" id="9GH-Up-GbH" customClass="BarberPrenotationViewController" customModule="sigabrtProject" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="9GH-Up-GbH" customClass="BarberPrenotationViewController" customModule="sigabrtProject" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="XHb-OV-bHc"/>
                         <viewControllerLayoutGuide type="bottom" id="yCA-uT-hkB"/>
@@ -28,23 +28,6 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="300" id="kgh-jp-Dhf"/>
                                 </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="fakedSelectedDay">
-                                        <integer key="value" value="1"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="weekdayTextColor">
-                                        <color key="value" red="0.20000000000000001" green="0.41960784309999999" blue="0.52941176469999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="headerTitleColor">
-                                        <color key="value" red="0.40000000600000002" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="selectionColor">
-                                        <color key="value" red="0.20000000000000001" green="0.41960784309999999" blue="0.52941176469999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="todayColor">
-                                        <color key="value" red="0.40000000600000002" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <outlet property="dataSource" destination="9GH-Up-GbH" id="iXr-ML-dQx"/>
                                     <outlet property="delegate" destination="9GH-Up-GbH" id="QbF-of-b9k"/>
@@ -261,6 +244,7 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="375" height="745"/>
                     <connections>
@@ -277,7 +261,7 @@
         <!--Data Source-->
         <scene sceneID="KxD-NN-VHV">
             <objects>
-                <viewController title="FSCalendarScopeExample" id="t7z-oW-Yb1" customClass="BarberPagePrenotationViewController" customModule="sigabrtProject" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="t7z-oW-Yb1" customClass="BarberPagePrenotationViewController" customModule="sigabrtProject" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="EVZ-qm-lte"/>
                         <viewControllerLayoutGuide type="bottom" id="mLu-do-ca6"/>
@@ -294,9 +278,6 @@
                                     <constraint firstAttribute="height" constant="300" id="Qbm-xV-qQs"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="fakedSelectedDay">
-                                        <integer key="value" value="1"/>
-                                    </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="weekdayTextColor">
                                         <color key="value" red="0.20000000000000001" green="0.41960784309999999" blue="0.52941176469999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </userDefinedRuntimeAttribute>
@@ -551,6 +532,7 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="calendar" destination="XUM-iE-fA3" id="HA5-3L-hwx"/>
                         <outlet property="calendarHeightConstraint" destination="Qbm-xV-qQs" id="rt0-gb-7CG"/>
@@ -835,6 +817,7 @@
                             <outlet property="delegate" destination="pi5-Cg-8gU" id="kff-li-1vj"/>
                         </connections>
                     </tableView>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="changeMail" destination="beo-LE-mV6" id="3Pt-hU-lxA"/>
                         <outlet property="changeName" destination="q9A-gU-giF" id="OMR-hA-hlT"/>
@@ -848,28 +831,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hoa-gl-WIY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2952.8000000000002" y="705.69715142428788"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="bFC-My-eQz">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="h3x-n9-doR" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="FgU-hm-7Ka">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="OCe-OO-cA9">
-                        <rect key="frame" x="0.0" y="623" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </toolbar>
-                    <connections>
-                        <segue destination="t7z-oW-Yb1" kind="relationship" relationship="rootViewController" id="jIt-1s-xmp"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="JbV-8z-5jy" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2033" y="-632"/>
         </scene>
     </scenes>
     <resources>
