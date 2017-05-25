@@ -9,7 +9,6 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
     
     @IBOutlet weak var calendarHeightConstraint: NSLayoutConstraint!
     
-    @IBOutlet weak var time: UIPickerView!
     @IBOutlet weak var servicesTableView: UITableView!
     
     @IBOutlet weak var name: UITextField!
@@ -52,8 +51,6 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
         ref = Database.database().reference()
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
-        time.delegate = self
-        time.dataSource = self
         //today date
         let data = Date()
         let formatter = DateFormatter()
@@ -184,16 +181,20 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
         return 1
     }
     
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        selectedTimeInMinutes = timeSlotInMinutes[indexPath.row]
+        print(selectedTimeInMinutes)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return timeSlot.count
     }
     
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return timeSlot[row]
-    }
     
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        selectedTimeInMinutes = timeSlotInMinutes[row]
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "timeCell", for: indexPath) as! freeTimeBarberCollectionViewCell
+        cell.label.text = timeSlot[indexPath.row]
+        return cell
     }
     
     override func dismissKeyboard() {
