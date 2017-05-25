@@ -16,6 +16,8 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
     @IBOutlet weak var imgShop: UIImageView!
     
     var locManager = CLLocationManager()
+    var floatSpan1: Float = 1
+    var floatSpan2: Float = 1
     
     
     let regionRadius: CLLocationDistance = 20000
@@ -65,13 +67,16 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
         let location = locations[0]
-        
-        let span:MKCoordinateSpan = MKCoordinateSpanMake(0.5, 0.5)
+        let span:MKCoordinateSpan = MKCoordinateSpanMake(CLLocationDegrees(floatSpan1),CLLocationDegrees(floatSpan2))
         let myLocation:CLLocationCoordinate2D = CLLocationCoordinate2DMake(location.coordinate.latitude, location.coordinate.longitude)
         let region:MKCoordinateRegion = MKCoordinateRegionMake(myLocation, span)
         
         personalMap.setRegion(region, animated: true)
         self.personalMap.showsUserLocation = true
+    }
+    public func zoomMap(){
+        self.floatSpan1 = 0.5
+        self.floatSpan2 = 0.5
     }
     
     func drawMap(){
@@ -145,6 +150,8 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
             
         })
     }
+    
+
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         guard !(annotation is MKUserLocation) else {

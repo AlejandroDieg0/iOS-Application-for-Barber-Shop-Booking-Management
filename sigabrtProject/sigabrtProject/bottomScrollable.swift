@@ -12,10 +12,10 @@ class bottomScrollable: UIViewController{
 
     
     @IBOutlet weak var tableView: UITableView!
-        
-        let fullView: CGFloat = 100
+        let map = MapViewController()
+        let fullView: CGFloat = 150
         var partialView: CGFloat {
-            return UIScreen.main.bounds.height - 150
+            return UIScreen.main.bounds.height - 100
         }
         
         override func viewDidAppear(_ animated: Bool) {
@@ -66,6 +66,7 @@ class bottomScrollable: UIViewController{
             
             UIView.animate(withDuration: duration, delay: 0.0, options: [.allowUserInteraction], animations: {
                 if  velocity.y >= 0 {
+                    self.map.zoomMap()
                     self.view.frame = CGRect(x: 0, y: self.partialView, width: self.view.frame.width, height: self.view.frame.height)
                 } else {
                     self.view.frame = CGRect(x: 0, y: self.fullView, width: self.view.frame.width, height: self.view.frame.height)
