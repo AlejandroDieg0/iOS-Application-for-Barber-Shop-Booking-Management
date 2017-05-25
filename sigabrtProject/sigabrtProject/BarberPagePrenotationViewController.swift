@@ -19,18 +19,11 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
     
     var ref: DatabaseReference? = nil
    
-    var timeSlot = ["9:00","9:15","9:30","9:45","10:00"]
-    
-    
-//    var customerName = [String]()
-//    var tipoServizio: [String] = []
-//    var prezzoServizio : [String] = []
-//    var timeSelected = String()
     @IBOutlet weak var updated: UILabel!
     
     @IBOutlet weak var totalReservations: UILabel!
     
-    @IBOutlet weak var freeTimeCollectionView: UICollectionView!
+    @IBOutlet weak var freeTimeSlotCollectionView: UICollectionView!
     @IBOutlet weak var prenotationCollectionView: UICollectionView!
     @IBOutlet weak var calendar: FSCalendar!
     @IBOutlet weak var calendarHeightConstraint: NSLayoutConstraint!
@@ -69,13 +62,14 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
             self.calendarHeightConstraint.constant = 400
         }
 
-        freeTimeCollectionView.delegate = self
-        freeTimeCollectionView.dataSource = self
+        freeTimeSlotCollectionView.delegate = self
+        freeTimeSlotCollectionView.dataSource = self
         prenotationCollectionView.delegate = self
         prenotationCollectionView.dataSource = self
         
         self.view.addGestureRecognizer(self.scopeGesture)
         
+        Funcs.busySlots(date: data, collection: freeTimeSlotCollectionView)
         readData()
     }
     
@@ -83,7 +77,7 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
     prenotationList.removeAll()
     self.prenotationCollectionView.reloadData()
     //FIRBASE REFERENCE
-    ref = Database.database().reference().child("prenotations").child("1").child(selectedDate)
+    ref = Database.database().reference().child("prenotations/\(Funcs.currentShop.ID)").child(selectedDate)
     ref?.observe(.childAdded, with: { (snapshot) in
             if let userDict = snapshot.value as? [String:Any] {
                 let name = userDict["name"] as? String ?? ""
@@ -92,17 +86,7 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
                 let service = userDict["services"] as? [String: Any]
                 let serviceArray = service?["name"] as? String ?? ""
                 let price = service?["price"] as? Int ?? 0
-
-//                let splittedPrice = priceArray.characters.split { [",", "[","]"].contains(String($0)) }
-//                let trimmedPrice = splittedPrice.map { String($0).trimmingCharacters(in: .whitespaces) }
-//            
-//                var totalPrice = 0
-//                let intArray = trimmedPrice.map { Int($0)!}
-//                for i in 0..<intArray.count {
-//                    totalPrice += intArray[i]
-//                }
-                print(time)
-              // con classe
+                
                 let  x = Prenotation(customerName: name, tipoServizio: serviceArray, prezzoServizio: price, timeInMinute: time)
                 self.prenotationList.append(x)
             
@@ -166,10 +150,8 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
         if collectionView == self.prenotationCollectionView {
              return prenotationList.count
            
-        }
-            
-        else {
-            return timeSlot.count
+        } else {
+            return Funcs.bookableSlotsInMinutes.count
         }
        
     }
@@ -181,16 +163,14 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
         let total = String(prenotationList[indexPath.row].prezzoServizio) + "€"
         
         cell.name.text = prenotationList[indexPath.row].customerName
-        cell.time.text = "\(prenotationList[indexPath.row].timeInMinute/60):\(prenotationList[indexPath.row].timeInMinute%60)"
+        cell.time.text = Funcs.minutesToHour(prenotationList[indexPath.row].timeInMinute)
         cell.total.text = total
         cell.services.text = prenotationList[indexPath.row].tipoServizio
         
         return cell
-        }
-        
-        else{
-        let cell = freeTimeCollectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! freeTimeBarberCollectionViewCell
-        cell.label.text = timeSlot[indexPath.row]
+        } else {
+        let cell = freeTimeSlotCollectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! freeTimeBarberCollectionViewCell
+        cell.label.text = Funcs.minutesToHour(Funcs.bookableSlotsInMinutes[indexPath.row])
 
         return cell
         }
@@ -216,9 +196,6 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
         let needsConnection = (flags.rawValue & UInt32(kSCNetworkFlagsConnectionRequired)) != 0
         return (isReachable && !needsConnection)
     }
-    
-   
-
 }
 
 extension Date {

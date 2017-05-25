@@ -14,7 +14,6 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
     @IBOutlet weak var name: UITextField!
     
     @IBOutlet weak var freeTimeSlotCollectionView: UICollectionView!
-    var ref: DatabaseReference!
     
     var selectedDate = ""
     var selectedTimeInMinutes: Int!
@@ -23,18 +22,6 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
     
     var selectedTipo: [String] = []
     var selectedPrezzo : [Int] = []
-    var timeSlot: [String] = []
-    var timeSlotInMinutes : [Int] = []
-    let slotSizeInMinutes = 15
-    
-    let firebaseAuth = Auth.auth()
-    let user = Auth.auth().currentUser
-    
-    fileprivate lazy var dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yy-MM-dd"
-        return formatter
-    }()
     
     fileprivate lazy var scopeGesture: UIPanGestureRecognizer = {
         [unowned self] in
@@ -49,11 +36,7 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        ref = Database.database().reference()
-        
-        //TODO: Capire come cazzo fare per far scomparire la tastiere senza rompere tutto 
-        
-        //self.hideKeyboardWhenTappedAround()
+        self.hideKeyboardWhenTappedAround()
         
         //today date
         let data = Date()
@@ -68,8 +51,7 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
             self.calendarHeightConstraint.constant = 400
         }
 
-        //TODO: leggere il weekday
-        busySlots(date: data)
+        Funcs.busySlots(date: data, collection: freeTimeSlotCollectionView)
         
         //self.time.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
         servicesTableView.allowsMultipleSelection = true
@@ -87,7 +69,6 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
     func readData(){
         //service.removeAll()
         self.servicesTableView.reloadData()
-        //FIRBASE REFERENCE
         var ref: DatabaseReference!
         ref = Database.database().reference().child("barbers/\(String(Funcs.loggedUser.favBarberId))/services")
         
@@ -114,47 +95,37 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         print("did select date \(self.dateFormatter.string(from: date))")
-//        let selectedDates = calendar.selectedDates.map({self.dateFormatter.string(from: $0)})
-//        print("selected dates is \(selectedDates)")
         self.selectedDate = self.dateFormatter.string(from: date)
-        print(selectedDate)
         
-        //TODO: richiamare calcSlots
-        self.busySlots(date: date)
+        Funcs.busySlots(date: date, collection: freeTimeSlotCollectionView)
         
         if monthPosition == .next || monthPosition == .previous {
             calendar.setCurrentPage(date, animated: true)
         }
     }
     
-    func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
-        print("\(self.dateFormatter.string(from: calendar.currentPage))")
-    }
-    
-    
     @IBAction func save(_ sender: UIBarButtonItem) {
         
         let actionSheet = UIAlertController(title: "", message: "Confirm prenotation", preferredStyle: .actionSheet)
         actionSheet.addAction(UIAlertAction(title: "OK", style: .default) { action in
             let customerName = self.name.text
-            //FIRBASE REFERENCE
             let ref: DatabaseReference = Database.database().reference()
             
             let post = [
-                "user":  self.user!.uid,
+                "user":  Auth.auth().currentUser!.uid,
                 "time":  self.selectedTimeInMinutes,
                 "note": customerName ?? "Not inserted"
                 ] as [String : Any]
             
-            let key = ref.child("prenotations/1/\(self.selectedDate)/").childByAutoId().key
+            let key = ref.child("prenotations/\(Funcs.currentShop.ID)/\(self.selectedDate)/").childByAutoId().key
             
-            ref.child("prenotations/1/\(self.selectedDate)/").child(key).setValue(post)
+            ref.child("prenotations/\(Funcs.currentShop.ID)/\(self.selectedDate)/").child(key).setValue(post)
             
             for service in self.selectedServices {
-                let post = [        "price": service.price,
-                                    "type": service.name,
-                                    "duration": service.duration] as [String : Any]
-                ref.child("prenotations/1/\(self.selectedDate)/\(key)/services").childByAutoId().setValue(post)
+                let post = ["price": service.price,
+                            "type": service.name,
+                            "duration": service.duration] as [String : Any]
+                ref.child("prenotations/\(Funcs.currentShop.ID)/\(self.selectedDate)/\(key)/services").childByAutoId().setValue(post)
             }
         })
         
@@ -181,13 +152,8 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
         self.selectedServices.append(services[indexPath.row])
     }
     
-    // PICKER VIEW
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        selectedTimeInMinutes = timeSlotInMinutes[indexPath.row]
+        selectedTimeInMinutes = Funcs.bookableSlotsInMinutes[indexPath.row]
 
         for cell in self.freeTimeSlotCollectionView.visibleCells{
             
@@ -201,12 +167,12 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return timeSlot.count
+        return Funcs.bookableSlotsInMinutes.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "timeCell", for: indexPath) as! freeTimeBarberCollectionViewCell
-        cell.label.text = timeSlot[indexPath.row]
+        cell.label.text = Funcs.minutesToHour(Funcs.bookableSlotsInMinutes[indexPath.row])
         
         let iPath = self.freeTimeSlotCollectionView.indexPathsForSelectedItems!
         if (iPath != []){
@@ -230,61 +196,11 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
     override func dismissKeyboard() {
         view.endEditing(true)
     }
-    func busySlots(date: Date) {
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yy-MM-dd"
-        let selectedDay = dateFormatter.string(from: date)
-        
-        var busySlots : [Int] = []
-        print(selectedDay)
-        print(String(Funcs.currentShop.ID))
-        ref = Database.database().reference().child("prenotations").child(String(Funcs.currentShop.ID)).child(selectedDay)
-        ref?.observe(.childAdded, with: { (snapshot) in
-            if let userDict = snapshot.value as? [String:Any] {
-                let time = userDict["time"] as? Int ?? 0
-                busySlots.append(time)
-                self.calcSlots(day: date, busySlots: busySlots)
-                
-                print(time)
-                
-            }})
-        self.calcSlots(day: date, busySlots: busySlots)
-
-    }
     
-    func calcSlots(day: Date, busySlots: [Int]) {
-        print(busySlots)
-        dateFormatter.locale = Locale(identifier: "en_US")
-        dateFormatter.dateStyle = DateFormatter.Style.full
-        // let test = dateFormatter.string(from: date)
-        timeSlot = []
-        timeSlotInMinutes = []
-        let selectedDay = dateFormatter.string(from: day).components(separatedBy: ",")
-        print(selectedDay[0])
-        let slotsInADay = 1440 / slotSizeInMinutes
-
-        for currslot in 0 ... slotsInADay {
-            var isBookable = false
-
-            let currentSlotMinute = currslot * slotSizeInMinutes
-            if let arrayDay = (Funcs.currentShop.hours?[selectedDay[0]]){
-                for shopOpeningFrame in arrayDay {
-                    //TODO: bisogna aggiungere a currentSlotMinute la durata del servizio (dei servizi) selezionati
-                    if (currentSlotMinute >= shopOpeningFrame[0] && currentSlotMinute < shopOpeningFrame[1] && !timeSlotInMinutes.contains(currentSlotMinute) && !busySlots.contains(currentSlotMinute)){
-                        isBookable = true
-                    }
-                    //TODO: ulteriore if per controllare che currentSlotMinute non sia già nell'array delle prenotazioni (non sia già prenotato)
-                    if (isBookable){
-                        timeSlotInMinutes.append(currentSlotMinute)
-                        timeSlot.append("\(currentSlotMinute/60):\(String(format: "%02d" ,currentSlotMinute%60))")
-                        isBookable = false
-                    }
-                }
-            }
-
-        }
-    freeTimeSlotCollectionView.reloadData()
-    }
+    fileprivate lazy var dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yy-MM-dd"
+        return formatter
+    }()
 }
 

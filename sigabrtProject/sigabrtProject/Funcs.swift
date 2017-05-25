@@ -12,6 +12,7 @@ import Firebase
 extension UIViewController {
     func hideKeyboardWhenTappedAround() {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
     }
     
@@ -23,7 +24,10 @@ extension UIViewController {
 class Funcs: NSObject {
     static var loggedUser : User!
     static var currentShop : Shop!
+    static let ref = Database.database().reference()
     static var flagFavBarber:Int = 0
+    static let slotSizeInMinutes = 15
+    static var bookableSlotsInMinutes: [Int] = []
     
     static func animateIn(sender: UIView) {
         
@@ -34,8 +38,6 @@ class Funcs: NSObject {
             blurEffectView.frame = topController.view.bounds
             blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
             blurEffectView.contentView.alpha = 0
-            
-
             
             while let presentedViewController = topController.presentedViewController {
                 topController = presentedViewController
@@ -53,36 +55,35 @@ class Funcs: NSObject {
                 sender.transform = CGAffineTransform.identity
             }
             
-
-            
         }
         
     }
     
     
     static func animateOut (sender: UIView) {
-                if var topController = UIApplication.shared.keyWindow?.rootViewController {
-                    while let presentedViewController = topController.presentedViewController {
-                        topController = presentedViewController
-                    }
-                    
-                    for tempView in topController.view.subviews{
-                        if let blurView = tempView as? UIVisualEffectView{
-                            UIView.animate(withDuration: 0.4) {
-                                blurView.alpha = 0
-                            }
-                            blurView.removeFromSuperview()
-                        }
-                    }
-        UIView.animate(withDuration: 0.4, animations: {
-            sender.transform = CGAffineTransform.init(scaleX: 1.2, y: 1.2)
-            sender.alpha = 0
+        if var topController = UIApplication.shared.keyWindow?.rootViewController {
+            while let presentedViewController = topController.presentedViewController {
+                topController = presentedViewController
+            }
             
-        }) { (success:Bool) in
-            sender.removeFromSuperview()
-        }
+            for tempView in topController.view.subviews{
+                if let blurView = tempView as? UIVisualEffectView{
+                    UIView.animate(withDuration: 0.4) {
+                        blurView.alpha = 0
+                    }
+                    blurView.removeFromSuperview()
+                }
+            }
+            UIView.animate(withDuration: 0.4, animations: {
+                sender.transform = CGAffineTransform.init(scaleX: 1.2, y: 1.2)
+                sender.alpha = 0
+                
+            }) { (success:Bool) in
+                sender.removeFromSuperview()
+            }
         }
     }
+    
     static func loadUserData(){
         let user = Auth.auth().currentUser
         if (user == nil) {return}
@@ -103,12 +104,12 @@ class Funcs: NSObject {
             print(error.localizedDescription)
         }
     }
+    
     static func loadCurrentShop(){
         let user = Auth.auth().currentUser
         if (user == nil) {return}
-        let ref = Database.database().reference()
         ref.child("barbers").child(String(self.loggedUser.favBarberId)).observeSingleEvent(of: .value, with: { (snapshot) in
-            // Get user value
+            // Get shop description
             if let value = snapshot.value as? NSDictionary {
                 let barberName = value["name"] as? String ?? "NoName"
                 let barberDesc = value["description"] as? String ?? "NoDesc"
@@ -153,6 +154,67 @@ class Funcs: NSObject {
             print(error.localizedDescription)
         }
     }
+    
+    static func busySlots(date: Date, collection: UICollectionView) {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yy-MM-dd"
+        let selectedDay = dateFormatter.string(from: date)
+        
+        var busySlots : [Int] = []
+        
+        let prenotationChild = self.ref.child("prenotations").child(String(Funcs.currentShop.ID)).child(selectedDay)
+        prenotationChild.observe(.childAdded, with: { (snapshot) in
+            if let userDict = snapshot.value as? [String:Any] {
+                let time = userDict["time"] as? Int ?? 0
+                busySlots.append(time)
+                self.calcSlots(day: date, busySlots: busySlots, collection: collection)
+                
+                print(time)
+                
+            }})
+        self.calcSlots(day: date, busySlots: busySlots, collection: collection)
+        
+    }
+    
+    static func calcSlots(day: Date, busySlots: [Int], collection: UICollectionView) {
+        print(busySlots)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yy-MM-dd"
+        dateFormatter.locale = Locale(identifier: "en_US")
+        dateFormatter.dateStyle = DateFormatter.Style.full
+        // let test = dateFormatter.string(from: date)
+        bookableSlotsInMinutes = []
+        let selectedDay = dateFormatter.string(from: day).components(separatedBy: ",")
+        print(selectedDay[0])
+        let slotsInADay = 1440 / slotSizeInMinutes
+        
+        for currslot in 0 ... slotsInADay {
+            var isBookable = false
+            
+            let currentSlotMinute = currslot * slotSizeInMinutes
+            if let arrayDay = (Funcs.currentShop.hours?[selectedDay[0]]){
+                for shopOpeningFrame in arrayDay {
+                    //TODO: bisogna aggiungere a currentSlotMinute la durata del servizio (dei servizi) selezionati
+                    if (currentSlotMinute >= shopOpeningFrame[0] && currentSlotMinute < shopOpeningFrame[1] && !bookableSlotsInMinutes.contains(currentSlotMinute) && !busySlots.contains(currentSlotMinute)){
+                        isBookable = true
+                    }
+                    //TODO: ulteriore if per controllare che currentSlotMinute non sia già nell'array delle prenotazioni (non sia già prenotato)
+                    if (isBookable){
+                        bookableSlotsInMinutes.append(currentSlotMinute)
+                        isBookable = false
+                    }
+                }
+            }
+            
+        }
+        collection.reloadData()
+    }
+    
+    static func minutesToHour(_ minutes: Int) -> String {
+        return "\(String(format: "%02d", minutes/60)):\(String(format: "%02d", minutes%60))"
+    }
+    
 }
 
 extension UIView {
