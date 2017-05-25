@@ -69,12 +69,13 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
         }
 
         //TODO: leggere il weekday
-        calcSlots(day: data)
+        busySlots(date: data)
         
         //self.time.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
         servicesTableView.allowsMultipleSelection = true
         servicesTableView.delegate = self
         servicesTableView.dataSource = self
+        freeTimeSlotCollectionView.allowsMultipleSelection = false
         
         readData()
         
@@ -119,7 +120,7 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
         print(selectedDate)
         
         //TODO: richiamare calcSlots
-        self.calcSlots(day: date)
+        self.busySlots(date: date)
         
         if monthPosition == .next || monthPosition == .previous {
             calendar.setCurrentPage(date, animated: true)
@@ -187,25 +188,73 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         selectedTimeInMinutes = timeSlotInMinutes[indexPath.row]
+
+        for cell in self.freeTimeSlotCollectionView.visibleCells{
+            
+            cell.contentView.backgroundColor = UIColor(red: 144/255, green: 175/255, blue: 197/255, alpha: 1)
+        }
+
+        collectionView.cellForItem(at: indexPath)?.contentView.backgroundColor = UIColor(red: 51/255, green: 107/255, blue: 135/255, alpha: 1)
+
         print(selectedTimeInMinutes)
     }
+    
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return timeSlot.count
     }
     
-    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "timeCell", for: indexPath) as! freeTimeBarberCollectionViewCell
         cell.label.text = timeSlot[indexPath.row]
+        
+        let iPath = self.freeTimeSlotCollectionView.indexPathsForSelectedItems!
+        if (iPath != []){
+            let path : NSIndexPath = iPath[0] as NSIndexPath
+            let rowIndex = path.row
+            if (rowIndex == indexPath.row ){
+                cell.contentView.backgroundColor = UIColor(red: 51/255, green: 107/255, blue: 135/255, alpha: 1)
+                
+            }else{
+                cell.contentView.backgroundColor = UIColor(red: 144/255, green: 175/255, blue: 197/255, alpha: 1)
+                
+            }
+
+        }else{
+            cell.contentView.backgroundColor = UIColor(red: 144/255, green: 175/255, blue: 197/255, alpha: 1)
+        }
+
         return cell
     }
     
     override func dismissKeyboard() {
         view.endEditing(true)
     }
+    func busySlots(date: Date) {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yy-MM-dd"
+        let selectedDay = dateFormatter.string(from: date)
+        
+        var busySlots : [Int] = []
+        print(selectedDay)
+        print(String(Funcs.currentShop.ID))
+        ref = Database.database().reference().child("prenotations").child(String(Funcs.currentShop.ID)).child(selectedDay)
+        ref?.observe(.childAdded, with: { (snapshot) in
+            if let userDict = snapshot.value as? [String:Any] {
+                let time = userDict["time"] as? Int ?? 0
+                busySlots.append(time)
+                self.calcSlots(day: date, busySlots: busySlots)
+                
+                print(time)
+                
+            }})
+        self.calcSlots(day: date, busySlots: busySlots)
+
+    }
     
-    func calcSlots(day: Date) {
+    func calcSlots(day: Date, busySlots: [Int]) {
+        print(busySlots)
         dateFormatter.locale = Locale(identifier: "en_US")
         dateFormatter.dateStyle = DateFormatter.Style.full
         // let test = dateFormatter.string(from: date)
@@ -214,20 +263,22 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
         let selectedDay = dateFormatter.string(from: day).components(separatedBy: ",")
         print(selectedDay[0])
         let slotsInADay = 1440 / slotSizeInMinutes
-        
+
         for currslot in 0 ... slotsInADay {
+            var isBookable = false
+
             let currentSlotMinute = currslot * slotSizeInMinutes
             if let arrayDay = (Funcs.currentShop.hours?[selectedDay[0]]){
                 for shopOpeningFrame in arrayDay {
                     //TODO: bisogna aggiungere a currentSlotMinute la durata del servizio (dei servizi) selezionati
-                    var isBookable = false
-                    if (currentSlotMinute >= shopOpeningFrame[0] && currentSlotMinute < shopOpeningFrame[1]){
+                    if (currentSlotMinute >= shopOpeningFrame[0] && currentSlotMinute < shopOpeningFrame[1] && !timeSlotInMinutes.contains(currentSlotMinute) && !busySlots.contains(currentSlotMinute)){
                         isBookable = true
                     }
                     //TODO: ulteriore if per controllare che currentSlotMinute non sia già nell'array delle prenotazioni (non sia già prenotato)
                     if (isBookable){
                         timeSlotInMinutes.append(currentSlotMinute)
-                        timeSlot.append("\(currentSlotMinute/60):\(currentSlotMinute%60)")
+                        timeSlot.append("\(currentSlotMinute/60):\(String(format: "%02d" ,currentSlotMinute%60))")
+                        isBookable = false
                     }
                 }
             }
