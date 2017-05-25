@@ -90,8 +90,11 @@ class UserProfileViewController: UITableViewController {
             if Auth.auth().currentUser != nil {
                 
                 loadUserData()
-                labelFavBarber.text = Funcs.currentShop.name
-                
+                if Funcs.loggedUser != nil{
+                    labelFavBarber.text = Funcs.currentShop.name
+                } else {
+                    labelFavBarber.text = "No favourite barber selected"
+                }
             } else {
                 print("no logged with Firebase")
                 helloName.text = "Hello User!"
@@ -131,7 +134,7 @@ class UserProfileViewController: UITableViewController {
             let post = [
                 "name":  "",
                 "phone": "",
-                "favbarber":   -1,
+                "favbarber":   Funcs.flagFavBarber,
                 "usertype": 1,
                 ] as [String : Any]
             

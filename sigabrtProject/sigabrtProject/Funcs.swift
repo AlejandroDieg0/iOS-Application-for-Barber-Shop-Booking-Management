@@ -23,6 +23,7 @@ extension UIViewController {
 class Funcs: NSObject {
     static var loggedUser : User!
     static var currentShop : Shop!
+    static var flagFavBarber:Int = 0
     
     static func animateIn(sender: UIView) {
         
