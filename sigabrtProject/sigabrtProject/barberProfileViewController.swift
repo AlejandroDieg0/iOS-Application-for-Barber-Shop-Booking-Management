@@ -14,7 +14,6 @@ class barberProfileViewController: UITableViewController {
     
     let firebaseAuth = Auth.auth()
     let user = Auth.auth().currentUser
-     var services : [Service] = []
     
     //INFO LABEL
     @IBOutlet weak var changeMail: UITextField!
@@ -103,25 +102,7 @@ class barberProfileViewController: UITableViewController {
         
         
     }
-    func loadBarberService(){
-        //FIRBASE REFERENCE
-        var ref: DatabaseReference!
-        ref = Database.database().reference().child("barbers/\(Funcs.currentShop.ID)/services")
-        
-        ref?.observe(.childAdded, with: { snapshot in
-            if !snapshot.exists() {
-                print("null")
-            }
-            
-            if let snapshotValue = snapshot.value as? [String:Any] {
-                let tipo = (snapshotValue["name"])! as! String
-                let price = (snapshotValue["price"])! as! Int
-                let duration = (snapshotValue["duration"])! as! Int
-                
-                self.services.append(Service(name: tipo, duration: duration, price: price))
-                self.tb.reloadData()
-            }})
-        }
+
     func inizializeUserData(){
         let user = Auth.auth().currentUser
         if (user != nil){
@@ -234,7 +215,7 @@ class barberProfileViewController: UITableViewController {
     }
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
        if tableView == self.tb{
-        return services.count
+        return Funcs.currentShop.services.count
        } else {
         return super.tableView(tableView, numberOfRowsInSection: section)
         }
@@ -243,8 +224,8 @@ class barberProfileViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
        if tableView == self.tb{
         let cell = tb.dequeueReusableCell(withIdentifier: "serviceCell", for: indexPath) as! barberSelfServiceTableViewCell
-        cell.servizio.text = services[indexPath.row].name
-        cell.price.text = String(services[indexPath.row].price) + "€"
+        cell.servizio.text = Funcs.currentShop.services[indexPath.row].name
+        cell.price.text = String(Funcs.currentShop.services[indexPath.row].price) + "€"
         return cell
        }
        else{
