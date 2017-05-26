@@ -29,7 +29,7 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        addBottomSheetView()
+//        addBottomSheetView()
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -230,18 +230,18 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
         }
     }
     
-    func addBottomSheetView() {
-        
-        let bottomSheetVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "bottomScrollable") as! bottomScrollable
-        
-        self.addChildViewController(bottomSheetVC)
-        
-        self.view.addSubview(bottomSheetVC.view)
-        bottomSheetVC.didMove(toParentViewController: self)
-        
-        let height = view.frame.height
-        let width  = view.frame.width
-        bottomSheetVC.view.frame = CGRect(x: 0,y: self.view.frame.maxY,width: width,height: height)
-    }
+//    func addBottomSheetView() {
+//        
+//        let bottomSheetVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "bottomScrollable") as! bottomScrollable
+//        
+//        self.addChildViewController(bottomSheetVC)
+//        
+//        self.view.addSubview(bottomSheetVC.view)
+//        bottomSheetVC.didMove(toParentViewController: self)
+//        
+//        let height = view.frame.height
+//        let width  = view.frame.width
+//        bottomSheetVC.view.frame = CGRect(x: 0,y: self.view.frame.maxY,width: width,height: height)
+    
     
 }
