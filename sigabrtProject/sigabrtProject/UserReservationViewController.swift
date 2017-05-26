@@ -47,7 +47,7 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
         let data = selectedDate
 
         Funcs.busySlots(date: data, collection: timeCollectionView)
-
+        
         
         // For UITest
         self.calendar.accessibilityIdentifier = "calendar"
