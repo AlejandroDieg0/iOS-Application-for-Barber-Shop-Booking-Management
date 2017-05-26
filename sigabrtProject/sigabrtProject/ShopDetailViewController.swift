@@ -31,7 +31,10 @@ class ShopDetailViewController: UIViewController, UICollectionViewDataSource, UI
         labelDescription.text = barber?.desc
         labelAddress.text = barber?.address
         labelPhone.text = barber?.phone
-        Nuke.loadImage(with: (barber?.logo)!, into: imageBarberShop)
+        
+        if barber?.logo != nil { Nuke.loadImage(with: (barber?.logo)!, into: imageBarberShop) }
+        
+        
         buttonFavourite.setTitle(Funcs.flagFavBarber == 0 ? "Set Favourite!" : "Remove Favourite!", for: .normal)
 
         // labelHours.text = "Opening Hours: \((barber?.hours[0][0])!/60):00"
@@ -53,7 +56,9 @@ class ShopDetailViewController: UIViewController, UICollectionViewDataSource, UI
         imageURL.downloadURL(completion: { (url, error) in
             
             print(imageURL)
-            Nuke.loadImage(with: url!, into: cell.img)
+            
+            if url != nil { Nuke.loadImage(with: url!, into: cell.img) }
+            
             
         })
 
