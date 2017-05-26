@@ -13,14 +13,14 @@ var prenotationList = [Prenotation]()
 class Prenotation {
     
     let customerName: String
-    let tipoServizio: String
-    let prezzoServizio : Int
+    let service: [Service]
     let timeInMinute: Int
+    let note: String
     
-    init(customerName: String, tipoServizio: String, prezzoServizio: Int, timeInMinute: Int){
+    init(customerName: String, service: [Service], timeInMinute: Int, note: String){
         self.customerName = customerName
-        self.tipoServizio = tipoServizio
-        self.prezzoServizio = prezzoServizio
+        self.service = service
         self.timeInMinute = timeInMinute
+        self.note = note
     }
 }
