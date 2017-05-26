@@ -13,7 +13,8 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
     @IBOutlet weak var calendarHeightConstraint: NSLayoutConstraint!
     
     let slotSizeInMinutes = 15
-    
+    var selectedDate : Date = Date()
+
     var selectedShop: Shop!
     
     fileprivate lazy var dateFormatter: DateFormatter = {
@@ -36,12 +37,17 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
         if UIDevice.current.model.hasPrefix("iPad") {
             self.calendarHeightConstraint.constant = 400
         }
-        
+        self.timeCollectionView.delegate = self
+        self.timeCollectionView.dataSource = self
         self.calendar.select(Date())
         
         self.view.addGestureRecognizer(self.scopeGesture)
         self.servicesCollectionView.panGestureRecognizer.require(toFail: self.scopeGesture)
         self.calendar.scope = .week
+        let data = selectedDate
+
+        Funcs.busySlots(date: data, collection: timeCollectionView)
+
         
         // For UITest
         self.calendar.accessibilityIdentifier = "calendar"
@@ -74,9 +80,9 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
     }
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-        print("did select date \(self.dateFormatter.string(from: date))")
-        let selectedDates = calendar.selectedDates.map({self.dateFormatter.string(from: $0)})
-        print("selected dates is \(selectedDates)")
+        self.selectedDate = date
+        Funcs.busySlots(date: date, collection: timeCollectionView)
+        
         if monthPosition == .next || monthPosition == .previous {
             calendar.setCurrentPage(date, animated: true)
         }
@@ -94,7 +100,7 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
         if (collectionView == self.servicesCollectionView) {
             return selectedShop.services.count
         } else {
-            return 1440 / slotSizeInMinutes
+            return Funcs.bookableSlotsInMinutes.count
         }
     }
     
@@ -120,10 +126,27 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
             
         } else {
             
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! freeTimeBarberCollectionViewCell
-            cell.label.text = "\(indexPath.row*slotSizeInMinutes/60):\((indexPath.row*slotSizeInMinutes%60))"
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "freeTimeCell", for: indexPath) as! freeTimeBarberCollectionViewCell
+            cell.label.text = Funcs.minutesToHour(Funcs.bookableSlotsInMinutes[indexPath.row])
+            
+            let iPath = self.timeCollectionView.indexPathsForSelectedItems!
+            if (iPath != []){
+                let path : NSIndexPath = iPath[0] as NSIndexPath
+                let rowIndex = path.row
+                if (rowIndex == indexPath.row ){
+                    cell.contentView.backgroundColor = UIColor(red: 51/255, green: 107/255, blue: 135/255, alpha: 1)
+                    
+                }else{
+                    cell.contentView.backgroundColor = UIColor(red: 144/255, green: 175/255, blue: 197/255, alpha: 1)
+                    
+                }
+                
+            }else{
+                cell.contentView.backgroundColor = UIColor(red: 144/255, green: 175/255, blue: 197/255, alpha: 1)
+            }
             
             return cell
+
         }
     }
     
