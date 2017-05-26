@@ -173,6 +173,7 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
             let ref2 = Database.database().reference()
             var totalReservation = 0
             var nameReservation = ""
+            var totalDuration = 0
             
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as!  CollectionViewCell
             
@@ -183,6 +184,7 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
                 }else{
                     nameReservation = service.name
                 }
+                totalDuration = totalDuration + service.duration
             }
             cell.total.text = String(totalReservation) + " €"
             
@@ -200,7 +202,7 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
             
             cell.time.text = Funcs.minutesToHour(prenotationList[indexPath.row].timeInMinute)
             cell.services.text = nameReservation
-            
+            cell.number.text = "Duration: \(totalDuration) Min"
             return cell
         } else {
             let cell = freeTimeSlotCollectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! freeTimeBarberCollectionViewCell
