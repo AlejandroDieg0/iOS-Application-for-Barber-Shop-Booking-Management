@@ -106,7 +106,8 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
     @IBAction func save(_ sender: UIBarButtonItem) {
         let note = self.name.text
         let actionSheet = UIAlertController(title: "", message: "Confirm prenotation", preferredStyle: .actionSheet)
-        
+        let errorAlert = UIAlertController(title: "Missing Informations", message: "Please check the details of your reservations", preferredStyle: .actionSheet)
+
         actionSheet.addAction(UIAlertAction(title: "OK", style: .default) { action in
             
             Funcs.addReservation(time: self.selectedTimeInMinutes, note: note, services: self.selectedServices, date: self.selectedDate)
@@ -119,8 +120,14 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
         })
         
         actionSheet.addAction(UIAlertAction(title: "CANCEL", style: .cancel, handler: nil))
+        errorAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         
-        self.present(actionSheet, animated: true, completion:  nil)
+        if (self.selectedTimeInMinutes == 0 ||  self.selectedServices.count == 0 ){
+            self.present(errorAlert, animated: true, completion:  nil)
+
+        }else{
+            self.present(actionSheet, animated: true, completion:  nil)
+        }
         
         
     }
