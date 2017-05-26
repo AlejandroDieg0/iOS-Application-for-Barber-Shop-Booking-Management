@@ -99,27 +99,7 @@ class barberProfileViewController: UITableViewController {
             print(error.localizedDescription)
         }
     }
-    
-    func loadBarberService(){
-        //FIRBASE REFERENCE
-        var ref: DatabaseReference!
-        ref = Database.database().reference().child("barbers/\(Funcs.currentShop.ID)/services")
-        
-        ref?.observe(.childAdded, with: { snapshot in
-            if !snapshot.exists() {
-                print("null")
-            }
-            
-            if let snapshotValue = snapshot.value as? [String:Any] {
-                let tipo = (snapshotValue["name"])! as! String
-                let price = (snapshotValue["price"])! as! Int
-                let duration = (snapshotValue["duration"])! as! Int
-                
-                Funcs.currentShop.services.append(Service(name: tipo, duration: duration, price: price))
-                self.tableViewService.reloadData()
-            }})
-        }
-    
+
     func inizializeUserData(){
         let user = Auth.auth().currentUser
         if (user != nil){
