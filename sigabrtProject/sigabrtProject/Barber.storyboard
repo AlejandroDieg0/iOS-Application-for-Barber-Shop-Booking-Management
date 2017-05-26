@@ -25,9 +25,30 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ClE-tN-Zjd" customClass="FSCalendar">
                                 <rect key="frame" x="0.0" y="64" width="375" height="300"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="300" id="kgh-jp-Dhf"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="weekdayTextColor">
+                                        <color key="value" red="0.20000000000000001" green="0.41960784309999999" blue="0.52941176469999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="headerTitleColor">
+                                        <color key="value" red="0.1647058824" green="0.19215686269999999" blue="0.1960784314" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="titleDefaultColor">
+                                        <color key="value" red="0.1647058824" green="0.19215686269999999" blue="0.1960784314" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="selectionColor">
+                                        <color key="value" red="0.20000000000000001" green="0.41960784309999999" blue="0.52941176469999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="todayColor">
+                                        <color key="value" red="0.30098552550526131" green="0.35207464728020887" blue="0.36230225754213208" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderDefaultColor">
+                                        <color key="value" red="0.0" green="0.0" blue="0.0" alpha="0.30417915239726029" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <outlet property="dataSource" destination="9GH-Up-GbH" id="iXr-ML-dQx"/>
                                     <outlet property="delegate" destination="9GH-Up-GbH" id="QbF-of-b9k"/>
@@ -42,7 +63,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HHB-QH-hJ2">
                                                 <rect key="frame" x="-8" y="43" width="383" height="40"/>
                                                 <subviews>
-                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Insert Cuatomer Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="s13-dg-7I4">
+                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Insert Customer Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="s13-dg-7I4">
                                                         <rect key="frame" x="17" y="5" width="358" height="30"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <color key="textColor" red="0.40000000600000002" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -136,7 +157,7 @@
                                                 </state>
                                             </button>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MoI-b1-hrp">
-                                                <rect key="frame" x="0.0" y="211" width="375" height="78"/>
+                                                <rect key="frame" x="0.0" y="307" width="375" height="78"/>
                                                 <subviews>
                                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="dIe-YU-phe">
                                                         <rect key="frame" x="0.0" y="20" width="375" height="56"/>
@@ -192,16 +213,16 @@
                                         <constraints>
                                             <constraint firstItem="MoI-b1-hrp" firstAttribute="trailing" secondItem="HHB-QH-hJ2" secondAttribute="trailing" id="3GN-OC-FII"/>
                                             <constraint firstAttribute="height" constant="500" id="3Rs-dQ-9cx"/>
-                                            <constraint firstItem="MoI-b1-hrp" firstAttribute="top" secondItem="K2P-O3-vg3" secondAttribute="bottom" constant="95" id="7zn-8d-yd5"/>
+                                            <constraint firstItem="MoI-b1-hrp" firstAttribute="top" secondItem="K2P-O3-vg3" secondAttribute="bottom" constant="191" id="7zn-8d-yd5"/>
                                             <constraint firstItem="K2P-O3-vg3" firstAttribute="leading" secondItem="tK7-xG-7hf" secondAttribute="leading" id="F4u-cB-eO6"/>
                                             <constraint firstItem="U1a-Dv-IaK" firstAttribute="top" secondItem="tkY-Vy-vjs" secondAttribute="bottom" constant="16" id="IKe-Rg-jte"/>
-                                            <constraint firstItem="MoI-b1-hrp" firstAttribute="top" secondItem="sEh-aM-NGn" secondAttribute="top" constant="211" id="Z7E-Lb-f9H"/>
+                                            <constraint firstItem="MoI-b1-hrp" firstAttribute="top" secondItem="sEh-aM-NGn" secondAttribute="top" constant="307" id="Z7E-Lb-f9H"/>
                                             <constraint firstItem="MoI-b1-hrp" firstAttribute="leading" secondItem="tkY-Vy-vjs" secondAttribute="leading" id="aZj-3c-mcR"/>
                                             <constraint firstItem="tkY-Vy-vjs" firstAttribute="trailing" secondItem="HHB-QH-hJ2" secondAttribute="trailing" id="bXI-MN-F3S"/>
                                             <constraint firstItem="K2P-O3-vg3" firstAttribute="trailing" secondItem="U1a-Dv-IaK" secondAttribute="trailing" id="bim-9F-Hio"/>
                                             <constraint firstItem="tK7-xG-7hf" firstAttribute="top" secondItem="sEh-aM-NGn" secondAttribute="top" constant="14" id="cbW-fL-MBj"/>
                                             <constraint firstItem="K2P-O3-vg3" firstAttribute="leading" secondItem="sEh-aM-NGn" secondAttribute="leadingMargin" id="dMd-Hu-OTc"/>
-                                            <constraint firstItem="MoI-b1-hrp" firstAttribute="bottom" secondItem="U1a-Dv-IaK" secondAttribute="bottom" id="e6v-wW-Hgc"/>
+                                            <constraint firstItem="MoI-b1-hrp" firstAttribute="bottom" secondItem="U1a-Dv-IaK" secondAttribute="bottom" constant="96" id="e6v-wW-Hgc"/>
                                             <constraint firstAttribute="trailing" secondItem="MoI-b1-hrp" secondAttribute="trailing" id="fgY-uE-pxh"/>
                                             <constraint firstItem="HHB-QH-hJ2" firstAttribute="top" secondItem="tK7-xG-7hf" secondAttribute="bottom" constant="8" symbolic="YES" id="gTV-Rc-OSb"/>
                                             <constraint firstItem="K2P-O3-vg3" firstAttribute="top" secondItem="HHB-QH-hJ2" secondAttribute="bottom" constant="12" id="iqP-2v-UhI"/>
@@ -212,7 +233,7 @@
                                             <constraint firstAttribute="bottom" secondItem="LKf-F3-LzL" secondAttribute="bottom" constant="77" id="qcd-kb-6tx"/>
                                             <constraint firstItem="tkY-Vy-vjs" firstAttribute="top" secondItem="K2P-O3-vg3" secondAttribute="bottom" constant="8" symbolic="YES" id="rJ8-Tg-yxR"/>
                                             <constraint firstItem="HHB-QH-hJ2" firstAttribute="leading" secondItem="sEh-aM-NGn" secondAttribute="leading" constant="-8" id="uPf-2p-ZSm"/>
-                                            <constraint firstItem="MoI-b1-hrp" firstAttribute="centerY" secondItem="sEh-aM-NGn" secondAttribute="centerY" id="uYw-GB-bha"/>
+                                            <constraint firstItem="MoI-b1-hrp" firstAttribute="centerY" secondItem="sEh-aM-NGn" secondAttribute="centerY" constant="96" id="uYw-GB-bha"/>
                                             <constraint firstItem="K2P-O3-vg3" firstAttribute="leading" secondItem="U1a-Dv-IaK" secondAttribute="leading" id="xrP-5O-uG0"/>
                                         </constraints>
                                     </view>
