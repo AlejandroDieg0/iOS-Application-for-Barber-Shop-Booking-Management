@@ -162,7 +162,7 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
         pin.animatesDrop = true
         
         
-        Nuke.loadImage(with: (shop?.logo)!, into: barberLogo)
+        if shop?.logo != nil { Nuke.loadImage(with: (shop?.logo)!, into: barberLogo) }
         
         pin.leftCalloutAccessoryView = barberLogo
         
