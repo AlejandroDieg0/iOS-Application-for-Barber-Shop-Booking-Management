@@ -1,10 +1,4 @@
-//
-//  Funcs.swift
-//  sigabrtProject
-//
-//  Created by Francesco Molitierno on 19/05/2017.
-//  Copyright © 2017 Alessandro Cascino. All rights reserved.
-//
+
 
 import UIKit
 import Firebase
@@ -128,6 +122,23 @@ class Funcs: NSObject {
             print(error.localizedDescription)
         }
     }
+//    static func getUserNameByUID(uid: String, textLabel: UILabel) -> String {
+//        var name = ""
+//        ref.child("user").child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
+//            // Get user value
+//            if let value = snapshot.value as? NSDictionary {
+//                name = value["name"] as? String ?? ""
+//                textLabel.text = name
+//                print(name)
+//            }
+//        }) { (error) in
+//            print(error.localizedDescription)
+//            name = "NoName"
+//        }
+//        print("the name is \(name)")
+//        return name
+//
+//    }
     
     static func loadCurrentShop(){
         let user = Auth.auth().currentUser

@@ -1,10 +1,3 @@
-//
-//  TestViewController.swift
-//  SIGABRTUserProfileViewController
-//
-//  Created by Fabio on 15/05/2017.
-//  Copyright © 2017 Fabio Borgato. All rights reserved.
-//
 
 import UIKit
 import Firebase
@@ -14,7 +7,6 @@ class barberProfileViewController: UITableViewController {
     
     let firebaseAuth = Auth.auth()
     let user = Auth.auth().currentUser
-     var services : [Service] = []
     
     //INFO LABEL
     @IBOutlet weak var changeMail: UITextField!
@@ -23,15 +15,14 @@ class barberProfileViewController: UITableViewController {
     @IBOutlet weak var changePhone: UITextField!
     @IBOutlet weak var logoBarber: UIImageView!
     
-    @IBOutlet weak var tb: UITableView!
+    @IBOutlet weak var tableViewService: UITableView!
     
     @IBOutlet weak var sendMailPwReset: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        tb.delegate = self
-        tb.dataSource = self
+        tableViewService.delegate = self
+        tableViewService.dataSource = self
         logoBarber.layer.cornerRadius = logoBarber.frame.size.width/2
         // let editBarButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.edit, target: self, action: Selector(("setEditing")))
         navigationItem.rightBarButtonItem = editButtonItem
@@ -100,28 +91,8 @@ class barberProfileViewController: UITableViewController {
         }) { (error) in
             print(error.localizedDescription)
         }
-        
-        
     }
-    func loadBarberService(){
-        //FIRBASE REFERENCE
-        var ref: DatabaseReference!
-        ref = Database.database().reference().child("barbers/\(Funcs.currentShop.ID)/services")
-        
-        ref?.observe(.childAdded, with: { snapshot in
-            if !snapshot.exists() {
-                print("null")
-            }
-            
-            if let snapshotValue = snapshot.value as? [String:Any] {
-                let tipo = (snapshotValue["name"])! as! String
-                let price = (snapshotValue["price"])! as! Int
-                let duration = (snapshotValue["duration"])! as! Int
-                
-                self.services.append(Service(name: tipo, duration: duration, price: price))
-                self.tb.reloadData()
-            }})
-        }
+
     func inizializeUserData(){
         let user = Auth.auth().currentUser
         if (user != nil){
@@ -225,7 +196,7 @@ class barberProfileViewController: UITableViewController {
     
     //TABLE VIEW
      override func numberOfSections(in tableView: UITableView) -> Int {
-        if tableView == self.tb{
+        if tableView == self.tableViewService {
         return 1
         }
         else{
@@ -233,18 +204,18 @@ class barberProfileViewController: UITableViewController {
         }
     }
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-       if tableView == self.tb{
-        return services.count
+       if tableView == self.tableViewService {
+        return Funcs.currentShop.services.count
        } else {
         return super.tableView(tableView, numberOfRowsInSection: section)
         }
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-       if tableView == self.tb{
-        let cell = tb.dequeueReusableCell(withIdentifier: "serviceCell", for: indexPath) as! barberSelfServiceTableViewCell
-        cell.servizio.text = services[indexPath.row].name
-        cell.price.text = String(services[indexPath.row].price) + "€"
+       if tableView == self.tableViewService {
+        let cell = tableViewService.dequeueReusableCell(withIdentifier: "serviceCell", for: indexPath) as! barberSelfServiceTableViewCell
+        cell.labelService.text = Funcs.currentShop.services[indexPath.row].name
+        cell.labelPrice.text = String(Funcs.currentShop.services[indexPath.row].price) + "€"
         return cell
        }
        else{
@@ -266,21 +237,16 @@ class barberProfileViewController: UITableViewController {
     // REAUTH
     func createAlert(){
         let alert = UIAlertController(title: "Authentication", message: "", preferredStyle: UIAlertControllerStyle.alert)
-        
-        alert.addTextField { (email) in
-            email.placeholder = "Current Email"
-        }
-        alert.addTextField { (password) in
+            alert.addTextField { (password) in
             password.placeholder = "Current Password"
             password.isSecureTextEntry = true
         }
-        alert.addAction(UIAlertAction(title: "ok", style: .default, handler: { (action) in
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action) in
         }))
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
        
          self.present(alert, animated: true)
     }
-    
-    
+
 }

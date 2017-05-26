@@ -1,10 +1,3 @@
-//
-//  FSCalendarScopeViewController.swift
-//  FSCalendarSwiftExample
-//
-//  Created by dingwenchao on 30/12/2016.
-//  Copyright © 2016 wenchao. All rights reserved.
-//
 
 import UIKit
 import FSCalendar
@@ -13,12 +6,12 @@ import SystemConfiguration
 
 
 class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSource, FSCalendarDelegate, UIGestureRecognizerDelegate,UICollectionViewDelegate, UICollectionViewDataSource {
-
+    
     
     var prenotationList = [Prenotation]()
     
     var ref: DatabaseReference? = nil
-   
+    
     @IBOutlet weak var updated: UILabel!
     
     @IBOutlet weak var totalReservations: UILabel!
@@ -39,13 +32,13 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
         panGesture.minimumNumberOfTouches = 1
         panGesture.maximumNumberOfTouches = 2
         return panGesture
-    }()
-  
+        }()
+    
     
     var selectedDate = ""
     let firebaseAuth = Auth.auth()
     let user = Auth.auth().currentUser
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -61,7 +54,7 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
         if UIDevice.current.model.hasPrefix("iPad") {
             self.calendarHeightConstraint.constant = 400
         }
-
+        
         freeTimeSlotCollectionView.delegate = self
         freeTimeSlotCollectionView.dataSource = self
         prenotationCollectionView.delegate = self
@@ -73,27 +66,37 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
         readData()
     }
     
+    
     func readData(){
-    prenotationList.removeAll()
-    self.prenotationCollectionView.reloadData()
-    //FIRBASE REFERENCE
-    ref = Database.database().reference().child("prenotations/\(Funcs.currentShop.ID)").child(selectedDate)
-    ref?.observe(.childAdded, with: { (snapshot) in
+        prenotationList.removeAll()
+        self.prenotationCollectionView.reloadData()
+        //FIRBASE REFERENCE
+        ref = Database.database().reference().child("prenotations/\(Funcs.currentShop.ID)").child(selectedDate)
+        ref?.observe(.childAdded, with: { (snapshot) in
             if let userDict = snapshot.value as? [String:Any] {
-                let name = userDict["name"] as? String ?? ""
+                let note = userDict["note"] as? String ?? "test"
+                let user = userDict["user"] as? String ?? "NoName"
+
                 let time = userDict["time"] as? Int ?? 0
+                var bookedServices : [Service] = []
+                if let child = snapshot.childSnapshot(forPath: "services").value as? [String:Any] {
+                    print(child)
+                    for c in child{
+                        if let tempServiceChild = c.value as? [String:Any]{
+                            let serviceName = tempServiceChild["type"] as? String ?? "NoName"
+                            let serviceDuration = tempServiceChild["duration"] as? Int ?? 0
+                            let servicePrice = tempServiceChild["price"] as? Int ?? 0
+                            bookedServices.append(Service(name: serviceName, duration: serviceDuration, price: servicePrice))
+                            print(serviceName)
+                        }
+                    }
+                }
+                self.prenotationList.append(Prenotation(customerName: user, service: bookedServices, timeInMinute: time, note: note))
                 
-                let service = userDict["services"] as? [String: Any]
-                let serviceArray = service?["name"] as? String ?? ""
-                let price = service?["price"] as? Int ?? 0
-                
-                let  x = Prenotation(customerName: name, tipoServizio: serviceArray, prezzoServizio: price, timeInMinute: time)
-                self.prenotationList.append(x)
-            
                 self.prenotationCollectionView.reloadData()
                 self.totalReservations.text = String(self.prenotationList.count)
             }})
-       
+        
         
         // UPDATED AT
         
@@ -107,12 +110,12 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
             self.updated.text = "no internet connection"
             
         }
-
+        
         
         
         
         self.totalReservations.text = String(self.prenotationList.count)
-
+        
     }
     
     func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
@@ -130,7 +133,7 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
         }
         
     }
-
+    
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
         print("\(self.dateFormatter.string(from: calendar.currentPage))")
     }
@@ -148,31 +151,57 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == self.prenotationCollectionView {
-             return prenotationList.count
-           
+            return prenotationList.count
+            
         } else {
             return Funcs.bookableSlotsInMinutes.count
         }
-       
+        
     }
     
-
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == self.prenotationCollectionView {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as!  CollectionViewCell
-        let total = String(prenotationList[indexPath.row].prezzoServizio) + "€"
-        
-        cell.name.text = prenotationList[indexPath.row].customerName
-        cell.time.text = Funcs.minutesToHour(prenotationList[indexPath.row].timeInMinute)
-        cell.total.text = total
-        cell.services.text = prenotationList[indexPath.row].tipoServizio
-        
-        return cell
-        } else {
-        let cell = freeTimeSlotCollectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! freeTimeBarberCollectionViewCell
-        cell.label.text = Funcs.minutesToHour(Funcs.bookableSlotsInMinutes[indexPath.row])
 
-        return cell
+            let ref2 = Database.database().reference()
+            var totalReservation = 0
+            var nameReservation = ""
+            var totalDuration = 0
+            
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as!  CollectionViewCell
+            
+            for service in prenotationList[indexPath.row].service{
+                totalReservation = service.price + totalReservation
+                if (nameReservation != ""){
+                    nameReservation = nameReservation + ", " + service.name
+                }else{
+                    nameReservation = service.name
+                }
+                totalDuration = totalDuration + service.duration
+            }
+            cell.total.text = String(totalReservation) + " €"
+            
+            ref2.child("user").child(prenotationList[indexPath.row].customerName).observeSingleEvent(of: .value, with: { (snapshot) in
+                // Get user value
+                if let value = snapshot.value as? NSDictionary {
+                    let userName = value["name"] as? String ?? ""
+                    cell.name.text = userName
+                    
+                }
+            }) { (error) in
+                print(error.localizedDescription)
+            }
+            
+            
+            cell.time.text = Funcs.minutesToHour(prenotationList[indexPath.row].timeInMinute)
+            cell.services.text = nameReservation
+            cell.number.text = "Duration: \(totalDuration) Min"
+            return cell
+        } else {
+            let cell = freeTimeSlotCollectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! freeTimeBarberCollectionViewCell
+            cell.label.text = Funcs.minutesToHour(Funcs.bookableSlotsInMinutes[indexPath.row])
+            
+            return cell
         }
     }
     
