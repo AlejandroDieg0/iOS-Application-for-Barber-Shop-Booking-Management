@@ -79,7 +79,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Description" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eN2-w3-TSY">
-                                <rect key="frame" x="69" y="256" width="295" height="58"/>
+                                <rect key="frame" x="69" y="256" width="238" height="58"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
@@ -94,10 +94,11 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Njx-5r-8ZN">
-                                <rect key="frame" x="11" y="515" width="343" height="30"/>
+                            <button opaque="NO" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Njx-5r-8ZN">
+                                <rect key="frame" x="306" y="256" width="58" height="58"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="FavouriteButton"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" image="heartnotpress"/>
                                 <connections>
                                     <action selector="setFavourite:" destination="RvJ-Ki-QDK" eventType="touchUpInside" id="MzC-4a-DEJ"/>
                                 </connections>
@@ -199,10 +200,10 @@
                                             <rect key="frame" x="0.0" y="0.0" width="170" height="70"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="URu-et-qo0">
-                                                    <rect key="frame" x="13" y="8" width="61" height="55"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="scissors" translatesAutoresizingMaskIntoConstraints="NO" id="URu-et-qo0">
+                                                    <rect key="frame" x="13" y="8" width="55" height="55"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="61" id="Bqs-mb-DgK"/>
+                                                        <constraint firstAttribute="width" constant="55" id="Bqs-mb-DgK"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Service Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="U2d-wd-xH7">
@@ -228,7 +229,7 @@
                                             <constraint firstItem="U2d-wd-xH7" firstAttribute="top" secondItem="lag-hV-sOW" secondAttribute="topMargin" constant="5" id="LJ7-2F-l6n"/>
                                             <constraint firstItem="CG8-MJ-Pow" firstAttribute="top" secondItem="lag-hV-sOW" secondAttribute="topMargin" constant="25" id="ehV-ww-cHP"/>
                                             <constraint firstItem="URu-et-qo0" firstAttribute="top" secondItem="lag-hV-sOW" secondAttribute="topMargin" id="hKe-Y5-K0P"/>
-                                            <constraint firstItem="U2d-wd-xH7" firstAttribute="leading" secondItem="URu-et-qo0" secondAttribute="trailing" constant="13" id="hXn-Ka-4bX"/>
+                                            <constraint firstItem="U2d-wd-xH7" firstAttribute="leading" secondItem="URu-et-qo0" secondAttribute="trailing" constant="19" id="hXn-Ka-4bX"/>
                                             <constraint firstItem="URu-et-qo0" firstAttribute="leading" secondItem="lag-hV-sOW" secondAttribute="leadingMargin" constant="5" id="ppH-bq-8bR"/>
                                             <constraint firstItem="URu-et-qo0" firstAttribute="centerY" secondItem="lag-hV-sOW" secondAttribute="centerY" id="xWS-tV-2GH"/>
                                         </constraints>
@@ -731,12 +732,16 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Ciao " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="egB-SN-KAA">
-                                                    <rect key="frame" x="132" y="129" width="220" height="33"/>
+                                                    <rect key="frame" x="148" y="40" width="165" height="33"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                                    <color key="textColor" red="0.40000000600000002" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="textColor" red="0.1647058824" green="0.19215686269999999" blue="0.1960784314" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="userimage" translatesAutoresizingMaskIntoConstraints="NO" id="yaj-Av-IpL">
+                                                    <rect key="frame" x="24" y="40" width="109" height="109"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -992,12 +997,15 @@
         <image name="call-answer" width="64" height="64"/>
         <image name="cancel-music" width="64" height="64"/>
         <image name="facebook (2)" width="64" height="64"/>
+        <image name="heartnotpress" width="32" height="32"/>
         <image name="icona" width="380" height="380"/>
         <image name="mail" width="64" height="64"/>
         <image name="map-placeholder" width="32" height="32"/>
+        <image name="scissors" width="64" height="64"/>
         <image name="textlogo" width="375" height="150"/>
         <image name="time" width="32" height="32"/>
         <image name="user" width="32" height="32"/>
+        <image name="userimage" width="256" height="256"/>
         <image name="verify-sign" width="64" height="64"/>
     </resources>
 </document>
