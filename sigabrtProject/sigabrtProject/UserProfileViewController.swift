@@ -1,10 +1,3 @@
-//
-//  TestViewController.swift
-//  SIGABRTUserProfileViewController
-//
-//  Created by Fabio on 15/05/2017.
-//  Copyright © 2017 Fabio Borgato. All rights reserved.
-//
 
 import UIKit
 import Firebase

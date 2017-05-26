@@ -1,13 +1,7 @@
-//
-//  UserReservationViewController.swift
-//  sigabrtProject
-//
-//  Created by Francesco Molitierno on 19/05/2017.
-//  Copyright © 2017 Alessandro Cascino. All rights reserved.
-//
-
 import UIKit
 import FSCalendar
+import Nuke
+import Firebase
 
 class UserReservationViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, FSCalendarDataSource, FSCalendarDelegate, UIGestureRecognizerDelegate {
     
@@ -110,9 +104,20 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "defCell", for: indexPath) as!  ServiceCollectionViewCell
             
             cell.labelServiceName.text = selectedShop.services[indexPath.row].name
-            cell.labelServicePrice.text = "\(selectedShop.services[indexPath.row].price)€"
+            cell.labelServicePrice.text = "\(selectedShop.services[indexPath.row].price) €"
+            
+            let imageURL = Storage.storage().reference(forURL: "gs://sigabrt-iosda.appspot.com/").child("services/\(selectedShop.services[indexPath.row].name).png")
+            
+            imageURL.downloadURL(completion: { (url, error) in
+                
+                print(imageURL)
+                if url != nil {Nuke.loadImage(with: url!, into: cell.imageViewService)}
+                
+                
+            })
             
             return cell
+            
         } else {
             
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! freeTimeBarberCollectionViewCell

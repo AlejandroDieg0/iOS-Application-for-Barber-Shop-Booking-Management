@@ -1,10 +1,3 @@
-//
-//  Shop.swift
-//  sigabrtProject
-//
-//  Created by Francesco Molitierno on 15/05/2017.
-//  Copyright © 2017 Alessandro Cascino. All rights reserved.
-//
 
 import UIKit
 import MapKit
