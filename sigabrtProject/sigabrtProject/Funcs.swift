@@ -202,7 +202,6 @@ class Funcs: NSObject {
     }
     
     static func calcSlots(day: Date, busySlots: [Int], collection: UICollectionView) {
-        print(busySlots)
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yy-MM-dd"
         dateFormatter.locale = Locale(identifier: "en_US")
@@ -214,23 +213,18 @@ class Funcs: NSObject {
         let slotsInADay = 1440 / slotSizeInMinutes
         
         for currslot in 0 ... slotsInADay {
-            var isBookable = false
-            
             let currentSlotMinute = currslot * slotSizeInMinutes
-            if let arrayDay = (Funcs.currentShop.hours?[selectedDay[0]]){
+            if let arrayDay = Funcs.currentShop.hours?[selectedDay[0]]{
                 for shopOpeningFrame in arrayDay {
                     //TODO: bisogna aggiungere a currentSlotMinute la durata del servizio (dei servizi) selezionati
-                    if (currentSlotMinute >= shopOpeningFrame[0] && currentSlotMinute < shopOpeningFrame[1] && !bookableSlotsInMinutes.contains(currentSlotMinute) && !busySlots.contains(currentSlotMinute)){
-                        isBookable = true
-                    }
-                    //TODO: ulteriore if per controllare che currentSlotMinute non sia già nell'array delle prenotazioni (non sia già prenotato)
-                    if (isBookable){
+                    if (currentSlotMinute >= shopOpeningFrame[0] &&
+                        currentSlotMinute < shopOpeningFrame[1] &&
+                        !busySlots.contains(currentSlotMinute)){
+                        
                         bookableSlotsInMinutes.append(currentSlotMinute)
-                        isBookable = false
                     }
                 }
             }
-            
         }
         collection.reloadData()
     }
