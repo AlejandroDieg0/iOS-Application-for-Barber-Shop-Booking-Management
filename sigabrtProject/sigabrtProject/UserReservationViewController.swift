@@ -10,12 +10,17 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
     @IBOutlet weak var calendar: FSCalendar!
     @IBOutlet weak var animationSwitch: UISwitch!
     
+    @IBOutlet weak var barbershopName: UILabel!
+    @IBOutlet weak var barbershopPhone: UILabel!
+    @IBOutlet weak var barbershopAddress: UILabel!
+    
     @IBOutlet weak var calendarHeightConstraint: NSLayoutConstraint!
     
     let slotSizeInMinutes = 15
     var selectedDate : Date = Date()
-
+    var selectedTimeInMinutes = 0
     var selectedShop: Shop!
+    var selectedServices : [Service] = []
     
     fileprivate lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -37,15 +42,22 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
         if UIDevice.current.model.hasPrefix("iPad") {
             self.calendarHeightConstraint.constant = 400
         }
-        self.timeCollectionView.delegate = self
-        self.timeCollectionView.dataSource = self
+        timeCollectionView.delegate = self
+        timeCollectionView.dataSource = self
+        timeCollectionView.allowsMultipleSelection = false
+        servicesCollectionView.allowsMultipleSelection = true
+
         self.calendar.select(Date())
         
         self.view.addGestureRecognizer(self.scopeGesture)
         self.servicesCollectionView.panGestureRecognizer.require(toFail: self.scopeGesture)
         self.calendar.scope = .week
         let data = selectedDate
-
+        
+        barbershopName.text = selectedShop.name
+        barbershopPhone.text = selectedShop.phone
+        barbershopAddress.text = selectedShop.address
+        
         Funcs.busySlots(date: data, collection: timeCollectionView)
         
         
@@ -149,7 +161,57 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
 
         }
     }
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        if (collectionView == self.servicesCollectionView) {
+                self.selectedServices = self.selectedServices.filter { $0.name != selectedShop.services[indexPath.row].name }
+            
+                collectionView.cellForItem(at: indexPath)?.contentView.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
+            }
+    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if (collectionView == self.servicesCollectionView) {
+            
+            collectionView.cellForItem(at: indexPath)?.contentView.backgroundColor = UIColor(red: 144/255, green: 175/255, blue: 197/255, alpha: 1)
+            self.selectedServices.append(selectedShop.services[indexPath.row])
+            
+        }else{
+            selectedTimeInMinutes = Funcs.bookableSlotsInMinutes[indexPath.row]
+            
+            for cell in self.timeCollectionView.visibleCells{
+                cell.contentView.backgroundColor = UIColor(red: 144/255, green: 175/255, blue: 197/255, alpha: 1)
+            }
+            
+            collectionView.cellForItem(at: indexPath)?.contentView.backgroundColor = UIColor(red: 51/255, green: 107/255, blue: 135/255, alpha: 1)
+            
+            print(selectedTimeInMinutes)
+            }
+
+        }
     
-    
+    @IBAction func saveReservation(_ sender: Any) {
+        //TODO: Vogliamo dare la possibilità al utente di inserire delle note durante la prenotazione ??
+        let note = "NoNote"
+        
+        let actionSheet = UIAlertController(title: "", message: "Confirm prenotation", preferredStyle: .actionSheet)
+        
+        actionSheet.addAction(UIAlertAction(title: "OK", style: .default) { action in
+            
+            Funcs.addReservation(time: self.selectedTimeInMinutes, note: note, services: self.selectedServices, date: self.selectedDate)
+            self.selectedTimeInMinutes = 0
+            self.selectedServices = []
+            let selectedItems = self.servicesCollectionView.indexPathsForSelectedItems
+            for indexPath in selectedItems! {
+                self.servicesCollectionView.deselectItem(at: indexPath, animated:true)
+                if self.servicesCollectionView.cellForItem(at: indexPath) != nil {
+                    self.servicesCollectionView.cellForItem(at: indexPath)?.contentView.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
+                }
+            }
+        })
+        
+        actionSheet.addAction(UIAlertAction(title: "CANCEL", style: .cancel, handler: nil))
+        
+        self.present(actionSheet, animated: true, completion:  nil)
+        
+    }
     
 }

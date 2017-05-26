@@ -50,7 +50,6 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
 
         Funcs.busySlots(date: data, collection: freeTimeSlotCollectionView)
         
-        //self.time.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
         servicesTableView.allowsMultipleSelection = true
         servicesTableView.delegate = self
         servicesTableView.dataSource = self
@@ -111,6 +110,12 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
         actionSheet.addAction(UIAlertAction(title: "OK", style: .default) { action in
             
             Funcs.addReservation(time: self.selectedTimeInMinutes, note: note, services: self.selectedServices, date: self.selectedDate)
+            self.selectedTimeInMinutes = 0
+            self.selectedServices = []
+            let selectedItems = self.servicesTableView.indexPathsForSelectedRows
+            for indexPath in selectedItems! {
+                self.servicesTableView.deselectRow(at: indexPath, animated:true)
+            }
         })
         
         actionSheet.addAction(UIAlertAction(title: "CANCEL", style: .cancel, handler: nil))
@@ -136,6 +141,12 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.selectedServices.append(services[indexPath.row])
+    }
+    
+    func tableView(_ tableView: UITableView, willDeselectRowAt indexPath: IndexPath) -> IndexPath? {
+        self.selectedServices = self.selectedServices.filter { $0.name != services[indexPath.row].name }
+        
+        return indexPath
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
