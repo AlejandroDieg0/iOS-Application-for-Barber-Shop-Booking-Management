@@ -15,7 +15,7 @@ class bottomScrollable: UIViewController{
         let map = MapViewController()
         let fullView: CGFloat = 150
         var partialView: CGFloat {
-            return UIScreen.main.bounds.height - 275
+            return UIScreen.main.bounds.height - 115
         }
 
         
@@ -113,8 +113,10 @@ extension bottomScrollable: UITableViewDelegate, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: UITableViewCellStyle.default , reuseIdentifier: "shop")
-        cell.textLabel?.text = "Cella esempio"
+        let cell = tableView.dequeueReusableCell(withIdentifier: "shop", for: indexPath) as! nearShop
+        cell.shopName.text = "prova"
+        cell.distance.text = "7.8km"
+        cell.imgShop.image = #imageLiteral(resourceName: "barbe")
         return cell
     }
 }

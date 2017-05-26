@@ -132,6 +132,7 @@
 		9B0474391EC9EBEA0075A6A6 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				2119E3771ED734D90089238B /* nearShop.swift */,
 				9BFBF98B1EBA232500DA7D25 /* Main.storyboard */,
 				E33F8BE51EC9EE5E00705497 /* User.storyboard */,
 				9BFBF9901EBA232500DA7D25 /* LaunchScreen.storyboard */,
@@ -154,7 +155,6 @@
 				9BFBF9891EBA232500DA7D25 /* ViewController.swift */,
 				9B04743B1EC9FAA30075A6A6 /* MapViewController.swift */,
 				2134D0311ED71CDE002A14AF /* bottomScrollable.swift */,
-				2119E3771ED734D90089238B /* nearShop.swift */,
 				9B0CC8961ECC7A7F007550FB /* PageViewController.swift */,
 				E526F8D81ECD68680023846A /* LoginViewController.swift */,
 				C3D330BB1ED3420200000E67 /* ShopDetailViewController.swift */,
