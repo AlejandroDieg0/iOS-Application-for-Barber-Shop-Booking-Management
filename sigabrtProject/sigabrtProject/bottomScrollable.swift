@@ -10,25 +10,28 @@ import UIKit
 
 class bottomScrollable: UIViewController{
 
-    
+
     @IBOutlet weak var tableView: UITableView!
         let map = MapViewController()
         let fullView: CGFloat = 150
         var partialView: CGFloat {
-            return UIScreen.main.bounds.height - 100
+            return UIScreen.main.bounds.height - 275
         }
+
         
         override func viewDidAppear(_ animated: Bool) {
             super.viewDidAppear(animated)
             
+            print(UIScreen.main.bounds.height)
             UIView.animate(withDuration: 0.6, animations: { [weak self] in
                 let frame = self?.view.frame
                 let yComponent = self?.partialView
                 self?.view.frame = CGRect(x: 0, y: yComponent!, width: frame!.width, height: frame!.height - 100)
             })
         }
-        
-        
+    
+
+    
         override func didReceiveMemoryWarning() {
             super.didReceiveMemoryWarning()
             // Dispose of any resources that can be recreated.
@@ -66,7 +69,7 @@ class bottomScrollable: UIViewController{
             
             UIView.animate(withDuration: duration, delay: 0.0, options: [.allowUserInteraction], animations: {
                 if  velocity.y >= 0 {
-                    self.map.zoomMap()
+//                    self.map.zoomMap()
                     self.view.frame = CGRect(x: 0, y: self.partialView, width: self.view.frame.width, height: self.view.frame.height)
                 } else {
                     self.view.frame = CGRect(x: 0, y: self.fullView, width: self.view.frame.width, height: self.view.frame.height)
@@ -103,20 +106,15 @@ class bottomScrollable: UIViewController{
 
 extension bottomScrollable: UITableViewDelegate, UITableViewDataSource {
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 30
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 50
-    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: UITableViewCellStyle.default , reuseIdentifier: "shop")
+        cell.textLabel?.text = "Cella esempio"
         return cell
     }
 }
