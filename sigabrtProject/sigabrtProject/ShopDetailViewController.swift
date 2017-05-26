@@ -86,6 +86,7 @@ class ShopDetailViewController: UIViewController, UICollectionViewDataSource, UI
         if Funcs.flagFavBarber == 0 {
             Funcs.flagFavBarber = 1
             buttonFavourite.setTitle("Remove Favourite!", for: .normal)
+            buttonFavourite.setImage(#imageLiteral(resourceName: "heartpress"), for: .normal)
             if Funcs.loggedUser != nil {
                 var ref: DatabaseReference!
                 ref = Database.database().reference().child("user/\((Auth.auth().currentUser?.uid)!)")
@@ -95,6 +96,7 @@ class ShopDetailViewController: UIViewController, UICollectionViewDataSource, UI
         } else {
             Funcs.flagFavBarber = 0
             buttonFavourite.setTitle("Set Favourite!", for: .normal)
+            buttonFavourite.setImage(#imageLiteral(resourceName: "heartnotpress"), for: .normal)
             if Funcs.loggedUser != nil {
                 var ref: DatabaseReference!
                 ref = Database.database().reference().child("user/\((Auth.auth().currentUser?.uid)!)")
