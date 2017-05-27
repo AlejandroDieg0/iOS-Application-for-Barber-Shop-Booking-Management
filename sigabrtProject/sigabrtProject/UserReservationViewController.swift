@@ -21,6 +21,7 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
     var selectedTimeInMinutes = 0
     var selectedShop: Shop!
     var selectedServices : [Service] = []
+    var selectedDuration = 0
     
     fileprivate lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -58,7 +59,7 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
         barbershopPhone.text = selectedShop.phone
         barbershopAddress.text = selectedShop.address
         
-        Funcs.busySlots(date: data, collection: timeCollectionView)
+        Funcs.busySlots(date: data, duration: selectedDuration, collection: timeCollectionView)
         
         
         // For UITest
@@ -93,7 +94,7 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         self.selectedDate = date
-        Funcs.busySlots(date: date, collection: timeCollectionView)
+        Funcs.busySlots(date: date, duration: self.selectedDuration, collection: timeCollectionView)
         
         if monthPosition == .next || monthPosition == .previous {
             calendar.setCurrentPage(date, animated: true)

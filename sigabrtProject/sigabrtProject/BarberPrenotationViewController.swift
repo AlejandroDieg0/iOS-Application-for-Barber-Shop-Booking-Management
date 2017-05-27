@@ -19,6 +19,7 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
     var selectedTimeInMinutes: Int!
     var services: [Service] = []
     var selectedServices : [Service] = []
+    var selectedDuration = 0
     
     var selectedTipo: [String] = []
     var selectedPrezzo : [Int] = []
@@ -48,7 +49,7 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
             self.calendarHeightConstraint.constant = 400
         }
 
-        Funcs.busySlots(date: data, collection: freeTimeSlotCollectionView)
+        Funcs.busySlots(date: data, duration: selectedDuration, collection: freeTimeSlotCollectionView)
         
         servicesTableView.allowsMultipleSelection = true
         servicesTableView.delegate = self
@@ -92,7 +93,7 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         print("did select date \(date)")
         self.selectedDate = date
-        Funcs.busySlots(date: date, collection: freeTimeSlotCollectionView)
+        Funcs.busySlots(date: date, duration: self.selectedDuration, collection: freeTimeSlotCollectionView)
         
         if monthPosition == .next || monthPosition == .previous {
             calendar.setCurrentPage(date, animated: true)
@@ -148,11 +149,14 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.selectedServices.append(services[indexPath.row])
+        self.selectedDuration = self.selectedDuration + services[indexPath.row].duration
+        Funcs.busySlots(date: self.selectedDate, duration: self.selectedDuration, collection: freeTimeSlotCollectionView)
     }
     
     func tableView(_ tableView: UITableView, willDeselectRowAt indexPath: IndexPath) -> IndexPath? {
         self.selectedServices = self.selectedServices.filter { $0.name != services[indexPath.row].name }
-        
+        self.selectedDuration = self.selectedDuration - services[indexPath.row].duration
+        Funcs.busySlots(date: self.selectedDate, duration: self.selectedDuration, collection: freeTimeSlotCollectionView)
         return indexPath
     }
 
