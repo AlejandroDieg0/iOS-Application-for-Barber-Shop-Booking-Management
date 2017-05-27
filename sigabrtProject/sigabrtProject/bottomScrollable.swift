@@ -1,10 +1,3 @@
-//
-//  bottomScrollable.swift
-//  sigabrtProject
-//
-//  Created by Luigi Faticoso on 25/05/2017.
-//  Copyright © 2017 Alessandro Cascino. All rights reserved.
-//
 
 import UIKit
 

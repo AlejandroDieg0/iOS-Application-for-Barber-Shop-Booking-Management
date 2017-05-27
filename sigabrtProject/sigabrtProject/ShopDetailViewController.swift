@@ -1,10 +1,4 @@
-//
-//  ShopDetailViewController.swift
-//  sigabrtProject
-//
-//  Created by Feliciano Cindolo on 22/05/2017.
-//  Copyright © 2017 Alessandro Cascino. All rights reserved.
-//
+
 
 import UIKit
 import Nuke
@@ -37,7 +31,10 @@ class ShopDetailViewController: UIViewController, UICollectionViewDataSource, UI
         labelDescription.text = barber?.desc
         labelAddress.text = barber?.address
         labelPhone.text = barber?.phone
-        Nuke.loadImage(with: (barber?.logo)!, into: imageBarberShop)
+        
+        if barber?.logo != nil { Nuke.loadImage(with: (barber?.logo)!, into: imageBarberShop) }
+        
+        
         buttonFavourite.setTitle(Funcs.flagFavBarber == 0 ? "Set Favourite!" : "Remove Favourite!", for: .normal)
 
         // labelHours.text = "Opening Hours: \((barber?.hours[0][0])!/60):00"
@@ -59,17 +56,15 @@ class ShopDetailViewController: UIViewController, UICollectionViewDataSource, UI
         imageURL.downloadURL(completion: { (url, error) in
             
             print(imageURL)
-            Nuke.loadImage(with: url!, into: cell.img)
+            
+            if url != nil { Nuke.loadImage(with: url!, into: cell.img) }
+            
             
         })
 
-        
-        
-        
-    
-
         return cell
     }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -86,6 +81,7 @@ class ShopDetailViewController: UIViewController, UICollectionViewDataSource, UI
         if Funcs.flagFavBarber == 0 {
             Funcs.flagFavBarber = 1
             buttonFavourite.setTitle("Remove Favourite!", for: .normal)
+            buttonFavourite.setImage(#imageLiteral(resourceName: "heartpress"), for: .normal)
             if Funcs.loggedUser != nil {
                 var ref: DatabaseReference!
                 ref = Database.database().reference().child("user/\((Auth.auth().currentUser?.uid)!)")
@@ -95,6 +91,7 @@ class ShopDetailViewController: UIViewController, UICollectionViewDataSource, UI
         } else {
             Funcs.flagFavBarber = 0
             buttonFavourite.setTitle("Set Favourite!", for: .normal)
+            buttonFavourite.setImage(#imageLiteral(resourceName: "heartnotpress"), for: .normal)
             if Funcs.loggedUser != nil {
                 var ref: DatabaseReference!
                 ref = Database.database().reference().child("user/\((Auth.auth().currentUser?.uid)!)")

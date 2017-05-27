@@ -1,10 +1,4 @@
-//
-//  Funcs.swift
-//  sigabrtProject
-//
-//  Created by Francesco Molitierno on 19/05/2017.
-//  Copyright © 2017 Alessandro Cascino. All rights reserved.
-//
+
 
 import UIKit
 import Firebase
@@ -128,6 +122,23 @@ class Funcs: NSObject {
             print(error.localizedDescription)
         }
     }
+//    static func getUserNameByUID(uid: String, textLabel: UILabel) -> String {
+//        var name = ""
+//        ref.child("user").child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
+//            // Get user value
+//            if let value = snapshot.value as? NSDictionary {
+//                name = value["name"] as? String ?? ""
+//                textLabel.text = name
+//                print(name)
+//            }
+//        }) { (error) in
+//            print(error.localizedDescription)
+//            name = "NoName"
+//        }
+//        print("the name is \(name)")
+//        return name
+//
+//    }
     
     static func loadCurrentShop(){
         let user = Auth.auth().currentUser
@@ -202,7 +213,6 @@ class Funcs: NSObject {
     }
     
     static func calcSlots(day: Date, busySlots: [Int], collection: UICollectionView) {
-        print(busySlots)
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yy-MM-dd"
         dateFormatter.locale = Locale(identifier: "en_US")
@@ -214,23 +224,18 @@ class Funcs: NSObject {
         let slotsInADay = 1440 / slotSizeInMinutes
         
         for currslot in 0 ... slotsInADay {
-            var isBookable = false
-            
             let currentSlotMinute = currslot * slotSizeInMinutes
-            if let arrayDay = (Funcs.currentShop.hours?[selectedDay[0]]){
+            if let arrayDay = Funcs.currentShop.hours?[selectedDay[0]]{
                 for shopOpeningFrame in arrayDay {
                     //TODO: bisogna aggiungere a currentSlotMinute la durata del servizio (dei servizi) selezionati
-                    if (currentSlotMinute >= shopOpeningFrame[0] && currentSlotMinute < shopOpeningFrame[1] && !bookableSlotsInMinutes.contains(currentSlotMinute) && !busySlots.contains(currentSlotMinute)){
-                        isBookable = true
-                    }
-                    //TODO: ulteriore if per controllare che currentSlotMinute non sia già nell'array delle prenotazioni (non sia già prenotato)
-                    if (isBookable){
+                    if (currentSlotMinute >= shopOpeningFrame[0] &&
+                        currentSlotMinute < shopOpeningFrame[1] &&
+                        !busySlots.contains(currentSlotMinute)){
+                        
                         bookableSlotsInMinutes.append(currentSlotMinute)
-                        isBookable = false
                     }
                 }
             }
-            
         }
         collection.reloadData()
     }

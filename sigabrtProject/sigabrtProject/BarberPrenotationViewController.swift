@@ -50,7 +50,6 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
 
         Funcs.busySlots(date: data, collection: freeTimeSlotCollectionView)
         
-        //self.time.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
         servicesTableView.allowsMultipleSelection = true
         servicesTableView.delegate = self
         servicesTableView.dataSource = self
@@ -107,15 +106,28 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
     @IBAction func save(_ sender: UIBarButtonItem) {
         let note = self.name.text
         let actionSheet = UIAlertController(title: "", message: "Confirm prenotation", preferredStyle: .actionSheet)
-        
+        let errorAlert = UIAlertController(title: "Missing Informations", message: "Please check the details of your reservations", preferredStyle: .actionSheet)
+
         actionSheet.addAction(UIAlertAction(title: "OK", style: .default) { action in
             
             Funcs.addReservation(time: self.selectedTimeInMinutes, note: note, services: self.selectedServices, date: self.selectedDate)
+            self.selectedTimeInMinutes = 0
+            self.selectedServices = []
+            let selectedItems = self.servicesTableView.indexPathsForSelectedRows
+            for indexPath in selectedItems! {
+                self.servicesTableView.deselectRow(at: indexPath, animated:true)
+            }
         })
         
         actionSheet.addAction(UIAlertAction(title: "CANCEL", style: .cancel, handler: nil))
+        errorAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         
-        self.present(actionSheet, animated: true, completion:  nil)
+        if (self.selectedTimeInMinutes == 0 ||  self.selectedServices.count == 0 ){
+            self.present(errorAlert, animated: true, completion:  nil)
+
+        }else{
+            self.present(actionSheet, animated: true, completion:  nil)
+        }
         
         
     }
@@ -136,6 +148,12 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.selectedServices.append(services[indexPath.row])
+    }
+    
+    func tableView(_ tableView: UITableView, willDeselectRowAt indexPath: IndexPath) -> IndexPath? {
+        self.selectedServices = self.selectedServices.filter { $0.name != services[indexPath.row].name }
+        
+        return indexPath
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
