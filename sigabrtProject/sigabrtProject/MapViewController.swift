@@ -133,10 +133,11 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
                 let imageURL = Storage.storage().reference(forURL: "gs://sigabrt-iosda.appspot.com/").child("barbers/\(ID).png")
                 
                 imageURL.downloadURL(completion: { (url, error) in
-                    
                     self.pins[tempPin] = Shop(ID: ID, name: barberName, desc: barberDesc, coordinate: tempPin.coordinate, phone: barberPhone, address: barberAddress, services: barberServices, logo: url, hours: hours)
-//                    self.barbers.append( self.pins[tempPin]!)
-                    
+                    self.barbers.append( self.pins[tempPin]!)
+                    self.addBottomSheetView()
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadTableView"), object: self)
+
                     self.personalMap.addAnnotation(tempPin)
                     self.initializeSearchBar()
 //                    self.nearBarberShops.reloadData()
@@ -240,7 +241,9 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
         
         //qui vanno passati gli shop
         //come bottomSheetVC.variabileArrayDellaScrollableView = array
-        
+        bottomSheetVC.barbersShop = barbers
+        bottomSheetVC.tableView.reloadData()
+
         let height = view.frame.height
         let width  = view.frame.width
         bottomSheetVC.view.frame = CGRect(x: 0,y: self.view.frame.maxY,width: width,height: height)

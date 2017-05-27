@@ -1,5 +1,6 @@
 
 import UIKit
+import Nuke
 
 class bottomScrollable: UIViewController{
 
@@ -7,6 +8,7 @@ class bottomScrollable: UIViewController{
     @IBOutlet weak var tableView: UITableView!
         let map = MapViewController()
         let fullView: CGFloat = 150
+        var barbersShop : [Shop] = [] // Qui first of all ti ho definito un array di Shop
         var partialView: CGFloat {
             return UIScreen.main.bounds.height - 115
         }
@@ -20,10 +22,18 @@ class bottomScrollable: UIViewController{
                 let yComponent = self?.partialView
                 self?.view.frame = CGRect(x: 0, y: yComponent!, width: frame!.width, height: frame!.height - 100)
             })
+            
+            NotificationCenter.default.addObserver(
+                self,
+                selector: #selector(bottomScrollable.reloadData),
+                name: NSNotification.Name(rawValue: "reloadTableView"),
+                object: nil)
         }
     
 
-    
+    func reloadData(){
+        self.tableView.reloadData()
+    }
         override func didReceiveMemoryWarning() {
             super.didReceiveMemoryWarning()
             // Dispose of any resources that can be recreated.
@@ -100,15 +110,17 @@ extension bottomScrollable: UITableViewDelegate, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 30
+        return barbersShop.count
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "shop", for: indexPath) as! nearShop
-        cell.shopName.text = "prova"
-        cell.distance.text = "7.8km"
-        cell.imgShop.image = #imageLiteral(resourceName: "barbe")
+        
+        
+        cell.shopName.text = barbersShop[indexPath.row].name
+        cell.distance.text = "7.8km" //
+        Nuke.loadImage(with: barbersShop[indexPath.row].logo!, into: cell.imgShop)
         return cell
     }
 }
