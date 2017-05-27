@@ -15,7 +15,6 @@ class bottomScrollable: UIViewController{
         override func viewDidAppear(_ animated: Bool) {
             super.viewDidAppear(animated)
             
-            print(UIScreen.main.bounds.height)
             UIView.animate(withDuration: 0.6, animations: { [weak self] in
                 let frame = self?.view.frame
                 let yComponent = self?.partialView

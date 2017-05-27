@@ -10,8 +10,6 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
     @IBOutlet weak var personalMap: MKMapView!
     
     @IBOutlet weak var modernSearchBar: ModernSearchBar!
-//    
-//    @IBOutlet weak var nearBarberShops: UITableView!
     
     @IBOutlet weak var imgShop: UIImageView!
     
@@ -230,6 +228,7 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
         }
     }
     
+
     func addBottomSheetView() {
         
         let bottomSheetVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "bottomScrollable") as! bottomScrollable
@@ -238,6 +237,9 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
         
         self.view.addSubview(bottomSheetVC.view)
         bottomSheetVC.didMove(toParentViewController: self)
+        
+        //qui vanno passati gli shop
+        //come bottomSheetVC.variabileArrayDellaScrollableView = array
         
         let height = view.frame.height
         let width  = view.frame.width
