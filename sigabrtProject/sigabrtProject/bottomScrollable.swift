@@ -119,7 +119,7 @@ extension bottomScrollable: UITableViewDelegate, UITableViewDataSource {
         
         
         cell.shopName.text = barbersShop[indexPath.row].name
-        cell.distance.text = "7.8km" //
+        cell.distance.text = "7.8km"
         Nuke.loadImage(with: barbersShop[indexPath.row].logo!, into: cell.imgShop)
         return cell
     }
