@@ -146,7 +146,6 @@ class UserProfileViewController: UITableViewController {
         }
         let loginManager = FBSDKLoginManager()
         loginManager.logOut()
-        self.navigationController?.popViewController(animated: true)
         return
     }
    

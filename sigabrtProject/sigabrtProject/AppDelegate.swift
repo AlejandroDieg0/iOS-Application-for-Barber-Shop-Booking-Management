@@ -38,7 +38,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         Auth.auth().addStateDidChangeListener { auth, user in
             if user != nil {
-                
                 Funcs.loadUserData(){loadedUser in
                     print(loadedUser.userType)
                     if(loadedUser.userType == 1){
@@ -47,9 +46,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     print("barbiere")
                     }
                 }
-                
             } else {
-                // No User is signed in. Show user the login screen
+                let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "mapView")
+                self.window?.rootViewController = vc
             }
         }
         
