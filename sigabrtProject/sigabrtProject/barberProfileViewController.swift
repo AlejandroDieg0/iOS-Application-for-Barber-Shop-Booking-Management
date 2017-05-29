@@ -15,21 +15,16 @@ class barberProfileViewController: UITableViewController {
     @IBOutlet weak var changePhone: UITextField!
     @IBOutlet weak var logoBarber: UIImageView!
     
-    @IBOutlet weak var tableViewService: UITableView!
-    
     @IBOutlet weak var sendMailPwReset: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableViewService.delegate = self
-        tableViewService.dataSource = self
         logoBarber.layer.cornerRadius = logoBarber.frame.size.width/2
         // let editBarButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.edit, target: self, action: Selector(("setEditing")))
         navigationItem.rightBarButtonItem = editButtonItem
         
         //GESTURE
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UserProfileViewController.dismissKeyboard))
-        view.addGestureRecognizer(tap)
+        self.hideKeyboardWhenTappedAround()
         
         self.changeName.isUserInteractionEnabled = false
         self.changeMail.isUserInteractionEnabled = false
@@ -194,46 +189,46 @@ class barberProfileViewController: UITableViewController {
         }
     }
     
-    //TABLE VIEW
-     override func numberOfSections(in tableView: UITableView) -> Int {
-        if tableView == self.tableViewService {
-        return 1
-        }
-        else{
-            return super.numberOfSections(in: tableView)
-        }
-    }
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-       if tableView == self.tableViewService {
-        return Funcs.currentShop.services.count
-       } else {
-        return super.tableView(tableView, numberOfRowsInSection: section)
-        }
-    }
-    
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-       if tableView == self.tableViewService {
-        let cell = tableViewService.dequeueReusableCell(withIdentifier: "serviceCell", for: indexPath) as! barberSelfServiceTableViewCell
-        cell.labelService.text = Funcs.currentShop.services[indexPath.row].name
-        cell.labelPrice.text = String(Funcs.currentShop.services[indexPath.row].price) + "€"
-        return cell
-       }
-       else{
-        return super.tableView(tableView, cellForRowAt: indexPath)
-        }
-    }
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-    }
-
-    
-    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
-        return .none
-    }
-    
-    override func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
-        return false
-    }
+//    //TABLE VIEW
+//     override func numberOfSections(in tableView: UITableView) -> Int {
+//        if tableView == self.tableViewService {
+//        return 1
+//        }
+//        else{
+//            return super.numberOfSections(in: tableView)
+//        }
+//    }
+//    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//       if tableView == self.tableViewService {
+//        return Funcs.currentShop.services.count
+//       } else {
+//        return super.tableView(tableView, numberOfRowsInSection: section)
+//        }
+//    }
+//    
+//    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//       if tableView == self.tableViewService {
+//        let cell = tableViewService.dequeueReusableCell(withIdentifier: "serviceCell", for: indexPath) as! barberSelfServiceTableViewCell
+//        cell.labelService.text = Funcs.currentShop.services[indexPath.row].name
+//        cell.labelPrice.text = String(Funcs.currentShop.services[indexPath.row].price) + "€"
+//        return cell
+//       }
+//       else{
+//        return super.tableView(tableView, cellForRowAt: indexPath)
+//        }
+//    }
+//    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        
+//    }
+//
+//    
+//    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+//        return .none
+//    }
+//    
+//    override func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
+//        return false
+//    }
     // REAUTH
     func createAlert(){
         let alert = UIAlertController(title: "Authentication", message: "", preferredStyle: UIAlertControllerStyle.alert)
