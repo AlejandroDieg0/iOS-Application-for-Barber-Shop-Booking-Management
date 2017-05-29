@@ -36,6 +36,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.window?.rootViewController = vc
         }
         
+        Auth.auth().addStateDidChangeListener { auth, user in
+            if user != nil {
+                
+                Funcs.loadUserData(){loadedUser in
+                    print(loadedUser.userType)
+                    if(loadedUser.userType == 1){
+                        let vc = UIStoryboard(name: "Barber", bundle: nil).instantiateViewController(withIdentifier: "barberView")
+                        self.window?.rootViewController = vc
+                    }
+                }
+                
+            } else {
+                // No User is signed in. Show user the login screen
+            }
+        }
+        
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         
         let navigationBarAppearance = UINavigationBar.appearance()

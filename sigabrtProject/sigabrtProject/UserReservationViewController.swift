@@ -100,7 +100,7 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
         barbershopPhone.text = selectedShop.phone
         barbershopAddress.text = selectedShop.address
         
-        Funcs.busySlots(shop: Funcs.currentShop, date: data, duration: selectedDuration, collection: timeCollectionView)
+        Funcs.busySlots(shop: selectedShop, date: data, duration: selectedDuration, collection: timeCollectionView)
         
         
         // For UITest
@@ -158,7 +158,7 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         self.selectedDate = date
-        Funcs.busySlots(shop: Funcs.currentShop, date: date, duration: self.selectedDuration, collection: timeCollectionView)
+        Funcs.busySlots(shop: selectedShop, date: date, duration: self.selectedDuration, collection: timeCollectionView)
         
         if monthPosition == .next || monthPosition == .previous {
             calendar.setCurrentPage(date, animated: true)
@@ -268,7 +268,7 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
 
         actionSheet.addAction(UIAlertAction(title: "OK", style: .default) { action in
             
-            Funcs.addReservation(time: self.selectedTimeInMinutes, note: note, services: self.selectedServices, date: self.selectedDate)
+            Funcs.addReservation(shop: self.selectedShop, time: self.selectedTimeInMinutes, note: note, services: self.selectedServices, date: self.selectedDate)
             self.selectedTimeInMinutes = 0
             self.selectedServices = []
             let selectedItems = self.servicesCollectionView.indexPathsForSelectedItems
