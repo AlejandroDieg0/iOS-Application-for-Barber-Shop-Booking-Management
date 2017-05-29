@@ -479,6 +479,9 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <state key="normal" title="Book"/>
+                                <connections>
+                                    <action selector="bookTapped:" destination="lF1-KV-fy8" eventType="touchUpInside" id="3rg-BL-DNu"/>
+                                </connections>
                             </button>
                         </barButtonItem>
                         <connections>
@@ -495,7 +498,7 @@
                         <outlet property="labelDescription" destination="mDu-t9-PGU" id="3x9-XG-TfB"/>
                         <outlet property="labelHours" destination="5xo-px-Jpd" id="2si-ff-epN"/>
                         <outlet property="labelPhone" destination="UjE-t2-WME" id="MWu-gu-KMe"/>
-                        <segue destination="ZFh-yO-Rjp" kind="show" identifier="userReservation" id="Vkd-FB-TEF"/>
+                        <segue destination="ZFh-yO-Rjp" kind="show" identifier="GotoBooking" id="Vkd-FB-TEF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="orZ-23-8zg" userLabel="First Responder" sceneMemberID="firstResponder"/>
