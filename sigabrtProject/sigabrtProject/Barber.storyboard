@@ -596,7 +596,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vCC-FB-ghe">
-                                                    <rect key="frame" x="36" y="11" width="45" height="21"/>
+                                                    <rect key="frame" x="19" y="11" width="114" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -642,6 +642,7 @@
                     </view>
                     <connections>
                         <outlet property="serviceTableView" destination="sfy-5d-0fx" id="7Y6-2q-pQ4"/>
+                        <outlet property="tableViewController" destination="4si-Fm-8O9" id="gdz-xO-eIe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PjN-dI-GVr" userLabel="First Responder" sceneMemberID="firstResponder"/>
