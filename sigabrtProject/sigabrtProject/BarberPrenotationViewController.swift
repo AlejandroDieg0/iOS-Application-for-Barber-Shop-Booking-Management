@@ -79,6 +79,7 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
                 
                 self.services.append(Service(name: tipo, duration: duration, price: price))
                 self.servicesTableView.reloadData()
+                
             }})
     }
     

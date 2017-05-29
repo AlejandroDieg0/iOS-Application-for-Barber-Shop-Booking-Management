@@ -40,6 +40,7 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
     let user = Auth.auth().currentUser
     
     var selectedShop: Shop!
+    var loadingAlert: UIAlertController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,15 +65,21 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
         
         self.view.addGestureRecognizer(self.scopeGesture)
         
+        loadingAlert = Funcs.inizializeLoadAnimation()
+        present(loadingAlert, animated: true, completion: nil)
+        
         Funcs.loadShop(){loadedShop in
             self.selectedShop = loadedShop
             Funcs.busySlots(shop: loadedShop, date: data, duration: 0, collection: self.freeTimeSlotCollectionView)
-            self.readData()
+            self.navigationItem.title = "\(loadedShop.name) - Panel"
+            self.dismiss(animated: false, completion: {self.readData()})
+            
         }
     }
     
     
     func readData(){
+        present(loadingAlert, animated: true, completion: nil)
         prenotationList.removeAll()
         self.prenotationCollectionView.reloadData()
         //FIRBASE REFERENCE
@@ -105,6 +112,7 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
         
         // UPDATED AT
         
+        self.dismiss(animated: false, completion: nil)
         let x = isInternetAvailable()
         if x == true{
             self.updated.textColor = UIColor.darkGray
@@ -208,7 +216,7 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let detailBarber = segue.destination as? BarberDetailViewController{
+        if let detailBarber = segue.destination as? BarberPrenotationViewController{
             detailBarber.selectedShop = self.selectedShop
         }
     }

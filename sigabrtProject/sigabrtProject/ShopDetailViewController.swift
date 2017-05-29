@@ -26,7 +26,7 @@ class ShopDetailViewController: UIViewController, UICollectionViewDataSource, UI
         cvGallery.delegate = self
         cvGallery.dataSource = self
         self.view.addSubview(cvGallery)
-        print(barber?.desc)
+        
         labelBarberName.text = barber?.name
         labelDescription.text = barber?.desc
         labelAddress.text = barber?.address
@@ -71,8 +71,7 @@ class ShopDetailViewController: UIViewController, UICollectionViewDataSource, UI
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "GotoBooking"{
-            let secondVC = segue.destination as! UserReservationViewController
+        if let secondVC = segue.destination as? UserReservationViewController{
             secondVC.selectedShop = barber!
         }
     }

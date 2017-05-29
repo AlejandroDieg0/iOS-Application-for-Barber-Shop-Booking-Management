@@ -77,6 +77,18 @@ class Funcs: NSObject {
         }
     }
     
+    static func inizializeLoadAnimation() -> UIAlertController{
+        let AlertController = UIAlertController(title: nil, message: "Please wait...", preferredStyle: .alert)
+        
+        let loadingIndicator = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50))
+        loadingIndicator.hidesWhenStopped = true
+        loadingIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
+        loadingIndicator.startAnimating()
+        
+        AlertController.view.addSubview(loadingIndicator)
+        return AlertController
+    }
+    
     static func addReservation(shop: Shop, time: Int, note: String?, services: [Service], date: Date){
         let ref: DatabaseReference = Database.database().reference()
         
@@ -115,7 +127,6 @@ class Funcs: NSObject {
                 let mail = user?.email
                 self.loggedUser = User(name: name, mail: mail!, phone: phone, userType: userType, favBarberId: favBarber)
                 completion(self.loggedUser)
-                print(self.loggedUser.favBarberId)
             }
         }) { (error) in
             print(error.localizedDescription)
@@ -229,8 +240,6 @@ class Funcs: NSObject {
                 }
                 
                 self.calcSlots(shop: shop, day: date, busySlots: busySlots, duration: duration, collection: collection)
-                
-                print(time)
             }})
         self.calcSlots(shop: shop, day: date, busySlots: busySlots, duration: duration, collection: collection)
         
