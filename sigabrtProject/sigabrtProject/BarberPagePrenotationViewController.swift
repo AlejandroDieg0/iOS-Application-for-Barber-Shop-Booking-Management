@@ -219,6 +219,9 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
         if let detailBarber = segue.destination as? BarberPrenotationViewController{
             detailBarber.selectedShop = self.selectedShop
         }
+        if let detailBarber = segue.destination as? BarberDetailViewController{
+            detailBarber.selectedShop = self.selectedShop
+        }
     }
     
     func isInternetAvailable() -> Bool
