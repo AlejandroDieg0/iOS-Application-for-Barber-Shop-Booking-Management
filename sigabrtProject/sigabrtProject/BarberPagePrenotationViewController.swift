@@ -139,11 +139,8 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
     }
     
     @IBAction func addPrenotation(_ sender: UIBarButtonItem) {
-        
         performSegue(withIdentifier: "addItem", sender: nil)
-        
     }
-    
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1

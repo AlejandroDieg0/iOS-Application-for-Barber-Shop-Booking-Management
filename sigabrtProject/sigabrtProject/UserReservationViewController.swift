@@ -8,13 +8,14 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
     @IBOutlet weak var timeCollectionView: UICollectionView!
     @IBOutlet weak var servicesCollectionView: UICollectionView!
     @IBOutlet weak var calendar: FSCalendar!
-    @IBOutlet weak var animationSwitch: UISwitch!
     
     @IBOutlet weak var barbershopName: UILabel!
     @IBOutlet weak var barbershopPhone: UILabel!
     @IBOutlet weak var barbershopAddress: UILabel!
     
     @IBOutlet weak var calendarHeightConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var barberPhoto: UIImageView!
     
     let slotSizeInMinutes = 15
     var selectedDate : Date = Date()
@@ -39,6 +40,9 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        barberPhoto.layer.cornerRadius = barberPhoto.frame.size.width/2
+        barberPhoto.clipsToBounds = true
         print(selectedShop.desc)
         if UIDevice.current.model.hasPrefix("iPad") {
             self.calendarHeightConstraint.constant = 400
@@ -91,6 +95,30 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
         self.calendarHeightConstraint.constant = bounds.height
         self.view.layoutIfNeeded()
     }
+ 
+//    func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
+//        
+//        let currentDate = Date()
+//        print(currentDate)
+//        
+//        if date < currentDate{
+//            
+//            return false
+//        }
+//        else{
+//            return true
+//            
+//        }
+//
+//    }
+    
+    func minimumDate(for calendar: FSCalendar) -> Date {
+     
+        let today = Date()
+        
+        return today
+    }
+    
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         self.selectedDate = date
@@ -103,8 +131,11 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
     
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
         print("\(self.dateFormatter.string(from: calendar.currentPage))")
+        
+        
+        
     }
-    
+   
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
