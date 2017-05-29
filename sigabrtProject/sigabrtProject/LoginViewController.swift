@@ -38,40 +38,13 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(LoginViewController.dismissKeyboard))
-        view.addGestureRecognizer(tap)
-        
-        logIn.backgroundColor = UIColor.clear
-        logIn.layer.borderWidth = 1.3
-        logIn.layer.borderColor = UIColor.white.withAlphaComponent(0.7).cgColor
-        
-        signUp.backgroundColor = UIColor.clear
-        signUp.layer.borderWidth = 1.3
-        signUp.layer.borderColor = UIColor.white.withAlphaComponent(0.7).cgColor
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        //handle = Auth.auth().addStateDidChangeListener() { (auth, user) in
-        
-        //}
-        
         error.alpha = 0
         loginError.alpha = 0
     }
-    
-    override func dismissKeyboard() {
-        view.endEditing(true)
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        // [START remove_auth_listener]
-        //Auth.auth().removeStateDidChangeListener(handle!)
-        // [END remove_auth_listener]
-    }
-    
     
     @IBAction func login(_ sender: UIButton) {
         
@@ -102,9 +75,24 @@ class LoginViewController: UIViewController {
                 // print(" \n [ERROR] Can't Sign In \n   withError: \( error!.localizedDescription) \n")
                 // let alert = ErrorMessageView.createAlert(title: "Can't Sign In!", message: "(error!.localizedDescription)")
                 //   self.show(alert, sender: nil)
-                self.passw.shake()
-                self.email.shake()
-                self.loginError.text = "No user found."
+                
+                if let errCode = AuthErrorCode(rawValue: error!._code) {
+                    
+                    switch errCode {
+                    case AuthErrorCode.userNotFound:
+                        self.loginError.text = "User not found"
+                        self.email.shake()
+                    case AuthErrorCode.invalidEmail:
+                        self.loginError.text = "Invalid Email"
+                        self.email.shake()
+                    case AuthErrorCode.wrongPassword:
+                        self.loginError.text = "Wrong password"
+                        self.passw.shake()
+                    default:
+                        self.loginError.text = error!.localizedDescription
+                        print("Login User Error: \(error!.localizedDescription)")
+                    }
+                }
                 UIView.animate(withDuration: 0.3, animations: {
                     self.loginError.alpha = 1
                 })
@@ -145,16 +133,24 @@ class LoginViewController: UIViewController {
         Auth.auth().createUser(withEmail: signUpMail, password: signUpPassword, completion: { (user, error) in
             
             guard error == nil else {
-                // print(" \n [ERROR] Can't create an Account \n   withError: \(error!.localizedDescription) \n")
-                
-                self.signUpMail.shake()
-                self.signUpPassword.shake()
+                print("Can't create an Account \n   withError: \(error!.localizedDescription) \n")
+                if let errCode = AuthErrorCode(rawValue: error!._code) {
+                    switch errCode {
+                    case AuthErrorCode.invalidEmail:
+                        self.error.text = "Invalid Email"
+                        self.signUpMail.shake()
+                    default:
+                        self.error.text = error!.localizedDescription
+                        self.signUpMail.shake()
+                        self.signUpPassword.shake()
+                    }
+                }
                 self.error.text = error!.localizedDescription
                 UIView.animate(withDuration: 0.3, animations: {
                     self.error.alpha = 1
                 })
                 
-                // let alert = ErrorMessageView.createAlert(title: "Can't create an Account!", message: "withError: \(error!.localizedDescription)")
+                //let alert = ErrorMessageView.createAlert(title: "Can't create an Account!", message: "withError: \(error!.localizedDescription)")
                 //self.show(alert, sender: nil)
                 
                 return
@@ -169,7 +165,6 @@ class LoginViewController: UIViewController {
             self.performSegue(withIdentifier: "loginSuccess", sender: nil)
             
         })
-        
     }
     
     @IBAction func newAccount(_ sender: UIButton) {
@@ -184,25 +179,6 @@ class LoginViewController: UIViewController {
     
     @IBAction func cancelButton(_ sender: Any) {
         Funcs.animateOut(sender: loginView)
-    }
-    @IBAction func prenota(_ sender: Any) {
-        switch Auth.auth().currentUser {
-            
-        case nil:
-            print(" \n Current User is logged out \n  show LoginViewController \n")
-            Funcs.animateIn(sender: loginView)
-        default:
-            
-            Funcs.animateIn(sender: confirmPrenotation)
-        }
-    }
-    
-    @IBAction func buttone(_ sender: Any) {
-        Funcs.animateOut(sender: confirmPrenotation)
-        
-        /*UIView.animate(withDuration: 0.4) {
-         self.visualEffect.alpha = 0
-         }*/
     }
     
     @IBAction func fbLogin(_ sender: Any) {

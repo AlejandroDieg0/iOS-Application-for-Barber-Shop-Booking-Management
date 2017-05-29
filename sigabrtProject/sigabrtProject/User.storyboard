@@ -434,25 +434,6 @@
                     <view key="view" contentMode="scaleToFill" id="f9T-HI-JEx">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eyL-mU-QoM">
-                                <rect key="frame" x="150" y="318" width="74" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="PRENOTA"/>
-                                <connections>
-                                    <action selector="prenota:" destination="Uef-ij-fR3" eventType="touchUpInside" id="aRZ-yI-XsO"/>
-                                </connections>
-                            </button>
-                            <visualEffectView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8fl-aT-v7r">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" id="gpy-wu-aFX">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                </view>
-                                <blurEffect style="dark"/>
-                            </visualEffectView>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
@@ -468,7 +449,6 @@
                         <outlet property="signUpMail" destination="Gjq-7h-BXb" id="bJN-gj-QX0"/>
                         <outlet property="signUpPassword" destination="usw-Xg-A01" id="6LR-SK-8l9"/>
                         <outlet property="signupView" destination="Dqi-Xf-JvZ" id="hIm-Ry-2Xa"/>
-                        <outlet property="visualEffect" destination="8fl-aT-v7r" id="xeS-Gc-CZQ"/>
                         <segue destination="0e9-X5-6qz" kind="show" identifier="loginSuccess" id="K3r-MU-HFi">
                             <nil key="action"/>
                         </segue>
@@ -785,7 +765,7 @@
                     <color key="backgroundColor" red="0.56470588239999997" green="0.68627450980000004" blue="0.7725490196" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 </view>
             </objects>
-            <point key="canvasLocation" x="1008.8" y="163.26836581709148"/>
+            <point key="canvasLocation" x="-868" y="991"/>
         </scene>
         <!--User Profile View Controller-->
         <scene sceneID="mug-eE-bzh">
@@ -991,7 +971,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FQh-j0-cbM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2248.8000000000002" y="162.3688155922039"/>
+            <point key="canvasLocation" x="-123" y="991"/>
         </scene>
         <!--MapSelector-->
         <scene sceneID="T4m-Qz-qnk">
@@ -999,7 +979,7 @@
                 <viewControllerPlaceholder storyboardName="Main" referencedIdentifier="MapSelector" id="cYJ-Ol-weZ" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="I3Z-5L-hSF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2942" y="577"/>
+            <point key="canvasLocation" x="414" y="789"/>
         </scene>
         <!--History View Controller-->
         <scene sceneID="BCE-Ft-5m0">
@@ -1054,7 +1034,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4ri-oh-84g" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3013.5999999999999" y="162.3688155922039"/>
+            <point key="canvasLocation" x="596" y="991"/>
         </scene>
     </scenes>
     <resources>
