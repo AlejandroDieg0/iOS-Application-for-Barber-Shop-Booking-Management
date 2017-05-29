@@ -26,7 +26,7 @@ class ShopDetailViewController: UIViewController, UICollectionViewDataSource, UI
         cvGallery.delegate = self
         cvGallery.dataSource = self
         self.view.addSubview(cvGallery)
-        print(barber!.desc)
+        print(barber?.desc)
         labelBarberName.text = barber?.name
         labelDescription.text = barber?.desc
         labelAddress.text = barber?.address

@@ -308,8 +308,8 @@
                         <outlet property="modernSearchBar" destination="bJY-g1-5eJ" id="U7E-fA-vhF"/>
                         <outlet property="personalMap" destination="HVf-rn-sfE" id="EjC-V7-IOm"/>
                         <outlet property="searchDisplayController" destination="NSK-o6-UB6" id="eEp-hS-OFA"/>
-                        <segue destination="ZFh-yO-Rjp" kind="show" identifier="userReservation" id="shD-VO-vaa"/>
-                        <segue destination="9Xo-gz-L9g" kind="show" identifier="loginSuccess" id="6bx-oA-fdQ"/>
+                        <segue destination="lF1-KV-fy8" kind="show" identifier="barberDetail" id="dRz-cd-GhH"/>
+                        <segue destination="9Xo-gz-L9g" kind="show" identifier="loginSuccess" id="ycD-aW-Vk6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -334,7 +334,7 @@
                 <viewControllerPlaceholder storyboardName="User" referencedIdentifier="loginSuccess" id="9Xo-gz-L9g" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e1r-vy-Sz2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1149" y="908"/>
+            <point key="canvasLocation" x="1066" y="857"/>
         </scene>
         <!--User-->
         <scene sceneID="mYc-Ed-GGw">
@@ -342,7 +342,7 @@
                 <viewControllerPlaceholder storyboardName="User" id="ZFh-yO-Rjp" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NhY-Gz-2W8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1150" y="1027"/>
+            <point key="canvasLocation" x="2182" y="982"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Q2x-V1-584">
@@ -368,11 +368,153 @@
             </objects>
             <point key="canvasLocation" x="-471" y="983"/>
         </scene>
+        <!--Shop Detail View Controller-->
+        <scene sceneID="njN-Wa-qsy">
+            <objects>
+                <viewController storyboardIdentifier="BarberDetail" id="lF1-KV-fy8" customClass="ShopDetailViewController" customModule="sigabrtProject" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="FNl-G4-B4B"/>
+                        <viewControllerLayoutGuide type="bottom" id="htN-JA-jfB"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="JWP-cZ-NoL">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="3Hd-kF-VKs">
+                                <rect key="frame" x="0.0" y="64" width="375" height="203"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="IxM-zh-rIF">
+                                    <size key="itemSize" width="188" height="183"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" reuseIdentifier="imageCell" id="zpx-oZ-14E" customClass="GalleryCollectionViewCell" customModule="sigabrtProject" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="-22" width="188" height="183"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="188" height="183"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zTg-B0-xZO">
+                                                    <rect key="frame" x="4" y="0.0" width="180" height="180"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                            </subviews>
+                                        </view>
+                                        <connections>
+                                            <outlet property="img" destination="zTg-B0-xZO" id="aJS-j0-Mcn"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="lF1-KV-fy8" id="RkP-8L-HEd"/>
+                                    <outlet property="delegate" destination="lF1-KV-fy8" id="pvm-cX-XUP"/>
+                                </connections>
+                            </collectionView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EYv-vn-6Tg" userLabel="barberLogo">
+                                <rect key="frame" x="11" y="275" width="58" height="58"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <rect key="contentStretch" x="0.29999999999999999" y="0.29999999999999999" width="0.69999999999999996" height="0.69999999999999996"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Phone" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UjE-t2-WME">
+                                <rect key="frame" x="11" y="367" width="353" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Hours" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5xo-px-Jpd">
+                                <rect key="frame" x="11" y="397" width="353" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Description" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mDu-t9-PGU">
+                                <rect key="frame" x="69" y="275" width="295" height="58"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Address" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LCd-dg-nwk">
+                                <rect key="frame" x="11" y="337" width="353" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Set as your favourite barber" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wQ0-8T-QFb">
+                                <rect key="frame" x="11" y="601" width="353" height="58"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h0m-cJ-81R">
+                                <rect key="frame" x="306" y="601" width="58" height="58"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" image="heartnotpress"/>
+                                <connections>
+                                    <action selector="setFavourite:" destination="lF1-KV-fy8" eventType="touchUpInside" id="z40-eZ-iww"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="P20-Pc-TnK">
+                        <barButtonItem key="rightBarButtonItem" title="Item" id="sZJ-HM-AAR">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Qhm-nQ-ftf">
+                                <rect key="frame" x="315" y="6" width="44" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <state key="normal" title="Book"/>
+                            </button>
+                        </barButtonItem>
+                        <connections>
+                            <outlet property="titleView" destination="icJ-29-HGz" id="Wd5-GT-p51"/>
+                        </connections>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <outlet property="buttonFavourite" destination="h0m-cJ-81R" id="lhi-HP-hJ6"/>
+                        <outlet property="cvGallery" destination="3Hd-kF-VKs" id="cpw-4M-IGf"/>
+                        <outlet property="imageBarberShop" destination="EYv-vn-6Tg" id="clw-Gv-MN5"/>
+                        <outlet property="labelAddress" destination="LCd-dg-nwk" id="Ofh-7e-CKO"/>
+                        <outlet property="labelBarberName" destination="icJ-29-HGz" id="4sM-bf-RYe"/>
+                        <outlet property="labelDescription" destination="mDu-t9-PGU" id="3x9-XG-TfB"/>
+                        <outlet property="labelHours" destination="5xo-px-Jpd" id="2si-ff-epN"/>
+                        <outlet property="labelPhone" destination="UjE-t2-WME" id="MWu-gu-KMe"/>
+                        <segue destination="ZFh-yO-Rjp" kind="show" identifier="userReservation" id="Vkd-FB-TEF"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="orZ-23-8zg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Barber Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="icJ-29-HGz">
+                    <rect key="frame" x="0.0" y="0.0" width="343" height="41"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </objects>
+            <point key="canvasLocation" x="1593" y="983"/>
+        </scene>
     </scenes>
     <resources>
         <image name="1" width="343" height="400"/>
         <image name="2" width="343" height="400"/>
         <image name="3" width="343" height="400"/>
+        <image name="heartnotpress" width="32" height="32"/>
         <image name="scissor" width="32" height="32"/>
         <image name="textlogo" width="375" height="150"/>
         <image name="user" width="32" height="32"/>

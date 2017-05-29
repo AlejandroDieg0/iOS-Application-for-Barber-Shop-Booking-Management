@@ -338,6 +338,10 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
             self.passw.text = ""
             
             Funcs.animateOut(sender: self.loginView)
+           
+            if ViewController.self == MapViewController.self {
+                self.performSegue(withIdentifier: "loginSuccess", sender: nil)
+            }
           
         })
     }

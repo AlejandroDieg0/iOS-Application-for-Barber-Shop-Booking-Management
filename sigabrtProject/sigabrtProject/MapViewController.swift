@@ -45,13 +45,14 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
     @IBAction func loginButton(_ sender: Any) {
         if Auth.auth().currentUser != nil {
             
-            self.performSegue(withIdentifier: "userReservation", sender: nil)
+            self.performSegue(withIdentifier: "loginSuccess", sender: nil)
             return
         }
         
         let controller = UIStoryboard(name: "User", bundle: nil).instantiateViewController(withIdentifier: "profileVC") as? UserReservationViewController
         self.addChildViewController(controller!)
-       Funcs.animateIn(sender: (controller?.loginView)!)
+     
+        Funcs.animateIn(sender: (controller?.loginView)!)
     }
     
     override func didReceiveMemoryWarning() {
@@ -175,7 +176,7 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
         let shop = self.pins[tempAnnotation!]
         if control == view.rightCalloutAccessoryView{
             self.currentBarber = shop
-            performSegue(withIdentifier: "userReservation", sender: nil)
+            performSegue(withIdentifier: "barberDetail", sender: nil)
             
         }
     }
@@ -213,7 +214,7 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        if segue.identifier == "userReservation"{
+        if segue.identifier == "barberDetail"{
             let secondVC = segue.destination as! ShopDetailViewController
             secondVC.barber = self.currentBarber
         }
