@@ -51,7 +51,7 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
         
         let controller = UIStoryboard(name: "User", bundle: nil).instantiateViewController(withIdentifier: "profileVC") as? UserReservationViewController
         self.addChildViewController(controller!)
-      // Funcs.animateIn(sender: (controller?.loginView)!)
+       Funcs.animateIn(sender: (controller?.loginView)!)
     }
     
     override func didReceiveMemoryWarning() {
