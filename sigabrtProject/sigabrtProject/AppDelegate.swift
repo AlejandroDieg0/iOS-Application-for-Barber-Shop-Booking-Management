@@ -41,8 +41,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 Funcs.loadUserData(){loadedUser in
                     print(loadedUser.userType)
                     if(loadedUser.userType == 1){
-                        let vc = UIStoryboard(name: "Barber", bundle: nil).instantiateViewController(withIdentifier: "barberView")
-                        self.window?.rootViewController = vc
+//                        let vc = UIStoryboard(name: "Barber", bundle: nil).instantiateViewController(withIdentifier: "barberView")
+//                        self.window?.rootViewController = vc
+                    print("barbiere")
                     }
                 }
             } else {
