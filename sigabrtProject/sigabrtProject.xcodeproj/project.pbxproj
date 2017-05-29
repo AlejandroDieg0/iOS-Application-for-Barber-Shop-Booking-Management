@@ -40,6 +40,8 @@
 		E51D33E51ED07AE9004C9BEF /* addModifyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51D33E41ED07AE9004C9BEF /* addModifyCollectionViewCell.swift */; };
 		E521F3091ED225FD00F5AC84 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = E521F3081ED225FD00F5AC84 /* Service.swift */; };
 		E521F30B1ED466BC00F5AC84 /* freeTimeBarberTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E521F30A1ED466BC00F5AC84 /* freeTimeBarberTableViewCell.swift */; };
+		E52520091EDC5EBE00367813 /* historyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52520081EDC5EBE00367813 /* historyViewController.swift */; };
+		E525200B1EDC5F8200367813 /* historyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E525200A1EDC5F8200367813 /* historyTableViewCell.swift */; };
 		E526BED11ED49273005251A7 /* barberProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E526BED01ED49273005251A7 /* barberProfileViewController.swift */; };
 		E526BED31ED5DF5A005251A7 /* barberSelfServiceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E526BED21ED5DF5A005251A7 /* barberSelfServiceTableViewCell.swift */; };
 		E526F8D91ECD68680023846A /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E526F8D81ECD68680023846A /* LoginViewController.swift */; };
@@ -87,6 +89,8 @@
 		E51D33E41ED07AE9004C9BEF /* addModifyCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = addModifyCollectionViewCell.swift; sourceTree = "<group>"; };
 		E521F3081ED225FD00F5AC84 /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		E521F30A1ED466BC00F5AC84 /* freeTimeBarberTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = freeTimeBarberTableViewCell.swift; sourceTree = "<group>"; };
+		E52520081EDC5EBE00367813 /* historyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = historyViewController.swift; sourceTree = "<group>"; };
+		E525200A1EDC5F8200367813 /* historyTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = historyTableViewCell.swift; sourceTree = "<group>"; };
 		E526BED01ED49273005251A7 /* barberProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = barberProfileViewController.swift; sourceTree = "<group>"; };
 		E526BED21ED5DF5A005251A7 /* barberSelfServiceTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = barberSelfServiceTableViewCell.swift; sourceTree = "<group>"; };
 		E526F8D81ECD68680023846A /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -145,6 +149,7 @@
 				E526BED21ED5DF5A005251A7 /* barberSelfServiceTableViewCell.swift */,
 				F3EF9A111ED46FBE00BA2A6A /* ServiceCollectionViewCell.swift */,
 				9B2123BD1ED5D25A008A437D /* GalleryCollectionViewCell.swift */,
+				E525200A1EDC5F8200367813 /* historyTableViewCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -168,6 +173,7 @@
 				E51D33DE1ED07663004C9BEF /* BarberPrenotationViewController.swift */,
 				E51D33E21ED07674004C9BEF /* BarberPagePrenotationViewController.swift */,
 				F354A5041EDC529F0085E3AC /* BarberDetailViewController.swift */,
+				E52520081EDC5EBE00367813 /* historyViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -360,6 +366,7 @@
 				E521F3091ED225FD00F5AC84 /* Service.swift in Sources */,
 				9BD9F5081ECDD2EA006768F6 /* ModernSearchBarDelegate.swift in Sources */,
 				9B2123BE1ED5D25A008A437D /* GalleryCollectionViewCell.swift in Sources */,
+				E52520091EDC5EBE00367813 /* historyViewController.swift in Sources */,
 				E526BED11ED49273005251A7 /* barberProfileViewController.swift in Sources */,
 				9BFBF98A1EBA232500DA7D25 /* ViewController.swift in Sources */,
 				9BD9F5091ECDD2EA006768F6 /* ModernSearchBarIcon.swift in Sources */,
@@ -386,6 +393,7 @@
 				F3EF9A121ED46FBE00BA2A6A /* ServiceCollectionViewCell.swift in Sources */,
 				E33F8BEC1EC9F70000705497 /* Shop.swift in Sources */,
 				E526BED31ED5DF5A005251A7 /* barberSelfServiceTableViewCell.swift in Sources */,
+				E525200B1EDC5F8200367813 /* historyTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
