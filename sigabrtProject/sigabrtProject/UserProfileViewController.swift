@@ -20,10 +20,7 @@ class UserProfileViewController: UITableViewController {
     
     // REAUTH
     @IBOutlet weak var reauthPassword: UITextField!
-
     @IBOutlet weak var sendMailPwReset: UIButton!
-
-   
     
     // ICON
     @IBOutlet weak var userNameIcon: UIImageView!
@@ -44,10 +41,7 @@ class UserProfileViewController: UITableViewController {
         self.changeName.isUserInteractionEnabled = false
         self.changeMail.isUserInteractionEnabled = false
         self.changePhone.isUserInteractionEnabled = false
-        
 
-   
-    
         
         if(FBSDKAccessToken.current() != nil){
             
@@ -76,7 +70,11 @@ class UserProfileViewController: UITableViewController {
         }else{
             if Auth.auth().currentUser != nil {
                 
-                loadUserData()
+                self.changeName.text = Funcs.loggedUser.name
+                self.changePhone.text = Funcs.loggedUser.phone
+                self.changeMail.text = Funcs.loggedUser.mail
+                self.helloName.text = "Hello \(self.changeName.text!)"
+                
                 if Funcs.loggedUser != nil{
                     labelFavBarber.text = "DA SISTEMARE"
                 } else {
@@ -87,48 +85,6 @@ class UserProfileViewController: UITableViewController {
                 helloName.text = "Hello User!"
             }
         }
-
-        
-    }
-    
-    func loadUserData(){
-        let user = Auth.auth().currentUser
-        let ref = Database.database().reference()
-        ref.child("user").child((user?.uid)!).observeSingleEvent(of: .value, with: { (snapshot) in
-            // Get user value
-            if let value = snapshot.value as? NSDictionary {
-                self.changePhone.text = value["phone"] as? String ?? ""
-                self.changeName.text = value["name"] as? String ?? ""
-                let favBarber = value["favbarber"] as? Int ?? -1
-                let userType = value["usertime"] as? Int ?? 1
-                self.changeMail.text = user?.email
-                self.helloName.text = "Hello \(self.changeName.text!)"
-                Funcs.loggedUser = User(name: self.changeName.text!, mail: self.changeMail.text!, phone: self.changePhone.text!, userType: userType, favBarberId: favBarber)
-            } else {
-                self.inizializeUserData()
-            }
-            // ...
-        }) { (error) in
-            print(error.localizedDescription)
-        }
-    }
-    
-    
-    func inizializeUserData(){
-        let user = Auth.auth().currentUser
-        if (user != nil){
-            let ref: DatabaseReference = Database.database().reference()
-            let post = [
-                "name":  "",
-                "phone": "",
-                "favbarber":   Funcs.flagFavBarber,
-                "usertype": 1,
-                ] as [String : Any]
-            
-            ref.child("user/\(user!.uid)/").setValue(post)
-            print("New User Data inizialidez")
-        }
-        
     }
     
     override func dismissKeyboard() {

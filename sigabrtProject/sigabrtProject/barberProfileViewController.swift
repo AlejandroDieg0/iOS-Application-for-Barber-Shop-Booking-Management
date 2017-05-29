@@ -72,8 +72,10 @@ class barberProfileViewController: UITableViewController {
             
         }else{
             if Auth.auth().currentUser != nil {
-                
-                loadUserData()
+                self.changeName.text = Funcs.loggedUser.name
+                self.changePhone.text = Funcs.loggedUser.phone
+                self.changeMail.text = Funcs.loggedUser.mail
+                self.helloName.text = "Hello \(self.changeName.text!)"
                 
             } else {
                 print("no logged with Firebase")
@@ -100,61 +102,23 @@ class barberProfileViewController: UITableViewController {
     }
     
     func doneEditing() {
-                    let ref = Database.database().reference().child("user/\(Auth.auth().currentUser?.uid ?? "noLogin")")
-                    ref.updateChildValues([
-                        "name": self.changeName.text!,
-                        "phone": self.changePhone.text!,
-                        ])
-        
-                    self.changePhone.isUserInteractionEnabled = false
-                    self.changePhone.textColor = UIColor.gray
-        
-                    self.changeMail.isUserInteractionEnabled = false
-                    self.changeMail.textColor = UIColor.gray
-        
-                    self.changeName.isUserInteractionEnabled = false
-                    self.changeName.textColor = UIColor.gray
-                    
-                    print("Changes Uploaded")
-    }
-    
-    
-    func loadUserData(){
-        let user = Auth.auth().currentUser
-        let ref = Database.database().reference()
-        ref.child("user").child((user?.uid)!).observeSingleEvent(of: .value, with: { (snapshot) in
-            // Get user value
-            if let value = snapshot.value as? NSDictionary {
-                self.changePhone.text = value["phone"] as? String ?? ""
-                self.changeName.text = value["name"] as? String ?? ""
-                self.changeMail.text = user?.email
-                self.helloName.text = "Hello \(self.changeName.text!)"
-            } else {
-                self.inizializeUserData()
-            }
-            // ...
-        }) { (error) in
-            print(error.localizedDescription)
-        }
-    }
+        let ref = Database.database().reference().child("user/\(Auth.auth().currentUser?.uid ?? "noLogin")")
+        ref.updateChildValues([
+            "name": self.changeName.text!,
+            "phone": self.changePhone.text!,
+            ])
 
-    func inizializeUserData(){
-        let user = Auth.auth().currentUser
-        if (user != nil){
-            let ref: DatabaseReference = Database.database().reference()
-            let post = [
-                "name":  "",
-                "phone": "",
-                "favbarber":   -1,
-                ] as [String : Any]
-            
-            ref.child("user/\(user!.uid)/").setValue(post)
-            print("New User Data inizialidez")
-        }
-        
-    }
+        self.changePhone.isUserInteractionEnabled = false
+        self.changePhone.textColor = UIColor.gray
 
-    // logout
+        self.changeMail.isUserInteractionEnabled = false
+        self.changeMail.textColor = UIColor.gray
+
+        self.changeName.isUserInteractionEnabled = false
+        self.changeName.textColor = UIColor.gray
+        
+        print("Changes Uploaded")
+    }
     
     @IBAction func logOut(_ sender: UIButton) {
         do {

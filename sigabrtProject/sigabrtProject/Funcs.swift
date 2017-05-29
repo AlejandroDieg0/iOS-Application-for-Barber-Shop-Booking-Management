@@ -111,21 +111,33 @@ class Funcs: NSObject {
                         "duration": service.duration] as [String : Any]
             ref.child("prenotations/\(shop.ID)/\(reservationDate)/\(key)/services").childByAutoId().setValue(post)
         }
-        
     }
+    
     static func loadUserData(completion: @escaping (_ result: User) -> Void){
         let user = Auth.auth().currentUser
         if (user == nil) {return}
         let ref = Database.database().reference()
-        ref.child("user").child((user?.uid)!).observeSingleEvent(of: .value, with: { (snapshot) in
+        ref.child("user").child(user!.uid).observeSingleEvent(of: .value, with: { (snapshot) in
             // Get user value
             if let value = snapshot.value as? NSDictionary {
                 let phone = value["phone"] as? String ?? ""
                 let name = value["name"] as? String ?? ""
                 let favBarber = value["favbarber"] as? Int ?? -1
-                let userType = value["usertime"] as? Int ?? 1
+                let userType = value["usertype"] as? Int ?? 0
                 let mail = user?.email
                 self.loggedUser = User(name: name, mail: mail!, phone: phone, userType: userType, favBarberId: favBarber)
+                completion(self.loggedUser)
+            } else {
+                let ref: DatabaseReference = Database.database().reference()
+                let post = [
+                    "name":  "",
+                    "phone": "",
+                    "favbarber": Funcs.flagFavBarber,
+                    "usertype": 0,
+                    ] as [String : Any]
+                
+                ref.child("user/\(user!.uid)/").setValue(post)
+                self.loggedUser = User(name: "", mail: "", phone: "", userType: 0, favBarberId: Funcs.flagFavBarber)
                 completion(self.loggedUser)
             }
         }) { (error) in

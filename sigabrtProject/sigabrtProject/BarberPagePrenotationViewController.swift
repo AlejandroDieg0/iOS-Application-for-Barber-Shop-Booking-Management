@@ -77,7 +77,6 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
         }
     }
     
-    
     func readData(){
         present(loadingAlert, animated: true, completion: nil)
         prenotationList.removeAll()
@@ -88,7 +87,6 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
             if let userDict = snapshot.value as? [String:Any] {
                 let note = userDict["note"] as? String ?? "test"
                 let user = userDict["user"] as? String ?? "NoName"
-
                 let time = userDict["time"] as? Int ?? 0
                 var bookedServices : [Service] = []
                 if let child = snapshot.childSnapshot(forPath: "services").value as? [String:Any] {
@@ -123,9 +121,6 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
             self.updated.text = "no internet connection"
             
         }
-        
-        
-        
         
         self.totalReservations.text = String(self.prenotationList.count)
         
@@ -166,9 +161,7 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
         } else {
             return Funcs.bookableSlotsInMinutes.count
         }
-        
     }
-    
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == self.prenotationCollectionView {
