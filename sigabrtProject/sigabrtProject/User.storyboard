@@ -437,42 +437,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="n8d-zh-jMA" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="240.80000000000001" y="161.91904047976013"/>
-        </scene>
-        <!--Login View Controller-->
-        <scene sceneID="jZv-jA-oYR">
-            <objects>
-                <viewController storyboardIdentifier="loginVC" autoresizesArchivedViewToFullSize="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Uef-ij-fR3" customClass="LoginViewController" customModule="sigabrtProject" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="10v-66-04w"/>
-                        <viewControllerLayoutGuide type="bottom" id="xNM-M5-JS5"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="f9T-HI-JEx">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <connections>
-                        <outlet property="confirmPrenotation" destination="bPa-ZL-SBX" id="j5d-wn-bn0"/>
-                        <outlet property="email" destination="52k-CF-8av" id="h8V-62-VKm"/>
-                        <outlet property="error" destination="bda-3e-jNo" id="oIr-ef-2uk"/>
-                        <outlet property="fbBut" destination="VDg-sR-Kpt" id="vVb-qr-exc"/>
-                        <outlet property="logIn" destination="ztq-LF-jVz" id="njV-ay-Iar"/>
-                        <outlet property="loginError" destination="L7P-4K-hA9" id="P20-Fy-gdO"/>
-                        <outlet property="loginView" destination="W2D-jJ-Z3o" id="rW6-zZ-CwP"/>
-                        <outlet property="passw" destination="7uo-jf-d2J" id="dVD-UD-8LH"/>
-                        <outlet property="signUp" destination="LgM-Bm-KmC" id="Ate-bk-6eA"/>
-                        <outlet property="signUpMail" destination="Gjq-7h-BXb" id="bJN-gj-QX0"/>
-                        <outlet property="signUpPassword" destination="usw-Xg-A01" id="6LR-SK-8l9"/>
-                        <outlet property="signupView" destination="Dqi-Xf-JvZ" id="hIm-Ry-2Xa"/>
-                        <segue destination="0e9-X5-6qz" kind="show" identifier="loginSuccess" id="K3r-MU-HFi">
-                            <nil key="action"/>
-                        </segue>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="9sv-TA-iom" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <view alpha="0.85000002384185791" contentMode="scaleToFill" id="W2D-jJ-Z3o">
+                <view alpha="0.85000002384185791" contentMode="scaleToFill" id="Dqi-Xf-JvZ">
                     <rect key="frame" x="0.0" y="0.0" width="330" height="380"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
@@ -763,7 +728,7 @@
                     <color key="backgroundColor" red="0.56470588239999997" green="0.68627450980000004" blue="0.7725490196" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 </view>
             </objects>
-            <point key="canvasLocation" x="-868" y="991"/>
+            <point key="canvasLocation" x="240.80000000000001" y="161.91904047976013"/>
         </scene>
         <!--User Profile View Controller-->
         <scene sceneID="mug-eE-bzh">
@@ -969,7 +934,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FQh-j0-cbM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-123" y="991"/>
+            <point key="canvasLocation" x="983" y="162"/>
         </scene>
         <!--MapSelector-->
         <scene sceneID="T4m-Qz-qnk">
@@ -1032,7 +997,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4ri-oh-84g" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="596" y="991"/>
+            <point key="canvasLocation" x="1884" y="91"/>
         </scene>
     </scenes>
     <resources>
