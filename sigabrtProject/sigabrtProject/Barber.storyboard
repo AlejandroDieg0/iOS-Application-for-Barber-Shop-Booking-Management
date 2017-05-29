@@ -634,7 +634,7 @@
                                 <rect key="frame" x="0.0" y="50" width="375" height="470"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <connections>
-                                    <segue destination="pi5-Cg-8gU" kind="embed" id="lP6-CM-rcX"/>
+                                    <segue destination="pi5-Cg-8gU" kind="embed" identifier="embededTableView" id="lP6-CM-rcX"/>
                                 </connections>
                             </containerView>
                         </subviews>

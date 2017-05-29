@@ -3,6 +3,7 @@ import UIKit
 import Firebase
 import FBSDKLoginKit
 
+
 class barberProfileViewController: UITableViewController {
     
     let firebaseAuth = Auth.auth()
@@ -16,6 +17,8 @@ class barberProfileViewController: UITableViewController {
     @IBOutlet weak var logoBarber: UIImageView!
     
     @IBOutlet weak var sendMailPwReset: UIButton!
+
+    //  var myContainerViewDelegate: BarberDetailViewController
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +26,18 @@ class barberProfileViewController: UITableViewController {
         // let editBarButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.edit, target: self, action: Selector(("setEditing")))
         navigationItem.rightBarButtonItem = editButtonItem
         
+        
+        NotificationCenter.default.addObserver(
+                self,
+                selector: #selector(barberProfileViewController.editing),
+                name: NSNotification.Name(rawValue: "editTableView"),
+                object: nil)
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(barberProfileViewController.doneEditing),
+            name: NSNotification.Name(rawValue: "doneTableView"),
+            object: nil)
         //GESTURE
         self.hideKeyboardWhenTappedAround()
         
@@ -68,6 +83,41 @@ class barberProfileViewController: UITableViewController {
         
         
     }
+    func reloadData(){
+            self.tableView.reloadData()
+           }
+
+    func editing(){
+        print("sono qui dento")
+        self.changePhone.isUserInteractionEnabled = true
+        self.changePhone.textColor = UIColor.black
+        
+        self.changeMail.isUserInteractionEnabled = true
+        self.changeMail.textColor = UIColor.black
+        
+        self.changeName.isUserInteractionEnabled = true
+        self.changeName.textColor = UIColor.black
+    }
+    
+    func doneEditing() {
+                    let ref = Database.database().reference().child("user/\(Auth.auth().currentUser?.uid ?? "noLogin")")
+                    ref.updateChildValues([
+                        "name": self.changeName.text!,
+                        "phone": self.changePhone.text!,
+                        ])
+        
+                    self.changePhone.isUserInteractionEnabled = false
+                    self.changePhone.textColor = UIColor.gray
+        
+                    self.changeMail.isUserInteractionEnabled = false
+                    self.changeMail.textColor = UIColor.gray
+        
+                    self.changeName.isUserInteractionEnabled = false
+                    self.changeName.textColor = UIColor.gray
+                    
+                    print("Changes Uploaded")
+    }
+    
     
     func loadUserData(){
         let user = Auth.auth().currentUser
@@ -103,11 +153,7 @@ class barberProfileViewController: UITableViewController {
         }
         
     }
-    
-    override func dismissKeyboard() {
-        view.endEditing(true)
-    }
-    
+
     // logout
     
     @IBAction func logOut(_ sender: UIButton) {

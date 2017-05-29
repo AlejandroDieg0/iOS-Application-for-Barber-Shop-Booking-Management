@@ -10,9 +10,10 @@ import UIKit
 import Firebase
 
 class BarberDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    
+
     @IBOutlet weak var serviceTableView: UITableView!
     @IBOutlet weak var tableViewController: UIView!
+    let barberVC = barberProfileViewController()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,37 +40,16 @@ class BarberDetailViewController: UIViewController, UITableViewDelegate, UITable
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
         
-        let tableViewInfo = tableViewController.parentViewController as! barberProfileViewController
+        // let tableViewInfo = tableViewController.parentViewController  as! barberProfileViewController
         
         if isEditing {
-            print(editing)
-            tableViewInfo.changePhone.isUserInteractionEnabled = true
-            tableViewInfo.changePhone.textColor = UIColor.black
-            
-            tableViewInfo.changeMail.isUserInteractionEnabled = true
-            tableViewInfo.changeMail.textColor = UIColor.black
-            
-            tableViewInfo.changeName.isUserInteractionEnabled = true
-            tableViewInfo.changeName.textColor = UIColor.black
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "editTableView"), object: self)
+
             
             
         } else {
-            let ref = Database.database().reference().child("user/\(Auth.auth().currentUser?.uid ?? "noLogin")")
-            ref.updateChildValues([
-                "name": tableViewInfo.changeName.text!,
-                "phone": tableViewInfo.changePhone.text!,
-                ])
-            
-            tableViewInfo.changePhone.isUserInteractionEnabled = false
-            tableViewInfo.changePhone.textColor = UIColor.gray
-            
-            tableViewInfo.changeMail.isUserInteractionEnabled = false
-            tableViewInfo.changeMail.textColor = UIColor.gray
-            
-            tableViewInfo.changeName.isUserInteractionEnabled = false
-            tableViewInfo.changeName.textColor = UIColor.gray
-            
-            print("Changes Uploaded")
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "doneTableView"), object: self)
+
             
         }
     }
