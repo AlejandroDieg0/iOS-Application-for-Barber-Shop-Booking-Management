@@ -19,20 +19,16 @@ class UserProfileViewController: UITableViewController {
     @IBOutlet weak var labelFavBarber: UILabel!
     
     // REAUTH
-    @IBOutlet weak var reauthMail: UITextField!
     @IBOutlet weak var reauthPassword: UITextField!
-    @IBOutlet weak var reauthError: UILabel!
+
     @IBOutlet weak var sendMailPwReset: UIButton!
 
-    //CHANGE BUTTON
-    @IBOutlet weak var sendMailPwbutton: UIButton!
    
     
     // ICON
     @IBOutlet weak var userNameIcon: UIImageView!
     @IBOutlet weak var mailIcon: UIImageView!
     @IBOutlet weak var phoneIcon: UIImageView!
-    @IBOutlet weak var loveIcon: UIImageView!
 
     
     override func viewDidLoad() {
@@ -49,9 +45,7 @@ class UserProfileViewController: UITableViewController {
         self.changeMail.isUserInteractionEnabled = false
         self.changePhone.isUserInteractionEnabled = false
         
-        
 
-    self.reauthError.alpha = 0
    
     
         
@@ -84,7 +78,7 @@ class UserProfileViewController: UITableViewController {
                 
                 loadUserData()
                 if Funcs.loggedUser != nil{
-                    labelFavBarber.text = Funcs.currentShop.name
+                    labelFavBarber.text = "DA SISTEMARE"
                 } else {
                     labelFavBarber.text = "No favourite barber selected"
                 }
@@ -96,6 +90,23 @@ class UserProfileViewController: UITableViewController {
 
         
     }
+    
+//    func finishEdit(){
+//        let actionSheet = UIAlertController(title: "", message: "Confirm prenotation", preferredStyle: .actionSheet)
+//        let errorAlert = UIAlertController(title: "Missing Informations", message: "Please check the details of your reservations", preferredStyle: .actionSheet)
+//        
+//        actionSheet.addAction(UIAlertAction(title: "OK", style: .default)
+//            
+//        
+//        actionSheet.addAction(UIAlertAction(title: "CANCEL", style: .cancel, handler: nil))
+//        errorAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+//        
+//       
+//            self.present(errorAlert, animated: true, completion:  nil)
+//            
+//        
+//            self.present(actionSheet, animated: true, completion:  nil)
+//         }
     
     func loadUserData(){
         let user = Auth.auth().currentUser
@@ -256,82 +267,7 @@ class UserProfileViewController: UITableViewController {
             sender.removeFromSuperview()
         }
     }
-    @IBAction func reauthButton(_ sender: UIButton) {
-      
-        guard let email = self.reauthMail.text, !email.isEmpty else {
-            self.reauthError.alpha = 1
-            self.reauthError.text = "You have to reauth to change your info"
-            self.reauthMail.shake()
-            return
-        }
-        guard let password = self.reauthPassword.text, !password.isEmpty else {
-            self.reauthError.alpha = 1
-            self.reauthError.text = "You have to reauth to change your info"
-            self.reauthPassword.shake()
-            return
-        }
-        
-        firebaseAuth.signIn(withEmail: email, password: password) { user, error in
-            if error != nil {
-                self.reauthError.text = "Wrong mail or password."
-                UIView.animate(withDuration: 0.3, animations: {
-                    self.reauthError.alpha = 1
-                    
-               })
-                self.reauthMail.shake()
-                self.reauthPassword.shake()
-                print(error ?? "error")
-                
-            } else {
-                // User re-authenticated.
-                
-                self.reauthMail.text = ""
-                self.reauthPassword.text = ""
-                self.reauthError.alpha = 0
-                
-                switch self.x {
-                case "name":
-                    
-                    let newName = self.changeName.text
-                    let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
-                    changeRequest?.displayName = newName
-                    changeRequest?.commitChanges() { (error) in
-                        // ...
-                    }
-                    self.animateOut(sender: self.reauthView)
-                    UIView.animate(withDuration: 0.4, animations: {
-                        self.changeName.alpha = 0
-                        self.changeName.text = ""
-                        self.userNameIcon.alpha = 1
-                        self.changeName.text = newName!
-                        self.helloName.text = "Hello \(newName!)"
-                    })
-                
-                case "mailUpdate":
-                    let newMail = self.changeMail.text
-                    Auth.auth().currentUser?.updateEmail(to: newMail!) { (error) in
 
-                    }
-                    self.animateOut(sender: self.reauthView)
-                    UIView.animate(withDuration: 0.4, animations: {
-                        self.changeMail.alpha = 0
-                        self.changeMail.text = ""
-                        self.changeMail.text = newMail
-        
-                        
-                    })
-                    
-                default:
-                    return
-                }
-            }
-        }
-  
-    }
-    
-    @IBAction func cancelButton(_ sender: Any) {
-        animateOut(sender: reauthView)
-    }
 
     override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
         return .none

@@ -39,6 +39,8 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
     let firebaseAuth = Auth.auth()
     let user = Auth.auth().currentUser
     
+    var selectedShop: Shop!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -62,8 +64,11 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
         
         self.view.addGestureRecognizer(self.scopeGesture)
         
-        Funcs.busySlots(shop: Funcs.currentShop, date: data, duration: 0, collection: freeTimeSlotCollectionView)
-        readData()
+        Funcs.loadShop(){loadedShop in
+            self.selectedShop = loadedShop
+            Funcs.busySlots(shop: loadedShop, date: data, duration: 0, collection: self.freeTimeSlotCollectionView)
+            self.readData()
+        }
     }
     
     
@@ -71,7 +76,7 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
         prenotationList.removeAll()
         self.prenotationCollectionView.reloadData()
         //FIRBASE REFERENCE
-        ref = Database.database().reference().child("prenotations/\(Funcs.currentShop.ID)").child(selectedDate)
+        ref = Database.database().reference().child("prenotations/\(selectedShop.ID)").child(selectedDate)
         ref?.observe(.childAdded, with: { (snapshot) in
             if let userDict = snapshot.value as? [String:Any] {
                 let note = userDict["note"] as? String ?? "test"

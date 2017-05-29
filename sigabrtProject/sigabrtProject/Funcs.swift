@@ -17,7 +17,6 @@ extension UIViewController {
 
 class Funcs: NSObject {
     static var loggedUser : User!
-    static var currentShop : Shop! //dobbiam far sparire questa var e passare tutto quando richiamiamo funzioni/vc
     static let ref = Database.database().reference()
     static var flagFavBarber : Int = -1
     static let slotSizeInMinutes = 15
@@ -78,7 +77,7 @@ class Funcs: NSObject {
         }
     }
     
-    static func addReservation(time: Int, note: String?, services: [Service], date: Date){
+    static func addReservation(shop: Shop, time: Int, note: String?, services: [Service], date: Date){
         let ref: DatabaseReference = Database.database().reference()
         
         let reservationDate = date.toString(format: "yy-MM-dd")
@@ -90,19 +89,19 @@ class Funcs: NSObject {
             "note": note ?? "Not inserted"
             ] as [String : Any]
         
-        let key = ref.child("prenotations/\(self.currentShop.ID)/\(reservationDate)/").childByAutoId().key
+        let key = ref.child("prenotations/\(shop.ID)/\(reservationDate)/").childByAutoId().key
         
-        ref.child("prenotations/\(self.currentShop.ID)/\(reservationDate)/").child(key).setValue(post)
+        ref.child("prenotations/\(shop.ID)/\(reservationDate)/").child(key).setValue(post)
         
         for service in services {
             let post = ["price": service.price,
                         "type": service.name,
                         "duration": service.duration] as [String : Any]
-            ref.child("prenotations/\(self.currentShop.ID)/\(reservationDate)/\(key)/services").childByAutoId().setValue(post)
+            ref.child("prenotations/\(shop.ID)/\(reservationDate)/\(key)/services").childByAutoId().setValue(post)
         }
         
     }
-    static func loadUserData(){
+    static func loadUserData(completion: @escaping (_ result: User) -> Void){
         let user = Auth.auth().currentUser
         if (user == nil) {return}
         let ref = Database.database().reference()
@@ -115,8 +114,8 @@ class Funcs: NSObject {
                 let userType = value["usertime"] as? Int ?? 1
                 let mail = user?.email
                 self.loggedUser = User(name: name, mail: mail!, phone: phone, userType: userType, favBarberId: favBarber)
+                completion(self.loggedUser)
                 print(self.loggedUser.favBarberId)
-                self.loadCurrentShop()
             }
         }) { (error) in
             print(error.localizedDescription)
@@ -140,9 +139,7 @@ class Funcs: NSObject {
 //
 //    }
     
-    static func loadCurrentShop(){
-        let user = Auth.auth().currentUser
-        if (user == nil) {return}
+    static func loadShop(completion: @escaping (_ result: Shop) -> Void){
         ref.child("barbers").child(String(self.loggedUser.favBarberId)).observeSingleEvent(of: .value, with: { (snapshot) in
             // Get shop description
             if let value = snapshot.value as? NSDictionary {
@@ -182,8 +179,7 @@ class Funcs: NSObject {
                         }
                     }
                 }
-                self.currentShop = Shop(ID: self.loggedUser.favBarberId, name: barberName, desc: barberDesc, phone: barberPhone, address: barberAddress, services: barberServices, hours: hours)
-                print(self.currentShop.hours!)
+                completion(Shop(ID: self.loggedUser.favBarberId, name: barberName, desc: barberDesc, phone: barberPhone, address: barberAddress, services: barberServices, hours: hours))
             }
         }) { (error) in
             print(error.localizedDescription)
@@ -232,15 +228,15 @@ class Funcs: NSObject {
                     }
                 }
                 
-                self.calcSlots(day: date, busySlots: busySlots, duration: duration, collection: collection)
+                self.calcSlots(shop: shop, day: date, busySlots: busySlots, duration: duration, collection: collection)
                 
                 print(time)
             }})
-        self.calcSlots(day: date, busySlots: busySlots, duration: duration, collection: collection)
+        self.calcSlots(shop: shop, day: date, busySlots: busySlots, duration: duration, collection: collection)
         
     }
     
-    static func calcSlots(day: Date, busySlots: [Int], duration: Int, collection: UICollectionView) {
+    static func calcSlots(shop: Shop, day: Date, busySlots: [Int], duration: Int, collection: UICollectionView) {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yy-MM-dd"
         dateFormatter.locale = Locale(identifier: "en_US")
@@ -252,7 +248,7 @@ class Funcs: NSObject {
         
         for currslot in 0 ... slotsInADay {
             let currentSlotMinute = currslot * slotSizeInMinutes
-            if let arrayDay = Funcs.currentShop.hours?[selectedDay[0]]{
+            if let arrayDay = shop.hours?[selectedDay[0]]{
                 for shopOpeningFrame in arrayDay {
                     //TODO: bisogna aggiungere a currentSlotMinute la durata del servizio (dei servizi) selezionati
                     if (currentSlotMinute >= shopOpeningFrame[0] &&

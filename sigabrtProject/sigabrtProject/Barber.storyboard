@@ -43,7 +43,7 @@
                                         <color key="value" red="0.20000000000000001" green="0.41960784309999999" blue="0.52941176469999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="todayColor">
-                                        <color key="value" red="0.30098552550526131" green="0.35207464728020887" blue="0.36230225754213208" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="value" red="0.49803921568627452" green="0.49803921568627452" blue="0.49803921568627452" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="borderDefaultColor">
                                         <color key="value" red="0.0" green="0.0" blue="0.0" alpha="0.30417915239726029" colorSpace="custom" customColorSpace="sRGB"/>
@@ -283,7 +283,7 @@
         <!--Data Source-->
         <scene sceneID="KxD-NN-VHV">
             <objects>
-                <viewController id="t7z-oW-Yb1" customClass="BarberPagePrenotationViewController" customModule="sigabrtProject" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="barberView" id="t7z-oW-Yb1" customClass="BarberPagePrenotationViewController" customModule="sigabrtProject" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="EVZ-qm-lte"/>
                         <viewControllerLayoutGuide type="bottom" id="mLu-do-ca6"/>

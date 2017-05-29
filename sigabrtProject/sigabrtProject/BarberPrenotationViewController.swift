@@ -23,6 +23,7 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
     
     var selectedTipo: [String] = []
     var selectedPrezzo : [Int] = []
+    var selectedShop: Shop!
     
     fileprivate lazy var scopeGesture: UIPanGestureRecognizer = {
         [unowned self] in
@@ -40,7 +41,6 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
         self.hideKeyboardWhenTappedAround()
         
         let data = selectedDate
-        print("qui")
         print(data)
         self.calendar.scope = .week
         calendar.appearance.headerDateFormat = "MMM yyyy"
@@ -48,8 +48,6 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
         if UIDevice.current.model.hasPrefix("iPad") {
             self.calendarHeightConstraint.constant = 400
         }
-
-        Funcs.busySlots(shop: Funcs.currentShop, date: data, duration: selectedDuration, collection: freeTimeSlotCollectionView)
         
         servicesTableView.allowsMultipleSelection = true
         servicesTableView.delegate = self
@@ -93,7 +91,7 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         print("did select date \(date)")
         self.selectedDate = date
-        Funcs.busySlots(shop: Funcs.currentShop, date: date, duration: self.selectedDuration, collection: freeTimeSlotCollectionView)
+        Funcs.busySlots(shop: self.selectedShop, date: date, duration: self.selectedDuration, collection: freeTimeSlotCollectionView)
         
         if monthPosition == .next || monthPosition == .previous {
             calendar.setCurrentPage(date, animated: true)
@@ -111,7 +109,7 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
 
         actionSheet.addAction(UIAlertAction(title: "OK", style: .default) { action in
             
-            Funcs.addReservation(time: self.selectedTimeInMinutes, note: note, services: self.selectedServices, date: self.selectedDate)
+            Funcs.addReservation(shop: self.selectedShop, time: self.selectedTimeInMinutes, note: note, services: self.selectedServices, date: self.selectedDate)
             self.selectedTimeInMinutes = 0
             self.selectedServices = []
             let selectedItems = self.servicesTableView.indexPathsForSelectedRows
@@ -150,13 +148,13 @@ class BarberPrenotationViewController: UIViewController, FSCalendarDataSource, F
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.selectedServices.append(services[indexPath.row])
         self.selectedDuration = self.selectedDuration + services[indexPath.row].duration
-        Funcs.busySlots(shop: Funcs.currentShop, date: self.selectedDate, duration: self.selectedDuration, collection: freeTimeSlotCollectionView)
+        Funcs.busySlots(shop: selectedShop, date: self.selectedDate, duration: self.selectedDuration, collection: freeTimeSlotCollectionView)
     }
     
     func tableView(_ tableView: UITableView, willDeselectRowAt indexPath: IndexPath) -> IndexPath? {
         self.selectedServices = self.selectedServices.filter { $0.name != services[indexPath.row].name }
         self.selectedDuration = self.selectedDuration - services[indexPath.row].duration
-        Funcs.busySlots(shop: Funcs.currentShop, date: self.selectedDate, duration: self.selectedDuration, collection: freeTimeSlotCollectionView)
+        Funcs.busySlots(shop: selectedShop, date: self.selectedDate, duration: self.selectedDuration, collection: freeTimeSlotCollectionView)
         return indexPath
     }
 
