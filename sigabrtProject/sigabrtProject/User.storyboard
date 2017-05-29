@@ -576,7 +576,6 @@
                             </state>
                             <connections>
                                 <action selector="cancelButton:" destination="Uef-ij-fR3" eventType="touchUpInside" id="9rn-St-VXs"/>
-                                <action selector="login:" destination="Uef-ij-fR3" eventType="touchUpInside" id="G1f-zh-lSv"/>
                             </connections>
                         </button>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="icona" translatesAutoresizingMaskIntoConstraints="NO" id="ipA-Xi-9LW">
@@ -1006,6 +1005,10 @@
         <scene sceneID="BCE-Ft-5m0">
             <objects>
                 <viewController id="mRn-mg-MOw" customClass="historyViewController" customModule="sigabrtProject" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="PFr-t5-TTv"/>
+                        <viewControllerLayoutGuide type="bottom" id="mGi-EM-rV6"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="ycQ-jd-nUA">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="173"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
