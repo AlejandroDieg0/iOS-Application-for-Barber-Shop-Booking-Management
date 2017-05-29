@@ -796,7 +796,7 @@
                 <viewControllerPlaceholder storyboardName="Main" referencedIdentifier="MapSelector" id="cYJ-Ol-weZ" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="I3Z-5L-hSF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2942" y="577"/>
+            <point key="canvasLocation" x="414" y="789"/>
         </scene>
         <!--History View Controller-->
         <scene sceneID="BCE-Ft-5m0">
