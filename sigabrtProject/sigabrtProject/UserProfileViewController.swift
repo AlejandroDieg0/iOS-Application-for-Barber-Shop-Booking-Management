@@ -84,7 +84,7 @@ class UserProfileViewController: UITableViewController {
                 
                 loadUserData()
                 if Funcs.loggedUser != nil{
-                    labelFavBarber.text = Funcs.currentShop.name
+                    labelFavBarber.text = "DA SISTEMARE"
                 } else {
                     labelFavBarber.text = "No favourite barber selected"
                 }

@@ -17,13 +17,11 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
     
     var locManager = CLLocationManager()
     
-    
     let regionRadius: CLLocationDistance = 20000
     var pins: [MKPointAnnotation: Shop] = [:]
     var TempID: Int = 0
     var barbers: [Shop] = []
     var currentBarber : Shop?
-
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -31,7 +29,6 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        Funcs.loadUserData()
         //let myPosition = CLLocationCoordinate2D(latitude: Double("41.9102399")!, longitude: Double("12.2551245")!)
         /*personalMap.setRegion(MKCoordinateRegionMakeWithDistance(myPosition, regionRadius, regionRadius), animated: true)*/
         
@@ -219,7 +216,6 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
         if segue.identifier == "userReservation"{
             let secondVC = segue.destination as! ShopDetailViewController
             secondVC.barber = self.currentBarber
-            Funcs.currentShop = self.currentBarber
         }
     }
     

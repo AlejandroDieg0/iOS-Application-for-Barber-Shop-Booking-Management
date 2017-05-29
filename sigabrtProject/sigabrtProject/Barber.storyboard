@@ -283,7 +283,7 @@
         <!--Data Source-->
         <scene sceneID="KxD-NN-VHV">
             <objects>
-                <viewController id="t7z-oW-Yb1" customClass="BarberPagePrenotationViewController" customModule="sigabrtProject" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="barberView" id="t7z-oW-Yb1" customClass="BarberPagePrenotationViewController" customModule="sigabrtProject" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="EVZ-qm-lte"/>
                         <viewControllerLayoutGuide type="bottom" id="mLu-do-ca6"/>
