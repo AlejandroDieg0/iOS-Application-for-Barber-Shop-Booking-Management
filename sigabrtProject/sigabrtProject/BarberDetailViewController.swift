@@ -7,12 +7,16 @@
 //
 
 import UIKit
+import Firebase
 
 class BarberDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    @IBOutlet weak var serviceTableView: UITableView!
     
+    @IBOutlet weak var serviceTableView: UITableView!
+    @IBOutlet weak var tableViewController: UIView!
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.rightBarButtonItem = editButtonItem
         // Do any additional setup after loading the view.
     }
     
@@ -31,6 +35,44 @@ class BarberDetailViewController: UIViewController, UITableViewDelegate, UITable
      // Pass the selected object to the new view controller.
      }
      */
+    
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        
+        let tableViewInfo = tableViewController.parentViewController as! barberProfileViewController
+        
+        if isEditing {
+            print(editing)
+            tableViewInfo.changePhone.isUserInteractionEnabled = true
+            tableViewInfo.changePhone.textColor = UIColor.black
+            
+            tableViewInfo.changeMail.isUserInteractionEnabled = true
+            tableViewInfo.changeMail.textColor = UIColor.black
+            
+            tableViewInfo.changeName.isUserInteractionEnabled = true
+            tableViewInfo.changeName.textColor = UIColor.black
+            
+            
+        } else {
+            let ref = Database.database().reference().child("user/\(Auth.auth().currentUser?.uid ?? "noLogin")")
+            ref.updateChildValues([
+                "name": tableViewInfo.changeName.text!,
+                "phone": tableViewInfo.changePhone.text!,
+                ])
+            
+            tableViewInfo.changePhone.isUserInteractionEnabled = false
+            tableViewInfo.changePhone.textColor = UIColor.gray
+            
+            tableViewInfo.changeMail.isUserInteractionEnabled = false
+            tableViewInfo.changeMail.textColor = UIColor.gray
+            
+            tableViewInfo.changeName.isUserInteractionEnabled = false
+            tableViewInfo.changeName.textColor = UIColor.gray
+            
+            print("Changes Uploaded")
+            
+        }
+    }
     
     //TABLE VIEW
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
