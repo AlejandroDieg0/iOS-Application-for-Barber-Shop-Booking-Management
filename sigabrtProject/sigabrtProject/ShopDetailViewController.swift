@@ -70,12 +70,7 @@ class ShopDetailViewController: UIViewController, UICollectionViewDataSource, UI
         // Dispose of any resources that can be recreated.
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "GotoBooking"{
-            let secondVC = segue.destination as! UserReservationViewController
-            secondVC.selectedShop = barber!
-        }
-    }
+    
     
     @IBAction func setFavourite(_ sender: Any) {
         if (Funcs.flagFavBarber > -1) {
@@ -88,4 +83,15 @@ class ShopDetailViewController: UIViewController, UICollectionViewDataSource, UI
             Funcs.setFavourite(barber!.ID)
         }
     }
+    @IBAction func bookTapped(_ sender: Any) {
+        performSegue(withIdentifier: "GotoBooking", sender: nil)
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "GotoBooking"{
+            let secondVC = segue.destination as! UserReservationViewController
+            secondVC.selectedShop = barber!
+        }
+    }
+
 }
