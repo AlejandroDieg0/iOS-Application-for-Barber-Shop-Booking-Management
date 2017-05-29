@@ -78,27 +78,14 @@ class ShopDetailViewController: UIViewController, UICollectionViewDataSource, UI
     }
     
     @IBAction func setFavourite(_ sender: Any) {
-        if Funcs.flagFavBarber == 0 {
-            Funcs.flagFavBarber = 1
-            buttonFavourite.setTitle("Remove Favourite!", for: .normal)
-            buttonFavourite.setImage(#imageLiteral(resourceName: "heartpress"), for: .normal)
-            if Funcs.loggedUser != nil {
-                var ref: DatabaseReference!
-                ref = Database.database().reference().child("user/\((Auth.auth().currentUser?.uid)!)")
-                let post = ["favbarber": barber?.ID ?? -1]
-                ref.updateChildValues(post)
-            }
-        } else {
-            Funcs.flagFavBarber = 0
+        if (Funcs.flagFavBarber > -1) {
             buttonFavourite.setTitle("Set Favourite!", for: .normal)
             buttonFavourite.setImage(#imageLiteral(resourceName: "heartnotpress"), for: .normal)
-            if Funcs.loggedUser != nil {
-                var ref: DatabaseReference!
-                ref = Database.database().reference().child("user/\((Auth.auth().currentUser?.uid)!)")
-                let post = ["favbarber": -1]
-                ref.updateChildValues(post)
-            }
+            Funcs.setFavourite(-1)
+        } else {
+            buttonFavourite.setTitle("Remove Favourite!", for: .normal)
+            buttonFavourite.setImage(#imageLiteral(resourceName: "heartpress"), for: .normal)
+            Funcs.setFavourite(barber!.ID)
         }
-        Funcs.loadUserData()
     }
 }

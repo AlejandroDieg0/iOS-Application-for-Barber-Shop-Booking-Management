@@ -17,9 +17,9 @@ extension UIViewController {
 
 class Funcs: NSObject {
     static var loggedUser : User!
-    static var currentShop : Shop!
+    static var currentShop : Shop! //dobbiam far sparire questa var e passare tutto quando richiamiamo funzioni/vc
     static let ref = Database.database().reference()
-    static var flagFavBarber:Int = 0
+    static var flagFavBarber : Int = -1
     static let slotSizeInMinutes = 15
     static var bookableSlotsInMinutes: [Int] = []
     
@@ -190,7 +190,18 @@ class Funcs: NSObject {
         }
     }
     
-    static func busySlots(date: Date, duration: Int, collection: UICollectionView) {
+    static func setFavourite(_ shopid: Int){
+        Funcs.flagFavBarber = shopid
+        if Auth.auth().currentUser != nil {
+            var ref: DatabaseReference!
+            ref = Database.database().reference().child("user/\((Auth.auth().currentUser?.uid)!)")
+            let post = ["favbarber": shopid]
+            ref.updateChildValues(post)
+            Funcs.loggedUser.favBarberId = shopid
+        }
+    }
+    
+    static func busySlots(shop: Shop, date: Date, duration: Int, collection: UICollectionView) {
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yy-MM-dd"
@@ -199,7 +210,7 @@ class Funcs: NSObject {
         var busySlots : [Int:Int] = [:]
         var prenotationDuration = 0
         
-        let prenotationChild = self.ref.child("prenotations").child(String(Funcs.currentShop.ID)).child(selectedDay)
+        let prenotationChild = self.ref.child("prenotations").child(String(shop.ID)).child(selectedDay)
         prenotationChild.observe(.childAdded, with: { (snapshot) in
             if let userDict = snapshot.value as? [String:Any] {
                 let time = userDict["time"] as? Int ?? 0

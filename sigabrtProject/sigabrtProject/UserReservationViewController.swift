@@ -59,7 +59,7 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
         barbershopPhone.text = selectedShop.phone
         barbershopAddress.text = selectedShop.address
         
-        Funcs.busySlots(date: data, duration: selectedDuration, collection: timeCollectionView)
+        Funcs.busySlots(shop: Funcs.currentShop, date: data, duration: selectedDuration, collection: timeCollectionView)
         
         
         // For UITest
@@ -94,7 +94,7 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         self.selectedDate = date
-        Funcs.busySlots(date: date, duration: self.selectedDuration, collection: timeCollectionView)
+        Funcs.busySlots(shop: Funcs.currentShop, date: date, duration: self.selectedDuration, collection: timeCollectionView)
         
         if monthPosition == .next || monthPosition == .previous {
             calendar.setCurrentPage(date, animated: true)
@@ -189,9 +189,15 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
         }
     
     @IBAction func saveReservation(_ sender: Any) {
+
+        if(Auth.auth().currentUser == nil){
+            let controller = UIStoryboard(name: "User", bundle: nil).instantiateViewController(withIdentifier: "loginVC") as? LoginViewController
+            self.addChildViewController(controller!)
+            Funcs.animateIn(sender: (controller?.loginView)!)
+        } else {
+        
         //TODO: Vogliamo dare la possibilità al utente di inserire delle note durante la prenotazione ??
         let note = "NoNote"
-        
         let actionSheet = UIAlertController(title: "", message: "Confirm prenotation", preferredStyle: .actionSheet)
         let errorAlert = UIAlertController(title: "Missing Informations", message: "Please check the details of your reservations", preferredStyle: .actionSheet)
 
@@ -218,6 +224,7 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
             
         }else{
             self.present(actionSheet, animated: true, completion:  nil)
+        }
         }
     }
     

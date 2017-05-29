@@ -62,7 +62,7 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
         
         self.view.addGestureRecognizer(self.scopeGesture)
         
-        Funcs.busySlots(date: data, duration: 0, collection: freeTimeSlotCollectionView)
+        Funcs.busySlots(shop: Funcs.currentShop, date: data, duration: 0, collection: freeTimeSlotCollectionView)
         readData()
     }
     
