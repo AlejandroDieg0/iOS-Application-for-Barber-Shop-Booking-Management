@@ -392,6 +392,7 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="375" height="822"/>
                     <connections>
+                        <outlet property="barberPhoto" destination="dlo-ZY-vc6" id="cD7-hD-Goa"/>
                         <outlet property="barbershopAddress" destination="sYJ-Yf-jO5" id="kjH-Yc-nkk"/>
                         <outlet property="barbershopName" destination="4JW-8k-rUi" id="yE8-Ez-lL5"/>
                         <outlet property="barbershopPhone" destination="06x-NS-1fu" id="DhQ-9l-mpc"/>

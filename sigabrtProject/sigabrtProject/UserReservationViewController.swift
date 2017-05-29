@@ -15,6 +15,8 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
     
     @IBOutlet weak var calendarHeightConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var barberPhoto: UIImageView!
+    
     let slotSizeInMinutes = 15
     var selectedDate : Date = Date()
     var selectedTimeInMinutes = 0
@@ -38,6 +40,9 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        barberPhoto.layer.cornerRadius = barberPhoto.frame.size.width/2
+        barberPhoto.clipsToBounds = true
         print(selectedShop.desc)
         if UIDevice.current.model.hasPrefix("iPad") {
             self.calendarHeightConstraint.constant = 400
