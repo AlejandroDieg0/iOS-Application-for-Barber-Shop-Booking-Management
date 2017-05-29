@@ -293,9 +293,6 @@
                     <navigationItem key="navigationItem" id="kmL-mh-Eoy">
                         <barButtonItem key="leftBarButtonItem" image="scissor" id="7OH-Hh-hqz">
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <connections>
-                                <segue destination="tm0-5c-il2" kind="show" identifier="ToBarberPage" id="Odt-FF-4GX"/>
-                            </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="user" id="J3V-TE-rYV">
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -337,7 +334,7 @@
                 <viewControllerPlaceholder storyboardName="User" referencedIdentifier="loginSuccess" id="9Xo-gz-L9g" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e1r-vy-Sz2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1175" y="890"/>
+            <point key="canvasLocation" x="1149" y="908"/>
         </scene>
         <!--User-->
         <scene sceneID="mYc-Ed-GGw">
@@ -345,15 +342,7 @@
                 <viewControllerPlaceholder storyboardName="User" id="ZFh-yO-Rjp" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NhY-Gz-2W8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1201" y="948"/>
-        </scene>
-        <!--Barber-->
-        <scene sceneID="pbL-GT-T8Z">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Barber" id="tm0-5c-il2" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="RCa-Kv-2bF" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1210" y="1014"/>
+            <point key="canvasLocation" x="1150" y="1027"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Q2x-V1-584">

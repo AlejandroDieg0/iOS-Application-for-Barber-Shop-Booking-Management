@@ -278,12 +278,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PPz-nP-x4C" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2953" y="-174"/>
+            <point key="canvasLocation" x="3892" y="-174.06296851574214"/>
         </scene>
         <!--Data Source-->
         <scene sceneID="KxD-NN-VHV">
             <objects>
-                <viewController storyboardIdentifier="barberView" id="t7z-oW-Yb1" customClass="BarberPagePrenotationViewController" customModule="sigabrtProject" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="t7z-oW-Yb1" customClass="BarberPagePrenotationViewController" customModule="sigabrtProject" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="EVZ-qm-lte"/>
                         <viewControllerLayoutGuide type="bottom" id="mLu-do-ca6"/>
@@ -569,7 +569,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="06l-r5-H2a" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2032.8" y="138.98050974512745"/>
+            <point key="canvasLocation" x="2972" y="138.98050974512745"/>
         </scene>
         <!--Barber Detail View Controller-->
         <scene sceneID="AOB-rW-hpZ">
@@ -647,7 +647,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PjN-dI-GVr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2983.1999999999998" y="642.72863568215894"/>
+            <point key="canvasLocation" x="3922.4000000000001" y="642.72863568215894"/>
         </scene>
         <!--Barber Profile View Controller-->
         <scene sceneID="mS2-GE-NBJ">
@@ -880,7 +880,25 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hoa-gl-WIY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3966" y="568"/>
+            <point key="canvasLocation" x="4904.8000000000002" y="567.61619190404804"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="zlx-OG-94U">
+            <objects>
+                <navigationController storyboardIdentifier="barberView" automaticallyAdjustsScrollViewInsets="NO" id="BKK-Xs-FSH" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ERO-ZX-dQ4">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="t7z-oW-Yb1" kind="relationship" relationship="rootViewController" id="h6V-B3-28R"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4a5-04-xub" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2972" y="-584"/>
         </scene>
     </scenes>
     <resources>
