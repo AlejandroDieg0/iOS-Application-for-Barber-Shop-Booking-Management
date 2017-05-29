@@ -48,13 +48,13 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
     @IBAction func loginButton(_ sender: Any) {
         if Auth.auth().currentUser != nil {
             
-            self.performSegue(withIdentifier: "loginSuccess", sender: nil)
+            self.performSegue(withIdentifier: "userReservation", sender: nil)
             return
         }
         
-        let controller = UIStoryboard(name: "User", bundle: nil).instantiateViewController(withIdentifier: "loginVC") as? LoginViewController
+        let controller = UIStoryboard(name: "User", bundle: nil).instantiateViewController(withIdentifier: "profileVC") as? UserReservationViewController
         self.addChildViewController(controller!)
-        Funcs.animateIn(sender: (controller?.loginView)!)
+      // Funcs.animateIn(sender: (controller?.loginView)!)
     }
     
     override func didReceiveMemoryWarning() {

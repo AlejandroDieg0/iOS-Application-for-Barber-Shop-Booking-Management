@@ -91,23 +91,6 @@ class UserProfileViewController: UITableViewController {
         
     }
     
-//    func finishEdit(){
-//        let actionSheet = UIAlertController(title: "", message: "Confirm prenotation", preferredStyle: .actionSheet)
-//        let errorAlert = UIAlertController(title: "Missing Informations", message: "Please check the details of your reservations", preferredStyle: .actionSheet)
-//        
-//        actionSheet.addAction(UIAlertAction(title: "OK", style: .default)
-//            
-//        
-//        actionSheet.addAction(UIAlertAction(title: "CANCEL", style: .cancel, handler: nil))
-//        errorAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-//        
-//       
-//            self.present(errorAlert, animated: true, completion:  nil)
-//            
-//        
-//            self.present(actionSheet, animated: true, completion:  nil)
-//         }
-    
     func loadUserData(){
         let user = Auth.auth().currentUser
         let ref = Database.database().reference()
@@ -276,4 +259,23 @@ class UserProfileViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
         return false
     }
+    
+    //    func finishEdit(){
+    //        let actionSheet = UIAlertController(title: "", message: "Confirm prenotation", preferredStyle: .actionSheet)
+    //        let errorAlert = UIAlertController(title: "Missing Informations", message: "Please check the details of your reservations", preferredStyle: .actionSheet)
+    //
+    //        actionSheet.addAction(UIAlertAction(title: "OK", style: .default)
+    //
+    //
+    //        actionSheet.addAction(UIAlertAction(title: "CANCEL", style: .cancel, handler: nil))
+    //        errorAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+    //
+    //
+    //            self.present(errorAlert, animated: true, completion:  nil)
+    //
+    //
+    //            self.present(actionSheet, animated: true, completion:  nil)
+    //         }
+    
+
 }
