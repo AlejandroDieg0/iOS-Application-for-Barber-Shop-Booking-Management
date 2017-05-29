@@ -207,6 +207,12 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
         }
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let detailBarber = segue.destination as? BarberDetailViewController{
+            detailBarber.selectedShop = self.selectedShop
+        }
+    }
+    
     func isInternetAvailable() -> Bool
     {
         var zeroAddress = sockaddr_in()

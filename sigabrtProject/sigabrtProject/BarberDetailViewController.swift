@@ -13,6 +13,8 @@ class BarberDetailViewController: UIViewController, UITableViewDelegate, UITable
     
     @IBOutlet weak var serviceTableView: UITableView!
     @IBOutlet weak var tableViewController: UIView!
+    
+    var selectedShop: Shop!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,15 +79,15 @@ class BarberDetailViewController: UIViewController, UITableViewDelegate, UITable
     //TABLE VIEW
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return Funcs.currentShop.services.count
+        return selectedShop.services.count
         
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = serviceTableView.dequeueReusableCell(withIdentifier: "serviceCell", for: indexPath) as! barberSelfServiceTableViewCell
-        cell.labelService.text = Funcs.currentShop.services[indexPath.row].name
-        cell.labelPrice.text = String(Funcs.currentShop.services[indexPath.row].price) + " €"
-        cell.labelDuration.text = String(Funcs.currentShop.services[indexPath.row].duration) + " Min"
+        cell.labelService.text = selectedShop.services[indexPath.row].name
+        cell.labelPrice.text = String(selectedShop.services[indexPath.row].price) + " €"
+        cell.labelDuration.text = String(selectedShop.services[indexPath.row].duration) + " Min"
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
