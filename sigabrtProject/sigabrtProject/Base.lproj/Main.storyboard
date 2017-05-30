@@ -63,16 +63,16 @@
                                     <constraint firstAttribute="width" secondItem="SZn-NL-oQ8" secondAttribute="height" multiplier="343:400" constant="-51.450000000000045" id="EKR-9r-PNA"/>
                                 </constraints>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="cut-out" translatesAutoresizingMaskIntoConstraints="NO" id="cBz-hg-6of">
-                                <rect key="frame" x="178" y="640" width="20" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="cut-out" translatesAutoresizingMaskIntoConstraints="NO" id="IPN-fg-d08">
-                                <rect key="frame" x="155" y="640" width="20" height="20"/>
+                                <rect key="frame" x="143" y="630" width="30" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="cut-out" translatesAutoresizingMaskIntoConstraints="NO" id="tmz-lS-ICf">
-                                <rect key="frame" x="201" y="640" width="20" height="20"/>
+                                <rect key="frame" x="205" y="630" width="30" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="cut-out" translatesAutoresizingMaskIntoConstraints="NO" id="cBz-hg-6of">
+                                <rect key="frame" x="174" y="630" width="30" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                         </subviews>
@@ -135,15 +135,15 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="cut-out" translatesAutoresizingMaskIntoConstraints="NO" id="edB-1l-dbO">
-                                <rect key="frame" x="177" y="639" width="20" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="cut-out" translatesAutoresizingMaskIntoConstraints="NO" id="5gS-nQ-CN3">
-                                <rect key="frame" x="154" y="639" width="20" height="20"/>
+                                <rect key="frame" x="174" y="634" width="30" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="cut-out" translatesAutoresizingMaskIntoConstraints="NO" id="uW4-Ds-lEH">
-                                <rect key="frame" x="200" y="639" width="20" height="20"/>
+                                <rect key="frame" x="205" y="634" width="30" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="cut-out" translatesAutoresizingMaskIntoConstraints="NO" id="5gS-nQ-CN3">
+                                <rect key="frame" x="143" y="634" width="30" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                         </subviews>
@@ -229,15 +229,15 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="cut-out" translatesAutoresizingMaskIntoConstraints="NO" id="NdH-MT-tRB">
-                                <rect key="frame" x="177" y="639" width="20" height="20"/>
+                                <rect key="frame" x="172" y="634" width="30" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="cut-out" translatesAutoresizingMaskIntoConstraints="NO" id="BT2-KZ-UaH">
-                                <rect key="frame" x="154" y="639" width="20" height="20"/>
+                                <rect key="frame" x="141" y="634" width="30" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="cut-out" translatesAutoresizingMaskIntoConstraints="NO" id="AMT-V8-bSd">
-                                <rect key="frame" x="200" y="639" width="20" height="20"/>
+                                <rect key="frame" x="203" y="634" width="30" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                         </subviews>
