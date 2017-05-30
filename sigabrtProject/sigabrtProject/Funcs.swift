@@ -29,6 +29,7 @@ class Funcs: NSObject {
             blurEffectView.frame = topController.view.bounds
             blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
             blurEffectView.contentView.alpha = 0
+
             
             while let presentedViewController = topController.presentedViewController {
                 topController = presentedViewController
@@ -41,7 +42,7 @@ class Funcs: NSObject {
             sender.transform = CGAffineTransform.init(scaleX: 1.2, y: 1.2)
             sender.alpha = 1
             UIView.animate(withDuration: 0.4) {
-                sender.alpha = 0.85
+                sender.alpha = 0.80
                 //controller.visualEffect.alpha = 0.5
                 sender.transform = CGAffineTransform.identity
             }

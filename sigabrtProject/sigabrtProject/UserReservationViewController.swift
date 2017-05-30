@@ -8,7 +8,7 @@ import FBSDKCoreKit
 import FBSDKLoginKit
 import UITextField_Shake
 
-class UserReservationViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, FSCalendarDataSource, FSCalendarDelegate, UIGestureRecognizerDelegate {
+class UserReservationViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, FSCalendarDataSource, FSCalendarDelegate, UIGestureRecognizerDelegate, UITableViewDelegate, UITableViewDataSource {
     
     // LOGIN
     @IBOutlet weak var logIn: UIButton!
@@ -274,8 +274,36 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
          
             else{
             Funcs.animateIn(sender: self.confirmPrenotation)
+           
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "EEEE dd MMMM yyyy"
+            let data = dateFormatter.string(from:selectedDate as Date)
+            var total = 0
+            for service in selectedServices{
+                total += service.price
+            }
+            
+            prenotationDate.text = data
+            prenotationHour.text = Funcs.minutesToHour(selectedTimeInMinutes)
+            prenotationTotal.text = String(total)
+            
+            
             }
         }
+    }
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return selectedServices.count
+    }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "prenotationCell") as! prenotationConfirmTableViewCell
+        
+        cell.price.text = String(selectedServices[indexPath.row].price)
+        cell.service.text = selectedServices[indexPath.row].name
+        return cell
     }
     
     @IBAction func confirmPrenotation(_ sender: Any) {
@@ -294,9 +322,13 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
         Funcs.animateOut(sender: confirmPrenotation)
     }
     
+    
+    
     @IBAction func noConfirm(_ sender: Any) {
         Funcs.animateOut(sender: confirmPrenotation)
     }
+    
+    
     
     // login
     @IBAction func login(_ sender: UIButton) {
