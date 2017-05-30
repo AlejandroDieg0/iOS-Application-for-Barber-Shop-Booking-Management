@@ -16,7 +16,6 @@ class Shop: NSObject , MKAnnotation {
     var hours: [String:[[Int]]]?
     
     init(ID: Int, name : String, desc : String, coordinate: CLLocationCoordinate2D, phone: String, address: String, services: [Service], logo: URL?, hours:  [String:[[Int]]]){
-        
         self.ID = ID
         self.name = name
         self.desc = desc
@@ -26,10 +25,9 @@ class Shop: NSObject , MKAnnotation {
         self.logo = logo
         self.services = services
         self.hours = hours
-        
     }
+    
     init(ID: Int, name : String, desc : String, phone: String, address: String, services: [Service], hours: [String:[[Int]]]){
-        
         self.ID = ID
         self.name = name
         self.desc = desc
@@ -37,7 +35,6 @@ class Shop: NSObject , MKAnnotation {
         self.address = address
         self.services = services
         self.hours = hours
-        
     }
 
 }

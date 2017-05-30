@@ -1,17 +1,15 @@
-//
-//  historyTableViewCell.swift
-//  sigabrtProject
-//
-//  Created by Fabio on 29/05/2017.
-//  Copyright © 2017 Alessandro Cascino. All rights reserved.
-//
 
 import UIKit
 
-class historyTableViewCell: UITableViewCell {
+class nearShop: UITableViewCell {
 
-    @IBOutlet weak var servizi: UILabel!
-    @IBOutlet weak var time: UILabel!
+    @IBOutlet weak var shopName: UILabel!
+    
+    @IBOutlet weak var distance: UILabel!
+    
+    @IBOutlet weak var imgShop: UIImageView!
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

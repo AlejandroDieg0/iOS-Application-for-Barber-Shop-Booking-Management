@@ -10,18 +10,19 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
     @IBOutlet weak var personalMap: MKMapView!
     
     @IBOutlet weak var modernSearchBar: ModernSearchBar!
-//    
-//    @IBOutlet weak var nearBarberShops: UITableView!
     
     @IBOutlet weak var imgShop: UIImageView!
     
     var locManager = CLLocationManager()
+    var floatSpan1: Float = 1
+    var floatSpan2: Float = 1
     
     let regionRadius: CLLocationDistance = 20000
     var pins: [MKPointAnnotation: Shop] = [:]
     var TempID: Int = 0
     var barbers: [Shop] = []
     var currentBarber : Shop?
+    var bottomSheetVC: bottomScrollable!
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -31,7 +32,7 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
         super.viewDidLoad()
         //let myPosition = CLLocationCoordinate2D(latitude: Double("41.9102399")!, longitude: Double("12.2551245")!)
         /*personalMap.setRegion(MKCoordinateRegionMakeWithDistance(myPosition, regionRadius, regionRadius), animated: true)*/
-        
+        UserDefaults.standard.set(true, forKey: "disableWizard")
         locManager.delegate = self
         locManager.desiredAccuracy = kCLLocationAccuracyBest
         locManager.requestWhenInUseAuthorization()
@@ -39,6 +40,7 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
         locManager.distanceFilter = 4000
         drawMap()
         self.modernSearchBar.delegateModernSearchBar = self
+        self.addBottomSheetView()
         
     }
     
@@ -63,13 +65,16 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
         let location = locations[0]
-        
-        let span:MKCoordinateSpan = MKCoordinateSpanMake(0.5, 0.5)
+        let span:MKCoordinateSpan = MKCoordinateSpanMake(CLLocationDegrees(floatSpan1),CLLocationDegrees(floatSpan2))
         let myLocation:CLLocationCoordinate2D = CLLocationCoordinate2DMake(location.coordinate.latitude, location.coordinate.longitude)
         let region:MKCoordinateRegion = MKCoordinateRegionMake(myLocation, span)
         
         personalMap.setRegion(region, animated: true)
         self.personalMap.showsUserLocation = true
+    }
+    public func zoomMap(){
+        self.floatSpan1 = 0.5
+        self.floatSpan2 = 0.5
     }
     
     func drawMap(){
@@ -77,8 +82,12 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
         
         ref = Database.database().reference().child("barbers")
         
+        
         ref.observe(.childAdded, with: { snapshot in
+
             if let snapshotValue = snapshot.value as? [String:Any] {
+                var barberServices:[Service] = []
+
                 let barberName = snapshotValue["name"] as? String ?? "NoName"
                 let barberDesc = snapshotValue["description"] as? String ?? "NoDesc"
                 let barberLat = snapshotValue["latitude"] as? Double ?? 14.04
@@ -86,19 +95,22 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
                 let ID = Int(snapshot.key)!
                 let barberPhone = snapshotValue["phone"] as? String ?? "NoPhone"
                 let barberAddress = (snapshotValue["address"])! as? String ?? "NoAddress"
-                
-                var barberServices:[Service] = []
-                if let child = snapshot.childSnapshot(forPath: "services").value as? NSArray {
+                if let child = snapshot.childSnapshot(forPath: "services").value as? [String:Any] {
                     for c in child{
-                        if let tempServiceChild = c as? [String:Any]{
-                            let serviceName = tempServiceChild["name"] as? String ?? "NoName"
-                            let serviceDuration = tempServiceChild["duration"] as? Int ?? 0
-                            let servicePrice = tempServiceChild["price"] as? Int ?? 0
-                            let service = Service(name: serviceName, duration: serviceDuration, price: servicePrice)
-                            barberServices.append(service)
+                         print(c.key)
+                        if let smallChild = snapshot.childSnapshot(forPath: "services/\(c.key)").value as? [String:Any]  {
+                            print(smallChild)
+                                    let id = c.key
+                                    let serviceName = smallChild["name"] as? String ?? "NoName"
+                                    let serviceDuration = smallChild["duration"] as? Int ?? 0
+                                    let servicePrice = smallChild["price"] as? Int ?? 0
+                                    let service = Service(name: serviceName, duration: serviceDuration, price: servicePrice, id: id)
+                                    barberServices.append(service)
+                                
+                            }
                         }
                     }
-                }
+                 print(barberServices)
                 
                 var hours : [String:[[Int]]] = [:]
                 if let child = snapshot.childSnapshot(forPath: "hours").value as? [String:Any]  {
@@ -128,13 +140,16 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
                 let imageURL = Storage.storage().reference(forURL: "gs://sigabrt-iosda.appspot.com/").child("barbers/\(ID).png")
                 
                 imageURL.downloadURL(completion: { (url, error) in
-                    
                     self.pins[tempPin] = Shop(ID: ID, name: barberName, desc: barberDesc, coordinate: tempPin.coordinate, phone: barberPhone, address: barberAddress, services: barberServices, logo: url, hours: hours)
-//                    self.barbers.append( self.pins[tempPin]!)
+                    self.barbers.append( self.pins[tempPin]!)
                     
+                    self.bottomSheetVC.barbersShop = self.barbers
+                    self.bottomSheetVC.tableView.reloadData()
+                    
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadTableView"), object: self)
+
                     self.personalMap.addAnnotation(tempPin)
                     self.initializeSearchBar()
-//                    self.nearBarberShops.reloadData()
                     
                 })
                 
@@ -143,6 +158,8 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
             
         })
     }
+    
+
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         guard !(annotation is MKUserLocation) else {
@@ -220,18 +237,20 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
         }
     }
     
-//    func addBottomSheetView() {
-//        
-//        let bottomSheetVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "bottomScrollable") as! bottomScrollable
-//        
-//        self.addChildViewController(bottomSheetVC)
-//        
-//        self.view.addSubview(bottomSheetVC.view)
-//        bottomSheetVC.didMove(toParentViewController: self)
-//        
-//        let height = view.frame.height
-//        let width  = view.frame.width
-//        bottomSheetVC.view.frame = CGRect(x: 0,y: self.view.frame.maxY,width: width,height: height)
-    
-    
+    func addBottomSheetView() {
+        
+        bottomSheetVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "bottomScrollable") as! bottomScrollable
+        
+        self.addChildViewController(bottomSheetVC)
+        
+        self.view.addSubview(bottomSheetVC.view)
+        bottomSheetVC.didMove(toParentViewController: self)
+        
+        //qui vanno passati gli shop
+        //come bottomSheetVC.variabileArrayDellaScrollableView = array
+
+        let height = view.frame.height
+        let width  = view.frame.width
+        bottomSheetVC.view.frame = CGRect(x: 0,y: self.view.frame.maxY,width: width,height: height)
+    }
 }

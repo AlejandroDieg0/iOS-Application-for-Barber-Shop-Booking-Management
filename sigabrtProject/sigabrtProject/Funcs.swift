@@ -171,14 +171,20 @@ class Funcs: NSObject {
                 let barberAddress = (value["address"])! as? String ?? "NoAddress"
                 
                 var barberServices:[Service] = []
-                if let child = snapshot.childSnapshot(forPath: "services").value as? NSArray {
+                if let child = snapshot.childSnapshot(forPath: "services").value as? [String:Any] {
                     for c in child{
-                        if let tempServiceChild = c as? [String:Any]{
-                            let serviceName = tempServiceChild["name"] as? String ?? "NoName"
-                            let serviceDuration = tempServiceChild["duration"] as? Int ?? 0
-                            let servicePrice = tempServiceChild["price"] as? Int ?? 0
-                            let service = Service(name: serviceName, duration: serviceDuration, price: servicePrice)
-                            barberServices.append(service)
+                        if let smallChild = snapshot.childSnapshot(forPath: "\(c.key)").value as? NSArray  {
+                            for smallC in smallChild{
+                                if let tempServiceChild = smallC as? [String:Any]{
+                                    let id = c.key
+                                    let serviceName = tempServiceChild["name"] as? String ?? "NoName"
+                                    let serviceDuration = tempServiceChild["duration"] as? Int ?? 0
+                                    let servicePrice = tempServiceChild["price"] as? Int ?? 0
+                                    let service = Service(name: serviceName, duration: serviceDuration, price: servicePrice, id: id)
+                                    barberServices.append(service)
+                                }
+                            
+                            }
                         }
                     }
                 }
