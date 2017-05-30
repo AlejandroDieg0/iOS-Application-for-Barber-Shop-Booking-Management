@@ -5,7 +5,7 @@ import Firebase
 import SystemConfiguration
 
 
-class ShopPanelPrenotationViewController: UIViewController, FSCalendarDataSource, FSCalendarDelegate, UIGestureRecognizerDelegate,UICollectionViewDelegate, UICollectionViewDataSource {
+class ShopPanelPrenotationViewController: UIViewController, FSCalendarDataSource, FSCalendarDelegate, UIGestureRecognizerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UITableViewDelegate, UITableViewDataSource {
     
     
     var prenotationList = [Prenotation]()
@@ -17,7 +17,7 @@ class ShopPanelPrenotationViewController: UIViewController, FSCalendarDataSource
     @IBOutlet weak var totalReservations: UILabel!
     
     @IBOutlet weak var freeTimeSlotCollectionView: UICollectionView!
-    @IBOutlet weak var prenotationCollectionView: UICollectionView!
+    @IBOutlet weak var prenotationCollectionView: UITableView!
     @IBOutlet weak var calendar: FSCalendar!
     @IBOutlet weak var calendarHeightConstraint: NSLayoutConstraint!
     fileprivate lazy var dateFormatter: DateFormatter = {
@@ -60,8 +60,6 @@ class ShopPanelPrenotationViewController: UIViewController, FSCalendarDataSource
         
         freeTimeSlotCollectionView.delegate = self
         freeTimeSlotCollectionView.dataSource = self
-        prenotationCollectionView.delegate = self
-        prenotationCollectionView.dataSource = self
         
         self.view.addGestureRecognizer(self.scopeGesture)
         
@@ -156,23 +154,28 @@ class ShopPanelPrenotationViewController: UIViewController, FSCalendarDataSource
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionView == self.prenotationCollectionView {
-            return prenotationList.count
-            
-        } else {
-            return Funcs.bookableSlotsInMinutes.count
-        }
+        return Funcs.bookableSlotsInMinutes.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if collectionView == self.prenotationCollectionView {
-
+        let cell = freeTimeSlotCollectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! freeTimeBarberCollectionViewCell
+        cell.label.text = Funcs.minutesToHour(Funcs.bookableSlotsInMinutes[indexPath.row])
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return prenotationList.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+            
             let ref2 = Database.database().reference()
             var totalReservation = 0
             var nameReservation = ""
             var totalDuration = 0
             
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as!  CollectionViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "cellReservation", for: indexPath) as!  ReservationMerchantTableViewCell
             
             for service in prenotationList[indexPath.row].service{
                 totalReservation = service.price + totalReservation
@@ -184,12 +187,15 @@ class ShopPanelPrenotationViewController: UIViewController, FSCalendarDataSource
                 totalDuration = totalDuration + service.duration
             }
             cell.total.text = String(totalReservation) + " €"
-            
+        
+            cell.name.text = ""
+            cell.number.text = ""
             ref2.child("user").child(prenotationList[indexPath.row].customerName).observeSingleEvent(of: .value, with: { (snapshot) in
                 // Get user value
                 if let value = snapshot.value as? NSDictionary {
                     let userName = value["name"] as? String ?? ""
                     cell.name.text = userName
+                    cell.number.text = value["phone"] as? String ?? ""
                     
                 }
             }) { (error) in
@@ -197,16 +203,10 @@ class ShopPanelPrenotationViewController: UIViewController, FSCalendarDataSource
             }
             
             
-            cell.time.text = Funcs.minutesToHour(prenotationList[indexPath.row].timeInMinute)
+            cell.time.text = "\(Funcs.minutesToHour(prenotationList[indexPath.row].timeInMinute)) - \(Funcs.minutesToHour(prenotationList[indexPath.row].timeInMinute + totalDuration))"
             cell.services.text = nameReservation
-            cell.number.text = "Duration: \(totalDuration) Min"
+            cell.duration.text = "Duration: \(totalDuration) Min"
             return cell
-        } else {
-            let cell = freeTimeSlotCollectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! freeTimeBarberCollectionViewCell
-            cell.label.text = Funcs.minutesToHour(Funcs.bookableSlotsInMinutes[indexPath.row])
-            
-            return cell
-        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
