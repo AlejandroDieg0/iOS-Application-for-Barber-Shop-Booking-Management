@@ -131,6 +131,7 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
                         }
                     }
                 }
+                
                 let tempPin : MKPointAnnotation = MKPointAnnotation()
                 
                 tempPin.title = barberName
