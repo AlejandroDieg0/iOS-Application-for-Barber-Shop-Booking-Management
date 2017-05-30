@@ -173,9 +173,7 @@ class Funcs: NSObject {
                 var barberServices:[Service] = []
                 if let child = snapshot.childSnapshot(forPath: "services").value as? [String:Any] {
                     for c in child{
-                        print(c.key)
                         if let smallChild = snapshot.childSnapshot(forPath: "services/\(c.key)").value as? [String:Any]  {
-                            print(smallChild)
                             let id = c.key
                             let serviceName = smallChild["name"] as? String ?? "NoName"
                             let serviceDuration = smallChild["duration"] as? Int ?? 0

@@ -287,7 +287,6 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
             prenotationHour.text = Funcs.minutesToHour(selectedTimeInMinutes)
             prenotationTotal.text = String(total)
             
-            
             }
         }
     }
@@ -296,11 +295,12 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
         return selectedServices.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "prenotationCell") as! prenotationConfirmTableViewCell
-        
+
         cell.price.text = String(selectedServices[indexPath.row].price)
         cell.service.text = selectedServices[indexPath.row].name
         return cell
