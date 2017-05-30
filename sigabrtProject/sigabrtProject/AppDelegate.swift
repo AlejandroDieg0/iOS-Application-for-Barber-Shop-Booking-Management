@@ -45,9 +45,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         self.window?.rootViewController = vc
                     }
                 }
-            } else {
-                let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "mapView")
-                self.window?.rootViewController = vc
             }
         }
         

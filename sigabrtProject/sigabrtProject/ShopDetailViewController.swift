@@ -10,7 +10,6 @@ class ShopDetailViewController: UIViewController, UICollectionViewDataSource, UI
     
     @IBOutlet weak var cvGallery: UICollectionView!
     @IBOutlet weak var imageBarberShop: UIImageView!
-    @IBOutlet weak var labelBarberName: UILabel!
     @IBOutlet weak var labelAddress: UILabel!
     @IBOutlet weak var labelPhone: UILabel!
     @IBOutlet weak var labelHours: UILabel!
@@ -27,7 +26,7 @@ class ShopDetailViewController: UIViewController, UICollectionViewDataSource, UI
         cvGallery.dataSource = self
         self.view.addSubview(cvGallery)
         
-        labelBarberName.text = barber?.name
+        navigationItem.title = barber?.name
         labelDescription.text = barber?.desc
         labelAddress.text = barber?.address
         labelPhone.text = barber?.phone

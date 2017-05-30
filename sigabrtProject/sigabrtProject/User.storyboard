@@ -217,13 +217,18 @@
                                                 <color key="textColor" red="0.40000000600000002" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0hr-IR-GsH">
-                                                <rect key="frame" x="0.0" y="413" width="375" height="38"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0hr-IR-GsH">
+                                                <rect key="frame" x="93" y="430" width="192" height="36"/>
                                                 <color key="backgroundColor" red="0.56470588239999997" green="0.68627450980000004" blue="0.7725490196" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <state key="normal" title="BOOK">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <action selector="prenota:" destination="AC9-tm-yj9" eventType="touchUpInside" id="bgt-bZ-fye"/>
                                                     <action selector="saveReservation:" destination="AC9-tm-yj9" eventType="touchUpInside" id="hYI-Tk-TP4"/>
@@ -232,8 +237,8 @@
                                         </subviews>
                                         <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803915" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="0hr-IR-GsH" secondAttribute="trailing" id="cO6-py-Jvi"/>
-                                            <constraint firstItem="0hr-IR-GsH" firstAttribute="leading" secondItem="q1Q-Tv-aQA" secondAttribute="leading" id="eV8-BE-DFK"/>
+                                            <constraint firstAttribute="trailing" secondItem="0hr-IR-GsH" secondAttribute="trailing" constant="90" id="cO6-py-Jvi"/>
+                                            <constraint firstItem="0hr-IR-GsH" firstAttribute="leading" secondItem="q1Q-Tv-aQA" secondAttribute="leading" constant="93" id="eV8-BE-DFK"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -250,7 +255,7 @@
                         <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803915" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="jhm-tt-099" firstAttribute="trailing" secondItem="7Fb-F6-sSP" secondAttribute="trailing" id="5I2-XC-Tl5"/>
-                            <constraint firstItem="sKV-wr-mye" firstAttribute="top" secondItem="0hr-IR-GsH" secondAttribute="bottom" constant="-1" id="GXR-AF-CRx"/>
+                            <constraint firstItem="sKV-wr-mye" firstAttribute="top" secondItem="0hr-IR-GsH" secondAttribute="bottom" constant="28" id="GXR-AF-CRx"/>
                             <constraint firstItem="jhm-tt-099" firstAttribute="top" secondItem="7Fb-F6-sSP" secondAttribute="bottom" constant="8" symbolic="YES" id="Gfd-XH-O1V"/>
                             <constraint firstItem="7Fb-F6-sSP" firstAttribute="top" secondItem="h9h-W2-sSH" secondAttribute="bottom" id="NrB-bq-RsA"/>
                             <constraint firstItem="jhm-tt-099" firstAttribute="bottom" secondItem="sKV-wr-mye" secondAttribute="top" id="aCh-GO-KgL"/>
