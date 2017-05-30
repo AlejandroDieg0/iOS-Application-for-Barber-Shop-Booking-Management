@@ -222,14 +222,14 @@ class Funcs: NSObject {
     }
     
     static func busySlots(shop: Shop, date: Date, duration: Int, collection: UICollectionView) {
-        
+        print("ma prima qui \(date)")
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yy-MM-dd"
         let selectedDay = dateFormatter.string(from: date)
         
         var busySlots : [Int] = []
         var prenotationDuration = 0
-        
+        print("sono qui con\(selectedDay)")
         let prenotationChild = self.ref.child("prenotations").child(String(shop.ID)).child(selectedDay)
         prenotationChild.observe(.childAdded, with: { (snapshot) in
             if let prenotationDict = snapshot.value as? [String:Any] {
@@ -242,14 +242,11 @@ class Funcs: NSObject {
                             prenotationDuration = prenotationDuration + serviceDuration
                         }
                     }
-                }
-
-                for slot in bookableSlotsInMinutes{
-                    if(slot >= time && slot < time + prenotationDuration){
-                        if(!busySlots.contains(slot)){
-                            busySlots.append(slot)
-                        }
-                    }
+                            for slot in time ... time + prenotationDuration{
+                                if(!busySlots.contains(slot)){
+                                    busySlots.append(slot)
+                                }
+                            }
                 }
                 
                 self.calcSlots(shop: shop, day: date, busySlots: busySlots, duration: duration, collection: collection)
@@ -266,18 +263,25 @@ class Funcs: NSObject {
         // let test = dateFormatter.string(from: date)
         bookableSlotsInMinutes = []
         let selectedDay = dateFormatter.string(from: day).components(separatedBy: ",")
-        let slotsInADay = 1440 / slotSizeInMinutes
+        let slotsInADay = 1440
         
         for currslot in 0 ... slotsInADay {
-            let currentSlotMinute = currslot * slotSizeInMinutes
+            let currentSlotMinute = currslot 
             if let arrayDay = shop.hours?[selectedDay[0]]{
                 for shopOpeningFrame in arrayDay {
                     //TODO: bisogna aggiungere a currentSlotMinute la durata del servizio (dei servizi) selezionati
                     if (currentSlotMinute >= shopOpeningFrame[0] &&
                         currentSlotMinute < shopOpeningFrame[1] &&
                         !busySlots.contains(currentSlotMinute)){
-                        
-                        bookableSlotsInMinutes.append(currentSlotMinute)
+                            var bookable = true
+                                for slot in currentSlotMinute - 15 ... currentSlotMinute{
+                                    if(bookableSlotsInMinutes.contains(slot)){
+                                        bookable = false
+                                    }
+                                }
+                          if(bookable){
+                            bookableSlotsInMinutes.append(currentSlotMinute)
+                        }
                     }
                 }
             }

@@ -38,7 +38,7 @@ class ShopPanelPrenotationViewController: UIViewController, FSCalendarDataSource
     var selectedDate = ""
     let firebaseAuth = Auth.auth()
     let user = Auth.auth().currentUser
-    
+    var selectedDay: Date!
     var selectedShop: Shop!
     var loadingAlert: UIAlertController!
     
@@ -135,6 +135,7 @@ class ShopPanelPrenotationViewController: UIViewController, FSCalendarDataSource
         print("did select date \(self.dateFormatter.string(from: date))")
         
         self.selectedDate = self.dateFormatter.string(from: date)
+        self.selectedDay = date
         self.readData()
         if monthPosition == .next || monthPosition == .previous {
             calendar.setCurrentPage(date, animated: true)
@@ -211,6 +212,7 @@ class ShopPanelPrenotationViewController: UIViewController, FSCalendarDataSource
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let detailBarber = segue.destination as? MerchantPrenotationViewController{
             detailBarber.selectedShop = self.selectedShop
+            detailBarber.selectedDate = self.selectedDay
         }
         if let detailBarber = segue.destination as? MerchantDetailViewController{
             detailBarber.selectedShop = self.selectedShop
