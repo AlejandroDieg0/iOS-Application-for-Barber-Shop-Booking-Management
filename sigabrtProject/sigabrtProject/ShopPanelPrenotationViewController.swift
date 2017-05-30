@@ -214,7 +214,7 @@ class ShopPanelPrenotationViewController: UIViewController, FSCalendarDataSource
         }
         if let detailBarber = segue.destination as? MerchantDetailViewController{
             detailBarber.selectedShop = self.selectedShop
-            barberProfileViewController.myShop = self.selectedShop
+            MerchantProfileViewController.myShop = self.selectedShop
             
         }
     }

@@ -74,12 +74,12 @@ class MerchantProfileViewController: UITableViewController {
             
         }else{
             if Auth.auth().currentUser != nil {
-                self.changeName.text = barberProfileViewController.myShop.name
-                self.changePhone.text = barberProfileViewController.myShop.phone
+                self.changeName.text = MerchantProfileViewController.myShop.name
+                self.changePhone.text = MerchantProfileViewController.myShop.phone
                 self.changeMail.text = Funcs.loggedUser.mail
                 self.helloName.text = "Hello \(Funcs.loggedUser.name)"
-                self.shopAddress.text = barberProfileViewController.myShop.address
-                self.shopDescription.text = barberProfileViewController.myShop.desc
+                self.shopAddress.text = MerchantProfileViewController.myShop.address
+                self.shopDescription.text = MerchantProfileViewController.myShop.desc
 
                 
             } else {
@@ -124,7 +124,7 @@ class MerchantProfileViewController: UITableViewController {
     }
     
     func doneEditing() {
-        let ref = Database.database().reference().child("barbers/\(barberProfileViewController.myShop.ID)")
+        let ref = Database.database().reference().child("barbers/\(MerchantProfileViewController.myShop.ID)")
         ref.updateChildValues([
             "name": self.changeName.text!,
             "phone": self.changePhone.text!,
