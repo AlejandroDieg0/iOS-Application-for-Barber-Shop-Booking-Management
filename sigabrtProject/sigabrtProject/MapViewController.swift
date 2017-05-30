@@ -42,6 +42,7 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
         locManager.distanceFilter = 4000
         drawMap()
         self.modernSearchBar.delegateModernSearchBar = self
+        self.addBottomSheetView()
         
     }
     
@@ -135,12 +136,11 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
                 imageURL.downloadURL(completion: { (url, error) in
                     self.pins[tempPin] = Shop(ID: ID, name: barberName, desc: barberDesc, coordinate: tempPin.coordinate, phone: barberPhone, address: barberAddress, services: barberServices, logo: url, hours: hours)
                     self.barbers.append( self.pins[tempPin]!)
-                    self.addBottomSheetView()
+                    
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadTableView"), object: self)
 
                     self.personalMap.addAnnotation(tempPin)
                     self.initializeSearchBar()
-//                    self.nearBarberShops.reloadData()
                     
                 })
                 
