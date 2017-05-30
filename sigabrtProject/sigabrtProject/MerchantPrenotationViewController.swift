@@ -15,7 +15,7 @@ class MerchantPrenotationViewController: UIViewController, FSCalendarDataSource,
     
     @IBOutlet weak var freeTimeSlotCollectionView: UICollectionView!
     
-    var selectedDate : Date = Date()
+    var selectedDate : Date!
     var selectedTimeInMinutes: Int!
     var selectedServices : [Service] = []
     var selectedDuration = 0
@@ -39,8 +39,6 @@ class MerchantPrenotationViewController: UIViewController, FSCalendarDataSource,
         
         self.hideKeyboardWhenTappedAround()
         
-        let data = selectedDate
-        print(data)
         self.calendar.scope = .week
         calendar.appearance.headerDateFormat = "MMM yyyy"
         self.calendar.appearance.headerMinimumDissolvedAlpha = 0.0;
@@ -53,7 +51,7 @@ class MerchantPrenotationViewController: UIViewController, FSCalendarDataSource,
         servicesTableView.dataSource = self
         freeTimeSlotCollectionView.allowsMultipleSelection = false
         
-        self.calendar.select(Date())
+        self.calendar.select(selectedDate!)
         self.view.addGestureRecognizer(self.scopeGesture)
         
     }
@@ -175,10 +173,10 @@ class MerchantPrenotationViewController: UIViewController, FSCalendarDataSource,
         return cell
     }
     
-    fileprivate lazy var dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yy-MM-dd"
-        return formatter
-    }()
+//    fileprivate lazy var dateFormatter: DateFormatter = {
+//        let formatter = DateFormatter()
+//        formatter.dateFormat = "yy-MM-dd"
+//        return formatter
+//    }()
 }
 
