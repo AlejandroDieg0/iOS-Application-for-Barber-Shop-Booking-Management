@@ -99,18 +99,18 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
         
         self.view.addGestureRecognizer(self.scopeGesture)
         self.servicesCollectionView.panGestureRecognizer.require(toFail: self.scopeGesture)
-        
-        Funcs.loadShop(){loadedShop in
-            self.selectedShop = loadedShop
-            
-            self.barbershopName.text = self.selectedShop.name
-            self.barbershopPhone.text = self.selectedShop.phone
-            self.barbershopAddress.text = self.selectedShop.address
-            self.servicesCollectionView.reloadData()
-            
-            Funcs.busySlots(shop: self.selectedShop, date: self.selectedDate, duration: self.selectedDuration, collection: self.timeCollectionView)
+        if(selectedShop == nil){
+            Funcs.loadShop(){loadedShop in
+                self.selectedShop = loadedShop
+                
+                self.barbershopName.text = self.selectedShop.name
+                self.barbershopPhone.text = self.selectedShop.phone
+                self.barbershopAddress.text = self.selectedShop.address
+                self.servicesCollectionView.reloadData()
+                
+                Funcs.busySlots(shop: self.selectedShop, date: self.selectedDate, duration: self.selectedDuration, collection: self.timeCollectionView)
+            }
         }
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
