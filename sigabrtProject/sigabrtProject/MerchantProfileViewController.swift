@@ -4,7 +4,7 @@ import Firebase
 import FBSDKLoginKit
 
 
-class barberProfileViewController: UITableViewController {
+class MerchantProfileViewController: UITableViewController {
     
     let firebaseAuth = Auth.auth()
     let user = Auth.auth().currentUser
@@ -28,13 +28,13 @@ class barberProfileViewController: UITableViewController {
 
         NotificationCenter.default.addObserver(
                 self,
-                selector: #selector(barberProfileViewController.editing),
+                selector: #selector(MerchantProfileViewController.editing),
                 name: NSNotification.Name(rawValue: "editTableView"),
                 object: nil)
         
         NotificationCenter.default.addObserver(
             self,
-            selector: #selector(barberProfileViewController.doneEditing),
+            selector: #selector(MerchantProfileViewController.doneEditing),
             name: NSNotification.Name(rawValue: "doneTableView"),
             object: nil)
         
