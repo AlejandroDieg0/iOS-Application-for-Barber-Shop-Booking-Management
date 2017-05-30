@@ -339,9 +339,9 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
             
             Funcs.animateOut(sender: self.loginView)
            
-            if ViewController.self == MapViewController.self {
-                self.performSegue(withIdentifier: "loginSuccess", sender: nil)
-            }
+            //if ViewController.self == MapViewController.self {
+            //    self.performSegue(withIdentifier: "loginSuccess", sender: nil)
+            //}
           
         })
     }

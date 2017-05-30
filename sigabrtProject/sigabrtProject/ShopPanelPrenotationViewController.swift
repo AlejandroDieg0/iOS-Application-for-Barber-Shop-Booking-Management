@@ -5,7 +5,7 @@ import Firebase
 import SystemConfiguration
 
 
-class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSource, FSCalendarDelegate, UIGestureRecognizerDelegate,UICollectionViewDelegate, UICollectionViewDataSource {
+class ShopPanelPrenotationViewController: UIViewController, FSCalendarDataSource, FSCalendarDelegate, UIGestureRecognizerDelegate,UICollectionViewDelegate, UICollectionViewDataSource {
     
     
     var prenotationList = [Prenotation]()
@@ -209,10 +209,10 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let detailBarber = segue.destination as? BarberPrenotationViewController{
+        if let detailBarber = segue.destination as? MerchantPrenotationViewController{
             detailBarber.selectedShop = self.selectedShop
         }
-        if let detailBarber = segue.destination as? BarberDetailViewController{
+        if let detailBarber = segue.destination as? MerchantDetailViewController{
             detailBarber.selectedShop = self.selectedShop
         }
     }

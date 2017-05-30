@@ -13,7 +13,7 @@
         <!--Data Source-->
         <scene sceneID="lS5-Gm-NwG">
             <objects>
-                <viewController id="9GH-Up-GbH" customClass="BarberPrenotationViewController" customModule="sigabrtProject" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="9GH-Up-GbH" customClass="MerchantPrenotationViewController" customModule="sigabrtProject" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="XHb-OV-bHc"/>
                         <viewControllerLayoutGuide type="bottom" id="yCA-uT-hkB"/>
@@ -283,7 +283,7 @@
         <!--Data Source-->
         <scene sceneID="KxD-NN-VHV">
             <objects>
-                <viewController id="t7z-oW-Yb1" customClass="BarberPagePrenotationViewController" customModule="sigabrtProject" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="t7z-oW-Yb1" customClass="ShopPanelPrenotationViewController" customModule="sigabrtProject" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="EVZ-qm-lte"/>
                         <viewControllerLayoutGuide type="bottom" id="mLu-do-ca6"/>
@@ -571,10 +571,10 @@
             </objects>
             <point key="canvasLocation" x="2972" y="138.98050974512745"/>
         </scene>
-        <!--Barber Detail View Controller-->
+        <!--Merchant Detail View Controller-->
         <scene sceneID="AOB-rW-hpZ">
             <objects>
-                <viewController id="fES-7s-hy1" customClass="BarberDetailViewController" customModule="sigabrtProject" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="fES-7s-hy1" customClass="MerchantDetailViewController" customModule="sigabrtProject" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="fXA-oy-jii"/>
                         <viewControllerLayoutGuide type="bottom" id="inx-L1-zwL"/>
@@ -649,10 +649,10 @@
             </objects>
             <point key="canvasLocation" x="3922.4000000000001" y="642.72863568215894"/>
         </scene>
-        <!--Barber Profile View Controller-->
+        <!--Merchant Profile View Controller-->
         <scene sceneID="mS2-GE-NBJ">
             <objects>
-                <tableViewController storyboardIdentifier="loginSuccess" id="pi5-Cg-8gU" customClass="barberProfileViewController" customModule="sigabrtProject" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="loginSuccess" id="pi5-Cg-8gU" customClass="MerchantProfileViewController" customModule="sigabrtProject" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" canCancelContentTouches="NO" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="1" id="tGw-lm-zfl">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="470"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -885,6 +885,7 @@
         <!--Navigation Controller-->
         <scene sceneID="zlx-OG-94U">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4a5-04-xub" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController storyboardIdentifier="barberView" automaticallyAdjustsScrollViewInsets="NO" id="BKK-Xs-FSH" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ERO-ZX-dQ4">
@@ -896,7 +897,6 @@
                         <segue destination="t7z-oW-Yb1" kind="relationship" relationship="rootViewController" id="h6V-B3-28R"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="4a5-04-xub" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2972" y="-584"/>
         </scene>

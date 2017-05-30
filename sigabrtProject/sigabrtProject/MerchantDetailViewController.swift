@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-class BarberDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class MerchantDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var serviceTableView: UITableView!
     @IBOutlet weak var tableViewController: UIView!
