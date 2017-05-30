@@ -287,6 +287,7 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
                 self.present(actionSheet, animated: true, completion:  nil)
             }
         }
+        Funcs.animateOut(sender: confirmPrenotation)
     }
     
     
