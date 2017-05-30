@@ -23,12 +23,8 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
     var TempID: Int = 0
     var barbers: [Shop] = []
     var currentBarber : Shop?
+    var bottomSheetVC: bottomScrollable!
 
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        addBottomSheetView()
-    }
     override func viewDidLoad() {
         super.viewDidLoad()
         Funcs.loadUserData()
@@ -137,6 +133,9 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
                     self.pins[tempPin] = Shop(ID: ID, name: barberName, desc: barberDesc, coordinate: tempPin.coordinate, phone: barberPhone, address: barberAddress, services: barberServices, logo: url, hours: hours)
                     self.barbers.append( self.pins[tempPin]!)
                     
+                    self.bottomSheetVC.barbersShop = self.barbers
+                    self.bottomSheetVC.tableView.reloadData()
+                    
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadTableView"), object: self)
 
                     self.personalMap.addAnnotation(tempPin)
@@ -229,10 +228,9 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
         }
     }
     
-
     func addBottomSheetView() {
         
-        let bottomSheetVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "bottomScrollable") as! bottomScrollable
+        bottomSheetVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "bottomScrollable") as! bottomScrollable
         
         self.addChildViewController(bottomSheetVC)
         
@@ -241,8 +239,6 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
         
         //qui vanno passati gli shop
         //come bottomSheetVC.variabileArrayDellaScrollableView = array
-        bottomSheetVC.barbersShop = barbers
-        bottomSheetVC.tableView.reloadData()
 
         let height = view.frame.height
         let width  = view.frame.width
