@@ -8,13 +8,15 @@ class barberProfileViewController: UITableViewController {
     
     let firebaseAuth = Auth.auth()
     let user = Auth.auth().currentUser
-    
+    static var myShop : Shop!
     //INFO LABEL
     @IBOutlet weak var changeMail: UITextField!
     @IBOutlet weak var changeName: UITextField!
     @IBOutlet weak var helloName: UILabel!
     @IBOutlet weak var changePhone: UITextField!
     @IBOutlet weak var logoBarber: UIImageView!
+    @IBOutlet weak var shopAddress: UITextField!
+    @IBOutlet weak var shopDescription: UITextField!
     
     @IBOutlet weak var sendMailPwReset: UIButton!
 
@@ -23,10 +25,7 @@ class barberProfileViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         logoBarber.layer.cornerRadius = logoBarber.frame.size.width/2
-        // let editBarButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.edit, target: self, action: Selector(("setEditing")))
-        navigationItem.rightBarButtonItem = editButtonItem
-        
-        
+
         NotificationCenter.default.addObserver(
                 self,
                 selector: #selector(barberProfileViewController.editing),
@@ -38,12 +37,15 @@ class barberProfileViewController: UITableViewController {
             selector: #selector(barberProfileViewController.doneEditing),
             name: NSNotification.Name(rawValue: "doneTableView"),
             object: nil)
+        
         //GESTURE
         self.hideKeyboardWhenTappedAround()
         
         self.changeName.isUserInteractionEnabled = false
         self.changeMail.isUserInteractionEnabled = false
         self.changePhone.isUserInteractionEnabled = false
+        self.shopAddress.isUserInteractionEnabled = false
+        self.shopDescription.isUserInteractionEnabled = false
         
         
         if(FBSDKAccessToken.current() != nil){
@@ -72,10 +74,13 @@ class barberProfileViewController: UITableViewController {
             
         }else{
             if Auth.auth().currentUser != nil {
-                self.changeName.text = Funcs.loggedUser.name
-                self.changePhone.text = Funcs.loggedUser.phone
+                self.changeName.text = barberProfileViewController.myShop.name
+                self.changePhone.text = barberProfileViewController.myShop.phone
                 self.changeMail.text = Funcs.loggedUser.mail
-                self.helloName.text = "Hello \(self.changeName.text!)"
+                self.helloName.text = "Hello \(Funcs.loggedUser.name)"
+                self.shopAddress.text = barberProfileViewController.myShop.address
+                self.shopDescription.text = barberProfileViewController.myShop.desc
+
                 
             } else {
                 print("no logged with Firebase")
@@ -85,6 +90,7 @@ class barberProfileViewController: UITableViewController {
         
         
     }
+
     func reloadData(){
             self.tableView.reloadData()
            }
@@ -93,29 +99,60 @@ class barberProfileViewController: UITableViewController {
         print("sono qui dento")
         self.changePhone.isUserInteractionEnabled = true
         self.changePhone.textColor = UIColor.black
+        self.changePhone.borderStyle = .roundedRect
         
         self.changeMail.isUserInteractionEnabled = true
         self.changeMail.textColor = UIColor.black
+        self.changeMail.borderStyle = .roundedRect
+
         
         self.changeName.isUserInteractionEnabled = true
         self.changeName.textColor = UIColor.black
+        self.changeName.borderStyle = .roundedRect
+
+        
+        self.shopDescription.isUserInteractionEnabled = true
+        self.shopDescription.textColor = UIColor.black
+        self.shopDescription.borderStyle = .roundedRect
+
+        
+        self.shopAddress.isUserInteractionEnabled = true
+        self.shopAddress.textColor = UIColor.black
+        self.shopAddress.borderStyle = .roundedRect
+
+        
     }
     
     func doneEditing() {
-        let ref = Database.database().reference().child("user/\(Auth.auth().currentUser?.uid ?? "noLogin")")
+        let ref = Database.database().reference().child("barbers/\(barberProfileViewController.myShop.ID)")
         ref.updateChildValues([
             "name": self.changeName.text!,
             "phone": self.changePhone.text!,
+            "address": self.shopAddress.text!,
+            "description": self.shopDescription.text!
             ])
+
 
         self.changePhone.isUserInteractionEnabled = false
         self.changePhone.textColor = UIColor.gray
+        self.changePhone.borderStyle = .none
 
         self.changeMail.isUserInteractionEnabled = false
         self.changeMail.textColor = UIColor.gray
+        self.changeMail.borderStyle = .none
 
         self.changeName.isUserInteractionEnabled = false
         self.changeName.textColor = UIColor.gray
+        self.changeName.borderStyle = .none
+
+        self.shopDescription.isUserInteractionEnabled = true
+        self.shopDescription.textColor = UIColor.black
+        self.shopDescription.borderStyle = .none
+        
+        
+        self.shopAddress.isUserInteractionEnabled = true
+        self.shopAddress.textColor = UIColor.black
+        self.shopAddress.borderStyle = .none
         
         print("Changes Uploaded")
     }
@@ -159,86 +196,6 @@ class barberProfileViewController: UITableViewController {
         
         return
     }
-    
-    
-    
-    override func setEditing(_ editing: Bool, animated: Bool) {
-        super.setEditing(editing, animated: animated)
-        
-        if isEditing {
-            print(editing)
-            self.changePhone.isUserInteractionEnabled = true
-            self.changePhone.textColor = UIColor.black
-            
-            self.changeMail.isUserInteractionEnabled = true
-            self.changeMail.textColor = UIColor.black
-            
-            self.changeName.isUserInteractionEnabled = true
-            self.changeName.textColor = UIColor.black
-            
-            
-        } else {
-            createAlert()
-            let ref = Database.database().reference().child("user/\(Auth.auth().currentUser?.uid ?? "noLogin")")
-            ref.updateChildValues([
-                "name": self.changeName.text!,
-                "phone": self.changePhone.text!,
-                ])
-            
-            self.changePhone.isUserInteractionEnabled = false
-            self.changePhone.textColor = UIColor.gray
-            
-            self.changeMail.isUserInteractionEnabled = false
-            self.changeMail.textColor = UIColor.gray
-            
-            self.changeName.isUserInteractionEnabled = false
-            self.changeName.textColor = UIColor.gray
-            
-            print("Changes Uploaded")
-            
-        }
-    }
-    
-//    //TABLE VIEW
-//     override func numberOfSections(in tableView: UITableView) -> Int {
-//        if tableView == self.tableViewService {
-//        return 1
-//        }
-//        else{
-//            return super.numberOfSections(in: tableView)
-//        }
-//    }
-//    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//       if tableView == self.tableViewService {
-//        return Funcs.currentShop.services.count
-//       } else {
-//        return super.tableView(tableView, numberOfRowsInSection: section)
-//        }
-//    }
-//    
-//    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//       if tableView == self.tableViewService {
-//        let cell = tableViewService.dequeueReusableCell(withIdentifier: "serviceCell", for: indexPath) as! barberSelfServiceTableViewCell
-//        cell.labelService.text = Funcs.currentShop.services[indexPath.row].name
-//        cell.labelPrice.text = String(Funcs.currentShop.services[indexPath.row].price) + "€"
-//        return cell
-//       }
-//       else{
-//        return super.tableView(tableView, cellForRowAt: indexPath)
-//        }
-//    }
-//    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        
-//    }
-//
-//    
-//    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
-//        return .none
-//    }
-//    
-//    override func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
-//        return false
-//    }
     // REAUTH
     func createAlert(){
         let alert = UIAlertController(title: "Authentication", message: "", preferredStyle: UIAlertControllerStyle.alert)

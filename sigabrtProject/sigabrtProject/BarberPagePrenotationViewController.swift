@@ -214,6 +214,8 @@ class BarberPagePrenotationViewController: UIViewController, FSCalendarDataSourc
         }
         if let detailBarber = segue.destination as? BarberDetailViewController{
             detailBarber.selectedShop = self.selectedShop
+            barberProfileViewController.myShop = self.selectedShop
+            
         }
     }
     

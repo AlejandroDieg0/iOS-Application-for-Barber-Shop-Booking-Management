@@ -21,6 +21,7 @@
 		9BFBF98D1EBA232500DA7D25 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9BFBF98B1EBA232500DA7D25 /* Main.storyboard */; };
 		9BFBF98F1EBA232500DA7D25 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9BFBF98E1EBA232500DA7D25 /* Assets.xcassets */; };
 		9BFBF9921EBA232500DA7D25 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9BFBF9901EBA232500DA7D25 /* LaunchScreen.storyboard */; };
+		C31331231EDD7D0A00D32416 /* ServiceDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31331221EDD7D0A00D32416 /* ServiceDetailViewController.swift */; };
 		C375C7091EC9E0BC00D0CD81 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C375C7081EC9E0BC00D0CD81 /* GoogleService-Info.plist */; };
 		C3D330BC1ED3420200000E67 /* ShopDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D330BB1ED3420200000E67 /* ShopDetailViewController.swift */; };
 		C9BF471E0A8B29B855AE28ED /* Pods_sigabrtProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE4E48101E0B8755FAE84BC9 /* Pods_sigabrtProject.framework */; };
@@ -68,6 +69,7 @@
 		9BFBF98E1EBA232500DA7D25 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9BFBF9911EBA232500DA7D25 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9BFBF9931EBA232500DA7D25 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = sigabrtProject/Info.plist; sourceTree = "<group>"; };
+		C31331221EDD7D0A00D32416 /* ServiceDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceDetailViewController.swift; sourceTree = "<group>"; };
 		C375C7081EC9E0BC00D0CD81 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C3D330BB1ED3420200000E67 /* ShopDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShopDetailViewController.swift; sourceTree = "<group>"; };
 		E1AED266F19751A8C31C1AC4 /* Pods-sigabrtProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sigabrtProject.release.xcconfig"; path = "Pods/Target Support Files/Pods-sigabrtProject/Pods-sigabrtProject.release.xcconfig"; sourceTree = "<group>"; };
@@ -168,6 +170,7 @@
 				E51D33E21ED07674004C9BEF /* BarberPagePrenotationViewController.swift */,
 				F354A5041EDC529F0085E3AC /* BarberDetailViewController.swift */,
 				E52520081EDC5EBE00367813 /* historyViewController.swift */,
+				C31331221EDD7D0A00D32416 /* ServiceDetailViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -384,6 +387,7 @@
 				C3D330BC1ED3420200000E67 /* ShopDetailViewController.swift in Sources */,
 				F3EF9A121ED46FBE00BA2A6A /* ServiceCollectionViewCell.swift in Sources */,
 				E33F8BEC1EC9F70000705497 /* Shop.swift in Sources */,
+				C31331231EDD7D0A00D32416 /* ServiceDetailViewController.swift in Sources */,
 				E526BED31ED5DF5A005251A7 /* barberSelfServiceTableViewCell.swift in Sources */,
 				E525200B1EDC5F8200367813 /* historyTableViewCell.swift in Sources */,
 			);
