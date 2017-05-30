@@ -110,7 +110,6 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
                             }
                         }
                     }
-                 print(barberServices)
                 
                 var hours : [String:[[Int]]] = [:]
                 if let child = snapshot.childSnapshot(forPath: "hours").value as? [String:Any]  {
