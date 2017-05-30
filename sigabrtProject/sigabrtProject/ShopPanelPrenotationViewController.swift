@@ -98,7 +98,6 @@ class ShopPanelPrenotationViewController: UIViewController, FSCalendarDataSource
                             let id = tempServiceChild["id"] as? String ?? "NOID"
 
                             bookedServices.append(Service(name: serviceName, duration: serviceDuration, price: servicePrice, id: id))
-                            print(serviceName)
                         }
                     }
                 }

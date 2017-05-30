@@ -35,8 +35,7 @@ class UserProfileViewController: UITableViewController {
         navigationItem.rightBarButtonItem = editButtonItem
         
         //GESTURE
-    let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UserProfileViewController.dismissKeyboard))
-        view.addGestureRecognizer(tap)
+        self.hideKeyboardWhenTappedAround()
 
         self.changeName.isUserInteractionEnabled = false
         self.changeMail.isUserInteractionEnabled = false
@@ -85,10 +84,6 @@ class UserProfileViewController: UITableViewController {
                 helloName.text = "Hello User!"
             }
         }
-    }
-    
-    override func dismissKeyboard() {
-        view.endEditing(true)
     }
     
     // logout
