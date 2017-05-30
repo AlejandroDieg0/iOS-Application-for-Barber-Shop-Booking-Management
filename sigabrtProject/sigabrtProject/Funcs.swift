@@ -239,7 +239,7 @@ class Funcs: NSObject {
                     for c in servicesChild{
                         if let tempServiceChild = c.value as? [String:Any]{
                             let serviceDuration = tempServiceChild["duration"] as? Int ?? 0
-                            prenotationDuration = prenotationDuration + serviceDuration
+                            prenotationDuration = prenotationDuration + serviceDuration - 1
                         }
                     }
                             for slot in time ... time + prenotationDuration{
@@ -266,13 +266,14 @@ class Funcs: NSObject {
         let slotsInADay = 1440
         
         for currslot in 0 ... slotsInADay {
-            let currentSlotMinute = currslot 
+            let currentSlotMinute = currslot
             if let arrayDay = shop.hours?[selectedDay[0]]{
                 for shopOpeningFrame in arrayDay {
                     //TODO: bisogna aggiungere a currentSlotMinute la durata del servizio (dei servizi) selezionati
                     if (currentSlotMinute >= shopOpeningFrame[0] &&
                         currentSlotMinute < shopOpeningFrame[1] &&
-                        !busySlots.contains(currentSlotMinute)){
+                        !busySlots.contains(currentSlotMinute) &&
+                        currentSlotMinute % 5 == 0){
                             var bookable = true
                                 for slot in currentSlotMinute - 15 ... currentSlotMinute{
                                     if(bookableSlotsInMinutes.contains(slot)){
