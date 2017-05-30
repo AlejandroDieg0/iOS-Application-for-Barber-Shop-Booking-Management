@@ -51,7 +51,7 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
             return
         }
         
-        let controller = UIStoryboard(name: "User", bundle: nil).instantiateViewController(withIdentifier: "profileVC") as? UserReservationViewController
+        let controller = UIStoryboard(name: "User", bundle: nil).instantiateViewController(withIdentifier: "userReservation") as? UserReservationViewController
         self.addChildViewController(controller!)
      
         Funcs.animateIn(sender: (controller?.loginView)!)
