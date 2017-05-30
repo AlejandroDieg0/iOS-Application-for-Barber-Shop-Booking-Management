@@ -68,30 +68,30 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource ,
         return WIZarray[nextIndex]
     }
     
-    
-//    EDIT: Sostituito con page control sulla storyboard top
-    public func presentationCount(for pageViewController: UIPageViewController) -> Int {
-        return WIZarray.count
-    }
-    
-    
-    public func presentationIndex(for pageViewController: UIPageViewController) -> Int {
-        guard let firstViewController = viewControllers?.first, let firstViewControllerIndex = WIZarray.index(of: firstViewController) else {
-            return 0
-        }
-        return firstViewControllerIndex
-    }
-    
-//    some magic to make UIPageControl transparent
-    override func viewDidLayoutSubviews() {
-        for subView in self.view.subviews {
-            if subView is UIScrollView {
-                subView.frame = self.view.bounds
-            } else if subView is UIPageControl {
-                self.view.bringSubview(toFront: subView)
-            }
-        }
-        super.viewDidLayoutSubviews()
-    }
-    
+//    
+////    EDIT: Sostituito con page control sulla storyboard top
+//    public func presentationCount(for pageViewController: UIPageViewController) -> Int {
+//        return WIZarray.count
+//    }
+//    
+//    
+//    public func presentationIndex(for pageViewController: UIPageViewController) -> Int {
+//        guard let firstViewController = viewControllers?.first, let firstViewControllerIndex = WIZarray.index(of: firstViewController) else {
+//            return 0
+//        }
+//        return firstViewControllerIndex
+//    }
+//    
+////    some magic to make UIPageControl transparent
+//    override func viewDidLayoutSubviews() {
+//        for subView in self.view.subviews {
+//            if subView is UIScrollView {
+//                subView.frame = self.view.bounds
+//            } else if subView is UIPageControl {
+//                self.view.bringSubview(toFront: subView)
+//            }
+//        }
+//        super.viewDidLayoutSubviews()
+//    }
+//    
 }

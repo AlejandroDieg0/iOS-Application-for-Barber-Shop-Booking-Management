@@ -15,7 +15,13 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
     @IBOutlet weak var signUp: UIButton!
     @IBOutlet var loginView: UIView!
     @IBOutlet var signupView: UIView!
+ 
     @IBOutlet var confirmPrenotation: UIView!
+    @IBOutlet weak var prenotationDate: UILabel!
+    @IBOutlet weak var prenotationHour: UILabel!
+    @IBOutlet weak var prenotationServiceTb: UITableView!
+    @IBOutlet weak var prenotationTotal: UILabel!
+    
     
     @IBOutlet weak var passw: UITextField!
     @IBOutlet weak var email: UITextField!
@@ -26,7 +32,7 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
     @IBOutlet weak var loginError: UILabel!
     
     @IBOutlet weak var fbBut: UIButton!
-
+    
     //
     
     @IBOutlet weak var timeCollectionView: UICollectionView!
@@ -76,35 +82,34 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
         signUp.layer.borderWidth = 1.3
         signUp.layer.borderColor = UIColor.white.withAlphaComponent(0.7).cgColor
         
-        //
-        
         barberPhoto.layer.cornerRadius = barberPhoto.frame.size.width/2
         barberPhoto.clipsToBounds = true
-        print(selectedShop.desc)
+        
         if UIDevice.current.model.hasPrefix("iPad") {
             self.calendarHeightConstraint.constant = 400
         }
+        
         timeCollectionView.delegate = self
         timeCollectionView.dataSource = self
         timeCollectionView.allowsMultipleSelection = false
         servicesCollectionView.allowsMultipleSelection = true
-
+        self.calendar.accessibilityIdentifier = "calendar"
         self.calendar.select(Date())
+        self.calendar.scope = .week
         
         self.view.addGestureRecognizer(self.scopeGesture)
         self.servicesCollectionView.panGestureRecognizer.require(toFail: self.scopeGesture)
-        self.calendar.scope = .week
-        let data = selectedDate
         
-        barbershopName.text = selectedShop.name
-        barbershopPhone.text = selectedShop.phone
-        barbershopAddress.text = selectedShop.address
-        
-        Funcs.busySlots(shop: selectedShop, date: data, duration: selectedDuration, collection: timeCollectionView)
-        
-        
-        // For UITest
-        self.calendar.accessibilityIdentifier = "calendar"
+        Funcs.loadShop(){loadedShop in
+            self.selectedShop = loadedShop
+            
+            self.barbershopName.text = self.selectedShop.name
+            self.barbershopPhone.text = self.selectedShop.phone
+            self.barbershopAddress.text = self.selectedShop.address
+            self.servicesCollectionView.reloadData()
+            
+            Funcs.busySlots(shop: self.selectedShop, date: self.selectedDate, duration: self.selectedDuration, collection: self.timeCollectionView)
+        }
         
     }
     
@@ -115,10 +120,6 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
         //}
         error.alpha = 0
         loginError.alpha = 0
-    }
-    
-    override func dismissKeyboard() {
-        view.endEditing(true)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -146,10 +147,10 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
         self.calendarHeightConstraint.constant = bounds.height
         self.view.layoutIfNeeded()
     }
- 
+    
     
     func minimumDate(for calendar: FSCalendar) -> Date {
-     
+        
         let today = Date()
         
         return today
@@ -171,13 +172,14 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
         
         
     }
-   
+    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if (collectionView == self.servicesCollectionView) {
+            if (selectedShop == nil) {return 0}
             return selectedShop.services.count
         } else {
             return Funcs.bookableSlotsInMinutes.count
@@ -230,10 +232,10 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
     }
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         if (collectionView == self.servicesCollectionView) {
-                self.selectedServices = self.selectedServices.filter { $0.name != selectedShop.services[indexPath.row].name }
+            self.selectedServices = self.selectedServices.filter { $0.name != selectedShop.services[indexPath.row].name }
             
-                collectionView.cellForItem(at: indexPath)?.contentView.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
-            }
+            collectionView.cellForItem(at: indexPath)?.contentView.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
+        }
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if (collectionView == self.servicesCollectionView) {
@@ -251,48 +253,50 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
             collectionView.cellForItem(at: indexPath)?.contentView.backgroundColor = UIColor(red: 51/255, green: 107/255, blue: 135/255, alpha: 1)
             
             print(selectedTimeInMinutes)
-            }
-
         }
+        
+    }
     
     @IBAction func saveReservation(_ sender: Any) {
-
+        
         if(Auth.auth().currentUser == nil){
             Funcs.animateIn(sender: (loginView))
         } else {
         
-        //TODO: Vogliamo dare la possibilità al utente di inserire delle note durante la prenotazione ??
-        let note = "NoNote"
-        let actionSheet = UIAlertController(title: "", message: "Confirm prenotation", preferredStyle: .actionSheet)
-        let errorAlert = UIAlertController(title: "Missing Informations", message: "Please check the details of your reservations", preferredStyle: .actionSheet)
-
-        actionSheet.addAction(UIAlertAction(title: "OK", style: .default) { action in
-            
-            Funcs.addReservation(shop: self.selectedShop, time: self.selectedTimeInMinutes, note: note, services: self.selectedServices, date: self.selectedDate)
-            self.selectedTimeInMinutes = 0
-            self.selectedServices = []
-            let selectedItems = self.servicesCollectionView.indexPathsForSelectedItems
-            for indexPath in selectedItems! {
-                self.servicesCollectionView.deselectItem(at: indexPath, animated:true)
-                if self.servicesCollectionView.cellForItem(at: indexPath) != nil {
-                    self.servicesCollectionView.cellForItem(at: indexPath)?.contentView.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
-                }
-            }
-        })
-        
-        actionSheet.addAction(UIAlertAction(title: "CANCEL", style: .cancel, handler: nil))
-        
-        errorAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-        
         if (self.selectedTimeInMinutes == 0 ||  self.selectedServices.count == 0 ){
-            self.present(errorAlert, animated: true, completion:  nil)
             
-        }else{
-            self.present(actionSheet, animated: true, completion:  nil)
-        }
+            let errorAlert = UIAlertController(title: "Missing Informations", message: "Please check the details of your reservations", preferredStyle: .actionSheet)
+           
+            errorAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+            
+            self.present(errorAlert, animated: true, completion:  nil)
+            }
+         
+            else{
+            Funcs.animateIn(sender: self.confirmPrenotation)
+            }
         }
     }
     
+    @IBAction func confirmPrenotation(_ sender: Any) {
+        let note = "noNote"
+        Funcs.addReservation(shop: self.selectedShop, time: self.selectedTimeInMinutes, note: note, services: self.selectedServices, date: self.selectedDate)
+        self.selectedTimeInMinutes = 0
+        self.selectedServices = []
+        let selectedItems = self.servicesCollectionView.indexPathsForSelectedItems
+        for indexPath in selectedItems! {
+            self.servicesCollectionView.deselectItem(at: indexPath, animated:true)
+            if self.servicesCollectionView.cellForItem(at: indexPath) != nil {
+                self.servicesCollectionView.cellForItem(at: indexPath)?.contentView.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
+                
+            }
+        }
+        Funcs.animateOut(sender: confirmPrenotation)
+    }
+    
+    @IBAction func noConfirm(_ sender: Any) {
+        Funcs.animateOut(sender: confirmPrenotation)
+    }
     
     // login
     @IBAction func login(_ sender: UIButton) {
@@ -338,11 +342,11 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
             self.passw.text = ""
             
             Funcs.animateOut(sender: self.loginView)
-           
+            
             //if ViewController.self == MapViewController.self {
             //    self.performSegue(withIdentifier: "loginSuccess", sender: nil)
             //}
-          
+            
         })
     }
     
@@ -406,19 +410,6 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
     @IBAction func alreadyHaveAccount(_ sender: UIButton) {
         Funcs.animateOut(sender: signupView)
         Funcs.animateIn(sender: loginView)
-    }
-    
-    
-    @IBAction func prenota(_ sender: Any) {
-        switch Auth.auth().currentUser {
-            
-        case nil:
-            print(" \n Current User is logged out \n  show LoginViewController \n")
-            Funcs.animateIn(sender: loginView)
-        default:
-            
-            Funcs.animateIn(sender: confirmPrenotation)
-        }
     }
     
     
