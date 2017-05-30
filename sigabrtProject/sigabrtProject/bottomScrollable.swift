@@ -10,7 +10,7 @@ class bottomScrollable: UIViewController{
         let fullView: CGFloat = 150
         var barbersShop : [Shop] = [] // Qui first of all ti ho definito un array di Shop
         var partialView: CGFloat {
-            return UIScreen.main.bounds.height - 115
+            return UIScreen.main.bounds.height - 44
         }
 
         
