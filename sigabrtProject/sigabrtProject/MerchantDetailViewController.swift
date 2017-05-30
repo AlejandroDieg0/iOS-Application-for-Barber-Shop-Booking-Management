@@ -92,9 +92,6 @@ class MerchantDetailViewController: UIViewController, UITableViewDelegate, UITab
             self.servicePrice.text = String(self.selectedShop.services[indexPath.row].price)
             self.selectedID = indexPath.row
             Funcs.animateIn(sender: self.editView)
-        
-
-            print("sono qui")
         }
         edit.backgroundColor = .blue
         let cancel = UITableViewRowAction(style: .destructive, title: "Delete") { action, index in
