@@ -90,13 +90,14 @@ class ShopPanelPrenotationViewController: UIViewController, FSCalendarDataSource
                 let time = userDict["time"] as? Int ?? 0
                 var bookedServices : [Service] = []
                 if let child = snapshot.childSnapshot(forPath: "services").value as? [String:Any] {
-                    print(child)
                     for c in child{
                         if let tempServiceChild = c.value as? [String:Any]{
                             let serviceName = tempServiceChild["type"] as? String ?? "NoName"
                             let serviceDuration = tempServiceChild["duration"] as? Int ?? 0
                             let servicePrice = tempServiceChild["price"] as? Int ?? 0
-                            bookedServices.append(Service(name: serviceName, duration: serviceDuration, price: servicePrice))
+                            let id = tempServiceChild["id"] as? String ?? "NOID"
+
+                            bookedServices.append(Service(name: serviceName, duration: serviceDuration, price: servicePrice, id: id))
                             print(serviceName)
                         }
                     }

@@ -77,8 +77,12 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
         
         ref = Database.database().reference().child("barbers")
         
+        
         ref.observe(.childAdded, with: { snapshot in
+
             if let snapshotValue = snapshot.value as? [String:Any] {
+                var barberServices:[Service] = []
+
                 let barberName = snapshotValue["name"] as? String ?? "NoName"
                 let barberDesc = snapshotValue["description"] as? String ?? "NoDesc"
                 let barberLat = snapshotValue["latitude"] as? Double ?? 14.04
@@ -86,19 +90,22 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
                 let ID = Int(snapshot.key)!
                 let barberPhone = snapshotValue["phone"] as? String ?? "NoPhone"
                 let barberAddress = (snapshotValue["address"])! as? String ?? "NoAddress"
-                
-                var barberServices:[Service] = []
-                if let child = snapshot.childSnapshot(forPath: "services").value as? NSArray {
+                if let child = snapshot.childSnapshot(forPath: "services").value as? [String:Any] {
                     for c in child{
-                        if let tempServiceChild = c as? [String:Any]{
-                            let serviceName = tempServiceChild["name"] as? String ?? "NoName"
-                            let serviceDuration = tempServiceChild["duration"] as? Int ?? 0
-                            let servicePrice = tempServiceChild["price"] as? Int ?? 0
-                            let service = Service(name: serviceName, duration: serviceDuration, price: servicePrice)
-                            barberServices.append(service)
+                         print(c.key)
+                        if let smallChild = snapshot.childSnapshot(forPath: "services/\(c.key)").value as? [String:Any]  {
+                            print(smallChild)
+                                    let id = c.key
+                                    let serviceName = smallChild["name"] as? String ?? "NoName"
+                                    let serviceDuration = smallChild["duration"] as? Int ?? 0
+                                    let servicePrice = smallChild["price"] as? Int ?? 0
+                                    let service = Service(name: serviceName, duration: serviceDuration, price: servicePrice, id: id)
+                                    barberServices.append(service)
+                                
+                            }
                         }
                     }
-                }
+                 print(barberServices)
                 
                 var hours : [String:[[Int]]] = [:]
                 if let child = snapshot.childSnapshot(forPath: "hours").value as? [String:Any]  {
