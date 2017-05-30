@@ -46,7 +46,7 @@
                                         <color key="value" red="0.49803921568627452" green="0.49803921568627452" blue="0.49803921568627452" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="borderDefaultColor">
-                                        <color key="value" red="0.0" green="0.0" blue="0.0" alpha="0.30417915239726029" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="value" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
@@ -942,7 +942,6 @@
         <!--Navigation Controller-->
         <scene sceneID="zlx-OG-94U">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="4a5-04-xub" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController storyboardIdentifier="barberView" automaticallyAdjustsScrollViewInsets="NO" id="BKK-Xs-FSH" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ERO-ZX-dQ4">
@@ -954,6 +953,7 @@
                         <segue destination="t7z-oW-Yb1" kind="relationship" relationship="rootViewController" id="h6V-B3-28R"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4a5-04-xub" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2972" y="-584"/>
         </scene>

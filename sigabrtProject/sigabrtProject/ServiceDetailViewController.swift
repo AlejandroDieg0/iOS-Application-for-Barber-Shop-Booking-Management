@@ -16,6 +16,7 @@ class ServiceDetailViewController: UIViewController {
     @IBOutlet weak var servicePrice: UITextField!
     @IBOutlet weak var deleteService: UIButton!
     @IBOutlet weak var updateDetail: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         serviceName.text = selectedService.name
