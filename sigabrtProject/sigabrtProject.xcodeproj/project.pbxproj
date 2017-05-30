@@ -155,7 +155,7 @@
 			children = (
 				E30357B41EDD85D800562543 /* Merchant */,
 				E3ACD9101ECF3D74002B6399 /* UserReservationViewController.swift */,
-				E3E1807B1ECDE31100E54186 /* ThirdViewController.swift */,
+				9B0CC8961ECC7A7F007550FB /* PageViewController.swift */,
 				9B04743B1EC9FAA30075A6A6 /* MapViewController.swift */,
 				E30357B71EDDC29200562543 /* bottomScrollable.swift */,
 				9B0CC8961ECC7A7F007550FB /* PageViewController.swift */,
