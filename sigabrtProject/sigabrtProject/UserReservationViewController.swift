@@ -15,7 +15,13 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
     @IBOutlet weak var signUp: UIButton!
     @IBOutlet var loginView: UIView!
     @IBOutlet var signupView: UIView!
+ 
     @IBOutlet var confirmPrenotation: UIView!
+    @IBOutlet weak var prenotationDate: UILabel!
+    @IBOutlet weak var prenotationHour: UILabel!
+    @IBOutlet weak var prenotationServiceTb: UITableView!
+    @IBOutlet weak var prenotationTotal: UILabel!
+    
     
     @IBOutlet weak var passw: UITextField!
     @IBOutlet weak var email: UITextField!
@@ -293,6 +299,9 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
         Funcs.animateOut(sender: confirmPrenotation)
     }
     
+    @IBAction func noConfirm(_ sender: Any) {
+        Funcs.animateOut(sender: confirmPrenotation)
+    }
     
     // login
     @IBAction func login(_ sender: UIButton) {
