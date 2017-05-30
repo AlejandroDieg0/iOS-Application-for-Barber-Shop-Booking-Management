@@ -96,18 +96,29 @@ class MerchantDetailViewController: UIViewController, UITableViewDelegate, UITab
 
             print("sono qui")
         }
-        edit.backgroundColor = .red
+        edit.backgroundColor = .blue
         let cancel = UITableViewRowAction(style: .destructive, title: "Delete") { action, index in
+            self.selectedID = indexPath.row
+            self.removeService()
             tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
             tableView.reloadData()
+            
         }
-        cancel.backgroundColor = .blue
+        cancel.backgroundColor = .red
         return [edit,cancel]
     }
     
     func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
         return false
     }
+    func removeService(){
+        let ref = Database.database().reference()
+        ref.child("barbers/\(selectedShop.ID)/services/\(self.selectedShop.services[selectedID!].id)").removeValue()
+        self.selectedShop.services.remove(at: selectedID!)
+        
+    }
+    
+    
     @IBAction func cancelButton(_ sender: Any) {
         Funcs.animateOut(sender: self.editView)
     }
