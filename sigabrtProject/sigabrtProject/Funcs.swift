@@ -264,7 +264,12 @@ class Funcs: NSObject {
         bookableSlotsInMinutes = []
         let selectedDay = dateFormatter.string(from: day).components(separatedBy: ",")
         let slotsInADay = 1440
-        
+        var serviceDuration : Int!
+        if(duration != 0){
+            serviceDuration = duration - 1
+        }else{
+            serviceDuration = duration
+        }
         for currslot in 0 ... slotsInADay {
             let currentSlotMinute = currslot
             if let arrayDay = shop.hours?[selectedDay[0]]{
@@ -280,6 +285,11 @@ class Funcs: NSObject {
                                         bookable = false
                                     }
                                 }
+                                for slot in currentSlotMinute ... currentSlotMinute + serviceDuration!{
+                                    if(busySlots.contains(slot)){
+                                        bookable = false
+                                    }
+                            }
                           if(bookable){
                             bookableSlotsInMinutes.append(currentSlotMinute)
                         }

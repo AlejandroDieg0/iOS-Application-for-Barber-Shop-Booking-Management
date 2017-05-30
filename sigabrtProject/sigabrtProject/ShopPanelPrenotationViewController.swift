@@ -47,6 +47,7 @@ class ShopPanelPrenotationViewController: UIViewController, FSCalendarDataSource
         
         //today date
         let data = Date()
+        self.selectedDay = data
         let formatter = DateFormatter()
         formatter.dateFormat = "yy-MM-dd"
         selectedDate = formatter.string(from: data)
