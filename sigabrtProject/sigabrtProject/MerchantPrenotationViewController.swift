@@ -65,24 +65,31 @@ class MerchantPrenotationViewController: UIViewController, FSCalendarDataSource,
         self.services.removeAll()
         self.servicesTableView.reloadData()
         var ref: DatabaseReference!
-        ref = Database.database().reference().child("barbers/\(String(Funcs.loggedUser.favBarberId))/services")
+        ref = Database.database().reference().child("barbers/\(String(Funcs.loggedUser.favBarberId))")
         
         ref?.observe(.childAdded, with: { snapshot in
             if !snapshot.exists() {
                 print("null")
             }
-            
-            if let snapshotValue = snapshot.value as? [String:Any] {
-                let tipo = (snapshotValue["name"])! as! String
-                let price = (snapshotValue["price"])! as! Int
-                let duration = (snapshotValue["duration"])! as! Int
-                
-                self.services.append(Service(name: tipo, duration: duration, price: price))
-                self.servicesTableView.reloadData()
-                
-            }})
+        if let child = snapshot.childSnapshot(forPath: "services").value as? [String:Any] {
+            for c in child{
+                if let smallChild = snapshot.childSnapshot(forPath: "\(c.key)").value as? NSArray  {
+                    for smallC in smallChild{
+                        if let tempServiceChild = smallC as? [String:Any]{
+                            let id = c.key
+                            let serviceName = tempServiceChild["name"] as? String ?? "NoName"
+                            let serviceDuration = tempServiceChild["duration"] as? Int ?? 0
+                            let servicePrice = tempServiceChild["price"] as? Int ?? 0
+                            self.services.append(Service(name: serviceName, duration: serviceDuration, price: servicePrice, id: id))
+                            self.servicesTableView.reloadData()
+
+                        }
+                }
+            }
+            }
+            }
+        })
     }
-    
     
     func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
         self.calendarHeightConstraint.constant = bounds.height

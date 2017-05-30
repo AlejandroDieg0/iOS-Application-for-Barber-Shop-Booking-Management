@@ -29,6 +29,7 @@ class Funcs: NSObject {
             blurEffectView.frame = topController.view.bounds
             blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
             blurEffectView.contentView.alpha = 0
+
             
             while let presentedViewController = topController.presentedViewController {
                 topController = presentedViewController
@@ -41,7 +42,7 @@ class Funcs: NSObject {
             sender.transform = CGAffineTransform.init(scaleX: 1.2, y: 1.2)
             sender.alpha = 1
             UIView.animate(withDuration: 0.4) {
-                sender.alpha = 0.85
+                sender.alpha = 0.80
                 //controller.visualEffect.alpha = 0.5
                 sender.transform = CGAffineTransform.identity
             }
@@ -170,14 +171,18 @@ class Funcs: NSObject {
                 let barberAddress = (value["address"])! as? String ?? "NoAddress"
                 
                 var barberServices:[Service] = []
-                if let child = snapshot.childSnapshot(forPath: "services").value as? NSArray {
+                if let child = snapshot.childSnapshot(forPath: "services").value as? [String:Any] {
                     for c in child{
-                        if let tempServiceChild = c as? [String:Any]{
-                            let serviceName = tempServiceChild["name"] as? String ?? "NoName"
-                            let serviceDuration = tempServiceChild["duration"] as? Int ?? 0
-                            let servicePrice = tempServiceChild["price"] as? Int ?? 0
-                            let service = Service(name: serviceName, duration: serviceDuration, price: servicePrice)
+                        print(c.key)
+                        if let smallChild = snapshot.childSnapshot(forPath: "services/\(c.key)").value as? [String:Any]  {
+                            print(smallChild)
+                            let id = c.key
+                            let serviceName = smallChild["name"] as? String ?? "NoName"
+                            let serviceDuration = smallChild["duration"] as? Int ?? 0
+                            let servicePrice = smallChild["price"] as? Int ?? 0
+                            let service = Service(name: serviceName, duration: serviceDuration, price: servicePrice, id: id)
                             barberServices.append(service)
+                            
                         }
                     }
                 }
