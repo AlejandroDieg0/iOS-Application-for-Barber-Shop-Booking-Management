@@ -261,36 +261,36 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
             Funcs.animateIn(sender: (loginView))
         } else {
         
-        //TODO: Vogliamo dare la possibilità al utente di inserire delle note durante la prenotazione ??
-        let note = "NoNote"
-        let actionSheet = UIAlertController(title: "", message: "Confirm prenotation", preferredStyle: .actionSheet)
-        let errorAlert = UIAlertController(title: "Missing Informations", message: "Please check the details of your reservations", preferredStyle: .actionSheet)
-
-        actionSheet.addAction(UIAlertAction(title: "OK", style: .default) { action in
-            
-            Funcs.addReservation(shop: self.selectedShop, time: self.selectedTimeInMinutes, note: note, services: self.selectedServices, date: self.selectedDate)
-            self.selectedTimeInMinutes = 0
-            self.selectedServices = []
-            let selectedItems = self.servicesCollectionView.indexPathsForSelectedItems
-            for indexPath in selectedItems! {
-                self.servicesCollectionView.deselectItem(at: indexPath, animated:true)
-                if self.servicesCollectionView.cellForItem(at: indexPath) != nil {
-                    self.servicesCollectionView.cellForItem(at: indexPath)?.contentView.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
-                }
-            }
-        })
-        
-        actionSheet.addAction(UIAlertAction(title: "CANCEL", style: .cancel, handler: nil))
-        
-        errorAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-        
         if (self.selectedTimeInMinutes == 0 ||  self.selectedServices.count == 0 ){
-            self.present(errorAlert, animated: true, completion:  nil)
             
-        }else{
-            self.present(actionSheet, animated: true, completion:  nil)
+            
+            let errorAlert = UIAlertController(title: "Missing Informations", message: "Please check the details of your reservations", preferredStyle: .actionSheet)
+           
+            errorAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+            
+            self.present(errorAlert, animated: true, completion:  nil)
+            }
+         
+            else{
+            Funcs.animateIn(sender: self.confirmPrenotation)
+            }
         }
+    }
+    
+    @IBAction func confirmPrenotation(_ sender: Any) {
+        let note = "noNote"
+        Funcs.addReservation(shop: self.selectedShop, time: self.selectedTimeInMinutes, note: note, services: self.selectedServices, date: self.selectedDate)
+        self.selectedTimeInMinutes = 0
+        self.selectedServices = []
+        let selectedItems = self.servicesCollectionView.indexPathsForSelectedItems
+        for indexPath in selectedItems! {
+            self.servicesCollectionView.deselectItem(at: indexPath, animated:true)
+            if self.servicesCollectionView.cellForItem(at: indexPath) != nil {
+                self.servicesCollectionView.cellForItem(at: indexPath)?.contentView.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
+                
+            }
         }
+        Funcs.animateOut(sender: confirmPrenotation)
     }
     
     
@@ -406,19 +406,6 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
     @IBAction func alreadyHaveAccount(_ sender: UIButton) {
         Funcs.animateOut(sender: signupView)
         Funcs.animateIn(sender: loginView)
-    }
-    
-    
-    @IBAction func prenota(_ sender: Any) {
-        switch Auth.auth().currentUser {
-            
-        case nil:
-            print(" \n Current User is logged out \n  show LoginViewController \n")
-            Funcs.animateIn(sender: loginView)
-        default:
-            
-            Funcs.animateIn(sender: confirmPrenotation)
-        }
     }
     
     

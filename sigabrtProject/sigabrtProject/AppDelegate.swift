@@ -45,11 +45,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         let vc = UIStoryboard(name: "Barber", bundle: nil).instantiateViewController(withIdentifier: "barberView")
                         self.window?.rootViewController = vc
                     }
-                    else if(loadedUser.userType == 0 && loadedUser.favBarberId != -1){
-                        let vc = UIStoryboard(name: "User", bundle: nil).instantiateViewController(withIdentifier: "profileVC")
-                        self.window?.rootViewController = vc
-                    
-                   }
+//                    else if(loadedUser.userType == 0 && loadedUser.favBarberId != -1){
+//                        let vc = UIStoryboard(name: "User", bundle: nil).instantiateViewController(withIdentifier: "profileVC")
+//                        self.window?.rootViewController = vc
+//                    
+//                   }
                 }
             } else {
                 let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "mapView")
