@@ -17,7 +17,6 @@ class MerchantPrenotationViewController: UIViewController, FSCalendarDataSource,
     
     var selectedDate : Date = Date()
     var selectedTimeInMinutes: Int!
-    var services: [Service] = []
     var selectedServices : [Service] = []
     var selectedDuration = 0
     
@@ -54,41 +53,9 @@ class MerchantPrenotationViewController: UIViewController, FSCalendarDataSource,
         servicesTableView.dataSource = self
         freeTimeSlotCollectionView.allowsMultipleSelection = false
         
-        readData()
-        
         self.calendar.select(Date())
         self.view.addGestureRecognizer(self.scopeGesture)
         
-    }
-    
-    func readData(){
-        self.services.removeAll()
-        self.servicesTableView.reloadData()
-        var ref: DatabaseReference!
-        ref = Database.database().reference().child("barbers/\(String(Funcs.loggedUser.favBarberId))")
-        
-        ref?.observe(.childAdded, with: { snapshot in
-            if !snapshot.exists() {
-                print("null")
-            }
-        if let child = snapshot.childSnapshot(forPath: "services").value as? [String:Any] {
-            for c in child{
-                if let smallChild = snapshot.childSnapshot(forPath: "\(c.key)").value as? NSArray  {
-                    for smallC in smallChild{
-                        if let tempServiceChild = smallC as? [String:Any]{
-                            let id = c.key
-                            let serviceName = tempServiceChild["name"] as? String ?? "NoName"
-                            let serviceDuration = tempServiceChild["duration"] as? Int ?? 0
-                            let servicePrice = tempServiceChild["price"] as? Int ?? 0
-                            self.services.append(Service(name: serviceName, duration: serviceDuration, price: servicePrice, id: id))
-                            self.servicesTableView.reloadData()
-
-                        }
-                }
-            }
-            }
-            }
-        })
     }
     
     func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
@@ -143,25 +110,25 @@ class MerchantPrenotationViewController: UIViewController, FSCalendarDataSource,
         return 1
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return services.count
+        return selectedShop.services.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = servicesTableView.dequeueReusableCell(withIdentifier: "serviceCell", for: indexPath) as! addModifyCollectionViewCell
-        cell.servizio.text = services[indexPath.row].name
-        cell.price.text = String(services[indexPath.row].price) + "€"
+        cell.servizio.text = selectedShop.services[indexPath.row].name
+        cell.price.text = String(selectedShop.services[indexPath.row].price) + "€"
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.selectedServices.append(services[indexPath.row])
-        self.selectedDuration = self.selectedDuration + services[indexPath.row].duration
+        self.selectedServices.append(selectedShop.services[indexPath.row])
+        self.selectedDuration = self.selectedDuration + selectedShop.services[indexPath.row].duration
         Funcs.busySlots(shop: selectedShop, date: self.selectedDate, duration: self.selectedDuration, collection: freeTimeSlotCollectionView)
     }
     
     func tableView(_ tableView: UITableView, willDeselectRowAt indexPath: IndexPath) -> IndexPath? {
-        self.selectedServices = self.selectedServices.filter { $0.name != services[indexPath.row].name }
-        self.selectedDuration = self.selectedDuration - services[indexPath.row].duration
+        self.selectedServices = self.selectedServices.filter { $0.name != selectedShop.services[indexPath.row].name }
+        self.selectedDuration = self.selectedDuration - selectedShop.services[indexPath.row].duration
         Funcs.busySlots(shop: selectedShop, date: self.selectedDate, duration: self.selectedDuration, collection: freeTimeSlotCollectionView)
         return indexPath
     }

@@ -6,10 +6,10 @@ var serviceList = [Service]()
 
 class Service {
     
-    let name: String
-    let duration: Int
-    let price: Int
-    let id: String
+    var name: String
+    var duration: Int
+    var price: Int
+    var id: String
 
     
     init(name: String, duration: Int, price: Int, id: String){

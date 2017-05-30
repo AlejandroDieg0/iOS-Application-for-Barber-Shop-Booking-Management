@@ -326,6 +326,17 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
     
     @IBAction func noConfirm(_ sender: Any) {
         Funcs.animateOut(sender: confirmPrenotation)
+        self.selectedTimeInMinutes = 0
+        self.selectedServices = []
+        let selectedItems = self.servicesCollectionView.indexPathsForSelectedItems
+        for indexPath in selectedItems! {
+            self.servicesCollectionView.deselectItem(at: indexPath, animated:true)
+            if self.servicesCollectionView.cellForItem(at: indexPath) != nil {
+                self.servicesCollectionView.cellForItem(at: indexPath)?.contentView.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
+                
+            }
+        }
+
     }
     
     
