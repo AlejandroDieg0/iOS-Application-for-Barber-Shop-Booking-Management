@@ -265,27 +265,41 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="Rxq-N2-iTR"/>
                                 </connections>
                             </mapView>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wsj-6s-u2E">
+                            <navigationBar hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wsj-6s-u2E">
                                 <rect key="frame" x="0.0" y="64" width="375" height="44"/>
                             </navigationBar>
-                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="bJY-g1-5eJ" customClass="ModernSearchBar" customModule="sigabrtProject">
+                            <searchBar hidden="YES" contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="bJY-g1-5eJ" customClass="ModernSearchBar" customModule="sigabrtProject">
                                 <rect key="frame" x="0.0" y="64" width="375" height="44"/>
                                 <color key="barTintColor" red="0.56470588239999997" green="0.68627450980000004" blue="0.7725490196" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cSS-sh-i4n">
+                                <rect key="frame" x="0.0" y="604" width="375" height="63"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="u8t-HF-uEG">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="63"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="63" id="jEX-Fn-KNf"/>
+                                </constraints>
+                                <blurEffect style="light"/>
+                            </visualEffectView>
                         </subviews>
-                        <color key="backgroundColor" red="0.56470588239999997" green="0.68627450980000004" blue="0.7725490196" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.56470588239999997" green="0.68627450980000004" blue="0.7725490196" alpha="0.78266802226027399" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="tintColor" red="0.20000000000000001" green="0.41960784309999999" blue="0.52941176469999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="cSS-sh-i4n" firstAttribute="trailing" secondItem="bJY-g1-5eJ" secondAttribute="trailing" id="9Sc-d0-wz2"/>
+                            <constraint firstItem="HVf-rn-sfE" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="Cfl-22-Lw3"/>
                             <constraint firstItem="Wsj-6s-u2E" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-16" id="FKh-hI-3o5"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Wsj-6s-u2E" secondAttribute="trailing" constant="-16" id="JVD-lQ-fl5"/>
                             <constraint firstAttribute="trailing" secondItem="bJY-g1-5eJ" secondAttribute="trailing" id="PAo-4j-hZB"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="HVf-rn-sfE" secondAttribute="bottom" id="S02-DM-CDt"/>
+                            <constraint firstItem="cSS-sh-i4n" firstAttribute="leading" secondItem="Wsj-6s-u2E" secondAttribute="leading" id="Rgd-zN-faI"/>
+                            <constraint firstItem="cSS-sh-i4n" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="TCC-5h-CsK"/>
                             <constraint firstItem="Wsj-6s-u2E" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="TPB-RK-lqD"/>
                             <constraint firstItem="bJY-g1-5eJ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="br6-AZ-Evs"/>
-                            <constraint firstAttribute="trailing" secondItem="HVf-rn-sfE" secondAttribute="trailing" id="ffi-ok-lCR"/>
-                            <constraint firstItem="HVf-rn-sfE" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="hoz-nD-lBV"/>
-                            <constraint firstItem="HVf-rn-sfE" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="q5a-Gi-zph"/>
+                            <constraint firstItem="HVf-rn-sfE" firstAttribute="top" secondItem="bJY-g1-5eJ" secondAttribute="top" id="gve-xV-GW7"/>
+                            <constraint firstItem="HVf-rn-sfE" firstAttribute="trailing" secondItem="bJY-g1-5eJ" secondAttribute="trailing" id="jKZ-oI-Xdy"/>
+                            <constraint firstItem="HVf-rn-sfE" firstAttribute="leading" secondItem="Wsj-6s-u2E" secondAttribute="leading" id="psq-vI-4Fv"/>
                             <constraint firstItem="bJY-g1-5eJ" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="yZ7-wJ-xSU"/>
                         </constraints>
                     </view>
@@ -343,6 +357,116 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NhY-Gz-2W8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2182" y="982"/>
+        </scene>
+        <!--Barber-->
+        <scene sceneID="pbL-GT-T8Z">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Barber" id="tm0-5c-il2" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RCa-Kv-2bF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1210" y="1014"/>
+        </scene>
+        <!--Bottom Scrollable-->
+        <scene sceneID="Cje-3u-bgq">
+            <objects>
+                <viewController storyboardIdentifier="bottomScrollable" id="ma8-ev-B63" customClass="bottomScrollable" customModule="sigabrtProject" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="yyI-41-JkA"/>
+                        <viewControllerLayoutGuide type="bottom" id="LhM-r5-cIw"/>
+                    </layoutGuides>
+                    <view key="view" alpha="0.90000000000000002" contentMode="scaleToFill" id="qhC-Ir-AcH">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="a0A-ZM-ps7">
+                                <rect key="frame" x="0.0" y="44" width="375" height="623"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" id="5ah-ka-bbp">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <visualEffectView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="x9o-uK-SjM">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" id="JFd-c9-SDY">
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            </view>
+                                            <vibrancyEffect>
+                                                <blurEffect style="light"/>
+                                            </vibrancyEffect>
+                                        </visualEffectView>
+                                    </subviews>
+                                </view>
+                                <vibrancyEffect>
+                                    <blurEffect style="extraLight"/>
+                                </vibrancyEffect>
+                            </visualEffectView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="70" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="KIY-Pb-wMH">
+                                <rect key="frame" x="0.0" y="44" width="375" height="687"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.95926792512690362" green="0.95926792512690362" blue="0.95926792512690362" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" red="0.56470588239999997" green="0.68627450980000004" blue="0.7725490196" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="separatorColor" red="0.56470588239999997" green="0.68627450980000004" blue="0.7725490196" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="sectionIndexBackgroundColor" red="0.56470588239999997" green="0.68627450980000004" blue="0.7725490196" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="sectionIndexTrackingBackgroundColor" red="0.56470588239999997" green="0.68627450980000004" blue="0.7725490196" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="shop" rowHeight="70" id="U8V-pm-D29" customClass="nearShop" customModule="sigabrtProject" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="70"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="U8V-pm-D29" id="W4t-Fr-b3c">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="B3N-0Z-6de">
+                                                    <rect key="frame" x="8" y="2" width="93" height="66"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Shop Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Og-xn-y0H">
+                                                    <rect key="frame" x="109" y="8" width="90" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Km" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t6O-uL-WMA">
+                                                    <rect key="frame" x="303" y="25" width="51" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.46274509800000002" green="0.21176470589999999" blue="0.14901960780000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" red="0.95926792512690362" green="0.95926792512690362" blue="0.95926792512690362" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" red="0.95926792512690362" green="0.95926792512690362" blue="0.95926792512690362" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="tintColor" red="0.6942461029" green="0.84268829329999995" blue="0.95346589780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <connections>
+                                            <outlet property="distance" destination="t6O-uL-WMA" id="l5N-m4-e7M"/>
+                                            <outlet property="imgShop" destination="B3N-0Z-6de" id="t9p-TT-h1W"/>
+                                            <outlet property="shopName" destination="9Og-xn-y0H" id="QJB-Or-p47"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                            <searchBar contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pUK-AM-aga" customClass="ModernSearchBar" customModule="sigabrtProject">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.95926792512690362" green="0.95926792512690362" blue="0.95926792512690362" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="barTintColor" red="0.56470588239999997" green="0.68627450980000004" blue="0.7725490196" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
+                        </subviews>
+                        <color key="backgroundColor" red="0.95926792512690362" green="0.95926792512690362" blue="0.95926792512690362" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="KIY-Pb-wMH" id="Rmv-Xg-0Xh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="G7J-LV-GHs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2405.5999999999999" y="999.85007496251887"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Q2x-V1-584">

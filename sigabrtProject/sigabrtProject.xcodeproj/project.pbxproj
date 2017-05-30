@@ -23,8 +23,10 @@
 		C31331231EDD7D0A00D32416 /* ServiceDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31331221EDD7D0A00D32416 /* ServiceDetailViewController.swift */; };
 		C37369CC1EDD980C008540B2 /* Funcs.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37369CB1EDD980C008540B2 /* Funcs.swift */; };
 		C375C7091EC9E0BC00D0CD81 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C375C7081EC9E0BC00D0CD81 /* GoogleService-Info.plist */; };
-		C3D330BC1ED3420200000E67 /* ShopDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D330BB1ED3420200000E67 /* ShopDetailViewController.swift */; };
 		C9BF471E0A8B29B855AE28ED /* Pods_sigabrtProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE4E48101E0B8755FAE84BC9 /* Pods_sigabrtProject.framework */; };
+		E30357B61EDDC27200562543 /* ShopDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E30357B51EDDC27200562543 /* ShopDetailViewController.swift */; };
+		E30357B81EDDC29200562543 /* bottomScrollable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E30357B71EDDC29200562543 /* bottomScrollable.swift */; };
+		E30357BA1EDDC2E400562543 /* nearShop.swift in Sources */ = {isa = PBXBuildFile; fileRef = E30357B91EDDC2E400562543 /* nearShop.swift */; };
 		E33F8BE41EC9EE4B00705497 /* Barber.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E33F8BE31EC9EE4B00705497 /* Barber.storyboard */; };
 		E33F8BE61EC9EE5E00705497 /* User.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E33F8BE51EC9EE5E00705497 /* User.storyboard */; };
 		E33F8BEA1EC9F66800705497 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33F8BE91EC9F66800705497 /* User.swift */; };
@@ -69,8 +71,10 @@
 		C31331221EDD7D0A00D32416 /* ServiceDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceDetailViewController.swift; sourceTree = "<group>"; };
 		C37369CB1EDD980C008540B2 /* Funcs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Funcs.swift; sourceTree = "<group>"; };
 		C375C7081EC9E0BC00D0CD81 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		C3D330BB1ED3420200000E67 /* ShopDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShopDetailViewController.swift; sourceTree = "<group>"; };
 		E1AED266F19751A8C31C1AC4 /* Pods-sigabrtProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sigabrtProject.release.xcconfig"; path = "Pods/Target Support Files/Pods-sigabrtProject/Pods-sigabrtProject.release.xcconfig"; sourceTree = "<group>"; };
+		E30357B51EDDC27200562543 /* ShopDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShopDetailViewController.swift; sourceTree = "<group>"; };
+		E30357B71EDDC29200562543 /* bottomScrollable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = bottomScrollable.swift; sourceTree = "<group>"; };
+		E30357B91EDDC2E400562543 /* nearShop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = nearShop.swift; sourceTree = "<group>"; };
 		E33F8BE31EC9EE4B00705497 /* Barber.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Barber.storyboard; sourceTree = "<group>"; };
 		E33F8BE51EC9EE5E00705497 /* User.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = User.storyboard; sourceTree = "<group>"; };
 		E33F8BE91EC9F66800705497 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -153,10 +157,12 @@
 			children = (
 				E30357B41EDD85D800562543 /* Merchant */,
 				E3ACD9101ECF3D74002B6399 /* UserReservationViewController.swift */,
-				9B0CC8961ECC7A7F007550FB /* PageViewController.swift */,
 				E3E1807B1ECDE31100E54186 /* ThirdViewController.swift */,
 				9B04743B1EC9FAA30075A6A6 /* MapViewController.swift */,
-				C3D330BB1ED3420200000E67 /* ShopDetailViewController.swift */,
+				E30357B71EDDC29200562543 /* bottomScrollable.swift */,
+				9B0CC8961ECC7A7F007550FB /* PageViewController.swift */,
+				E30357B51EDDC27200562543 /* ShopDetailViewController.swift */,
+				E30357B91EDDC2E400562543 /* nearShop.swift */,
 				E526F8D81ECD68680023846A /* LoginViewController.swift */,
 				E526F8DA1ECD68700023846A /* UserProfileViewController.swift */,
 				E52520081EDC5EBE00367813 /* historyViewController.swift */,
@@ -363,9 +369,11 @@
 				E3ACD9111ECF3D74002B6399 /* UserReservationViewController.swift in Sources */,
 				E526F8DB1ECD68700023846A /* UserProfileViewController.swift in Sources */,
 				E521F3091ED225FD00F5AC84 /* Service.swift in Sources */,
+				E30357B61EDDC27200562543 /* ShopDetailViewController.swift in Sources */,
 				9BD9F5081ECDD2EA006768F6 /* ModernSearchBarDelegate.swift in Sources */,
 				9B2123BE1ED5D25A008A437D /* GalleryCollectionViewCell.swift in Sources */,
 				E52520091EDC5EBE00367813 /* historyViewController.swift in Sources */,
+				E30357BA1EDDC2E400562543 /* nearShop.swift in Sources */,
 				E526BED11ED49273005251A7 /* MerchantProfileViewController.swift in Sources */,
 				9BD9F5091ECDD2EA006768F6 /* ModernSearchBarIcon.swift in Sources */,
 				E521F30B1ED466BC00F5AC84 /* freeTimeBarberTableViewCell.swift in Sources */,
@@ -373,6 +381,7 @@
 				9B04743C1EC9FAA30075A6A6 /* MapViewController.swift in Sources */,
 				E51D33E11ED0766D004C9BEF /* CollectionViewCell.swift in Sources */,
 				9BD9F5061ECDD2EA006768F6 /* ModernSearchBar.swift in Sources */,
+				E30357B81EDDC29200562543 /* bottomScrollable.swift in Sources */,
 				9B0CC8971ECC7A7F007550FB /* PageViewController.swift in Sources */,
 				E51D33E31ED07674004C9BEF /* ShopPanelPrenotationViewController.swift in Sources */,
 				E3E1807C1ECDE31100E54186 /* ThirdViewController.swift in Sources */,
@@ -384,7 +393,6 @@
 				F303D5981ECF29E1009EC344 /* ReservationTableViewCell.swift in Sources */,
 				E33F8BEA1EC9F66800705497 /* User.swift in Sources */,
 				E3ACD9141ED1017E002B6399 /* Prenotation.swift in Sources */,
-				C3D330BC1ED3420200000E67 /* ShopDetailViewController.swift in Sources */,
 				F3EF9A121ED46FBE00BA2A6A /* ServiceCollectionViewCell.swift in Sources */,
 				E33F8BEC1EC9F70000705497 /* Shop.swift in Sources */,
 				C31331231EDD7D0A00D32416 /* ServiceDetailViewController.swift in Sources */,
