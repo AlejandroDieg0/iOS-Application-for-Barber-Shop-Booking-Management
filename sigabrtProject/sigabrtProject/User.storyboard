@@ -290,7 +290,6 @@
                         <outlet property="confirmPrenotation" destination="bPa-ZL-SBX" id="Ijy-oy-tnD"/>
                         <outlet property="email" destination="52k-CF-8av" id="sbW-WJ-axc"/>
                         <outlet property="error" destination="bda-3e-jNo" id="Eft-gE-yUO"/>
-                        <outlet property="fbBut" destination="WtP-xR-IMy" id="d8G-EF-Al6"/>
                         <outlet property="logIn" destination="ztq-LF-jVz" id="yNV-BH-WuN"/>
                         <outlet property="loginError" destination="L7P-4K-hA9" id="wOd-XI-i4i"/>
                         <outlet property="loginView" destination="W2D-jJ-Z3o" id="wpZ-Dm-PT2"/>
@@ -353,6 +352,9 @@
                             <color key="backgroundColor" red="0.23137254900000001" green="0.34901960780000002" blue="0.59607843140000005" alpha="1" colorSpace="calibratedRGB"/>
                             <fontDescription key="fontDescription" type="system" pointSize="10"/>
                             <state key="normal" title="Log in with Facebook"/>
+                            <connections>
+                                <action selector="fbSignUp:" destination="AC9-tm-yj9" eventType="touchUpInside" id="yvn-WL-xlD"/>
+                            </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" alpha="0.30000001192092896" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="or" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VMe-Xz-RQG">
                             <rect key="frame" x="0.0" y="257" width="330" height="21"/>
@@ -485,7 +487,7 @@
                         <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="tbK-zY-fvy">
                             <rect key="frame" x="0.0" y="153" width="300" height="134"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
                             <prototypes>
                                 <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="prenotationCell" id="MML-Jo-ud7" customClass="prenotationConfirmTableViewCell" customModule="sigabrtProject" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="28" width="300" height="44"/>
@@ -498,18 +500,19 @@
                                                 <rect key="frame" x="18" y="-1" width="135" height="44"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
+                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="price" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U0Z-Uq-gDI">
                                                 <rect key="frame" x="181" y="0.0" width="101" height="44"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
+                                                <color key="textColor" red="0.99989169840000003" green="1" blue="0.99988096950000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
                                     </tableViewCellContentView>
+                                    <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <connections>
                                         <outlet property="price" destination="U0Z-Uq-gDI" id="c1a-EB-lu0"/>
                                         <outlet property="service" destination="qjV-hQ-Qen" id="O0e-de-t6E"/>
@@ -556,11 +559,18 @@
                             <color key="textColor" red="0.46274509800000002" green="0.21176470589999999" blue="0.14901960780000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ztq-LF-jVz">
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ztq-LF-jVz">
                             <rect key="frame" x="56" y="217" width="219" height="35"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" title="LOGIN">
-                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <state key="normal">
+                                <attributedString key="attributedTitle">
+                                    <fragment content="LOGIN">
+                                        <attributes>
+                                            <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <font key="NSFont" metaFont="system" size="15"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                             </state>
                             <connections>
                                 <action selector="login:" destination="AC9-tm-yj9" eventType="touchUpInside" id="Prw-XZ-yYv"/>
@@ -590,6 +600,9 @@
                             <color key="backgroundColor" red="0.23137254900000001" green="0.34901960780000002" blue="0.59607843140000005" alpha="1" colorSpace="calibratedRGB"/>
                             <fontDescription key="fontDescription" type="system" pointSize="10"/>
                             <state key="normal" title="Log in with Facebook"/>
+                            <connections>
+                                <action selector="fbLogin:" destination="AC9-tm-yj9" eventType="touchUpInside" id="6Xj-vZ-4q0"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tEu-JR-vjn">
                             <rect key="frame" x="175" y="339" width="139" height="21"/>
