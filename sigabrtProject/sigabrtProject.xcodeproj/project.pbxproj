@@ -10,6 +10,7 @@
 		9B04743C1EC9FAA30075A6A6 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B04743B1EC9FAA30075A6A6 /* MapViewController.swift */; };
 		9B0CC8971ECC7A7F007550FB /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B0CC8961ECC7A7F007550FB /* PageViewController.swift */; };
 		9B2123BE1ED5D25A008A437D /* GalleryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B2123BD1ED5D25A008A437D /* GalleryCollectionViewCell.swift */; };
+		9B5A27ED1EDEF0B900A95536 /* previewServiceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5A27EC1EDEF0B900A95536 /* previewServiceCollectionViewCell.swift */; };
 		9B9BB18A1ECF311D00C69762 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B9BB1891ECF311D00C69762 /* CoreLocation.framework */; };
 		9BD9F5061ECDD2EA006768F6 /* ModernSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD9F5011ECDD2EA006768F6 /* ModernSearchBar.swift */; };
 		9BD9F5071ECDD2EA006768F6 /* ModernSearchBarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD9F5021ECDD2EA006768F6 /* ModernSearchBarCell.swift */; };
@@ -56,6 +57,7 @@
 		9B04743B1EC9FAA30075A6A6 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		9B0CC8961ECC7A7F007550FB /* PageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 		9B2123BD1ED5D25A008A437D /* GalleryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryCollectionViewCell.swift; sourceTree = "<group>"; };
+		9B5A27EC1EDEF0B900A95536 /* previewServiceCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = previewServiceCollectionViewCell.swift; sourceTree = "<group>"; };
 		9B9BB1891ECF311D00C69762 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		9BD9F5011ECDD2EA006768F6 /* ModernSearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModernSearchBar.swift; sourceTree = "<group>"; };
 		9BD9F5021ECDD2EA006768F6 /* ModernSearchBarCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModernSearchBarCell.swift; sourceTree = "<group>"; };
@@ -150,6 +152,7 @@
 				9B2123BD1ED5D25A008A437D /* GalleryCollectionViewCell.swift */,
 				E525200A1EDC5F8200367813 /* historyTableViewCell.swift */,
 				C37369CD1EDEBDFD008540B2 /* EditReservationTableViewCell.swift */,
+				9B5A27EC1EDEF0B900A95536 /* previewServiceCollectionViewCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -377,6 +380,7 @@
 				E30357BA1EDDC2E400562543 /* nearShop.swift in Sources */,
 				E526BED11ED49273005251A7 /* MerchantProfileViewController.swift in Sources */,
 				C37369CE1EDEBDFD008540B2 /* EditReservationTableViewCell.swift in Sources */,
+				9B5A27ED1EDEF0B900A95536 /* previewServiceCollectionViewCell.swift in Sources */,
 				9BD9F5091ECDD2EA006768F6 /* ModernSearchBarIcon.swift in Sources */,
 				E521F30B1ED466BC00F5AC84 /* freeTimeBarberTableViewCell.swift in Sources */,
 				F354A5051EDC529F0085E3AC /* MerchantDetailViewController.swift in Sources */,

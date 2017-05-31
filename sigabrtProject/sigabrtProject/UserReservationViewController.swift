@@ -224,7 +224,7 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
                 let rowIndex = path.row
                 if (rowIndex == indexPath.row ){
                     cell.contentView.backgroundColor = UIColor(red: 51/255, green: 107/255, blue: 135/255, alpha: 1)
-                    
+                
                 }else{
                     cell.contentView.backgroundColor = UIColor(red: 144/255, green: 175/255, blue: 197/255, alpha: 1)
                     

@@ -171,7 +171,8 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
         let barberLogo : UIImageView = UIImageView(image: #imageLiteral(resourceName: "pin"))
         
         
-        pin.pinTintColor = UIColor.black
+        pin.pinTintColor = UIColor(red: 51/255, green: 107/255, blue: 135/255, alpha: 1)
+
         pin.canShowCallout = true
         pin.animatesDrop = true
         
