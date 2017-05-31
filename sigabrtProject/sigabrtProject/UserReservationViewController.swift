@@ -100,38 +100,33 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
         self.calendar.select(Date())
         self.calendar.scope = .week
         
-        present(loadingAnimation, animated: true, completion: {
         self.view.addGestureRecognizer(self.scopeGesture)
         self.servicesCollectionView.panGestureRecognizer.require(toFail: self.scopeGesture)
-        if(self.selectedShop == nil){
-            Funcs.loadShop(){loadedShop in
-                self.selectedShop = loadedShop
-                
-                self.barbershopName.text = self.selectedShop.name
-                self.barbershopPhone.text = self.selectedShop.phone
-                self.barbershopAddress.text = self.selectedShop.address
-                self.servicesCollectionView.reloadData()
-                
-                Funcs.busySlots(shop: self.selectedShop, date: self.selectedDate, duration: self.selectedDuration, collection: self.timeCollectionView)
-                self.loadingAnimation.dismiss(animated: true, completion: nil)
+        
+        present(loadingAnimation, animated: true, completion: {
+            if(self.selectedShop == nil){
+                Funcs.loadShop(){loadedShop in
+                    self.selectedShop = loadedShop
+                    self.loadInitialInfos()
+                }
+            } else {
+                self.loadInitialInfos()
             }
-        }else{
-            self.barbershopName.text = self.selectedShop.name
-            self.barbershopPhone.text = self.selectedShop.phone
-            self.barbershopAddress.text = self.selectedShop.address
-            self.servicesCollectionView.reloadData()
-            
-            Funcs.busySlots(shop: self.selectedShop, date: self.selectedDate, duration: self.selectedDuration, collection: self.timeCollectionView)
-            self.loadingAnimation.dismiss(animated: true, completion: nil)
-        }
         })
+    }
+    
+    func loadInitialInfos() {
+        self.barbershopName.text = self.selectedShop.name
+        self.barbershopPhone.text = self.selectedShop.phone
+        self.barbershopAddress.text = self.selectedShop.address
+        self.servicesCollectionView.reloadData()
+        
+        Funcs.busySlots(shop: self.selectedShop, date: self.selectedDate, duration: self.selectedDuration, collection: self.timeCollectionView)
+        self.loadingAnimation.dismiss(animated: true, completion: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        //handle = Auth.auth().addStateDidChangeListener() { (auth, user) in
-        
-        //}
         error.alpha = 0
         loginError.alpha = 0
     }
@@ -162,15 +157,13 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
         self.view.layoutIfNeeded()
     }
     
-    
     func minimumDate(for calendar: FSCalendar) -> Date {
         
         let today = Date()
         
         return today
     }
-    
-    
+
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         self.selectedDate = date
         Funcs.busySlots(shop: selectedShop, date: date, duration: self.selectedDuration, collection: timeCollectionView)
@@ -178,17 +171,6 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
         if monthPosition == .next || monthPosition == .previous {
             calendar.setCurrentPage(date, animated: true)
         }
-    }
-    
-    func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
-        print("\(self.dateFormatter.string(from: calendar.currentPage))")
-        
-        
-        
-    }
-    
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -214,7 +196,6 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
             return Funcs.bookableSlotsInMinutes.count
         }
     }
-    
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if (collectionView == self.servicesCollectionView) {
@@ -252,13 +233,14 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
                     
                 }
                 
-            }else{
+            } else {
                 cell.contentView.backgroundColor = UIColor(red: 144/255, green: 175/255, blue: 197/255, alpha: 1)
             }
             
             return cell
         }
     }
+    
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         if (collectionView == self.servicesCollectionView) {
             self.selectedServices = self.selectedServices.filter { $0.name != selectedShop.services[indexPath.row].name }
@@ -266,13 +248,14 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
             collectionView.cellForItem(at: indexPath)?.contentView.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
         }
     }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if (collectionView == self.servicesCollectionView) {
             
             collectionView.cellForItem(at: indexPath)?.contentView.backgroundColor = UIColor(red: 144/255, green: 175/255, blue: 197/255, alpha: 1)
             self.selectedServices.append(selectedShop.services[indexPath.row])
             
-        }else{
+        } else {
             selectedTimeInMinutes = Funcs.bookableSlotsInMinutes[indexPath.row]
             
             for cell in self.timeCollectionView.visibleCells{
@@ -283,7 +266,6 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
             
             print(selectedTimeInMinutes)
         }
-        
     }
     
     @IBAction func saveReservation(_ sender: Any) {
@@ -319,14 +301,11 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
             }
         }
     }
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         return selectedServices.count
     }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "prenotationCell") as! prenotationConfirmTableViewCell
 
@@ -351,8 +330,6 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
         Funcs.animateOut(sender: confirmPrenotation)
     }
     
-    
-    
     @IBAction func noConfirm(_ sender: Any) {
         Funcs.animateOut(sender: confirmPrenotation)
         self.selectedTimeInMinutes = 0
@@ -362,15 +339,15 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
             self.servicesCollectionView.deselectItem(at: indexPath, animated:true)
             if self.servicesCollectionView.cellForItem(at: indexPath) != nil {
                 self.servicesCollectionView.cellForItem(at: indexPath)?.contentView.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
-                
             }
         }
-
     }
     
+    @IBAction func showProfile(_ sender: Any) {
+        performSegue(withIdentifier: "showProfile", sender: nil)
+    }
     
-    
-    // login
+    //MARK: Login
     @IBAction func login(_ sender: UIButton) {
         
         guard let email = self.email.text , !email.isEmpty else {
@@ -400,9 +377,24 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
                 // print(" \n [ERROR] Can't Sign In \n   withError: \( error!.localizedDescription) \n")
                 // let alert = ErrorMessageView.createAlert(title: "Can't Sign In!", message: "(error!.localizedDescription)")
                 //   self.show(alert, sender: nil)
-                self.passw.shake()
-                self.email.shake()
-                self.loginError.text = "No user found."
+                
+                if let errCode = AuthErrorCode(rawValue: error!._code) {
+                    
+                    switch errCode {
+                    case AuthErrorCode.userNotFound:
+                        self.loginError.text = "User not found"
+                        self.email.shake()
+                    case AuthErrorCode.invalidEmail:
+                        self.loginError.text = "Invalid Email"
+                        self.email.shake()
+                    case AuthErrorCode.wrongPassword:
+                        self.loginError.text = "Wrong password"
+                        self.passw.shake()
+                    default:
+                        self.loginError.text = error!.localizedDescription
+                        print("Login User Error: \(error!.localizedDescription)")
+                    }
+                }
                 UIView.animate(withDuration: 0.3, animations: {
                     self.loginError.alpha = 1
                 })
@@ -414,11 +406,6 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
             self.passw.text = ""
             
             Funcs.animateOut(sender: self.loginView)
-            
-            //if ViewController.self == MapViewController.self {
-            //    self.performSegue(withIdentifier: "loginSuccess", sender: nil)
-            //}
-            
         })
     }
     
@@ -447,16 +434,24 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
         Auth.auth().createUser(withEmail: signUpMail, password: signUpPassword, completion: { (user, error) in
             
             guard error == nil else {
-                // print(" \n [ERROR] Can't create an Account \n   withError: \(error!.localizedDescription) \n")
-                
-                self.signUpMail.shake()
-                self.signUpPassword.shake()
+                print("Can't create an Account \n   withError: \(error!.localizedDescription) \n")
+                if let errCode = AuthErrorCode(rawValue: error!._code) {
+                    switch errCode {
+                    case AuthErrorCode.invalidEmail:
+                        self.error.text = "Invalid Email"
+                        self.signUpMail.shake()
+                    default:
+                        self.error.text = error!.localizedDescription
+                        self.signUpMail.shake()
+                        self.signUpPassword.shake()
+                    }
+                }
                 self.error.text = error!.localizedDescription
                 UIView.animate(withDuration: 0.3, animations: {
                     self.error.alpha = 1
                 })
                 
-                // let alert = ErrorMessageView.createAlert(title: "Can't create an Account!", message: "withError: \(error!.localizedDescription)")
+                //let alert = ErrorMessageView.createAlert(title: "Can't create an Account!", message: "withError: \(error!.localizedDescription)")
                 //self.show(alert, sender: nil)
                 
                 return
@@ -468,10 +463,7 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
             })
             
             Funcs.animateOut(sender: self.signupView)
-            
-            
         })
-        
     }
     
     @IBAction func newAccount(_ sender: UIButton) {
@@ -484,9 +476,11 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
         Funcs.animateIn(sender: loginView)
     }
     
+    @IBAction func cancelButton(_ sender: Any) {
+        Funcs.animateOut(sender: loginView)
+    }
     
-
-    func FbLogin(){
+    @IBAction func fbLogin(_ sender: Any) {
         
         let loginManager = LoginManager()
         loginManager.logIn([ .publicProfile, .email ], viewController: self) { loginResult in
@@ -506,25 +500,9 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
                     }
                     
                     Funcs.animateOut(sender: self.loginView)
-                    
-                    
                 }
             }
         }
-    }
-    
-    
-    @IBAction func fbLogin(_ sender: Any) {
-        FbLogin()
-    }
-    
-    @IBAction func fbSignUp(_ sender: Any) {
-        FbLogin()
-    }
-    
-    @IBAction func showProfile(_ sender: Any) {
-    
-        performSegue(withIdentifier: "showProfile", sender: nil)
     }
 }
 
