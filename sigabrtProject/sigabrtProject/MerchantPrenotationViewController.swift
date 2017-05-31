@@ -82,12 +82,17 @@ class MerchantPrenotationViewController: UIViewController, FSCalendarDataSource,
 
         actionSheet.addAction(UIAlertAction(title: "OK", style: .default) { action in
             
-            Funcs.addReservation(shop: self.selectedShop, time: self.selectedTimeInMinutes, note: note, services: self.selectedServices, date: self.selectedDate)
-            self.selectedTimeInMinutes = 0
-            self.selectedServices = []
-            let selectedItems = self.servicesTableView.indexPathsForSelectedRows
-            for indexPath in selectedItems! {
-                self.servicesTableView.deselectRow(at: indexPath, animated:true)
+            Funcs.addReservation(shop: self.selectedShop, time: self.selectedTimeInMinutes, note: note, services: self.selectedServices, date: self.selectedDate){_ in 
+                
+                self.selectedTimeInMinutes = 0
+                self.selectedServices = []
+                let selectedItems = self.servicesTableView.indexPathsForSelectedRows
+                for indexPath in selectedItems! {
+                    self.servicesTableView.deselectRow(at: indexPath, animated:true)
+                    
+                }
+                
+                self.navigationController?.popViewController(animated: true)
             }
         })
         
@@ -100,7 +105,6 @@ class MerchantPrenotationViewController: UIViewController, FSCalendarDataSource,
         }else{
             self.present(actionSheet, animated: true, completion:  nil)
         }
-        
         
     }
     

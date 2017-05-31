@@ -324,7 +324,7 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
     
     @IBAction func confirmPrenotation(_ sender: Any) {
         let note = "noNote"
-        Funcs.addReservation(shop: self.selectedShop, time: self.selectedTimeInMinutes, note: note, services: self.selectedServices, date: self.selectedDate)
+        Funcs.addReservation(shop: self.selectedShop, time: self.selectedTimeInMinutes, note: note, services: self.selectedServices, date: self.selectedDate){_ in }
         self.selectedTimeInMinutes = 0
         self.selectedServices = []
         let selectedItems = self.servicesCollectionView.indexPathsForSelectedItems
