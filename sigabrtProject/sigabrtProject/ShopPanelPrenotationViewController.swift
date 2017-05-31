@@ -323,7 +323,7 @@ class ShopPanelPrenotationViewController: UIViewController, FSCalendarDataSource
             Funcs.busySlots(shop: self.selectedShop, date: self.selectedDay, duration: self.selectedDuration, collection: self.editReservationSlotsCollectionView)
             Funcs.animateIn(sender: self.editReservationView)
       }
-        edit.backgroundColor = .blue
+        edit.backgroundColor = UIColor(red: 144/255, green: 175/255, blue: 197/255, alpha: 1)
         let cancel = UITableViewRowAction(style: .destructive, title: "Delete") { action, index in
             let alertController = UIAlertController(title: "Are you sure?", message: "", preferredStyle: UIAlertControllerStyle.alert) //Replace UIAlertControllerStyle.Alert by UIAlertControllerStyle.alert
             let DestructiveAction = UIAlertAction(title: "Delete", style: UIAlertActionStyle.destructive) {
