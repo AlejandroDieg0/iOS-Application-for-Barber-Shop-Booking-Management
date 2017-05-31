@@ -222,14 +222,11 @@ class Funcs: NSObject {
     }
     
     static func busySlots(shop: Shop, date: Date, duration: Int, collection: UICollectionView) {
-        print("ma prima qui \(date)")
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yy-MM-dd"
         let selectedDay = dateFormatter.string(from: date)
-        
         var busySlots : [Int] = []
         var prenotationDuration = 0
-        print("sono qui con\(selectedDay)")
         let prenotationChild = self.ref.child("prenotations").child(String(shop.ID)).child(selectedDay)
         prenotationChild.observe(.childAdded, with: { (snapshot) in
             if let prenotationDict = snapshot.value as? [String:Any] {

@@ -110,6 +110,13 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
                 
                 Funcs.busySlots(shop: self.selectedShop, date: self.selectedDate, duration: self.selectedDuration, collection: self.timeCollectionView)
             }
+        }else{
+            self.barbershopName.text = self.selectedShop.name
+            self.barbershopPhone.text = self.selectedShop.phone
+            self.barbershopAddress.text = self.selectedShop.address
+            self.servicesCollectionView.reloadData()
+            
+            Funcs.busySlots(shop: self.selectedShop, date: self.selectedDate, duration: self.selectedDuration, collection: self.timeCollectionView)
         }
     }
     

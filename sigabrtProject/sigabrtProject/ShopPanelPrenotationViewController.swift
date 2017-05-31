@@ -41,6 +41,7 @@ class ShopPanelPrenotationViewController: UIViewController, FSCalendarDataSource
     var selectedDay: Date!
     var selectedShop: Shop!
     var loadingAlert: UIAlertController!
+    var selectedID:Int!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,7 +63,7 @@ class ShopPanelPrenotationViewController: UIViewController, FSCalendarDataSource
         freeTimeSlotCollectionView.delegate = self
         freeTimeSlotCollectionView.dataSource = self
         
-        self.view.addGestureRecognizer(self.scopeGesture)
+        // self.view.addGestureRecognizer(self.scopeGesture)
         
         loadingAlert = Funcs.inizializeLoadAnimation()
         present(loadingAlert, animated: true, completion: nil)
@@ -87,6 +88,7 @@ class ShopPanelPrenotationViewController: UIViewController, FSCalendarDataSource
                 let note = userDict["note"] as? String ?? "test"
                 let user = userDict["user"] as? String ?? "NoName"
                 let time = userDict["time"] as? Int ?? 0
+                let reservationID = snapshot.key
                 var bookedServices : [Service] = []
                 if let child = snapshot.childSnapshot(forPath: "services").value as? [String:Any] {
                     for c in child{
@@ -100,8 +102,8 @@ class ShopPanelPrenotationViewController: UIViewController, FSCalendarDataSource
                         }
                     }
                 }
-                self.prenotationList.append(Prenotation(customerName: user, service: bookedServices, timeInMinute: time, note: note))
-                
+                self.prenotationList.append(Prenotation(customerName: user, service: bookedServices, timeInMinute: time, note: note, id: reservationID))
+                //  self.prenotationList.sort
                 self.prenotationCollectionView.reloadData()
                 self.totalReservations.text = String(self.prenotationList.count)
             }})
@@ -168,7 +170,9 @@ class ShopPanelPrenotationViewController: UIViewController, FSCalendarDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return prenotationList.count
     }
-    
+    func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
+        return false
+    }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
             
             let ref2 = Database.database().reference()
@@ -209,7 +213,37 @@ class ShopPanelPrenotationViewController: UIViewController, FSCalendarDataSource
             cell.duration.text = "Duration: \(totalDuration) Min"
             return cell
     }
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        
+        return true
+    }
     
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let edit = UITableViewRowAction(style: .normal, title: "Edit") { action, index in
+//            self.serviceName.text = self.selectedShop.services[indexPath.row].name
+//            self.serviceDuration.text = String(self.selectedShop.services[indexPath.row].duration)
+//            self.servicePrice.text = String(self.selectedShop.services[indexPath.row].price)
+//            self.selectedID = indexPath.row
+//            Funcs.animateIn(sender: self.editView)
+            print("this is edit")
+        }
+        edit.backgroundColor = .blue
+        let cancel = UITableViewRowAction(style: .destructive, title: "Delete") { action, index in
+            self.selectedID = indexPath.row
+            self.removeReservation()
+            tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
+            tableView.reloadData()
+            
+        }
+        cancel.backgroundColor = .red
+        return [edit,cancel]
+    }
+    func removeReservation(){
+        let ref = Database.database().reference()
+        ref.child("prenotations/\(selectedShop.ID)/\(selectedDate)/\(self.prenotationList[selectedID!].id)").removeValue()
+       self.prenotationList.remove(at: selectedID!)
+        
+    }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let detailBarber = segue.destination as? MerchantPrenotationViewController{
             detailBarber.selectedShop = self.selectedShop
