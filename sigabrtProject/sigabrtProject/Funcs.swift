@@ -111,7 +111,40 @@ class Funcs: NSObject {
             ref.child("prenotations/\(shop.ID)/\(reservationDate)/\(key)/services").childByAutoId().setValue(post)
         }
     }
-    
+    static func editReservation(shop: Shop, time: Int, services: [Service], date: Date, oldReservation: Prenotation){
+        var newTime:Int!
+        
+        if(time == 0 ){
+            newTime = oldReservation.timeInMinute
+        }else{
+            newTime = time
+        }
+
+        let ref: DatabaseReference = Database.database().reference()
+        
+        let reservationDate = date.toString(format: "yy-MM-dd")
+        
+        print(reservationDate)
+        let post = [
+            "user":  oldReservation.customerName,
+            "time":  newTime,
+            "note": oldReservation.note
+            ] as [String : Any]
+        
+        let key = ref.child("prenotations/\(shop.ID)/\(reservationDate)/").childByAutoId().key
+        
+        ref.child("prenotations/\(shop.ID)/\(reservationDate)/").child(key).setValue(post)
+        
+        for service in services {
+            let post = ["price": service.price,
+                        "type": service.name,
+                        "duration": service.duration] as [String : Any]
+            ref.child("prenotations/\(shop.ID)/\(reservationDate)/\(key)/services").childByAutoId().setValue(post)
+        }
+        let ref2 = Database.database().reference()
+        ref2.child("prenotations/\(shop.ID)/\(reservationDate)/\(oldReservation.id)").removeValue()
+    }
+
     static func loadUserData(completion: @escaping (_ result: User) -> Void){
         let user = Auth.auth().currentUser
         if (user == nil) {return}
@@ -169,7 +202,6 @@ class Funcs: NSObject {
                 let barberDesc = value["description"] as? String ?? "NoDesc"
                 let barberPhone = value["phone"] as? String ?? "NoPhone"
                 let barberAddress = (value["address"])! as? String ?? "NoAddress"
-                
                 var barberServices:[Service] = []
                 if let child = snapshot.childSnapshot(forPath: "services").value as? [String:Any] {
                     for c in child{

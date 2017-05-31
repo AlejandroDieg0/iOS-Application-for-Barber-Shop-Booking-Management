@@ -21,6 +21,7 @@
 		9BFBF98F1EBA232500DA7D25 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9BFBF98E1EBA232500DA7D25 /* Assets.xcassets */; };
 		9BFBF9921EBA232500DA7D25 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9BFBF9901EBA232500DA7D25 /* LaunchScreen.storyboard */; };
 		C37369CC1EDD980C008540B2 /* Funcs.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37369CB1EDD980C008540B2 /* Funcs.swift */; };
+		C37369CE1EDEBDFD008540B2 /* EditReservationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37369CD1EDEBDFD008540B2 /* EditReservationTableViewCell.swift */; };
 		C375C7091EC9E0BC00D0CD81 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C375C7081EC9E0BC00D0CD81 /* GoogleService-Info.plist */; };
 		C9BF471E0A8B29B855AE28ED /* Pods_sigabrtProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE4E48101E0B8755FAE84BC9 /* Pods_sigabrtProject.framework */; };
 		E30357B61EDDC27200562543 /* ShopDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E30357B51EDDC27200562543 /* ShopDetailViewController.swift */; };
@@ -68,6 +69,7 @@
 		9BFBF9911EBA232500DA7D25 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9BFBF9931EBA232500DA7D25 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = sigabrtProject/Info.plist; sourceTree = "<group>"; };
 		C37369CB1EDD980C008540B2 /* Funcs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Funcs.swift; sourceTree = "<group>"; };
+		C37369CD1EDEBDFD008540B2 /* EditReservationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditReservationTableViewCell.swift; sourceTree = "<group>"; };
 		C375C7081EC9E0BC00D0CD81 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E1AED266F19751A8C31C1AC4 /* Pods-sigabrtProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sigabrtProject.release.xcconfig"; path = "Pods/Target Support Files/Pods-sigabrtProject/Pods-sigabrtProject.release.xcconfig"; sourceTree = "<group>"; };
 		E30357B51EDDC27200562543 /* ShopDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShopDetailViewController.swift; sourceTree = "<group>"; };
@@ -147,6 +149,7 @@
 				F3EF9A111ED46FBE00BA2A6A /* ServiceCollectionViewCell.swift */,
 				9B2123BD1ED5D25A008A437D /* GalleryCollectionViewCell.swift */,
 				E525200A1EDC5F8200367813 /* historyTableViewCell.swift */,
+				C37369CD1EDEBDFD008540B2 /* EditReservationTableViewCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -373,6 +376,7 @@
 				E52520091EDC5EBE00367813 /* historyViewController.swift in Sources */,
 				E30357BA1EDDC2E400562543 /* nearShop.swift in Sources */,
 				E526BED11ED49273005251A7 /* MerchantProfileViewController.swift in Sources */,
+				C37369CE1EDEBDFD008540B2 /* EditReservationTableViewCell.swift in Sources */,
 				9BD9F5091ECDD2EA006768F6 /* ModernSearchBarIcon.swift in Sources */,
 				E521F30B1ED466BC00F5AC84 /* freeTimeBarberTableViewCell.swift in Sources */,
 				F354A5051EDC529F0085E3AC /* MerchantDetailViewController.swift in Sources */,
