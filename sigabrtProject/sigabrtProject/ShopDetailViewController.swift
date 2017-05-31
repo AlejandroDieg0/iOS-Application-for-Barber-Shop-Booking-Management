@@ -80,7 +80,7 @@ class ShopDetailViewController: UIViewController, UICollectionViewDataSource, UI
             
             cell.serviceLabel.text = barber?.services[indexPath.row].name
 
-            let imageURL = Storage.storage().reference(forURL: "gs://sigabrt-iosda.appspot.com/").child("services/\(barber!.services[indexPath.row].name).png")
+            let imageURL = Storage.storage().reference(forURL: "gs://sigabrt-iosda.appspot.com/").child("services/\(barber!.services[indexPath.row].name.lowercased()).png")
             
             imageURL.downloadURL(completion: { (url, error) in
                 

@@ -15,7 +15,7 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
     @IBOutlet weak var signUp: UIButton!
     @IBOutlet var loginView: UIView!
     @IBOutlet var signupView: UIView!
- 
+    
     @IBOutlet var confirmPrenotation: UIView!
     @IBOutlet weak var prenotationDate: UILabel!
     @IBOutlet weak var prenotationHour: UILabel!
@@ -163,7 +163,7 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
         
         return today
     }
-
+    
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         self.selectedDate = date
         Funcs.busySlots(shop: selectedShop, date: date, duration: self.selectedDuration, collection: timeCollectionView)
@@ -204,7 +204,7 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
             cell.labelServiceName.text = selectedShop.services[indexPath.row].name
             cell.labelServicePrice.text = "\(selectedShop.services[indexPath.row].price) €"
             
-            let imageURL = Storage.storage().reference(forURL: "gs://sigabrt-iosda.appspot.com/").child("services/\(selectedShop.services[indexPath.row].name).png")
+            let imageURL = Storage.storage().reference(forURL: "gs://sigabrt-iosda.appspot.com/").child("services/\(selectedShop.services[indexPath.row].name.lowercased()).png")
             
             imageURL.downloadURL(completion: { (url, error) in
                 
@@ -227,7 +227,7 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
                 let rowIndex = path.row
                 if (rowIndex == indexPath.row ){
                     cell.contentView.backgroundColor = UIColor(red: 51/255, green: 107/255, blue: 135/255, alpha: 1)
-                
+                    
                 }else{
                     cell.contentView.backgroundColor = UIColor(red: 144/255, green: 175/255, blue: 197/255, alpha: 1)
                     
@@ -273,31 +273,31 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
         if(Auth.auth().currentUser == nil){
             Funcs.animateIn(sender: (loginView))
         } else {
-        
-        if (self.selectedTimeInMinutes == 0 ||  self.selectedServices.count == 0 ){
             
-            let errorAlert = UIAlertController(title: "Missing Informations", message: "Please check the details of your reservations", preferredStyle: .actionSheet)
-           
-            errorAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-            
-            self.present(errorAlert, animated: true, completion:  nil)
+            if (self.selectedTimeInMinutes == 0 ||  self.selectedServices.count == 0 ){
+                
+                let errorAlert = UIAlertController(title: "Missing Informations", message: "Please check the details of your reservations", preferredStyle: .actionSheet)
+                
+                errorAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                
+                self.present(errorAlert, animated: true, completion:  nil)
             }
-         
+                
             else{
-            Funcs.animateIn(sender: self.confirmPrenotation)
-           
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "EEEE dd MMMM yyyy"
-            let data = dateFormatter.string(from:selectedDate as Date)
-            var total = 0
-            for service in selectedServices{
-                total += service.price
-            }
-            
-            prenotationDate.text = data
-            prenotationHour.text = Funcs.minutesToHour(selectedTimeInMinutes)
-            prenotationTotal.text = String(total)
-            
+                Funcs.animateIn(sender: self.confirmPrenotation)
+                
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "EEEE dd MMMM yyyy"
+                let data = dateFormatter.string(from:selectedDate as Date)
+                var total = 0
+                for service in selectedServices{
+                    total += service.price
+                }
+                
+                prenotationDate.text = data
+                prenotationHour.text = Funcs.minutesToHour(selectedTimeInMinutes)
+                prenotationTotal.text = String(total)
+                
             }
         }
     }
@@ -308,7 +308,7 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "prenotationCell") as! prenotationConfirmTableViewCell
-
+        
         cell.price.text = String(selectedServices[indexPath.row].price)
         cell.service.text = selectedServices[indexPath.row].name
         return cell
@@ -344,7 +344,11 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
     }
     
     @IBAction func showProfile(_ sender: Any) {
-        performSegue(withIdentifier: "showProfile", sender: nil)
+        if(Auth.auth().currentUser != nil){
+            performSegue(withIdentifier: "showProfile", sender: nil)
+        } else {
+            Funcs.animateIn(sender: loginView)
+        }
     }
     
     //MARK: Login
@@ -495,7 +499,7 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
                 let credential = FacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
                 Auth.auth().signIn(with: credential) { (user, error) in
                     if error != nil {
-                        // ...
+                        print(error!)
                         return
                     }
                     
