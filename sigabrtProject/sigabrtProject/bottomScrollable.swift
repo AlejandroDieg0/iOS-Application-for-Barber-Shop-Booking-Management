@@ -11,7 +11,6 @@ class bottomScrollable: UIViewController, CLLocationManagerDelegate{
     let map = MapViewController()
     let fullView: CGFloat = 150
     var barbersShop : [Shop] = [] // Qui first of all ti ho definito un array di Shop
-    var barbersList: [Shop] = []
     let locationManager = CLLocationManager()
     var locValue:CLLocationCoordinate2D!
     var partialView: CGFloat {
@@ -32,18 +31,6 @@ class bottomScrollable: UIViewController, CLLocationManagerDelegate{
             locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
             locationManager.startUpdatingLocation()
         }
-        
-        for barber in barbersShop{
-            let myCoordinate = CLLocation(latitude: self.locValue.latitude, longitude: self.locValue.longitude)
-            let barberCoordinate = CLLocation(latitude: Double(barber.coordinate.latitude), longitude: Double(barber.coordinate.longitude))
-            let distance = Int(barberCoordinate.distance(from: myCoordinate))
-            barbersList.append(Shop(ID: barber.ID, name: barber.name, desc: barber.desc, phone: barber.phone, address: barber.address, services: barber.services, hours: barber.hours!, distance: distance, logo: barber.logo!))
-            barber.distance = 2
-        }
-        self.barbersList = self.barbersList.sorted(by: { $0.distance! < $1.distance! })
-        print(self.barbersList)
-        self.tableView.reloadData()
-        
         let gesture = UIPanGestureRecognizer.init(target: self, action: #selector(bottomScrollable.panGesture))
         gesture.delegate = self
         view.addGestureRecognizer(gesture)
@@ -62,11 +49,21 @@ class bottomScrollable: UIViewController, CLLocationManagerDelegate{
         
         NotificationCenter.default.addObserver(
             self,
-            selector: #selector(self.tableView.reloadData),
+            selector: #selector(reloadTableViewData),
             name: NSNotification.Name(rawValue: "reloadTableView"),
             object: nil)
     }
-    
+    func reloadTableViewData(){
+        for barber in barbersShop{
+            let myCoordinate = CLLocation(latitude: self.locValue.latitude, longitude: self.locValue.longitude)
+            let barberCoordinate = CLLocation(latitude: Double(barber.coordinate.latitude), longitude: Double(barber.coordinate.longitude))
+            let distance = Int(barberCoordinate.distance(from: myCoordinate))
+            barber.distance = distance
+        }
+        self.barbersShop = self.barbersShop.sorted(by: { $0.distance! < $1.distance! })
+        self.tableView.reloadData()
+
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -133,15 +130,15 @@ extension bottomScrollable: UITableViewDelegate, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.barbersList.count
+        return barbersShop.count
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "shop", for: indexPath) as! nearShop
-        cell.shopName.text = self.barbersList[indexPath.row].name
-        cell.distance.text = String(self.barbersList[indexPath.row].distance! / 1000) + " Km"
-        Nuke.loadImage(with: self.barbersList[indexPath.row].logo!, into: cell.imgShop)
+        cell.shopName.text = barbersShop[indexPath.row].name
+        cell.distance.text = String(barbersShop[indexPath.row].distance! / 1000) + " Km"
+        Nuke.loadImage(with: barbersShop[indexPath.row].logo!, into: cell.imgShop)
         return cell
     }
 }
