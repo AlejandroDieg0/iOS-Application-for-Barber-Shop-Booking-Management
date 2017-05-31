@@ -305,7 +305,7 @@ class Funcs: NSObject {
         }else{
             serviceDuration = duration
         }
-        for currslot in 0 ... slotsInADay {
+        for currslot in 300 ... slotsInADay {
             let currentSlotMinute = currslot
             if let arrayDay = shop.hours?[selectedDay[0]]{
                 for shopOpeningFrame in arrayDay {
