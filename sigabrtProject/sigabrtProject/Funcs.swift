@@ -93,7 +93,7 @@ class Funcs: NSObject {
         return AlertController
     }
     
-    static func addReservation(shop: Shop, time: Int, note: String?, services: [Service], date: Date){
+    static func addReservation(shop: Shop, time: Int, note: String?, services: [Service], date: Date, completion: @escaping () -> Void){
         let ref: DatabaseReference = Database.database().reference()
         
         let reservationDate = date.toString(format: "yy-MM-dd")
@@ -114,6 +114,7 @@ class Funcs: NSObject {
                         "type": service.name,
                         "duration": service.duration] as [String : Any]
             ref.child("prenotations/\(shop.ID)/\(reservationDate)/\(key)/services").childByAutoId().setValue(post)
+            completion()
         }
     }
     static func editReservation(shop: Shop, time: Int, services: [Service], date: Date, oldReservation: Prenotation){

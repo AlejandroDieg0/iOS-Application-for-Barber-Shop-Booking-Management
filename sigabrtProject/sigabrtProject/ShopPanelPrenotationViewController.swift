@@ -56,6 +56,7 @@ class ShopPanelPrenotationViewController: UIViewController, FSCalendarDataSource
         super.viewDidLoad()
         
         //today date
+        self.hideKeyboardWhenTappedAround()
         let data = Date()
         self.selectedDay = data
         let formatter = DateFormatter()
@@ -364,6 +365,7 @@ class ShopPanelPrenotationViewController: UIViewController, FSCalendarDataSource
             
         }
     }
+    
     
     func isInternetAvailable() -> Bool
     {

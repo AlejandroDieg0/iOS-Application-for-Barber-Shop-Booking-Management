@@ -440,7 +440,7 @@
                                                     <color key="textColor" red="0.40000000600000002" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="15 €" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nci-fW-3cl">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="15 €" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nci-fW-3cl">
                                                     <rect key="frame" x="324" y="45" width="43" height="26"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="0.20000000000000001" green="0.41960784309999999" blue="0.52941176469999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -495,7 +495,7 @@
                                                 <constraint firstItem="09h-t1-7bp" firstAttribute="top" secondItem="Nci-fW-3cl" secondAttribute="top" id="gjh-cb-Jad"/>
                                                 <constraint firstItem="wcR-aS-PNM" firstAttribute="top" secondItem="oeI-Cb-ABr" secondAttribute="bottom" constant="-1" id="j50-c2-crS"/>
                                                 <constraint firstItem="wcR-aS-PNM" firstAttribute="leading" secondItem="Lnr-Ol-zSQ" secondAttribute="leadingMargin" constant="6" id="jDr-0e-ENS"/>
-                                                <constraint firstItem="Nci-fW-3cl" firstAttribute="leading" secondItem="09h-t1-7bp" secondAttribute="trailing" constant="-3" id="kxt-Zs-oMZ"/>
+                                                <constraint firstItem="Nci-fW-3cl" firstAttribute="leading" secondItem="09h-t1-7bp" secondAttribute="trailing" constant="-9" id="kxt-Zs-oMZ"/>
                                                 <constraint firstItem="w6q-F5-XeQ" firstAttribute="top" secondItem="oeI-Cb-ABr" secondAttribute="bottom" constant="19" id="lvY-26-osn"/>
                                                 <constraint firstItem="09h-t1-7bp" firstAttribute="leading" secondItem="Lnr-Ol-zSQ" secondAttribute="leading" constant="162" id="rBL-gH-mwX"/>
                                             </constraints>
