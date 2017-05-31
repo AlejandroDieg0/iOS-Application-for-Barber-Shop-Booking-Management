@@ -388,14 +388,6 @@
             </objects>
             <point key="canvasLocation" x="2182" y="982"/>
         </scene>
-        <!--Barber-->
-        <scene sceneID="pbL-GT-T8Z">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Barber" id="tm0-5c-il2" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="RCa-Kv-2bF" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1210" y="1014"/>
-        </scene>
         <!--Bottom Scrollable-->
         <scene sceneID="Cje-3u-bgq">
             <objects>
