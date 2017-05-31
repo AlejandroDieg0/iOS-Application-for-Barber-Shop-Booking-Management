@@ -17,7 +17,6 @@ class ShopDetailViewController: UIViewController, UICollectionViewDataSource, UI
     @IBOutlet weak var buttonFavourite: UIButton!
     @IBOutlet weak var cvServices: UICollectionView!
     
-    let reuseIdentifier = "imageCell"
     
     
     override func viewDidLoad() {
@@ -59,7 +58,7 @@ class ShopDetailViewController: UIViewController, UICollectionViewDataSource, UI
         
         if collectionView == cvGallery{
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath as IndexPath) as! GalleryCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "imageCell", for: indexPath as IndexPath) as! GalleryCollectionViewCell
         
         let imageURL = Storage.storage().reference(forURL: "gs://sigabrt-iosda.appspot.com/").child("barbers/gallery/\(barber!.ID)/\(indexPath.row).jpg")
         
