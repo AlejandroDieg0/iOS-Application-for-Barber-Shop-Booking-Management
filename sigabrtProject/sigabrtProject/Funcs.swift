@@ -169,8 +169,6 @@ class Funcs: NSObject {
                 self.loggedUser = User(name: name, mail: mail!, phone: phone, userType: userType, favBarberId: favBarber)
                 completion(self.loggedUser)
             } else {
-                let ref: DatabaseReference = Database.database().reference()
-                
                 if(FBSDKAccessToken.current() != nil){
                     let graphRequest:FBSDKGraphRequest = FBSDKGraphRequest(graphPath: "me", parameters: ["fields":"name,email,picture.type(large)"])
                     
