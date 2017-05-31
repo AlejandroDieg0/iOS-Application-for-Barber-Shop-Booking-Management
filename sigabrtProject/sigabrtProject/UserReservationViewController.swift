@@ -19,7 +19,6 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
     @IBOutlet var confirmPrenotation: UIView!
     @IBOutlet weak var prenotationDate: UILabel!
     @IBOutlet weak var prenotationHour: UILabel!
-    @IBOutlet weak var prenotationServiceTb: UITableView!
     @IBOutlet weak var prenotationTotal: UILabel!
     
     
@@ -74,7 +73,6 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
         noHour.alpha = 0
         // LGIN
         self.hideKeyboardWhenTappedAround()
-        
         
         barberPhoto.layer.cornerRadius = barberPhoto.frame.size.width/2
         barberPhoto.clipsToBounds = true
