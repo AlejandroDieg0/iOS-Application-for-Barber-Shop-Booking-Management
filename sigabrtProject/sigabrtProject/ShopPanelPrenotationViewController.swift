@@ -45,7 +45,7 @@ class ShopPanelPrenotationViewController: UIViewController, FSCalendarDataSource
     var selectedDuration = 0
     var loadingAlert: UIAlertController!
     var selectedID:Int!
-    
+    var isAnEdit = false
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -152,6 +152,7 @@ class ShopPanelPrenotationViewController: UIViewController, FSCalendarDataSource
     }
     
     @IBAction func addPrenotation(_ sender: UIBarButtonItem) {
+        self.isAnEdit = false
         performSegue(withIdentifier: "addItem", sender: nil)
     }
     
@@ -215,20 +216,15 @@ class ShopPanelPrenotationViewController: UIViewController, FSCalendarDataSource
         
         return true
     }
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.isAnEdit = true
+        self.selectedID = indexPath.row
+        performSegue(withIdentifier: "addItem", sender: nil)
+    }
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-//        let edit = UITableViewRowAction(style: .normal, title: "Edit") { action, index in
-//            self.selectedServices = self.prenotationList[indexPath.row].service
-//            self.selectedID = indexPath.row
-//            for service in self.prenotationList[indexPath.row].service{
-//                 self.selectedDuration =  self.selectedDuration + service.duration
-//            }
-//            Funcs.busySlots(shop: self.selectedShop, date: self.selectedDay, duration: self.selectedDuration, collection: self.editReservationSlotsCollectionView)
-//            Funcs.animateIn(sender: self.editReservationView)
-//      }
-//        edit.backgroundColor = UIColor(red: 144/255, green: 175/255, blue: 197/255, alpha: 1)
+
         let cancel = UITableViewRowAction(style: .destructive, title: "Delete") { action, index in
-            let alertController = UIAlertController(title: "Are you sure?", message: "", preferredStyle: UIAlertControllerStyle.alert) //Replace UIAlertControllerStyle.Alert by UIAlertControllerStyle.alert
+            let alertController = UIAlertController(title: "Are you sure?", message: "", preferredStyle: UIAlertControllerStyle.alert)
             let DestructiveAction = UIAlertAction(title: "Delete", style: UIAlertActionStyle.destructive) {
                 (result : UIAlertAction) -> Void in
                 self.selectedID = indexPath.row
@@ -237,7 +233,6 @@ class ShopPanelPrenotationViewController: UIViewController, FSCalendarDataSource
                 tableView.reloadData()
             }
             
-            // Replace UIAlertActionStyle.Default by UIAlertActionStyle.default
             let okAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default) {
                 (result : UIAlertAction) -> Void in
                 
@@ -247,7 +242,7 @@ class ShopPanelPrenotationViewController: UIViewController, FSCalendarDataSource
             self.present(alertController, animated: true, completion: nil)
         }
         cancel.backgroundColor = .red
-        return  [cancel]// [edit,cancel]
+        return  [cancel]
     }
     func removeReservation(){
         let ref = Database.database().reference()
@@ -257,8 +252,17 @@ class ShopPanelPrenotationViewController: UIViewController, FSCalendarDataSource
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let detailBarber = segue.destination as? MerchantPrenotationViewController{
-            detailBarber.selectedShop = self.selectedShop
-            detailBarber.selectedDate = self.selectedDay
+            if(isAnEdit){
+                detailBarber.selectedShop = self.selectedShop
+                detailBarber.selectedDate = self.selectedDay
+                detailBarber.currentReservation = self.prenotationList[selectedID!]
+                detailBarber.isAnEdit = true
+                
+            }else{
+                detailBarber.selectedShop = self.selectedShop
+                detailBarber.selectedDate = self.selectedDay
+                detailBarber.isAnEdit = false
+            }
         }
         if let detailBarber = segue.destination as? MerchantDetailViewController{
             detailBarber.selectedShop = self.selectedShop

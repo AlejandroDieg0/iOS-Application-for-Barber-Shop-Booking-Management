@@ -44,6 +44,7 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
     @IBOutlet weak var calendarHeightConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var barberPhoto: UIImageView!
+    var loadingAnimation: UIAlertController!
     
     let slotSizeInMinutes = 15
     var selectedDate : Date = Date()
@@ -74,6 +75,16 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
         // LGIN
         self.hideKeyboardWhenTappedAround()
         
+        loadingAnimation = Funcs.inizializeLoadAnimation()
+        
+        logIn.backgroundColor = UIColor.clear
+        logIn.layer.borderWidth = 1.3
+        logIn.layer.borderColor = UIColor.white.withAlphaComponent(0.7).cgColor
+        
+        signUp.backgroundColor = UIColor.clear
+        signUp.layer.borderWidth = 1.3
+        signUp.layer.borderColor = UIColor.white.withAlphaComponent(0.7).cgColor
+        
         barberPhoto.layer.cornerRadius = barberPhoto.frame.size.width/2
         barberPhoto.clipsToBounds = true
         
@@ -89,9 +100,10 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
         self.calendar.select(Date())
         self.calendar.scope = .week
         
+        present(loadingAnimation, animated: true, completion: {
         self.view.addGestureRecognizer(self.scopeGesture)
         self.servicesCollectionView.panGestureRecognizer.require(toFail: self.scopeGesture)
-        if(selectedShop == nil){
+        if(self.selectedShop == nil){
             Funcs.loadShop(){loadedShop in
                 self.selectedShop = loadedShop
                 
@@ -101,6 +113,7 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
                 self.servicesCollectionView.reloadData()
                 
                 Funcs.busySlots(shop: self.selectedShop, date: self.selectedDate, duration: self.selectedDuration, collection: self.timeCollectionView)
+                self.loadingAnimation.dismiss(animated: true, completion: nil)
             }
         }else{
             self.barbershopName.text = self.selectedShop.name
@@ -109,7 +122,9 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
             self.servicesCollectionView.reloadData()
             
             Funcs.busySlots(shop: self.selectedShop, date: self.selectedDate, duration: self.selectedDuration, collection: self.timeCollectionView)
+            self.loadingAnimation.dismiss(animated: true, completion: nil)
         }
+        })
     }
     
     override func viewWillAppear(_ animated: Bool) {
