@@ -190,7 +190,7 @@ class Funcs: NSObject {
                                 ] as [String : Any]
                             
                             ref.setValue(post)
-                            self.loggedUser = User(name: fbname, mail: "", phone: "", userType: 0, favBarberId: Funcs.flagFavBarber)
+                            self.loggedUser = User(name: fbname, mail: user?.email ?? "", phone: "", userType: 0, favBarberId: Funcs.flagFavBarber)
                             completion(self.loggedUser)
                         }
                     })
@@ -203,7 +203,7 @@ class Funcs: NSObject {
                         ] as [String : Any]
                     
                     ref.setValue(post)
-                    self.loggedUser = User(name: "", mail: "", phone: "", userType: 0, favBarberId: Funcs.flagFavBarber)
+                    self.loggedUser = User(name: "", mail: user?.email ?? "", phone: "", userType: 0, favBarberId: Funcs.flagFavBarber)
                     completion(self.loggedUser)
                 }
             }
