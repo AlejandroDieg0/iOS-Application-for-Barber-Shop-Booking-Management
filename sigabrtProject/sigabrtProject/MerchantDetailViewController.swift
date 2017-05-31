@@ -92,11 +92,23 @@ class MerchantDetailViewController: UIViewController, UITableViewDelegate, UITab
         }
         edit.backgroundColor = .blue
         let cancel = UITableViewRowAction(style: .destructive, title: "Delete") { action, index in
-            self.selectedID = indexPath.row
-            self.removeService()
-            tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
-            tableView.reloadData()
+            let alertController = UIAlertController(title: "Are you sure?", message: "", preferredStyle: UIAlertControllerStyle.alert) //Replace UIAlertControllerStyle.Alert by UIAlertControllerStyle.alert
+            let DestructiveAction = UIAlertAction(title: "Delete", style: UIAlertActionStyle.destructive) {
+                (result : UIAlertAction) -> Void in
+                self.selectedID = indexPath.row
+                self.removeService()
+                tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
+                tableView.reloadData()
+            }
             
+            // Replace UIAlertActionStyle.Default by UIAlertActionStyle.default
+            let okAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default) {
+                (result : UIAlertAction) -> Void in
+                //Non deve fare un cazzo
+            }
+            alertController.addAction(DestructiveAction)
+            alertController.addAction(okAction)
+            self.present(alertController, animated: true, completion: nil)
         }
         cancel.backgroundColor = .red
         return [edit,cancel]

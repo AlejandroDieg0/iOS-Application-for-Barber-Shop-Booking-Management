@@ -19,6 +19,7 @@ class Funcs: NSObject {
     static var flagFavBarber : Int = -1
     static let slotSizeInMinutes = 15
     static var bookableSlotsInMinutes: [Int] = []
+    static var tempPoupupView: UIView!
     
     static func animateIn(sender: UIView) {
         
@@ -35,7 +36,10 @@ class Funcs: NSObject {
                 topController = presentedViewController
             }
             
+            tempPoupupView=sender
+            
             topController.view.addSubview(blurEffectView)
+            blurEffectView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.tapped(sender:))))
             sender.center = topController.view.center
             topController.view.addSubview(sender)
             
@@ -46,11 +50,12 @@ class Funcs: NSObject {
                 //controller.visualEffect.alpha = 0.5
                 sender.transform = CGAffineTransform.identity
             }
-            
         }
-        
     }
     
+    static func tapped(sender: UIGestureRecognizer){
+        Funcs.animateOut(sender: tempPoupupView)
+    }
     
     static func animateOut (sender: UIView) {
         if var topController = UIApplication.shared.keyWindow?.rootViewController {
