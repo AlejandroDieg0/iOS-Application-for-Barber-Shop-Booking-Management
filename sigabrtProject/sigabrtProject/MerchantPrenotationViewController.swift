@@ -16,7 +16,7 @@ class MerchantPrenotationViewController: UIViewController, FSCalendarDataSource,
     @IBOutlet weak var freeTimeSlotCollectionView: UICollectionView!
     
     var selectedDate : Date!
-    var selectedTimeInMinutes: Int!
+    var selectedTimeInMinutes: Int = 0
     var selectedServices : [Service] = []
     var selectedServicesId:[Int] = []
     var selectedDuration = 0
@@ -97,7 +97,7 @@ class MerchantPrenotationViewController: UIViewController, FSCalendarDataSource,
     @IBAction func save(_ sender: UIBarButtonItem) {
         if(isAnEdit){
             let actionSheet = UIAlertController(title: "", message: "Confirm update", preferredStyle: .actionSheet)
-            let errorAlert = UIAlertController(title: "Missing Informations", message: "Please check the details of your reservations", preferredStyle: .actionSheet)
+            
             
             actionSheet.addAction(UIAlertAction(title: "OK", style: .default) { action in
                 Funcs.editReservation(shop: self.selectedShop, time: self.selectedTimeInMinutes, services: self.selectedServices, date: self.selectedDate, oldReservation: self.currentReservation){_ in
@@ -115,9 +115,11 @@ class MerchantPrenotationViewController: UIViewController, FSCalendarDataSource,
             })
             
             actionSheet.addAction(UIAlertAction(title: "CANCEL", style: .cancel, handler: nil))
-            errorAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+            
             
             if (self.selectedTimeInMinutes == 0 ||  self.selectedServices.count == 0 ){
+                let errorAlert = UIAlertController(title: "Missing Informations", message: "Please check the details of your reservations", preferredStyle: .actionSheet)
+                errorAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
                 self.present(errorAlert, animated: true, completion:  nil)
                 
             }else{
