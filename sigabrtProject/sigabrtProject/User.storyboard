@@ -728,7 +728,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5Qw-KU-bAz">
-                                                    <rect key="frame" x="0.0" y="-1.5" width="374" height="174"/>
+                                                    <rect key="frame" x="0.0" y="-1" width="374.5" height="173.5"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                     <connections>
                                                         <segue destination="mRn-mg-MOw" kind="embed" id="aeL-HY-tZq"/>
@@ -750,7 +750,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H4Q-pL-gay">
-                                                    <rect key="frame" x="0.0" y="-1" width="374" height="28.5"/>
+                                                    <rect key="frame" x="0.0" y="-1.5" width="374.5" height="29.5"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
@@ -798,7 +798,7 @@
                         <viewControllerLayoutGuide type="bottom" id="SOu-QG-awQ"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="ycQ-jd-nUA">
-                        <rect key="frame" x="0.0" y="0.0" width="374" height="174"/>
+                        <rect key="frame" x="0.0" y="0.0" width="374.5" height="173.5"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="any-eQ-9ea">
