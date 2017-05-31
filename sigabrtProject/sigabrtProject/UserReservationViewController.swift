@@ -108,6 +108,7 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
                 Funcs.loadShop(){loadedShop in
                     self.selectedShop = loadedShop
                     self.loadInitialInfos()
+                    self.servicesCollectionView.reloadData()
                 }
             } else {
                 self.loadInitialInfos()
@@ -119,7 +120,6 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
         self.barbershopName.text = self.selectedShop.name
         self.barbershopPhone.text = self.selectedShop.phone
         self.barbershopAddress.text = self.selectedShop.address
-        self.servicesCollectionView.reloadData()
         
         Funcs.busySlots(shop: self.selectedShop, date: self.selectedDate, duration: self.selectedDuration, collection: self.timeCollectionView)
         self.loadingAnimation.dismiss(animated: true, completion: nil)
@@ -206,12 +206,19 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
             
             let imageURL = Storage.storage().reference(forURL: "gs://sigabrt-iosda.appspot.com/").child("services/\(selectedShop.services[indexPath.row].name.lowercased()).png")
             
+            cell.imageViewService?.image = nil
+            cell.indicator.startAnimating()
             imageURL.downloadURL(completion: { (url, error) in
-                
-                print(imageURL)
-                if url != nil {Nuke.loadImage(with: url!, into: cell.imageViewService)}
-                
-                
+                if url != nil {
+                    Nuke.loadImage(with: url!, into: cell.imageViewService){response, _ in
+                        cell.indicator.stopAnimating()
+                        cell.imageViewService?.image = response.value
+                        cell.setNeedsLayout()
+                    }
+                } else {
+                    cell.imageViewService?.image = #imageLiteral(resourceName: "default")
+                    cell.indicator.stopAnimating()
+                }
             })
             
             return cell

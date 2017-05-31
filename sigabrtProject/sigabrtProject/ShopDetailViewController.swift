@@ -82,12 +82,19 @@ class ShopDetailViewController: UIViewController, UICollectionViewDataSource, UI
 
             let imageURL = Storage.storage().reference(forURL: "gs://sigabrt-iosda.appspot.com/").child("services/\(barber!.services[indexPath.row].name.lowercased()).png")
             
+            cell.imageViewService?.image = nil
+            cell.indicator.startAnimating()
             imageURL.downloadURL(completion: { (url, error) in
-                
-                print(imageURL)
-                if url != nil {Nuke.loadImage(with: url!, into: cell.imageViewService)}
-                
-                
+                if url != nil {
+                    Nuke.loadImage(with: url!, into: cell.imageViewService){response, _ in
+                        cell.indicator.stopAnimating()
+                        cell.imageViewService?.image = response.value
+                        cell.setNeedsLayout()
+                    }
+                } else {
+                    cell.imageViewService?.image = #imageLiteral(resourceName: "default")
+                    cell.indicator.stopAnimating()
+                }
             })
             return cell
         }
