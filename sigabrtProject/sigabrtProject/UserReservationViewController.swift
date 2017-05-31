@@ -344,7 +344,11 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
     }
     
     @IBAction func showProfile(_ sender: Any) {
-        performSegue(withIdentifier: "showProfile", sender: nil)
+        if(Auth.auth().currentUser != nil){
+            performSegue(withIdentifier: "showProfile", sender: nil)
+        } else {
+            Funcs.animateIn(sender: loginView)
+        }
     }
     
     //MARK: Login
