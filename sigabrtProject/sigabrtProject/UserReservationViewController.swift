@@ -204,7 +204,7 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
             cell.labelServiceName.text = selectedShop.services[indexPath.row].name
             cell.labelServicePrice.text = "\(selectedShop.services[indexPath.row].price) €"
             
-            let imageURL = Storage.storage().reference(forURL: "gs://sigabrt-iosda.appspot.com/").child("services/\(selectedShop.services[indexPath.row].name).png")
+            let imageURL = Storage.storage().reference(forURL: "gs://sigabrt-iosda.appspot.com/").child("services/\(selectedShop.services[indexPath.row].name.lowercased()).png")
             
             imageURL.downloadURL(completion: { (url, error) in
                 
