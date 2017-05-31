@@ -1,5 +1,6 @@
 import UIKit
 import Firebase
+import FBSDKLoginKit
 
 extension UIViewController {
     func hideKeyboardWhenTappedAround() {
@@ -155,8 +156,8 @@ class Funcs: NSObject {
     static func loadUserData(completion: @escaping (_ result: User) -> Void){
         let user = Auth.auth().currentUser
         if (user == nil) {return}
-        let ref = Database.database().reference()
-        ref.child("user").child(user!.uid).observeSingleEvent(of: .value, with: { (snapshot) in
+        let ref = Database.database().reference().child("user").child(user!.uid)
+        ref.observeSingleEvent(of: .value, with: { (snapshot) in
             // Get user value
             if let value = snapshot.value as? NSDictionary {
                 let phone = value["phone"] as? String ?? ""
@@ -164,20 +165,47 @@ class Funcs: NSObject {
                 let favBarber = value["favbarber"] as? Int ?? -1
                 let userType = value["usertype"] as? Int ?? 0
                 let mail = user?.email
+                print("phone \(phone)")
                 self.loggedUser = User(name: name, mail: mail!, phone: phone, userType: userType, favBarberId: favBarber)
                 completion(self.loggedUser)
             } else {
-                let ref: DatabaseReference = Database.database().reference()
-                let post = [
-                    "name":  "",
-                    "phone": "",
-                    "favbarber": Funcs.flagFavBarber,
-                    "usertype": 0,
-                    ] as [String : Any]
-                
-                ref.child("user/\(user!.uid)/").setValue(post)
-                self.loggedUser = User(name: "", mail: "", phone: "", userType: 0, favBarberId: Funcs.flagFavBarber)
-                completion(self.loggedUser)
+                if(FBSDKAccessToken.current() != nil){
+                    let graphRequest:FBSDKGraphRequest = FBSDKGraphRequest(graphPath: "me", parameters: ["fields":"name,email,picture.type(large)"])
+                    
+                    graphRequest.start(completionHandler: { (connection, result, error) -> Void in
+                        
+                        if ((error) != nil)
+                        {
+                            print("Error: \(String(describing: error))")
+                        }
+                        else
+                        {
+                            let data:[String:AnyObject] = result as! [String : AnyObject]
+                            let fbname = data["name"] as? String ?? ""
+                            let post = [
+                                "name":  fbname,
+                                "phone": "",
+                                "favbarber": Funcs.flagFavBarber,
+                                "usertype": 0,
+                                ] as [String : Any]
+                            
+                            ref.setValue(post)
+                            self.loggedUser = User(name: fbname, mail: "", phone: "", userType: 0, favBarberId: Funcs.flagFavBarber)
+                            completion(self.loggedUser)
+                        }
+                    })
+                } else {
+                    let post = [
+                        "name":  "",
+                        "phone": "",
+                        "favbarber": Funcs.flagFavBarber,
+                        "usertype": 0,
+                        ] as [String : Any]
+                    
+                    ref.setValue(post)
+                    self.loggedUser = User(name: "", mail: "", phone: "", userType: 0, favBarberId: Funcs.flagFavBarber)
+                    completion(self.loggedUser)
+                }
             }
         }) { (error) in
             print(error.localizedDescription)

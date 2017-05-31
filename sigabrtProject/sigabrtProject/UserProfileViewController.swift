@@ -5,7 +5,6 @@ import FBSDKLoginKit
 
 class UserProfileViewController: UITableViewController {
 
-    var x = ""
     let firebaseAuth = Auth.auth()
     let user = Auth.auth().currentUser
     
@@ -26,6 +25,8 @@ class UserProfileViewController: UITableViewController {
     @IBOutlet weak var userNameIcon: UIImageView!
     @IBOutlet weak var mailIcon: UIImageView!
     @IBOutlet weak var phoneIcon: UIImageView!
+    
+    var loadingAlert: UIAlertController!
 
     
     override func viewDidLoad() {
@@ -40,54 +41,33 @@ class UserProfileViewController: UITableViewController {
         self.changeName.isUserInteractionEnabled = false
         self.changeMail.isUserInteractionEnabled = false
         self.changePhone.isUserInteractionEnabled = false
-
+        loadingAlert = Funcs.inizializeLoadAnimation()
         
-        if(FBSDKAccessToken.current() != nil){
-            
-            let graphRequest:FBSDKGraphRequest = FBSDKGraphRequest(graphPath: "me", parameters: ["fields":"first_name,email, picture.type(large)"])
-            
-            graphRequest.start(completionHandler: { (connection, result, error) -> Void in
-                
-                if ((error) != nil)
-                {
-                    print("Error: \(String(describing: error))")
-                }
-                else
-                {
-                    let data:[String:AnyObject] = result as! [String : AnyObject]
-                    print(data)
-                    let firstName = data["first_name"]
-                    
-                    self.helloName.text = "Hello \(firstName!)"
-                    self.changeName.text = firstName! as? String
-                    self.changeMail.text = data["email"] as? String
-                    self.sendMailPwReset.setTitle("Connected as \(firstName!)", for: .normal)
-                    
+        if Funcs.loggedUser != nil {
+            self.loadUser()
+        } else {
+            present(loadingAlert, animated: true, completion: {
+                Funcs.loadUserData(){_ in
+                    self.loadUser()
+                    self.loadingAlert.dismiss(animated: true, completion: nil)
                 }
             })
-
-        }else{
-            if Auth.auth().currentUser != nil {
-                
-                self.changeName.text = Funcs.loggedUser.name
-                self.changePhone.text = Funcs.loggedUser.phone
-                self.changeMail.text = Funcs.loggedUser.mail
-                self.helloName.text = "Hello \(self.changeName.text!)"
-                
-                if Funcs.loggedUser != nil{
-                    labelFavBarber.text = "DA SISTEMARE"
-                } else {
-                    labelFavBarber.text = "No favourite barber selected"
-                }
-            } else {
-                print("no logged with Firebase")
-                helloName.text = "Hello User!"
-            }
         }
     }
     
-    // logout
+    func loadUser(){
+        self.changeName.text = Funcs.loggedUser.name
+        self.changePhone.text = Funcs.loggedUser.phone
+        self.changeMail.text = Funcs.loggedUser.mail
+        self.helloName.text = "Hello \(self.changeName.text!)"
+        
+        if (Auth.auth().currentUser?.providerData[0].providerID != "password"){
+            sendMailPwReset.isHidden = true
+        }
+        labelFavBarber.text = "DA SISTEMARE"
+    }
     
+    // logout
     @IBAction func logOut(_ sender: UIButton) {
         do {
             try firebaseAuth.signOut()
@@ -120,7 +100,7 @@ class UserProfileViewController: UITableViewController {
         guard let mail = self.changeMail.text, !mail.isEmpty else {
             return
         }
-        animateIn(sender: reauthView)
+        //animateIn(sender: reauthView)
         Auth.auth().sendPasswordReset(withEmail: mail) { (error) in
             // ...
         }
@@ -128,38 +108,10 @@ class UserProfileViewController: UITableViewController {
         return
     }
     
-
-    
-    // update del nome
-    
-    
-    func animateIn(sender: UIView) {
-        //        let xPosition = view.center as CGFloat
-        //        let yPosition = view.center.y - 20
-        //
-        //        let height = 330 as CGFloat
-        //        let width = 260 as CGFloat
-        //
-        //        sender.frame = CGRect(x: xPosition,y: yPosition,width: width,height: height)
-        sender.center = self.view.center
-        self.view.addSubview(sender)
-        
-        sender.transform = CGAffineTransform.init(scaleX: 1.2, y: 1.2)
-        sender.alpha = 0
-        UIView.animate(withDuration: 0.4) {
-            sender.alpha = 0.9
-            
-            
-            sender.transform = CGAffineTransform.identity
-        }
-        
-    }
-    
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
         
         if isEditing {
-            print(editing)
             self.changePhone.isUserInteractionEnabled = true
             self.changePhone.textColor = UIColor.black
             
@@ -177,6 +129,11 @@ class UserProfileViewController: UITableViewController {
                 "phone": self.changePhone.text!,
                 ])
             
+            Funcs.loggedUser.name = self.changeName.text!
+            Funcs.loggedUser.phone = self.changePhone.text!
+            
+            self.helloName.text = "Hello \(self.changeName.text!)"
+            
             self.changePhone.isUserInteractionEnabled = false
             self.changePhone.textColor = UIColor.gray
             
@@ -185,9 +142,6 @@ class UserProfileViewController: UITableViewController {
             
             self.changeName.isUserInteractionEnabled = false
             self.changeName.textColor = UIColor.gray
-
-            print("Changes Uploaded")
-
         }
     }
     
