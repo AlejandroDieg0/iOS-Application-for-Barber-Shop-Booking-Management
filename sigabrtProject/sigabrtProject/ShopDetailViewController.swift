@@ -9,12 +9,13 @@ class ShopDetailViewController: UIViewController, UICollectionViewDataSource, UI
     var barber : Shop?
     
     @IBOutlet weak var cvGallery: UICollectionView!
-    @IBOutlet weak var imageBarberShop: UIImageView!
+    //@IBOutlet weak var imageBarberShop: UIImageView!
     @IBOutlet weak var labelAddress: UILabel!
     @IBOutlet weak var labelPhone: UILabel!
     @IBOutlet weak var labelHours: UILabel!
     @IBOutlet weak var labelDescription: UILabel!
     @IBOutlet weak var buttonFavourite: UIButton!
+    @IBOutlet weak var cvServices: UICollectionView!
     
     let reuseIdentifier = "imageCell"
     
@@ -26,12 +27,16 @@ class ShopDetailViewController: UIViewController, UICollectionViewDataSource, UI
         cvGallery.dataSource = self
         self.view.addSubview(cvGallery)
         
+        cvServices.delegate = self
+        cvServices.dataSource = self
+        self.view.addSubview(cvServices)
+        
         navigationItem.title = barber?.name
         labelDescription.text = barber?.desc
         labelAddress.text = barber?.address
         labelPhone.text = barber?.phone
         
-        if barber?.logo != nil { Nuke.loadImage(with: (barber?.logo)!, into: imageBarberShop) }
+      //  if barber?.logo != nil { Nuke.loadImage(with: (barber?.logo)!, into: imageBarberShop) }
         
         
         buttonFavourite.setTitle(Funcs.flagFavBarber == 0 ? "Set Favourite!" : "Remove Favourite!", for: .normal)
@@ -42,11 +47,17 @@ class ShopDetailViewController: UIViewController, UICollectionViewDataSource, UI
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
+        if collectionView == cvGallery {
         return 5
-        
+            }
+        else {
+            return barber!.services.count
+            }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        if collectionView == cvGallery{
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath as IndexPath) as! GalleryCollectionViewCell
         
@@ -60,8 +71,28 @@ class ShopDetailViewController: UIViewController, UICollectionViewDataSource, UI
             
             
         })
-
+        
         return cell
+        }
+        else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "serCell", for: indexPath) as!  previewServiceCollectionViewCell
+            
+           // cell.labelServiceName.text = selectedShop.services[indexPath.row].name
+            
+            
+            let imageURL = Storage.storage().reference(forURL: "gs://sigabrt-iosda.appspot.com/").child("services/\(barber!.services[indexPath.row].name).png")
+            
+            imageURL.downloadURL(completion: { (url, error) in
+                
+                print(imageURL)
+                if url != nil {Nuke.loadImage(with: url!, into: cell.imageViewService)}
+                
+                
+            })
+            return cell
+        }
+    
+        
     }
     
     override func didReceiveMemoryWarning() {
