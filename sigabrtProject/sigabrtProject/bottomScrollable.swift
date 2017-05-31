@@ -32,14 +32,16 @@ class bottomScrollable: UIViewController, CLLocationManagerDelegate{
             locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
             locationManager.startUpdatingLocation()
         }
-
+        
         for barber in barbersShop{
             let myCoordinate = CLLocation(latitude: self.locValue.latitude, longitude: self.locValue.longitude)
             let barberCoordinate = CLLocation(latitude: Double(barber.coordinate.latitude), longitude: Double(barber.coordinate.longitude))
             let distance = Int(barberCoordinate.distance(from: myCoordinate))
             barbersList.append(Shop(ID: barber.ID, name: barber.name, desc: barber.desc, phone: barber.phone, address: barber.address, services: barber.services, hours: barber.hours!, distance: distance, logo: barber.logo!))
+            barber.distance = 2
         }
         self.barbersList = self.barbersList.sorted(by: { $0.distance! < $1.distance! })
+        print(self.barbersList)
         self.tableView.reloadData()
         
         let gesture = UIPanGestureRecognizer.init(target: self, action: #selector(bottomScrollable.panGesture))
@@ -60,15 +62,11 @@ class bottomScrollable: UIViewController, CLLocationManagerDelegate{
         
         NotificationCenter.default.addObserver(
             self,
-            selector: #selector(bottomScrollable.reloadData),
+            selector: #selector(self.tableView.reloadData),
             name: NSNotification.Name(rawValue: "reloadTableView"),
             object: nil)
     }
     
-    
-    func reloadData(){
-        self.tableView.reloadData()
-    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -127,7 +125,6 @@ class bottomScrollable: UIViewController, CLLocationManagerDelegate{
     }
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         self.locValue = manager.location?.coordinate
-        print("locations = \(locValue.latitude) \(locValue.longitude)")
     }
     
 }
