@@ -218,7 +218,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0hr-IR-GsH">
-                                                <rect key="frame" x="93" y="386" width="192" height="36"/>
+                                                <rect key="frame" x="93" y="405" width="192" height="36"/>
                                                 <color key="backgroundColor" red="0.56470588239999997" green="0.68627450980000004" blue="0.7725490196" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <state key="normal" title="BOOK">
@@ -254,7 +254,7 @@
                         <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803915" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="jhm-tt-099" firstAttribute="trailing" secondItem="7Fb-F6-sSP" secondAttribute="trailing" id="5I2-XC-Tl5"/>
-                            <constraint firstItem="sKV-wr-mye" firstAttribute="top" secondItem="0hr-IR-GsH" secondAttribute="bottom" constant="28" id="GXR-AF-CRx"/>
+                            <constraint firstItem="sKV-wr-mye" firstAttribute="top" secondItem="0hr-IR-GsH" secondAttribute="bottom" constant="9" id="GXR-AF-CRx"/>
                             <constraint firstItem="jhm-tt-099" firstAttribute="top" secondItem="7Fb-F6-sSP" secondAttribute="bottom" constant="8" symbolic="YES" id="Gfd-XH-O1V"/>
                             <constraint firstItem="7Fb-F6-sSP" firstAttribute="top" secondItem="h9h-W2-sSH" secondAttribute="bottom" id="NrB-bq-RsA"/>
                             <constraint firstItem="jhm-tt-099" firstAttribute="bottom" secondItem="sKV-wr-mye" secondAttribute="top" id="aCh-GO-KgL"/>
