@@ -96,7 +96,6 @@ class MerchantProfileViewController: UITableViewController {
            }
 
     func editing(){
-        print("sono qui dento")
         self.changePhone.isUserInteractionEnabled = true
         self.changePhone.textColor = UIColor.black
         self.changePhone.borderStyle = .roundedRect

@@ -33,7 +33,7 @@
 		E3ACD9111ECF3D74002B6399 /* UserReservationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ACD9101ECF3D74002B6399 /* UserReservationViewController.swift */; };
 		E3ACD9141ED1017E002B6399 /* Prenotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33F8BED1EC9F7F000705497 /* Prenotation.swift */; };
 		E51D33DF1ED07663004C9BEF /* MerchantPrenotationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51D33DE1ED07663004C9BEF /* MerchantPrenotationViewController.swift */; };
-		E51D33E11ED0766D004C9BEF /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51D33E01ED0766D004C9BEF /* CollectionViewCell.swift */; };
+		E51D33E11ED0766D004C9BEF /* ReservationMerchantTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51D33E01ED0766D004C9BEF /* ReservationMerchantTableViewCell.swift */; };
 		E51D33E31ED07674004C9BEF /* ShopPanelPrenotationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51D33E21ED07674004C9BEF /* ShopPanelPrenotationViewController.swift */; };
 		E51D33E51ED07AE9004C9BEF /* addModifyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51D33E41ED07AE9004C9BEF /* addModifyCollectionViewCell.swift */; };
 		E521F3091ED225FD00F5AC84 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = E521F3081ED225FD00F5AC84 /* Service.swift */; };
@@ -80,7 +80,7 @@
 		E33F8BED1EC9F7F000705497 /* Prenotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Prenotation.swift; sourceTree = "<group>"; };
 		E3ACD9101ECF3D74002B6399 /* UserReservationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserReservationViewController.swift; sourceTree = "<group>"; };
 		E51D33DE1ED07663004C9BEF /* MerchantPrenotationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MerchantPrenotationViewController.swift; sourceTree = "<group>"; };
-		E51D33E01ED0766D004C9BEF /* CollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
+		E51D33E01ED0766D004C9BEF /* ReservationMerchantTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReservationMerchantTableViewCell.swift; sourceTree = "<group>"; };
 		E51D33E21ED07674004C9BEF /* ShopPanelPrenotationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShopPanelPrenotationViewController.swift; sourceTree = "<group>"; };
 		E51D33E41ED07AE9004C9BEF /* addModifyCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = addModifyCollectionViewCell.swift; sourceTree = "<group>"; };
 		E521F3081ED225FD00F5AC84 /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
@@ -141,7 +141,7 @@
 				E525200C1EDDB97A00367813 /* prenotationConfirmTableViewCell.swift */,
 				E521F30A1ED466BC00F5AC84 /* freeTimeBarberTableViewCell.swift */,
 				F303D5971ECF29E1009EC344 /* ReservationTableViewCell.swift */,
-				E51D33E01ED0766D004C9BEF /* CollectionViewCell.swift */,
+				E51D33E01ED0766D004C9BEF /* ReservationMerchantTableViewCell.swift */,
 				E51D33E41ED07AE9004C9BEF /* addModifyCollectionViewCell.swift */,
 				E526BED21ED5DF5A005251A7 /* barberSelfServiceTableViewCell.swift */,
 				F3EF9A111ED46FBE00BA2A6A /* ServiceCollectionViewCell.swift */,
@@ -156,7 +156,6 @@
 			children = (
 				E30357B41EDD85D800562543 /* Merchant */,
 				E3ACD9101ECF3D74002B6399 /* UserReservationViewController.swift */,
-				9B0CC8961ECC7A7F007550FB /* PageViewController.swift */,
 				9B04743B1EC9FAA30075A6A6 /* MapViewController.swift */,
 				E30357B71EDDC29200562543 /* bottomScrollable.swift */,
 				9B0CC8961ECC7A7F007550FB /* PageViewController.swift */,
@@ -270,7 +269,7 @@
 				TargetAttributes = {
 					9BFBF9831EBA232500DA7D25 = {
 						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = YB659K76HV;
+						DevelopmentTeam = 9ZVMLP4E42;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -378,7 +377,7 @@
 				E521F30B1ED466BC00F5AC84 /* freeTimeBarberTableViewCell.swift in Sources */,
 				F354A5051EDC529F0085E3AC /* MerchantDetailViewController.swift in Sources */,
 				9B04743C1EC9FAA30075A6A6 /* MapViewController.swift in Sources */,
-				E51D33E11ED0766D004C9BEF /* CollectionViewCell.swift in Sources */,
+				E51D33E11ED0766D004C9BEF /* ReservationMerchantTableViewCell.swift in Sources */,
 				9BD9F5061ECDD2EA006768F6 /* ModernSearchBar.swift in Sources */,
 				E30357B81EDDC29200562543 /* bottomScrollable.swift in Sources */,
 				9B0CC8971ECC7A7F007550FB /* PageViewController.swift in Sources */,
@@ -520,7 +519,7 @@
 			baseConfigurationReference = 52546786F64904BA596E6B85 /* Pods-sigabrtProject.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = YB659K76HV;
+				DEVELOPMENT_TEAM = 9ZVMLP4E42;
 				INFOPLIST_FILE = sigabrtProject/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.iosda.cohort2.sigabrt;
@@ -534,7 +533,7 @@
 			baseConfigurationReference = E1AED266F19751A8C31C1AC4 /* Pods-sigabrtProject.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = YB659K76HV;
+				DEVELOPMENT_TEAM = 9ZVMLP4E42;
 				INFOPLIST_FILE = sigabrtProject/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.iosda.cohort2.sigabrt;

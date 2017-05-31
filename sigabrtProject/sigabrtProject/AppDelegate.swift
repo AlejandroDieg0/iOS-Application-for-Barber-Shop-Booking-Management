@@ -24,7 +24,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIApplication.shared.statusBarStyle = .lightContent
         
         // Controllo termini accettati
-        if(UserDefaults.standard.bool(forKey: "disableWizard"))
+        let disableWizard = UserDefaults.standard.bool(forKey: "disableWizard")
+        if(disableWizard)
         {
             let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "mapView")
             self.window?.rootViewController = vc
@@ -49,6 +50,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         self.window?.rootViewController = vc
                    }
                 }
+            } else if (disableWizard){
+                let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "mapView")
+                self.window?.rootViewController = vc
             }
         }
         
