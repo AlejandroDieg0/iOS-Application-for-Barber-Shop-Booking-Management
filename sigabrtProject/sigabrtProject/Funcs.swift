@@ -117,7 +117,7 @@ class Funcs: NSObject {
             completion()
         }
     }
-    static func editReservation(shop: Shop, time: Int, services: [Service], date: Date, oldReservation: Prenotation){
+    static func editReservation(shop: Shop, time: Int, services: [Service], date: Date, oldReservation: Prenotation, completion: @escaping () -> Void){
         var newTime:Int!
         
         if(time == 0 ){
@@ -149,6 +149,7 @@ class Funcs: NSObject {
         }
         let ref2 = Database.database().reference()
         ref2.child("prenotations/\(shop.ID)/\(reservationDate)/\(oldReservation.id)").removeValue()
+        completion()
     }
 
     static func loadUserData(completion: @escaping (_ result: User) -> Void){

@@ -95,34 +95,66 @@ class MerchantPrenotationViewController: UIViewController, FSCalendarDataSource,
     }
     
     @IBAction func save(_ sender: UIBarButtonItem) {
-        let note = self.name.text
-        let actionSheet = UIAlertController(title: "", message: "Confirm prenotation", preferredStyle: .actionSheet)
-        let errorAlert = UIAlertController(title: "Missing Informations", message: "Please check the details of your reservations", preferredStyle: .actionSheet)
-
-        actionSheet.addAction(UIAlertAction(title: "OK", style: .default) { action in
+        if(isAnEdit){
+            let actionSheet = UIAlertController(title: "", message: "Confirm update", preferredStyle: .actionSheet)
+            let errorAlert = UIAlertController(title: "Missing Informations", message: "Please check the details of your reservations", preferredStyle: .actionSheet)
             
-            Funcs.addReservation(shop: self.selectedShop, time: self.selectedTimeInMinutes, note: note, services: self.selectedServices, date: self.selectedDate){_ in 
-                
-                self.selectedTimeInMinutes = 0
-                self.selectedServices = []
-                let selectedItems = self.servicesTableView.indexPathsForSelectedRows
-                for indexPath in selectedItems! {
-                    self.servicesTableView.deselectRow(at: indexPath, animated:true)
+            actionSheet.addAction(UIAlertAction(title: "OK", style: .default) { action in
+                Funcs.editReservation(shop: self.selectedShop, time: self.selectedTimeInMinutes, services: self.selectedServices, date: self.selectedDate, oldReservation: self.currentReservation){_ in
                     
+                    self.selectedTimeInMinutes = 0
+                    self.selectedServices = []
+                    let selectedItems = self.servicesTableView.indexPathsForSelectedRows
+                    for indexPath in selectedItems! {
+                        self.servicesTableView.deselectRow(at: indexPath, animated:true)
+                        
+                    }
+                    
+                    self.navigationController?.popViewController(animated: true)
                 }
+            })
+            
+            actionSheet.addAction(UIAlertAction(title: "CANCEL", style: .cancel, handler: nil))
+            errorAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+            
+            if (self.selectedTimeInMinutes == 0 ||  self.selectedServices.count == 0 ){
+                self.present(errorAlert, animated: true, completion:  nil)
                 
-                self.navigationController?.popViewController(animated: true)
+            }else{
+                self.present(actionSheet, animated: true, completion:  nil)
             }
-        })
-        
-        actionSheet.addAction(UIAlertAction(title: "CANCEL", style: .cancel, handler: nil))
-        errorAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-        
-        if (self.selectedTimeInMinutes == 0 ||  self.selectedServices.count == 0 ){
-            self.present(errorAlert, animated: true, completion:  nil)
 
         }else{
-            self.present(actionSheet, animated: true, completion:  nil)
+            let note = self.name.text
+            let actionSheet = UIAlertController(title: "", message: "Confirm prenotation", preferredStyle: .actionSheet)
+            let errorAlert = UIAlertController(title: "Missing Informations", message: "Please check the details of your reservations", preferredStyle: .actionSheet)
+            
+            actionSheet.addAction(UIAlertAction(title: "OK", style: .default) { action in
+                
+                Funcs.addReservation(shop: self.selectedShop, time: self.selectedTimeInMinutes, note: note, services: self.selectedServices, date: self.selectedDate){_ in
+                    
+                    self.selectedTimeInMinutes = 0
+                    self.selectedServices = []
+                    let selectedItems = self.servicesTableView.indexPathsForSelectedRows
+                    for indexPath in selectedItems! {
+                        self.servicesTableView.deselectRow(at: indexPath, animated:true)
+                        
+                    }
+                    
+                    self.navigationController?.popViewController(animated: true)
+                }
+            })
+            
+            actionSheet.addAction(UIAlertAction(title: "CANCEL", style: .cancel, handler: nil))
+            errorAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+            
+            if (self.selectedTimeInMinutes == 0 ||  self.selectedServices.count == 0 ){
+                self.present(errorAlert, animated: true, completion:  nil)
+                
+            }else{
+                self.present(actionSheet, animated: true, completion:  nil)
+            }
+
         }
         
     }
