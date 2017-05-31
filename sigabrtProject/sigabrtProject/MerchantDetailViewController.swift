@@ -81,9 +81,6 @@ class MerchantDetailViewController: UIViewController, UITableViewDelegate, UITab
         cell.labelDuration.text = String(selectedShop.services[indexPath.row].duration) + " Min"
         return cell
     }
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // performSegue(withIdentifier: "serviceDetails", sender: self)
-    }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let edit = UITableViewRowAction(style: .normal, title: "Edit") { action, index in
