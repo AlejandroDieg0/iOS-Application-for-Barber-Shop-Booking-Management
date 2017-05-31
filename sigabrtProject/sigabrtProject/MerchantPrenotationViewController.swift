@@ -18,11 +18,12 @@ class MerchantPrenotationViewController: UIViewController, FSCalendarDataSource,
     var selectedDate : Date!
     var selectedTimeInMinutes: Int!
     var selectedServices : [Service] = []
+    var selectedServicesId:[Int] = []
     var selectedDuration = 0
     
-    var selectedTipo: [String] = []
-    var selectedPrezzo : [Int] = []
     var selectedShop: Shop!
+    var isAnEdit: Bool!
+    var currentReservation:Prenotation!
     
     fileprivate lazy var scopeGesture: UIPanGestureRecognizer = {
         [unowned self] in
@@ -45,7 +46,6 @@ class MerchantPrenotationViewController: UIViewController, FSCalendarDataSource,
         if UIDevice.current.model.hasPrefix("iPad") {
             self.calendarHeightConstraint.constant = 400
         }
-        
         servicesTableView.allowsMultipleSelection = true
         servicesTableView.delegate = self
         servicesTableView.dataSource = self
@@ -53,7 +53,26 @@ class MerchantPrenotationViewController: UIViewController, FSCalendarDataSource,
         
         self.calendar.select(selectedDate!)
         self.view.addGestureRecognizer(self.scopeGesture)
-        
+        if(isAnEdit){
+            self.selectedTimeInMinutes = currentReservation.timeInMinute
+            for (index, service) in self.selectedShop.services.enumerated() {
+                let contain = currentReservation.service.contains { $0.name == service.name }
+                if contain{
+                    self.selectedServicesId.append(index)
+                }
+            }
+            for index in self.selectedServicesId{
+                let indexPath = IndexPath(row: index, section: 0)
+                servicesTableView.selectRow(at: indexPath, animated: true, scrollPosition: .bottom)
+                servicesTableView.delegate?.tableView!(servicesTableView, didSelectRowAt: indexPath)
+            }
+            self.selectedServices = currentReservation.service
+            for service in currentReservation.service{
+                self.selectedDuration = self.selectedDuration + service.duration
+            }
+            self.name.text = currentReservation.note
+            Funcs.busySlots(shop: self.selectedShop, date: self.selectedDate, duration: self.selectedDuration, collection: freeTimeSlotCollectionView)
+        }
     }
     
     func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
@@ -76,34 +95,66 @@ class MerchantPrenotationViewController: UIViewController, FSCalendarDataSource,
     }
     
     @IBAction func save(_ sender: UIBarButtonItem) {
-        let note = self.name.text
-        let actionSheet = UIAlertController(title: "", message: "Confirm prenotation", preferredStyle: .actionSheet)
-        let errorAlert = UIAlertController(title: "Missing Informations", message: "Please check the details of your reservations", preferredStyle: .actionSheet)
-
-        actionSheet.addAction(UIAlertAction(title: "OK", style: .default) { action in
+        if(isAnEdit){
+            let actionSheet = UIAlertController(title: "", message: "Confirm update", preferredStyle: .actionSheet)
+            let errorAlert = UIAlertController(title: "Missing Informations", message: "Please check the details of your reservations", preferredStyle: .actionSheet)
             
-            Funcs.addReservation(shop: self.selectedShop, time: self.selectedTimeInMinutes, note: note, services: self.selectedServices, date: self.selectedDate){_ in 
-                
-                self.selectedTimeInMinutes = 0
-                self.selectedServices = []
-                let selectedItems = self.servicesTableView.indexPathsForSelectedRows
-                for indexPath in selectedItems! {
-                    self.servicesTableView.deselectRow(at: indexPath, animated:true)
+            actionSheet.addAction(UIAlertAction(title: "OK", style: .default) { action in
+                Funcs.editReservation(shop: self.selectedShop, time: self.selectedTimeInMinutes, services: self.selectedServices, date: self.selectedDate, oldReservation: self.currentReservation){_ in
                     
+                    self.selectedTimeInMinutes = 0
+                    self.selectedServices = []
+                    let selectedItems = self.servicesTableView.indexPathsForSelectedRows
+                    for indexPath in selectedItems! {
+                        self.servicesTableView.deselectRow(at: indexPath, animated:true)
+                        
+                    }
+                    
+                    self.navigationController?.popViewController(animated: true)
                 }
+            })
+            
+            actionSheet.addAction(UIAlertAction(title: "CANCEL", style: .cancel, handler: nil))
+            errorAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+            
+            if (self.selectedTimeInMinutes == 0 ||  self.selectedServices.count == 0 ){
+                self.present(errorAlert, animated: true, completion:  nil)
                 
-                self.navigationController?.popViewController(animated: true)
+            }else{
+                self.present(actionSheet, animated: true, completion:  nil)
             }
-        })
-        
-        actionSheet.addAction(UIAlertAction(title: "CANCEL", style: .cancel, handler: nil))
-        errorAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-        
-        if (self.selectedTimeInMinutes == 0 ||  self.selectedServices.count == 0 ){
-            self.present(errorAlert, animated: true, completion:  nil)
 
         }else{
-            self.present(actionSheet, animated: true, completion:  nil)
+            let note = self.name.text
+            let actionSheet = UIAlertController(title: "", message: "Confirm prenotation", preferredStyle: .actionSheet)
+            let errorAlert = UIAlertController(title: "Missing Informations", message: "Please check the details of your reservations", preferredStyle: .actionSheet)
+            
+            actionSheet.addAction(UIAlertAction(title: "OK", style: .default) { action in
+                
+                Funcs.addReservation(shop: self.selectedShop, time: self.selectedTimeInMinutes, note: note, services: self.selectedServices, date: self.selectedDate){_ in
+                    
+                    self.selectedTimeInMinutes = 0
+                    self.selectedServices = []
+                    let selectedItems = self.servicesTableView.indexPathsForSelectedRows
+                    for indexPath in selectedItems! {
+                        self.servicesTableView.deselectRow(at: indexPath, animated:true)
+                        
+                    }
+                    
+                    self.navigationController?.popViewController(animated: true)
+                }
+            })
+            
+            actionSheet.addAction(UIAlertAction(title: "CANCEL", style: .cancel, handler: nil))
+            errorAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+            
+            if (self.selectedTimeInMinutes == 0 ||  self.selectedServices.count == 0 ){
+                self.present(errorAlert, animated: true, completion:  nil)
+                
+            }else{
+                self.present(actionSheet, animated: true, completion:  nil)
+            }
+
         }
         
     }

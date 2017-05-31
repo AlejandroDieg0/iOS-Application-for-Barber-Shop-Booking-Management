@@ -117,7 +117,7 @@ class Funcs: NSObject {
             completion()
         }
     }
-    static func editReservation(shop: Shop, time: Int, services: [Service], date: Date, oldReservation: Prenotation){
+    static func editReservation(shop: Shop, time: Int, services: [Service], date: Date, oldReservation: Prenotation, completion: @escaping () -> Void){
         var newTime:Int!
         
         if(time == 0 ){
@@ -149,6 +149,7 @@ class Funcs: NSObject {
         }
         let ref2 = Database.database().reference()
         ref2.child("prenotations/\(shop.ID)/\(reservationDate)/\(oldReservation.id)").removeValue()
+        completion()
     }
 
     static func loadUserData(completion: @escaping (_ result: User) -> Void){
@@ -305,7 +306,7 @@ class Funcs: NSObject {
         }else{
             serviceDuration = duration
         }
-        for currslot in 0 ... slotsInADay {
+        for currslot in 300 ... slotsInADay {
             let currentSlotMinute = currslot
             if let arrayDay = shop.hours?[selectedDay[0]]{
                 for shopOpeningFrame in arrayDay {
