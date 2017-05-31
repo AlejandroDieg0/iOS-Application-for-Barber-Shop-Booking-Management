@@ -812,7 +812,7 @@
                         <button opaque="NO" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LJb-Mu-QpD">
                             <rect key="frame" x="144" y="160" width="45" height="45"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" title="Add" image="verify-sign"/>
+                            <state key="normal" image="verify-sign"/>
                             <connections>
                                 <action selector="newServiceAdd:" destination="fES-7s-hy1" eventType="touchUpInside" id="STu-jl-IYg"/>
                             </connections>
