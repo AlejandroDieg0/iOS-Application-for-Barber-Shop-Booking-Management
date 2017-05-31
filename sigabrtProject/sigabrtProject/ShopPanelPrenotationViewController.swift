@@ -269,7 +269,15 @@ class ShopPanelPrenotationViewController: UIViewController, FSCalendarDataSource
             ref2.child("user").child(prenotationList[indexPath.row].customerName).observeSingleEvent(of: .value, with: { (snapshot) in
                 // Get user value
                 if let value = snapshot.value as? NSDictionary {
-                    let userName = value["name"] as? String ?? ""
+                    var userName = value["name"] as? String ?? ""
+                    //TODO: Gestire meglio il nome come note
+                    if(self.prenotationList[indexPath.row].note != "test" &&
+                        self.prenotationList[indexPath.row].note != "" &&
+                        self.prenotationList[indexPath.row].note != "NoNote" &&
+                        self.prenotationList[indexPath.row].note != "noNote" &&
+                        self.prenotationList[indexPath.row].note != " " ){
+                        userName  = self.prenotationList[indexPath.row].note
+                    }
                     cell.name.text = userName
                     cell.number.text = value["phone"] as? String ?? ""
                     
