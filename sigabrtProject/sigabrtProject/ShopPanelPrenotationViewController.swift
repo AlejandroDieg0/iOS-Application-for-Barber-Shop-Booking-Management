@@ -5,7 +5,7 @@ import Firebase
 import SystemConfiguration
 
 
-class ShopPanelPrenotationViewController: UIViewController, FSCalendarDataSource, FSCalendarDelegate, UIGestureRecognizerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UITableViewDelegate, UITableViewDataSource {
+class ShopPanelPrenotationViewController: UIViewController, FSCalendarDataSource, FSCalendarDelegate, UIGestureRecognizerDelegate, UITableViewDelegate, UITableViewDataSource {
     
     
     var prenotationList = [Prenotation]()
@@ -16,16 +16,10 @@ class ShopPanelPrenotationViewController: UIViewController, FSCalendarDataSource
     
     @IBOutlet weak var totalReservations: UILabel!
     
-    @IBOutlet weak var freeTimeSlotCollectionView: UICollectionView!
     @IBOutlet weak var prenotationCollectionView: UITableView!
     @IBOutlet weak var calendar: FSCalendar!
     @IBOutlet weak var calendarHeightConstraint: NSLayoutConstraint!
-    
-    @IBOutlet weak var editReservationTableView: UITableView!
 
-    @IBOutlet var editReservationView: UIView!
-    @IBOutlet weak var editReservationSlotsCollectionView: UICollectionView!
-    
     fileprivate lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "yy-MM-dd"
@@ -70,15 +64,7 @@ class ShopPanelPrenotationViewController: UIViewController, FSCalendarDataSource
             self.calendarHeightConstraint.constant = 400
         }
         
-        freeTimeSlotCollectionView.delegate = self
-        freeTimeSlotCollectionView.dataSource = self
-        
-        editReservationTableView.delegate = self
-        editReservationTableView.dataSource = self
-        
-        editReservationSlotsCollectionView.delegate = self
-        editReservationSlotsCollectionView.dataSource = self
-        
+
         // self.view.addGestureRecognizer(self.scopeGesture)
         
         loadingAlert = Funcs.inizializeLoadAnimation()
@@ -86,7 +72,6 @@ class ShopPanelPrenotationViewController: UIViewController, FSCalendarDataSource
         if(selectedShop == nil){
             Funcs.loadShop(){loadedShop in
                 self.selectedShop = loadedShop
-                Funcs.busySlots(shop: loadedShop, date: data, duration: 0, collection: self.freeTimeSlotCollectionView)
                 self.navigationItem.title = "\(loadedShop.name) - Panel"
                 self.dismiss(animated: false, completion: {self.readData()})
             }
@@ -146,7 +131,7 @@ class ShopPanelPrenotationViewController: UIViewController, FSCalendarDataSource
     }
     
     func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
-        self.calendarHeightConstraint.constant = bounds.height
+       self.calendarHeightConstraint.constant = bounds.height
         self.view.layoutIfNeeded()
     }
     
@@ -170,83 +155,15 @@ class ShopPanelPrenotationViewController: UIViewController, FSCalendarDataSource
         performSegue(withIdentifier: "addItem", sender: nil)
     }
     
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return Funcs.bookableSlotsInMinutes.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if(collectionView == editReservationSlotsCollectionView){
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! freeTimeBarberCollectionViewCell
-            cell.label.text = Funcs.minutesToHour(Funcs.bookableSlotsInMinutes[indexPath.row])
-            
-            let iPath = self.editReservationSlotsCollectionView.indexPathsForSelectedItems!
-            if (iPath != []){
-                let path : NSIndexPath = iPath[0] as NSIndexPath
-                let rowIndex = path.row
-                if (rowIndex == indexPath.row ){
-                    cell.contentView.backgroundColor = UIColor(red: 51/255, green: 107/255, blue: 135/255, alpha: 1)
-                    
-                }else{
-                    cell.contentView.backgroundColor = UIColor(red: 144/255, green: 175/255, blue: 197/255, alpha: 1)
-                    
-                }
-                
-            }else{
-                cell.contentView.backgroundColor = UIColor(red: 144/255, green: 175/255, blue: 197/255, alpha: 1)
-            }
-            
-            return cell
-        }
-        else{
-            let cell = freeTimeSlotCollectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! freeTimeBarberCollectionViewCell
-            cell.label.text = Funcs.minutesToHour(Funcs.bookableSlotsInMinutes[indexPath.row])
-            
-            return cell
-        }
-
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if(collectionView == editReservationSlotsCollectionView){
-            self.selectedTime = Funcs.bookableSlotsInMinutes[indexPath.row]
-            
-            for cell in self.editReservationSlotsCollectionView.visibleCells{
-                
-                cell.contentView.backgroundColor = UIColor(red: 144/255, green: 175/255, blue: 197/255, alpha: 1)
-            }
-            
-            collectionView.cellForItem(at: indexPath)?.contentView.backgroundColor = UIColor(red: 51/255, green: 107/255, blue: 135/255, alpha: 1)
-            
-            print(self.selectedTime)
-        }
-
-    }
-    
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if(tableView == editReservationTableView){
-            return self.selectedServices.count
-
-        }else{
             return prenotationList.count
 
-        }
+
     }
     func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
         return false
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if( tableView == editReservationTableView){
-            let cell = tableView.dequeueReusableCell(withIdentifier: "editReservation", for: indexPath) as!  EditReservationTableViewCell
-            cell.serviceDuration.text = String(prenotationList[selectedID!].service[indexPath.row].duration) + " Min"
-            cell.serviceName.text = prenotationList[selectedID!].service[indexPath.row].name
-            return cell
-            
-        }else{
             let ref2 = Database.database().reference()
             var totalReservation = 0
             var nameReservation = ""
@@ -292,7 +209,6 @@ class ShopPanelPrenotationViewController: UIViewController, FSCalendarDataSource
             cell.services.text = nameReservation
             cell.duration.text = "Duration: \(totalDuration) Min"
             return cell
-        }
 
     }
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -301,30 +217,16 @@ class ShopPanelPrenotationViewController: UIViewController, FSCalendarDataSource
     }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        if( tableView == editReservationTableView){
-            let cancel = UITableViewRowAction(style: .destructive, title: "Delete") { action, index in
-                self.selectedDuration = self.selectedDuration - self.prenotationList[self.selectedID!].service[indexPath.row].duration
-                self.selectedServices = self.selectedServices.filter { $0.name != self.prenotationList[self.selectedID!].service[indexPath.row].name }
-                Funcs.busySlots(shop: self.selectedShop, date: self.selectedDay, duration: self.selectedDuration, collection: self.editReservationSlotsCollectionView)
-                tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
-                tableView.reloadData()
-                
-            }
-            cancel.backgroundColor = .red
-            return [cancel]
-            
-        }else{
-        
-        let edit = UITableViewRowAction(style: .normal, title: "Edit") { action, index in
-            self.selectedServices = self.prenotationList[indexPath.row].service
-            self.selectedID = indexPath.row
-            for service in self.prenotationList[indexPath.row].service{
-                 self.selectedDuration =  self.selectedDuration + service.duration
-            }
-            Funcs.busySlots(shop: self.selectedShop, date: self.selectedDay, duration: self.selectedDuration, collection: self.editReservationSlotsCollectionView)
-            Funcs.animateIn(sender: self.editReservationView)
-      }
-        edit.backgroundColor = UIColor(red: 144/255, green: 175/255, blue: 197/255, alpha: 1)
+//        let edit = UITableViewRowAction(style: .normal, title: "Edit") { action, index in
+//            self.selectedServices = self.prenotationList[indexPath.row].service
+//            self.selectedID = indexPath.row
+//            for service in self.prenotationList[indexPath.row].service{
+//                 self.selectedDuration =  self.selectedDuration + service.duration
+//            }
+//            Funcs.busySlots(shop: self.selectedShop, date: self.selectedDay, duration: self.selectedDuration, collection: self.editReservationSlotsCollectionView)
+//            Funcs.animateIn(sender: self.editReservationView)
+//      }
+//        edit.backgroundColor = UIColor(red: 144/255, green: 175/255, blue: 197/255, alpha: 1)
         let cancel = UITableViewRowAction(style: .destructive, title: "Delete") { action, index in
             let alertController = UIAlertController(title: "Are you sure?", message: "", preferredStyle: UIAlertControllerStyle.alert) //Replace UIAlertControllerStyle.Alert by UIAlertControllerStyle.alert
             let DestructiveAction = UIAlertAction(title: "Delete", style: UIAlertActionStyle.destructive) {
@@ -345,8 +247,7 @@ class ShopPanelPrenotationViewController: UIViewController, FSCalendarDataSource
             self.present(alertController, animated: true, completion: nil)
         }
         cancel.backgroundColor = .red
-        return [edit,cancel]
-        }
+        return  [cancel]// [edit,cancel]
     }
     func removeReservation(){
         let ref = Database.database().reference()
@@ -386,15 +287,6 @@ class ShopPanelPrenotationViewController: UIViewController, FSCalendarDataSource
         let isReachable = (flags.rawValue & UInt32(kSCNetworkFlagsReachable)) != 0
         let needsConnection = (flags.rawValue & UInt32(kSCNetworkFlagsConnectionRequired)) != 0
         return (isReachable && !needsConnection)
-    }
-    @IBAction func cancelEdit(_ sender: Any) {
-    Funcs.animateOut(sender: self.editReservationView)
-    }
-    
-    @IBAction func updateReservation(_ sender: Any) {
-        Funcs.editReservation(shop: selectedShop, time: self.selectedTime, services: self.selectedServices, date: self.selectedDay, oldReservation: self.prenotationList[selectedID])
-        Funcs.animateOut(sender: self.editReservationView)
-        self.readData()
     }
 }
 

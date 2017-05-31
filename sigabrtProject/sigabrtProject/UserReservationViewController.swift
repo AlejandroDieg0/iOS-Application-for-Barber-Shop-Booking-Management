@@ -19,7 +19,6 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
     @IBOutlet var confirmPrenotation: UIView!
     @IBOutlet weak var prenotationDate: UILabel!
     @IBOutlet weak var prenotationHour: UILabel!
-    @IBOutlet weak var prenotationServiceTb: UITableView!
     @IBOutlet weak var prenotationTotal: UILabel!
     
     
@@ -30,9 +29,6 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
     @IBOutlet weak var signUpPassword: UITextField!
     @IBOutlet weak var error: UILabel!
     @IBOutlet weak var loginError: UILabel!
-    
-    @IBOutlet weak var fbBut: UIButton!
-    
     
     @IBOutlet weak var noTime: UILabel!
     @IBOutlet weak var noHour: UILabel!
@@ -516,7 +512,18 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
             }
         }
     }
+    
+    
+    @IBAction func fbLogin(_ sender: Any) {
+        FbLogin()
+    }
+    
+    @IBAction func fbSignUp(_ sender: Any) {
+        FbLogin()
+    }
+    
     @IBAction func showProfile(_ sender: Any) {
+    
         performSegue(withIdentifier: "showProfile", sender: nil)
     }
 }
