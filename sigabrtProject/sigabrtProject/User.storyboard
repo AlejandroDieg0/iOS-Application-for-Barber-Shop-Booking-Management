@@ -345,7 +345,7 @@
                             <fontDescription key="fontDescription" type="system" pointSize="10"/>
                             <state key="normal" title="Log in with Facebook"/>
                             <connections>
-                                <action selector="fbSignUp:" destination="AC9-tm-yj9" eventType="touchUpInside" id="yvn-WL-xlD"/>
+                                <action selector="fbLogin:" destination="AC9-tm-yj9" eventType="touchUpInside" id="6ov-KT-hM6"/>
                             </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" alpha="0.30000001192092896" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="or" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VMe-Xz-RQG">

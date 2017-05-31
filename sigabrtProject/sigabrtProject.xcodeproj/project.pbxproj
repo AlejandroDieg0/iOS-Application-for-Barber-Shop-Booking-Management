@@ -45,7 +45,6 @@
 		E525200D1EDDB97A00367813 /* prenotationConfirmTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E525200C1EDDB97A00367813 /* prenotationConfirmTableViewCell.swift */; };
 		E526BED11ED49273005251A7 /* MerchantProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E526BED01ED49273005251A7 /* MerchantProfileViewController.swift */; };
 		E526BED31ED5DF5A005251A7 /* barberSelfServiceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E526BED21ED5DF5A005251A7 /* barberSelfServiceTableViewCell.swift */; };
-		E526F8D91ECD68680023846A /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E526F8D81ECD68680023846A /* LoginViewController.swift */; };
 		E526F8DB1ECD68700023846A /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E526F8DA1ECD68700023846A /* UserProfileViewController.swift */; };
 		F303D5981ECF29E1009EC344 /* ReservationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F303D5971ECF29E1009EC344 /* ReservationTableViewCell.swift */; };
 		F354A5051EDC529F0085E3AC /* MerchantDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F354A5041EDC529F0085E3AC /* MerchantDetailViewController.swift */; };
@@ -94,7 +93,6 @@
 		E525200C1EDDB97A00367813 /* prenotationConfirmTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = prenotationConfirmTableViewCell.swift; sourceTree = "<group>"; };
 		E526BED01ED49273005251A7 /* MerchantProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MerchantProfileViewController.swift; sourceTree = "<group>"; };
 		E526BED21ED5DF5A005251A7 /* barberSelfServiceTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = barberSelfServiceTableViewCell.swift; sourceTree = "<group>"; };
-		E526F8D81ECD68680023846A /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		E526F8DA1ECD68700023846A /* UserProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
 		F303D5971ECF29E1009EC344 /* ReservationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReservationTableViewCell.swift; sourceTree = "<group>"; };
 		F354A5041EDC529F0085E3AC /* MerchantDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MerchantDetailViewController.swift; sourceTree = "<group>"; };
@@ -167,7 +165,6 @@
 				9B0CC8961ECC7A7F007550FB /* PageViewController.swift */,
 				E30357B51EDDC27200562543 /* ShopDetailViewController.swift */,
 				E30357B91EDDC2E400562543 /* nearShop.swift */,
-				E526F8D81ECD68680023846A /* LoginViewController.swift */,
 				E526F8DA1ECD68700023846A /* UserProfileViewController.swift */,
 				E52520081EDC5EBE00367813 /* historyViewController.swift */,
 				C37369CB1EDD980C008540B2 /* Funcs.swift */,
@@ -368,7 +365,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				9BD9F50A1ECDD2EA006768F6 /* ModernSearchBarModel.swift in Sources */,
-				E526F8D91ECD68680023846A /* LoginViewController.swift in Sources */,
 				E3ACD9111ECF3D74002B6399 /* UserReservationViewController.swift in Sources */,
 				E526F8DB1ECD68700023846A /* UserProfileViewController.swift in Sources */,
 				E521F3091ED225FD00F5AC84 /* Service.swift in Sources */,
