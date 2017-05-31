@@ -34,6 +34,7 @@ class ShopPanelPrenotationViewController: UIViewController, FSCalendarDataSource
         return panGesture
         }()
     
+    @IBOutlet weak var tb: UITableView!
     
     var selectedDate = ""
     let firebaseAuth = Auth.auth()
@@ -48,7 +49,8 @@ class ShopPanelPrenotationViewController: UIViewController, FSCalendarDataSource
     var isAnEdit = false
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.tb.separatorColor = UIColor.lightGray
+        self.tb.tableFooterView = UIView()
         //today date
         self.hideKeyboardWhenTappedAround()
         let data = Date()
@@ -208,7 +210,7 @@ class ShopPanelPrenotationViewController: UIViewController, FSCalendarDataSource
             
             cell.time.text = "\(Funcs.minutesToHour(prenotationList[indexPath.row].timeInMinute)) - \(Funcs.minutesToHour(prenotationList[indexPath.row].timeInMinute + totalDuration))"
             cell.services.text = nameReservation
-            cell.duration.text = "Duration: \(totalDuration) Min"
+            cell.duration.text = "Time: \(totalDuration ) Min"
             return cell
 
     }
