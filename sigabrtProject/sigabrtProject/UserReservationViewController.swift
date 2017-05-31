@@ -33,7 +33,9 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
     
     @IBOutlet weak var fbBut: UIButton!
     
-    //
+    
+    @IBOutlet weak var noTime: UILabel!
+    @IBOutlet weak var noHour: UILabel!
     
     @IBOutlet weak var timeCollectionView: UICollectionView!
     @IBOutlet weak var servicesCollectionView: UICollectionView!
@@ -71,6 +73,8 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        noTime.alpha = 0
+        noHour.alpha = 0
         // LGIN
         self.hideKeyboardWhenTappedAround()
         
@@ -189,6 +193,21 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
             if (selectedShop == nil) {return 0}
             return selectedShop.services.count
         } else {
+            let x = Funcs.bookableSlotsInMinutes.count
+            if x == 0 {
+                UIView.animate(withDuration: 0.5, animations: {
+                    self.noTime.alpha = 1
+                    self.noHour.alpha = 0
+                })
+                
+            }
+            else{
+                UIView.animate(withDuration: 0.2, animations: {
+                    self.noTime.alpha = 0
+                    self.noHour.alpha = 1
+                })
+                
+            }
             return Funcs.bookableSlotsInMinutes.count
         }
     }

@@ -142,6 +142,7 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
                     self.pins[tempPin] = Shop(ID: ID, name: barberName, desc: barberDesc, coordinate: tempPin.coordinate, phone: barberPhone, address: barberAddress, services: barberServices, logo: url, hours: hours)
                     self.barbers.append( self.pins[tempPin]!)
                     
+                    self.bottomSheetVC.pins = self.pins
                     self.bottomSheetVC.barbersShop = self.barbers
                     self.bottomSheetVC.tableView.reloadData()
                     
@@ -157,7 +158,6 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
             
         })
     }
-    
 
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
@@ -230,11 +230,10 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        if segue.identifier == "barberDetail"{
-            let secondVC = segue.destination as! ShopDetailViewController
+        if let secondVC = segue.destination as? ShopDetailViewController{
             secondVC.barber = self.currentBarber
         }
+    
     }
     
     func addBottomSheetView() {
@@ -245,7 +244,7 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
         
         self.view.addSubview(bottomSheetVC.view)
         bottomSheetVC.didMove(toParentViewController: self)
-        
+        bottomSheetVC.personalMap = self.personalMap
         //qui vanno passati gli shop
         //come bottomSheetVC.variabileArrayDellaScrollableView = array
 

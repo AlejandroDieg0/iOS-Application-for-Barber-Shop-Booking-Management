@@ -10,9 +10,12 @@ class bottomScrollable: UIViewController, CLLocationManagerDelegate{
     @IBOutlet weak var tableView: UITableView!
     let map = MapViewController()
     let fullView: CGFloat = 150
+    var pins: [MKPointAnnotation: Shop] = [:]
     var barbersShop : [Shop] = [] // Qui first of all ti ho definito un array di Shop
     let locationManager = CLLocationManager()
     var locValue:CLLocationCoordinate2D!
+    var personalMap: MKMapView!
+
     var partialView: CGFloat {
         return UIScreen.main.bounds.height - 44
     }
@@ -22,7 +25,6 @@ class bottomScrollable: UIViewController, CLLocationManagerDelegate{
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UINib(nibName: "DefaultTableViewCell", bundle: nil), forCellReuseIdentifier: "default")
-        
         self.locationManager.requestAlwaysAuthorization()
         self.locationManager.requestWhenInUseAuthorization()
         
@@ -68,8 +70,6 @@ class bottomScrollable: UIViewController, CLLocationManagerDelegate{
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    
     
     
     
@@ -123,6 +123,24 @@ class bottomScrollable: UIViewController, CLLocationManagerDelegate{
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         self.locValue = manager.location?.coordinate
     }
+    func selectPinOnMap(barberID: Int){
+        print(barberID)
+        let selectedPin = findKeyForIDValue(value: barberID, shops: self.pins)!
+        
+       self.personalMap.selectAnnotation(selectedPin, animated: true)
+    }
+    
+    func findKeyForIDValue(value: Int, shops: [MKPointAnnotation: Shop]) -> MKPointAnnotation?
+    {
+        for (key, shop) in shops
+        {
+            if (shop.ID == value)
+            {
+                return key
+            }
+        }
+        return nil
+    }
     
 }
 
@@ -140,6 +158,9 @@ extension bottomScrollable: UITableViewDelegate, UITableViewDataSource {
         cell.distance.text = String(barbersShop[indexPath.row].distance! / 1000) + " Km"
         Nuke.loadImage(with: barbersShop[indexPath.row].logo!, into: cell.imgShop)
         return cell
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectPinOnMap(barberID: barbersShop[indexPath.row].ID)
     }
 }
 
