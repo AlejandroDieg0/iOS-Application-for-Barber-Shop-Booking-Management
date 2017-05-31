@@ -210,7 +210,7 @@ class ShopPanelPrenotationViewController: UIViewController, FSCalendarDataSource
             
             cell.time.text = "\(Funcs.minutesToHour(prenotationList[indexPath.row].timeInMinute)) - \(Funcs.minutesToHour(prenotationList[indexPath.row].timeInMinute + totalDuration))"
             cell.services.text = nameReservation
-            cell.duration.text = "Time: \(totalDuration ) Min"
+            cell.duration.text = "\(totalDuration ) Min"
             return cell
 
     }
