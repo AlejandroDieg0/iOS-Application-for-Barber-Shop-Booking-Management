@@ -725,6 +725,10 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="jjs-8g-vyD">
+                                                    <rect key="frame" x="15" y="19" width="20" height="20"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </activityIndicatorView>
                                             </subviews>
                                         </view>
                                         <constraints>
@@ -735,6 +739,7 @@
                                         </constraints>
                                         <connections>
                                             <outlet property="imageViewService" destination="Tbn-a5-VvY" id="SqS-no-ugk"/>
+                                            <outlet property="indicator" destination="jjs-8g-vyD" id="y5O-s1-pvp"/>
                                             <outlet property="serviceLabel" destination="aiQ-A1-DBq" id="Oqa-6N-Uvd"/>
                                         </connections>
                                     </collectionViewCell>

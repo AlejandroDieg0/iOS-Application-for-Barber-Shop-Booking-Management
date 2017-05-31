@@ -94,6 +94,10 @@
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
+                                                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="zTY-dq-hMt">
+                                                                    <rect key="frame" x="31" y="27" width="20" height="20"/>
+                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                </activityIndicatorView>
                                                             </subviews>
                                                         </view>
                                                         <color key="backgroundColor" red="0.99989169836044312" green="1" blue="0.99988096952438354" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -112,6 +116,7 @@
                                                         </constraints>
                                                         <connections>
                                                             <outlet property="imageViewService" destination="URu-et-qo0" id="TYy-en-wfP"/>
+                                                            <outlet property="indicator" destination="zTY-dq-hMt" id="42p-iw-Zkw"/>
                                                             <outlet property="labelServiceName" destination="U2d-wd-xH7" id="ZYq-mF-5FP"/>
                                                             <outlet property="labelServicePrice" destination="CG8-MJ-Pow" id="uus-7S-0DB"/>
                                                         </connections>
