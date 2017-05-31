@@ -1,10 +1,4 @@
-//
-//  BarberDetailViewController.swift
-//  sigabrtProject
-//
-//  Created by Antonio Colevar on 29/05/2017.
-//  Copyright © 2017 Alessandro Cascino. All rights reserved.
-//
+
 
 import UIKit
 import Firebase
@@ -90,7 +84,7 @@ class MerchantDetailViewController: UIViewController, UITableViewDelegate, UITab
             self.selectedID = indexPath.row
             Funcs.animateIn(sender: self.editView)
         }
-        edit.backgroundColor = .blue
+        edit.backgroundColor = UIColor(red: 144/255, green: 175/255, blue: 197/255, alpha: 1)
         let cancel = UITableViewRowAction(style: .destructive, title: "Delete") { action, index in
             let alertController = UIAlertController(title: "Are you sure?", message: "", preferredStyle: UIAlertControllerStyle.alert) //Replace UIAlertControllerStyle.Alert by UIAlertControllerStyle.alert
             let DestructiveAction = UIAlertAction(title: "Delete", style: UIAlertActionStyle.destructive) {
