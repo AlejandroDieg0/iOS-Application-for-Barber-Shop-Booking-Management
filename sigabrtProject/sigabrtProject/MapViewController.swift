@@ -42,7 +42,7 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
         drawMap()
         self.modernSearchBar.delegateModernSearchBar = self
         self.addBottomSheetView()
-        
+
     }
     
     @IBAction func loginButton(_ sender: Any) {
