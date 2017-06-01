@@ -254,6 +254,7 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
             self.selectedServices = self.selectedServices.filter { $0.name != selectedShop.services[indexPath.row].name }
             
             collectionView.cellForItem(at: indexPath)?.contentView.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
+            (collectionView.cellForItem(at: indexPath) as! ServiceCollectionViewCell).imageSelection.isHidden = true
         }
     }
     
@@ -262,6 +263,7 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
             
             collectionView.cellForItem(at: indexPath)?.contentView.backgroundColor = UIColor(red: 144/255, green: 175/255, blue: 197/255, alpha: 1)
             self.selectedServices.append(selectedShop.services[indexPath.row])
+            (collectionView.cellForItem(at: indexPath) as! ServiceCollectionViewCell).imageSelection.isHidden = false
             
         } else {
             selectedTimeInMinutes = Funcs.bookableSlotsInMinutes[indexPath.row]
@@ -330,13 +332,18 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
                 let selectedItems = self.servicesCollectionView.indexPathsForSelectedItems
                 for indexPath in selectedItems! {
                     self.servicesCollectionView.deselectItem(at: indexPath, animated:true)
-                    if self.servicesCollectionView.cellForItem(at: indexPath) != nil {
-                        self.servicesCollectionView.cellForItem(at: indexPath)?.contentView.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
-                        
+                    if let cell = self.servicesCollectionView.cellForItem(at: indexPath) as? ServiceCollectionViewCell {
+                        cell.contentView.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
+                        cell.imageSelection.isHidden = true
                     }
                 }
                 self.loadingAnimation.dismiss(animated: true, completion: {
                     Funcs.animateOut(sender: self.confirmPrenotation)
+                    let errorAlert = UIAlertController(title: "Thanks!", message: "Successful Booked", preferredStyle: .alert)
+                    
+                    errorAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                    
+                    self.present(errorAlert, animated: true, completion:  nil)
                 })
             }
         })
