@@ -36,6 +36,7 @@ class ShopPanelPrenotationViewController: UIViewController, FSCalendarDataSource
     
     @IBOutlet weak var tb: UITableView!
     
+    @IBOutlet weak var barberName: UILabel!
     var selectedDate = ""
     let firebaseAuth = Auth.auth()
     let user = Auth.auth().currentUser
@@ -245,6 +246,10 @@ class ShopPanelPrenotationViewController: UIViewController, FSCalendarDataSource
         }
         cancel.backgroundColor = .red
         return  [cancel]
+    }
+    
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath as IndexPath, animated: true)
     }
     func removeReservation(){
         let ref = Database.database().reference()
