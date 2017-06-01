@@ -939,10 +939,17 @@
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="mRn-mg-MOw" id="G2c-rk-kbS"/>
+                                    <outlet property="delegate" destination="mRn-mg-MOw" id="Whh-Ap-9kR"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="historyTableView" destination="any-eQ-9ea" id="sSI-4m-2Mx"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4ri-oh-84g" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
