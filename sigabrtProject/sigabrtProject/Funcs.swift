@@ -98,8 +98,7 @@ class Funcs: NSObject {
         let ref: DatabaseReference = Database.database().reference()
         
         let reservationDate = date.toString(format: "yy-MM-dd")
-        
-        print(reservationDate)
+
         let post = [
             "user":  Auth.auth().currentUser!.uid,
             "time":  time,
@@ -131,7 +130,6 @@ class Funcs: NSObject {
         
         let reservationDate = date.toString(format: "yy-MM-dd")
         
-        print(reservationDate)
         let post = [
             "user":  oldReservation.customerName,
             "time":  newTime,
@@ -165,7 +163,6 @@ class Funcs: NSObject {
                 let favBarber = value["favbarber"] as? Int ?? -1
                 let userType = value["usertype"] as? Int ?? 0
                 let mail = user?.email
-                print("phone \(phone)")
                 self.loggedUser = User(name: name, mail: mail!, phone: phone, userType: userType, favBarberId: favBarber)
                 completion(self.loggedUser)
             } else {

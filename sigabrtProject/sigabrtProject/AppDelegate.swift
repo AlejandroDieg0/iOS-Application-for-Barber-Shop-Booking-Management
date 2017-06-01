@@ -46,8 +46,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         let vc = UIStoryboard(name: "Barber", bundle: nil).instantiateViewController(withIdentifier: "barberView")
                         self.window?.rootViewController = vc
                     } else if(loadedUser.userType == 0 && loadedUser.favBarberId != -1) {
-                        let vc = UIStoryboard(name: "User", bundle: nil).instantiateViewController(withIdentifier: "profileVC")
-                        self.window?.rootViewController = vc
+                        if let a = self.window?.rootViewController as? UINavigationController{
+                            if (a.visibleViewController as? UserReservationViewController) == nil{
+                                let vc = UIStoryboard(name: "User", bundle: nil).instantiateViewController(withIdentifier: "userReservationNavigation")
+                                self.window?.rootViewController = vc
+                            }
+                        }
                    }
                 }
             } else if (disableWizard){

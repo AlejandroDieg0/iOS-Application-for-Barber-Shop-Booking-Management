@@ -166,6 +166,7 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         self.selectedDate = date
+        self.selectedTimeInMinutes = 0
         Funcs.busySlots(shop: selectedShop, date: date, duration: self.selectedDuration, collection: timeCollectionView)
         
         if monthPosition == .next || monthPosition == .previous {
@@ -270,8 +271,6 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
             }
             
             collectionView.cellForItem(at: indexPath)?.contentView.backgroundColor = UIColor(red: 51/255, green: 107/255, blue: 135/255, alpha: 1)
-            
-            print(selectedTimeInMinutes)
         }
     }
     
@@ -288,9 +287,7 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
                 errorAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
                 
                 self.present(errorAlert, animated: true, completion:  nil)
-            }
-                
-            else{
+            } else {
                 Funcs.animateIn(sender: self.confirmPrenotation)
                 
                 let dateFormatter = DateFormatter()
@@ -323,31 +320,28 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
     
     @IBAction func confirmPrenotation(_ sender: Any) {
         let note = "noNote"
-        Funcs.addReservation(shop: self.selectedShop, time: self.selectedTimeInMinutes, note: note, services: self.selectedServices, date: self.selectedDate){_ in }
-        self.selectedTimeInMinutes = 0
-        self.selectedServices = []
-        let selectedItems = self.servicesCollectionView.indexPathsForSelectedItems
-        for indexPath in selectedItems! {
-            self.servicesCollectionView.deselectItem(at: indexPath, animated:true)
-            if self.servicesCollectionView.cellForItem(at: indexPath) != nil {
-                self.servicesCollectionView.cellForItem(at: indexPath)?.contentView.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
+        present(loadingAnimation, animated: true, completion: {
+            Funcs.addReservation(shop: self.selectedShop, time: self.selectedTimeInMinutes, note: note, services: self.selectedServices, date: self.selectedDate){_ in
                 
+                self.selectedTimeInMinutes = 0
+                self.selectedServices = []
+                let selectedItems = self.servicesCollectionView.indexPathsForSelectedItems
+                for indexPath in selectedItems! {
+                    self.servicesCollectionView.deselectItem(at: indexPath, animated:true)
+                    if self.servicesCollectionView.cellForItem(at: indexPath) != nil {
+                        self.servicesCollectionView.cellForItem(at: indexPath)?.contentView.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
+                        
+                    }
+                }
+                self.loadingAnimation.dismiss(animated: true, completion: {
+                    Funcs.animateOut(sender: self.confirmPrenotation)
+                })
             }
-        }
-        Funcs.animateOut(sender: confirmPrenotation)
+        })
     }
     
     @IBAction func noConfirm(_ sender: Any) {
         Funcs.animateOut(sender: confirmPrenotation)
-        self.selectedTimeInMinutes = 0
-        self.selectedServices = []
-        let selectedItems = self.servicesCollectionView.indexPathsForSelectedItems
-        for indexPath in selectedItems! {
-            self.servicesCollectionView.deselectItem(at: indexPath, animated:true)
-            if self.servicesCollectionView.cellForItem(at: indexPath) != nil {
-                self.servicesCollectionView.cellForItem(at: indexPath)?.contentView.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
-            }
-        }
     }
     
     @IBAction func showProfile(_ sender: Any) {
@@ -411,8 +405,7 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
                 })
                 return
             }
-            let x = user!.displayName ?? "ciao"
-            print("\n Welcome \(user!.email! + "\n" + x + "\n" + user!.uid)")
+            print("Welcome \(user!.email! + "\n" + user!.uid)")
             self.email.text = ""
             self.passw.text = ""
             
