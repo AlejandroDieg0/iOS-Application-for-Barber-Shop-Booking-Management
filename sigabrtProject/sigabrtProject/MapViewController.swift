@@ -236,6 +236,14 @@ class MapViewController: UIViewController,MKMapViewDelegate, ModernSearchBarDele
     
     }
     
+    @IBAction func merchantButton(_ sender: Any) {
+        let errorAlert = UIAlertController(title: "Merchant registration", message: "If you are a merchant and want your shop to be bookable in this app contact us at info@sigabrt.lol", preferredStyle: .actionSheet)
+        
+        errorAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        
+        self.present(errorAlert, animated: true, completion:  nil)
+    }
+    
     func addBottomSheetView() {
         
         bottomSheetVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "bottomScrollable") as! bottomScrollable
