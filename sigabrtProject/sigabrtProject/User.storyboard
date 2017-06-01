@@ -299,6 +299,7 @@
                         <outlet property="passw" destination="7uo-jf-d2J" id="Hzo-Hu-F2p"/>
                         <outlet property="prenotationDate" destination="ACI-po-Z5j" id="xxD-l8-6vO"/>
                         <outlet property="prenotationHour" destination="laM-sG-zdf" id="0cX-JL-Pq0"/>
+                        <outlet property="prenotationServicesTable" destination="tbK-zY-fvy" id="SPs-xD-Alj"/>
                         <outlet property="prenotationTotal" destination="813-h0-arz" id="wWx-2A-cgS"/>
                         <outlet property="servicesCollectionView" destination="82F-0f-6Xd" id="xxi-DW-BKG"/>
                         <outlet property="signUp" destination="LgM-Bm-KmC" id="fKb-0F-ccm"/>
@@ -477,7 +478,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="15 €" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="813-h0-arz">
-                            <rect key="frame" x="239" y="295" width="45" height="21"/>
+                            <rect key="frame" x="243" y="295" width="45" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -516,14 +517,14 @@
                                         <autoresizingMask key="autoresizingMask"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Service" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qjV-hQ-Qen">
-                                                <rect key="frame" x="18" y="-1" width="135" height="44"/>
+                                                <rect key="frame" x="1" y="-1" width="135" height="44"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="price" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U0Z-Uq-gDI">
-                                                <rect key="frame" x="181" y="0.0" width="101" height="44"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="price" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U0Z-Uq-gDI">
+                                                <rect key="frame" x="212" y="0.0" width="56" height="44"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" red="0.99989169840000003" green="1" blue="0.99988096950000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

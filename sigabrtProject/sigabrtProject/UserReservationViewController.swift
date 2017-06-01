@@ -20,7 +20,7 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
     @IBOutlet weak var prenotationDate: UILabel!
     @IBOutlet weak var prenotationHour: UILabel!
     @IBOutlet weak var prenotationTotal: UILabel!
-    
+    @IBOutlet weak var prenotationServicesTable: UITableView!
     
     @IBOutlet weak var passw: UITextField!
     @IBOutlet weak var email: UITextField!
@@ -288,11 +288,11 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
                 
                 self.present(errorAlert, animated: true, completion:  nil)
             } else {
-                Funcs.animateIn(sender: self.confirmPrenotation)
                 
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "EEEE dd MMMM yyyy"
                 let data = dateFormatter.string(from:selectedDate as Date)
+                
                 var total = 0
                 for service in selectedServices{
                     total += service.price
@@ -300,8 +300,10 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
                 
                 prenotationDate.text = data
                 prenotationHour.text = Funcs.minutesToHour(selectedTimeInMinutes)
-                prenotationTotal.text = String(total)
+                prenotationTotal.text = "\(total)€"
+                prenotationServicesTable.reloadData()
                 
+                Funcs.animateIn(sender: self.confirmPrenotation)
             }
         }
     }
@@ -313,7 +315,7 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "prenotationCell") as! prenotationConfirmTableViewCell
         
-        cell.price.text = String(selectedServices[indexPath.row].price)
+        cell.price.text = "\(selectedServices[indexPath.row].price)€"
         cell.service.text = selectedServices[indexPath.row].name
         return cell
     }
