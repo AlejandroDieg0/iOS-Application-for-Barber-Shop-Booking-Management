@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="t7z-oW-Yb1">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="t7z-oW-Yb1">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -94,8 +94,8 @@
                                                                             <color key="textColor" red="0.56470588235294117" green="0.68627450980392157" blue="0.77254901960784317" alpha="1" colorSpace="calibratedRGB"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
-                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K5c-FX-Mpl">
-                                                                            <rect key="frame" x="313" y="-1" width="62" height="44"/>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K5c-FX-Mpl">
+                                                                            <rect key="frame" x="278" y="-1" width="62" height="44"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" constant="62" id="DV4-tV-P0v"/>
                                                                             </constraints>
@@ -103,6 +103,10 @@
                                                                             <color key="textColor" red="0.40000000600000002" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
+                                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="success" translatesAutoresizingMaskIntoConstraints="NO" id="auA-xZ-fqE">
+                                                                            <rect key="frame" x="334" y="5" width="32" height="32"/>
+                                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                        </imageView>
                                                                     </subviews>
                                                                     <constraints>
                                                                         <constraint firstAttribute="trailingMargin" secondItem="K5c-FX-Mpl" secondAttribute="trailing" constant="-8" id="GjI-j4-X6l"/>
@@ -115,6 +119,7 @@
                                                                     </constraints>
                                                                 </tableViewCellContentView>
                                                                 <connections>
+                                                                    <outlet property="imageSelection" destination="auA-xZ-fqE" id="zqx-ta-f3V"/>
                                                                     <outlet property="price" destination="K5c-FX-Mpl" id="KOf-gl-XMc"/>
                                                                     <outlet property="servizio" destination="xfg-YV-4PL" id="z0a-Wv-ODo"/>
                                                                 </connections>
@@ -348,14 +353,14 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O5c-x8-76m">
                                 <rect key="frame" x="190" y="372" width="172" height="90"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Profile" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ldj-uX-uMs">
-                                        <rect key="frame" x="0.0" y="0.0" width="164" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Profile" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ldj-uX-uMs">
+                                        <rect key="frame" x="0.0" y="0.0" width="172" height="21"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
-                                        <color key="textColor" red="0.50196081400000003" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.20000000000000001" green="0.41960784309999999" blue="0.52941176469999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zKU-Vb-puC">
-                                        <rect key="frame" x="0.0" y="0.0" width="164" height="85"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zKU-Vb-puC">
+                                        <rect key="frame" x="0.0" y="0.0" width="172" height="85"/>
                                         <state key="normal" image="user-2"/>
                                         <connections>
                                             <segue destination="fES-7s-hy1" kind="show" id="eOe-PL-fj6"/>
@@ -365,7 +370,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="zKU-Vb-puC" firstAttribute="top" secondItem="Ldj-uX-uMs" secondAttribute="top" id="1BK-9n-ipC"/>
-                                    <constraint firstAttribute="trailing" secondItem="Ldj-uX-uMs" secondAttribute="trailing" constant="8" id="K2u-uC-pgq"/>
+                                    <constraint firstAttribute="trailing" secondItem="Ldj-uX-uMs" secondAttribute="trailing" id="K2u-uC-pgq"/>
                                     <constraint firstItem="Ldj-uX-uMs" firstAttribute="top" secondItem="O5c-x8-76m" secondAttribute="top" id="Oci-pi-zWw"/>
                                     <constraint firstItem="Ldj-uX-uMs" firstAttribute="leading" secondItem="O5c-x8-76m" secondAttribute="leading" id="Ybf-vs-mGE"/>
                                     <constraint firstItem="zKU-Vb-puC" firstAttribute="trailing" secondItem="Ldj-uX-uMs" secondAttribute="trailing" id="age-vB-Qmk"/>
@@ -382,7 +387,7 @@
                                         <rect key="frame" x="0.0" y="28" width="350" height="81"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JNA-60-y2J" id="Lnr-Ol-zSQ">
-                                            <rect key="frame" x="0.0" y="0.0" width="350" height="81"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="350" height="80.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="345964534" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w6q-F5-XeQ">
@@ -997,6 +1002,7 @@
         <image name="location-pointer" width="64" height="64"/>
         <image name="mail" width="64" height="64"/>
         <image name="plus" width="64" height="64"/>
+        <image name="success" width="64" height="64"/>
         <image name="update-arrows" width="64" height="64"/>
         <image name="user" width="32" height="32"/>
         <image name="user-2" width="64" height="64"/>

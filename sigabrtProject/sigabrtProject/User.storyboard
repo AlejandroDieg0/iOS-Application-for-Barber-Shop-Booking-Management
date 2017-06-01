@@ -98,6 +98,10 @@
                                                                     <rect key="frame" x="31" y="27" width="20" height="20"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 </activityIndicatorView>
+                                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="success" translatesAutoresizingMaskIntoConstraints="NO" id="sDG-gp-WkP">
+                                                                    <rect key="frame" x="150" y="41" width="27" height="27"/>
+                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                </imageView>
                                                             </subviews>
                                                         </view>
                                                         <color key="backgroundColor" red="0.99989169836044312" green="1" blue="0.99988096952438354" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -115,6 +119,7 @@
                                                             <constraint firstItem="CG8-MJ-Pow" firstAttribute="leading" secondItem="lag-hV-sOW" secondAttribute="leadingMargin" constant="45" id="r60-6i-6eA"/>
                                                         </constraints>
                                                         <connections>
+                                                            <outlet property="imageSelection" destination="sDG-gp-WkP" id="E2Y-1q-BTm"/>
                                                             <outlet property="imageViewService" destination="URu-et-qo0" id="TYy-en-wfP"/>
                                                             <outlet property="indicator" destination="zTY-dq-hMt" id="42p-iw-Zkw"/>
                                                             <outlet property="labelServiceName" destination="U2d-wd-xH7" id="ZYq-mF-5FP"/>
@@ -175,7 +180,7 @@
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </view>
                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" keyboardDismissMode="onDrag" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="avU-dJ-6H4">
-                                                <rect key="frame" x="13" y="339" width="348" height="58"/>
+                                                <rect key="frame" x="0.0" y="339" width="376" height="58"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="xJC-09-8lJ">
@@ -972,6 +977,7 @@
         <image name="icona" width="380" height="380"/>
         <image name="location-pointer" width="64" height="64"/>
         <image name="mail" width="64" height="64"/>
+        <image name="success" width="64" height="64"/>
         <image name="textlogo" width="375" height="150"/>
         <image name="time" width="32" height="32"/>
         <image name="user" width="32" height="32"/>

@@ -9,6 +9,8 @@ class ServiceCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var labelServicePrice: UILabel!
     
+    @IBOutlet weak var imageSelection: UIImageView!
+    
     
     @IBOutlet weak var indicator: UIActivityIndicatorView!
 }
