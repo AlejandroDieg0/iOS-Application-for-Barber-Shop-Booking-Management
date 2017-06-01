@@ -252,7 +252,7 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         if (collectionView == self.servicesCollectionView) {
             self.selectedServices = self.selectedServices.filter { $0.name != selectedShop.services[indexPath.row].name }
-            
+            Funcs.busySlots(shop: selectedShop, date: self.selectedDate, duration: self.selectedDuration, collection: timeCollectionView)
             collectionView.cellForItem(at: indexPath)?.contentView.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
             (collectionView.cellForItem(at: indexPath) as! ServiceCollectionViewCell).imageSelection.isHidden = true
         }
@@ -260,7 +260,7 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if (collectionView == self.servicesCollectionView) {
-            
+            Funcs.busySlots(shop: selectedShop, date: self.selectedDate, duration: self.selectedDuration, collection: timeCollectionView)
             self.selectedServices.append(selectedShop.services[indexPath.row])
             (collectionView.cellForItem(at: indexPath) as! ServiceCollectionViewCell).imageSelection.isHidden = false
             
