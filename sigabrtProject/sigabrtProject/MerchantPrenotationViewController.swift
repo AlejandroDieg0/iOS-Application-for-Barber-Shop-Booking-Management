@@ -137,12 +137,6 @@ class MerchantPrenotationViewController: UIViewController, FSCalendarDataSource,
                     
                     self.selectedTimeInMinutes = 0
                     self.selectedServices = []
-                    let selectedItems = self.servicesTableView.indexPathsForSelectedRows
-                    for indexPath in selectedItems! {
-                        self.servicesTableView.deselectRow(at: indexPath, animated:true)
-                        
-                    }
-                    
                     self.navigationController?.popViewController(animated: true)
                 }
             })
@@ -229,11 +223,6 @@ class MerchantPrenotationViewController: UIViewController, FSCalendarDataSource,
         
         return cell
     }
-    
-//    fileprivate lazy var dateFormatter: DateFormatter = {
-//        let formatter = DateFormatter()
-//        formatter.dateFormat = "yy-MM-dd"
-//        return formatter
-//    }()
+
 }
 

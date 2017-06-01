@@ -132,7 +132,6 @@ class ShopPanelPrenotationViewController: UIViewController, FSCalendarDataSource
         self.totalReservations.text = String(self.prenotationList.count)
         
     }
-    
     func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
        self.calendarHeightConstraint.constant = bounds.height
         self.view.layoutIfNeeded()
