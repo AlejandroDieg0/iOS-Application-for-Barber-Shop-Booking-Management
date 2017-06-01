@@ -165,13 +165,18 @@ class MerchantPrenotationViewController: UIViewController, FSCalendarDataSource,
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = servicesTableView.dequeueReusableCell(withIdentifier: "serviceCell", for: indexPath) as! addModifyCollectionViewCell
         cell.servizio.text = selectedShop.services[indexPath.row].name
-        cell.price.text = String(selectedShop.services[indexPath.row].price) + "€"
+        cell.price.text = String(selectedShop.services[indexPath.row].price) + " €"
+        cell.durationLabel.text = String(selectedShop.services[indexPath.row].duration) + " Min"
+        cell.imageSelection.isHidden = true
+        cell.selectionStyle = .none
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.selectedServices.append(selectedShop.services[indexPath.row])
         self.selectedDuration = self.selectedDuration + selectedShop.services[indexPath.row].duration
+        (tableView.cellForRow(at: indexPath)as! addModifyCollectionViewCell).imageSelection.isHidden = false
+
         Funcs.busySlots(shop: selectedShop, date: self.selectedDate, duration: self.selectedDuration, collection: freeTimeSlotCollectionView)
     }
     
@@ -179,6 +184,8 @@ class MerchantPrenotationViewController: UIViewController, FSCalendarDataSource,
         self.selectedServices = self.selectedServices.filter { $0.name != selectedShop.services[indexPath.row].name }
         self.selectedDuration = self.selectedDuration - selectedShop.services[indexPath.row].duration
         Funcs.busySlots(shop: selectedShop, date: self.selectedDate, duration: self.selectedDuration, collection: freeTimeSlotCollectionView)
+        (tableView.cellForRow(at: indexPath)as! addModifyCollectionViewCell).imageSelection.isHidden = true
+
         return indexPath
     }
 
@@ -186,7 +193,6 @@ class MerchantPrenotationViewController: UIViewController, FSCalendarDataSource,
         selectedTimeInMinutes = Funcs.bookableSlotsInMinutes[indexPath.row]
         
         for cell in self.freeTimeSlotCollectionView.visibleCells{
-            
             cell.contentView.backgroundColor = UIColor(red: 144/255, green: 175/255, blue: 197/255, alpha: 1)
         }
         
@@ -210,9 +216,11 @@ class MerchantPrenotationViewController: UIViewController, FSCalendarDataSource,
             let path : NSIndexPath = iPath[0] as NSIndexPath
             let rowIndex = path.row
             if (rowIndex == indexPath.row ){
+                
                 cell.contentView.backgroundColor = UIColor(red: 51/255, green: 107/255, blue: 135/255, alpha: 1)
                 
             }else{
+
                 cell.contentView.backgroundColor = UIColor(red: 144/255, green: 175/255, blue: 197/255, alpha: 1)
                 
             }

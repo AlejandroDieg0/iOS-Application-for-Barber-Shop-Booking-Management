@@ -88,14 +88,18 @@
                                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                     <subviews>
-                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xfg-YV-4PL">
-                                                                            <rect key="frame" x="24" y="0.0" width="249" height="44"/>
+                                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="success" translatesAutoresizingMaskIntoConstraints="NO" id="auA-xZ-fqE">
+                                                                            <rect key="frame" x="8" y="5" width="32" height="32"/>
+                                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                        </imageView>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Service Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xfg-YV-4PL">
+                                                                            <rect key="frame" x="48" y="-2" width="113" height="44"/>
                                                                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                                             <color key="textColor" red="0.56470588235294117" green="0.68627450980392157" blue="0.77254901960784317" alpha="1" colorSpace="calibratedRGB"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
-                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K5c-FX-Mpl">
-                                                                            <rect key="frame" x="278" y="-1" width="62" height="44"/>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K5c-FX-Mpl">
+                                                                            <rect key="frame" x="305" y="-2" width="62" height="44"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" constant="62" id="DV4-tV-P0v"/>
                                                                             </constraints>
@@ -103,22 +107,26 @@
                                                                             <color key="textColor" red="0.40000000600000002" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
-                                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="success" translatesAutoresizingMaskIntoConstraints="NO" id="auA-xZ-fqE">
-                                                                            <rect key="frame" x="334" y="5" width="32" height="32"/>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Duration" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EbV-UB-V89">
+                                                                            <rect key="frame" x="196" y="10" width="66" height="21"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                                        </imageView>
+                                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                            <color key="textColor" red="0.53311300277709961" green="0.53317546844482422" blue="0.53307700157165527" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                            <nil key="highlightedColor"/>
+                                                                        </label>
                                                                     </subviews>
                                                                     <constraints>
-                                                                        <constraint firstAttribute="trailingMargin" secondItem="K5c-FX-Mpl" secondAttribute="trailing" constant="-8" id="GjI-j4-X6l"/>
-                                                                        <constraint firstItem="xfg-YV-4PL" firstAttribute="leading" secondItem="6cA-wI-TYE" secondAttribute="leadingMargin" constant="16" id="J5e-lI-8O2"/>
-                                                                        <constraint firstItem="xfg-YV-4PL" firstAttribute="top" secondItem="6cA-wI-TYE" secondAttribute="top" id="WKe-yo-PNJ"/>
-                                                                        <constraint firstItem="K5c-FX-Mpl" firstAttribute="leading" secondItem="xfg-YV-4PL" secondAttribute="trailing" constant="40" id="ccz-0a-zSS"/>
-                                                                        <constraint firstItem="xfg-YV-4PL" firstAttribute="baseline" secondItem="K5c-FX-Mpl" secondAttribute="baseline" constant="1" id="kBr-fz-vVV"/>
-                                                                        <constraint firstItem="xfg-YV-4PL" firstAttribute="centerY" secondItem="6cA-wI-TYE" secondAttribute="centerY" id="onB-fY-xqS"/>
-                                                                        <constraint firstItem="xfg-YV-4PL" firstAttribute="top" secondItem="K5c-FX-Mpl" secondAttribute="top" constant="1" id="p6z-vQ-zmo"/>
+                                                                        <constraint firstAttribute="trailingMargin" secondItem="K5c-FX-Mpl" secondAttribute="trailing" id="GjI-j4-X6l"/>
+                                                                        <constraint firstItem="xfg-YV-4PL" firstAttribute="leading" secondItem="6cA-wI-TYE" secondAttribute="leadingMargin" constant="40" id="J5e-lI-8O2"/>
+                                                                        <constraint firstItem="xfg-YV-4PL" firstAttribute="top" secondItem="6cA-wI-TYE" secondAttribute="top" constant="-2" id="WKe-yo-PNJ"/>
+                                                                        <constraint firstItem="K5c-FX-Mpl" firstAttribute="leading" secondItem="xfg-YV-4PL" secondAttribute="trailing" constant="144" id="ccz-0a-zSS"/>
+                                                                        <constraint firstItem="xfg-YV-4PL" firstAttribute="baseline" secondItem="K5c-FX-Mpl" secondAttribute="baseline" id="kBr-fz-vVV"/>
+                                                                        <constraint firstItem="xfg-YV-4PL" firstAttribute="centerY" secondItem="6cA-wI-TYE" secondAttribute="centerY" constant="-1.75" id="onB-fY-xqS"/>
+                                                                        <constraint firstItem="xfg-YV-4PL" firstAttribute="top" secondItem="K5c-FX-Mpl" secondAttribute="top" id="p6z-vQ-zmo"/>
                                                                     </constraints>
                                                                 </tableViewCellContentView>
                                                                 <connections>
+                                                                    <outlet property="durationLabel" destination="EbV-UB-V89" id="zNu-qS-k17"/>
                                                                     <outlet property="imageSelection" destination="auA-xZ-fqE" id="zqx-ta-f3V"/>
                                                                     <outlet property="price" destination="K5c-FX-Mpl" id="KOf-gl-XMc"/>
                                                                     <outlet property="servizio" destination="xfg-YV-4PL" id="z0a-Wv-ODo"/>
