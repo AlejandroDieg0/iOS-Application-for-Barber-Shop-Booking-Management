@@ -499,6 +499,10 @@
                                 <color key="barTintColor" red="0.56470588239999997" green="0.68627450980000004" blue="0.7725490196" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
+                            <imageView userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="pull" translatesAutoresizingMaskIntoConstraints="NO" id="e2T-Bw-fYB">
+                                <rect key="frame" x="170" y="-2" width="26" height="12"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.95926792512690362" green="0.95926792512690362" blue="0.95926792512690362" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -509,7 +513,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G7J-LV-GHs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="454" y="1664"/>
+            <point key="canvasLocation" x="464.80000000000001" y="1656.521739130435"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Q2x-V1-584">
@@ -815,6 +819,7 @@
         <image name="finger" width="128" height="128"/>
         <image name="heartnotpress" width="32" height="32"/>
         <image name="location" width="64" height="64"/>
+        <image name="pull" width="128" height="128"/>
         <image name="scissor" width="32" height="32"/>
         <image name="textlogo" width="375" height="150"/>
         <image name="time (1)" width="64" height="64"/>
