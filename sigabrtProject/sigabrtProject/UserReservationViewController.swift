@@ -261,7 +261,6 @@ class UserReservationViewController: UIViewController, UICollectionViewDelegate,
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if (collectionView == self.servicesCollectionView) {
             
-            collectionView.cellForItem(at: indexPath)?.contentView.backgroundColor = UIColor(red: 144/255, green: 175/255, blue: 197/255, alpha: 1)
             self.selectedServices.append(selectedShop.services[indexPath.row])
             (collectionView.cellForItem(at: indexPath) as! ServiceCollectionViewCell).imageSelection.isHidden = false
             
