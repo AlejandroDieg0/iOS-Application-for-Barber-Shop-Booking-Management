@@ -355,6 +355,9 @@
                     <navigationItem key="navigationItem" id="kmL-mh-Eoy">
                         <barButtonItem key="leftBarButtonItem" image="scissor" id="7OH-Hh-hqz">
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <action selector="merchantButton:" destination="BYZ-38-t0r" id="pf3-yq-BQn"/>
+                            </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="user" id="J3V-TE-rYV">
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -506,7 +509,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G7J-LV-GHs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2405.5999999999999" y="999.85007496251887"/>
+            <point key="canvasLocation" x="454" y="1664"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Q2x-V1-584">
