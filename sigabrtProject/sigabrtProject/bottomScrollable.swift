@@ -57,10 +57,14 @@ class bottomScrollable: UIViewController, CLLocationManagerDelegate{
     }
     func reloadTableViewData(){
         for barber in barbersShop{
-            let myCoordinate = CLLocation(latitude: self.locValue.latitude, longitude: self.locValue.longitude)
-            let barberCoordinate = CLLocation(latitude: Double(barber.coordinate.latitude), longitude: Double(barber.coordinate.longitude))
-            let distance = Int(barberCoordinate.distance(from: myCoordinate))
-            barber.distance = distance
+            if (self.locValue != nil){
+                let myCoordinate = CLLocation(latitude: self.locValue.latitude, longitude: self.locValue.longitude)
+                let barberCoordinate = CLLocation(latitude: Double(barber.coordinate.latitude), longitude: Double(barber.coordinate.longitude))
+                let distance = Int(barberCoordinate.distance(from: myCoordinate))
+                barber.distance = distance
+            } else {
+                barber.distance = 0
+            }
         }
         self.barbersShop = self.barbersShop.sorted(by: { $0.distance! < $1.distance! })
         self.tableView.reloadData()
