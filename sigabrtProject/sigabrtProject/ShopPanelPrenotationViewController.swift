@@ -87,6 +87,7 @@ class ShopPanelPrenotationViewController: UIViewController, FSCalendarDataSource
         prenotationList.removeAll()
         self.prenotationCollectionView.reloadData()
         //FIRBASE REFERENCE
+        ref?.removeAllObservers()
         ref = Database.database().reference().child("prenotations/\(selectedShop.ID)").child(selectedDate)
         ref?.observe(.childAdded, with: { (snapshot) in
             if let userDict = snapshot.value as? [String:Any] {
